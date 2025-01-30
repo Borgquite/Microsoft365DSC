@@ -6,6 +6,8 @@
 
 # UNRELEASED
 
+* IntuneSecurityBaselineWindows365
+  * Initial release.
 * AADApplication
   * Changing the AuthenticationBehaviors parameters to string to allow
     for null values.
