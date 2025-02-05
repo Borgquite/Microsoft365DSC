@@ -1512,10 +1512,8 @@ function Get-TargetResource
         $results = @{
             #region resource generator code
             Description           = $getValue.Description
-            DisplayName                  = $getValue.Name
-            Platforms             = $enumPlatforms
+            DisplayName           = $getValue.Name
             RoleScopeTagIds       = $getValue.RoleScopeTagIds
-            Technologies          = $enumTechnologies
             Id                    = $getValue.Id
             DeviceSettings        = $complexDeviceSettings
             UserSettings          = $complexUserSettings
@@ -1809,12 +1807,7 @@ function Test-TargetResource
             }
         }
     }
-
-    if ($CurrentValues.Ensure -ne $Ensure)
-    {
-        Write-Verbose -Message "Test-TargetResource returned $false"
-        return $false
-    }
+    
     $testResult = $true
 
     #Compare Cim instances

@@ -1,6 +1,6 @@
 
-# IntuneSecurityBaselineWindows356
+# IntuneSecurityBaselineWindows365
 
 ## Description
 
-Intune Security Baseline Windows356
+Intune Security Baseline Windows365

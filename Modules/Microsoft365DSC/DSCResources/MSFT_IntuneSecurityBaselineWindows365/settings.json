@@ -1,6 +1,6 @@
 {
-    "resourceName":"IntuneSecurityBaselineWindows356",
-    "description":"This resource configures an Intune Security Baseline Windows356.",
+    "resourceName":"IntuneSecurityBaselineWindows365",
+    "description":"This resource configures an Intune Security Baseline Windows365.",
     "permissions":{
        "graph":{
           "delegated":{
