@@ -1,4 +1,7 @@
 # Change log for Microsoft365DSC
+#Unreleased
+* IntuneDeviceFeaturesConfigurationPolicyIOS
+  * Initial release
 
 # 1.25.129.3
 
