@@ -93,7 +93,6 @@ class MSFT_keyTypedValuePair
 class MSFT_iosSingleSignOnExtension 
 {
     [Write, Description("The type of data.")] String dataType;
-//microsoft.graph.iosKerberosSingleSignOnExtension
     [Write, Description("The case-sensitive realm name for this profile.")] String Realm;
     [Write, Description("A list of hosts or domain names for which the app extension performs SSO.")] String Domains[];
     [Write, Description("Enables or disables Keychain usage.")] Boolean BlockAutomaticLogin;
@@ -117,20 +116,11 @@ class MSFT_iosSingleSignOnExtension
     [Write, Description("The URL that the user will be sent to when they initiate a password change.")] String PasswordChangeUrl;
     [Write, Description("Text displayed to the user at the Kerberos sign-in window. Available for devices running iOS and iPadOS versions 14 and later.")] String SignInHelpText;
     [Write, Description("When set to True, the Kerberos extension allows managed apps, and any apps entered with the app bundle ID to access the credential. When set to False, the Kerberos extension allows all apps to access the credential. Available for devices running iOS and iPadOS versions 14 and later.")] Boolean ManagedAppsInBundleIdACLIncluded;
-//microsoft.graph.iOSAzureAdSingleSignOnExtension
     [Write, Description("Enables or disables shared device mode.")] boolean EnableSharedDeviceMode;
     [Write, Description("An optional list of additional bundle IDs allowed to use the AAD extension for single sign-on.")] string BundleIdAccessControlList[];
     [Write, Description("Gets or sets a list of typed key-value pairs used to configure Credential-type profiles. This collection can contain a maximum of 500 elements."), EmbeddedInstance("MSFT_keyTypedValuePair")] string Configurations[];
-//microsoft.graph.iOSCredentialSingleSignOnExtension
     [Write, Description("Gets or sets the bundle ID of the app extension that performs SSO for the specified URLs.")] string ExtensionIdentifier;
     [Write, Description("Gets or sets the team ID of the app extension that performs SSO for the specified URLs.")] string TeamIdentifier;
-    //[Write, Description("Gets or sets a list of hosts or domain names for which the app extension performs SSO.")] string Domains[];
-    //[Write, Description("Gets or sets the case-sensitive realm name for this profile.")] string Realm;
-    //[Write, Description("Gets or sets a list of typed key-value pairs used to configure Credential-type profiles. This collection can contain a maximum of 500 elements."), EmbeddedInstance("MSFT_keyTypedValuePair")] string Configurations[];
-//microsoft.graph.iOSRedirectSingleSignOnExtension
-    //[Write, Description("The bundle ID of the app extension that performs SSO for the specified URLs.")] String extensionIdentifier;
-    //[Write, Description("The team ID of the app extension that performs SSO for the specified URLs.")] String teamIdentifier;
-    //[Write, Description("A list of typed key-value pairs used to configure Credential-type profiles. This collection can contain a maximum of 500 elements."), EmbeddedInstance("MSFT_keyTypedValuePair")] String configurations[];
     [Write, Description("One or more URL prefixes of identity providers on whose behalf the app extension performs single sign-on. URLs must begin with http:// or https://. All URL prefixes must be unique for all profiles.")] String urlPrefixes[];
 };
 
