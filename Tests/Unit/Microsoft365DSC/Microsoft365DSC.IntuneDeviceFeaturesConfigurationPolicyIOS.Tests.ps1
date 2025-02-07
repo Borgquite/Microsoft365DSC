@@ -60,9 +60,6 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     DisplayName                                  = 'FakeStringValue'
                     Id                                           = 'FakeStringValue'
                     RoleScopeTagIds = @('Tag1', 'Tag2')
-                    #DeviceManagementApplicabilityRuleOsEdition  = @()
-                    #DeviceManagementApplicabilityRuleOsVersion  = @()
-                    #DeviceManagementApplicabilityRuleDeviceMode = @()
                     AirPrintDestinations = [CimInstance[]]@(
                         (New-CimInstance `
                         -ClassName MSFT_AirPrintDestination `
