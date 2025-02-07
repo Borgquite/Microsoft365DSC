@@ -123,6 +123,28 @@ class MSFT_iosSingleSignOnExtension
     [Write, Description("Gets or sets the team ID of the app extension that performs SSO for the specified URLs.")] string TeamIdentifier;
     [Write, Description("One or more URL prefixes of identity providers on whose behalf the app extension performs single sign-on. URLs must begin with http:// or https://. All URL prefixes must be unique for all profiles.")] String urlPrefixes[];
 };
+[ClassVersion("1.0.0")]
+class MSFT_deviceManagementApplicabilityRuleOsEdition
+{
+    [Write, Description("Name for object")] String Name;
+    [Write, Description("Applicability rule OS edition type")] String OsEditionTypes[];
+    [Write, Description("Applicability Rule type"), ValueMap{"include","exclude"}, Values{"include","exclude"}] String RuleType;
+};
+[ClassVersion("1.0.0")]
+class MSFT_deviceManagementApplicabilityRuleOsVersion
+{
+    [Write, Description("Name for object")] String Name;
+    [Write, Description("Min OS version for Applicability Rule")] String MinOSVersion;
+    [Write, Description("Max OS version for Applicability Rule")] String MaxOSVersion;
+    [Write, Description("Applicability Rule type"), ValueMap{"include","exclude"}, Values{"include","exclude"}] String RuleType;
+};
+[ClassVersion("1.0.0")]
+class MSFT_deviceManagementApplicabilityRuleDeviceMode
+{
+    [Key, Description("Name for object")] String Name;
+    [Write, Description("Applicability rule for device mode"), ValueMap{"standardConfiguration","sModeConfiguration"}, Values{"standardConfiguration","sModeConfiguration"}] String DeviceMode;
+    [Write, Description("Applicability Rule type"), ValueMap{"include","exclude"}, Values{"include","exclude"}] String RuleType;
+};
 
 [ClassVersion("1.0.0.0"), FriendlyName("IntuneDeviceFeaturesConfigurationPolicyIOS")]
 class MSFT_IntuneDeviceFeaturesConfigurationPolicyIOS : OMI_BaseResource
