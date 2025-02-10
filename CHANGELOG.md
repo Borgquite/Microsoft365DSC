@@ -4,6 +4,8 @@
 
 * EXORetentionPolicyTag
   * Initial release.
+* EXOMailboxSettings
+  * Add AuditEnabled
 
 # 1.25.205.1
 
