@@ -165,13 +165,13 @@ function Get-TargetResource
 
             if ($null -eq $getValue)
             {
-                Write-Verbose -Message "No Intune VPN Policy for iOS with Id {$id} was found"
+                Write-Verbose -Message "No Intune Device Features Policy for iOS with Id {$id} was found"
                 return $nullResult
             }
 
             $Id = $getValue.Id
 
-            Write-Verbose -Message "An Intune VPN Policy for iOS with id {$id} and DisplayName {$DisplayName} was found"
+            Write-Verbose -Message "An Intune Device Features Policy for iOS with id {$id} and DisplayName {$DisplayName} was found"
         }
         else
         {
