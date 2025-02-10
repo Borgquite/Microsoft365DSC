@@ -4,6 +4,8 @@
 
 * EXORetentionPolicyTag
   * Initial release.
+* EXOSharedMailbox
+  * Add AuditEnabled property
 
 # 1.25.205.1
 
