@@ -22,7 +22,7 @@ Configuration Example
 
     node localhost
     {
-        IntuneSecurityBaselineWindows10 'mySecurityBaselineWindows365'
+        IntuneSecurityBaselineWindows365 'mySecurityBaselineWindows365'
         {
             DisplayName           = 'test'
             Ensure                = 'Absent'

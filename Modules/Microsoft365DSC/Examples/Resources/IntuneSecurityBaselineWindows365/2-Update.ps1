@@ -22,13 +22,13 @@ Configuration Example
 
     node localhost
     {
-        IntuneSecurityBaselineWindows10 'mySecurityBaselineWindows365'
+        IntuneSecurityBaselineWindows365 'mySecurityBaselineWindows365'
         {
             DisplayName           = 'test'
-            DeviceSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogDeviceSettings_IntuneSecurityBaselineWindows10
+            DeviceSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogDeviceSettings_IntuneSecurityBaselineWindows365
             {
                 Pol_MSS_DisableIPSourceRoutingIPv6 = '1'
-                DisableIPSourceRoutingIPv6 = '0'                        
+                DisableIPSourceRoutingIPv6 = '0'
                 HardenedUNCPaths_Pol_HardenedPaths = '1'
                 pol_hardenedPaths = @(
                     MSFT_MicrosoftGraphIntuneSettingsCatalogpol_hardenedpaths{
@@ -37,7 +37,7 @@ Configuration Example
                     }
                 )
             }
-            UserSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogUserSettings_IntuneSecurityBaselineWindows10
+            UserSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogUserSettings_IntuneSecurityBaselineWindows365
             {
                 AllowWindowsSpotlight = '1' #drift
             }
