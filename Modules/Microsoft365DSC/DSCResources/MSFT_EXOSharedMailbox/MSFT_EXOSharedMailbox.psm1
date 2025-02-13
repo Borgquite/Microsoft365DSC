@@ -97,7 +97,6 @@ function Get-TargetResource
                         -RecipientTypeDetails 'SharedMailbox' `
                         -ResultSize Unlimited `
                         -ErrorAction Stop
-                        -PropertySets All
                 }
 
                 if ($null -eq $mailbox)
@@ -106,7 +105,6 @@ function Get-TargetResource
                         -RecipientTypeDetails 'SharedMailbox' `
                         -ResultSize Unlimited `
                         -ErrorAction Stop
-                        -PropertySets All
                 }
             }
             catch
