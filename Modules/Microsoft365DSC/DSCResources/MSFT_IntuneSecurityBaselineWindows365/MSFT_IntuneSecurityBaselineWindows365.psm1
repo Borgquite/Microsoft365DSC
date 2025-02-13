@@ -1963,7 +1963,7 @@ function Export-TargetResource
                     }
                     @{
                         Name = 'pol_hardenedpaths'
-                        CimInstanceName = 'MicrosoftGraphDescription("Hardened'
+                        CimInstanceName = 'MicrosoftGraphIntuneSettingsCatalogpol_hardenedpaths'
                         IsRequired = $False
                     }
                 )
