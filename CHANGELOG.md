@@ -5,6 +5,11 @@
 * IntuneSecurityBaselineWindows365
   * Initial release.
 
+# 1.25.212.2
+
+* MISC
+  * Fixing connection errors in Power Platforms resources.
+
 # 1.25.212.1
 
 * AADApplication
