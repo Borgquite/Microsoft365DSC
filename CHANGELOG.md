@@ -11,6 +11,8 @@
 * TeamsAppPermissionPolicy
   * Updated correct Typecasting for AppPresetMeeting and PinnedMessagebarApps before adding them to the policy
     FIXES [[#5752](https://github.com/microsoft/Microsoft365DSC/issues/5752)
+* IntuneCustomConfigurationIOS
+  * Initial release, adds support for iOS 'Custom' Device Configuration policies.
 
 # 1.25.212.2
 
