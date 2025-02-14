@@ -1,5 +1,5 @@
 {
-    "resourceName": "IntuneCustomConfigurationIOS",
+    "resourceName": "IntuneDeviceConfigurationCustomPolicyiOS",
     "description": "This resource configures an iOS Intune Custom Configuration Policy.",
     "permissions": {
         "graph": {

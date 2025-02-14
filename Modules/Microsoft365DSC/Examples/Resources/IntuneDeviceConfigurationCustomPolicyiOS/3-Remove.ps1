@@ -21,10 +21,10 @@ Configuration Example
 
     Node localhost
     {
-        IntuneCustomConfigurationIOS "ConfigureIntuneCustomConfigurationIOS"
+        IntuneDeviceConfigurationCustomPolicyiOS "ConfigureIntuneDeviceConfigurationCustomPolicyiOS"
         {
-            Description            = "IntuneCustomConfigurationIOS Description";
-            DisplayName            = "IntuneCustomConfigurationIOS DisplayName";
+            Description            = "IntuneDeviceConfigurationCustomPolicyiOS Description";
+            DisplayName            = "IntuneDeviceConfigurationCustomPolicyiOS DisplayName";
             Ensure                 = "Absent";
             ApplicationId          = $ApplicationId;
             TenantId               = $TenantId;

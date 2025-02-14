@@ -1,5 +1,5 @@
 <#
-This example updates a new Intune Custom Configuration Policy for iOs devices
+This example creates a new Intune Custom Configuration Policy for iOs devices
 #>
 
 Configuration Example
@@ -21,14 +21,14 @@ Configuration Example
 
     Node localhost
     {
-        IntuneCustomConfigurationIOS "ConfigureIntuneCustomConfigurationIOS"
+        IntuneDeviceConfigurationCustomPolicyiOS "ConfigureIntuneDeviceConfigurationCustomPolicyiOS"
         {
-            Description            = "IntuneCustomConfigurationIOS Description - NEW VALUE";
-            DisplayName            = "IntuneCustomConfigurationIOS DisplayName";
+            Description            = "IntuneDeviceConfigurationCustomPolicyiOS Description";
+            DisplayName            = "IntuneDeviceConfigurationCustomPolicyiOS DisplayName";
             Ensure                 = "Present";
             Payload                = "PHJvb3Q+PC9yb290Pg==";
             PayloadFileName        = "simple.xml";
-            PayloadName            = "IntuneCustomConfigurationIOS DisplayName";
+            PayloadName            = "IntuneDeviceConfigurationCustomPolicyiOS DisplayName";
             ApplicationId          = $ApplicationId;
             TenantId               = $TenantId;
             CertificateThumbprint  = $CertificateThumbprint;

@@ -1,5 +1,5 @@
 
-# IntuneCustomConfigurationIOS
+# IntuneDeviceConfigurationCustomPolicyiOS
 
 ## Description
 

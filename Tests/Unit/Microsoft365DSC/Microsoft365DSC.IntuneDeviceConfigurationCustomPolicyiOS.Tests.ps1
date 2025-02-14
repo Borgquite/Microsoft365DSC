@@ -15,7 +15,7 @@ Import-Module -Name (Join-Path -Path $M365DSCTestFolder `
         -Resolve)
 
 $Global:DscHelper = New-M365DscUnitTestHelper -StubModule $CmdletModule `
-    -DscResource 'IntuneCustomConfigurationIOS' -GenericStubModule $GenericStubPath
+    -DscResource 'IntuneDeviceConfigurationCustomPolicyiOS' -GenericStubModule $GenericStubPath
 Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
     InModuleScope -ModuleName $Global:DscHelper.ModuleName -ScriptBlock {
         Invoke-Command -ScriptBlock $Global:DscHelper.InitializeScript -NoNewScope
@@ -53,14 +53,14 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
         }
 
         # Test contexts
-        Context -Name "When the IntuneCustomConfigurationIOS doesn't already exist" -Fixture {
+        Context -Name "When the IntuneDeviceConfigurationCustomPolicyiOS doesn't already exist" -Fixture {
             BeforeAll {
                 $testParams = @{
-                    DisplayName     = 'Test IntuneCustomConfigurationIOS'
-                    Description     = 'Test IntuneCustomConfigurationIOS Description'
+                    DisplayName     = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
+                    Description     = 'Test IntuneDeviceConfigurationCustomPolicyiOS Description'
                     Payload         = 'PHJvb3Q+PC9yb290Pg=='
                     PayloadFileName = 'simple.xml'
-                    PayloadName     = 'Test IntuneCustomConfigurationIOS'
+                    PayloadName     = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
                     Ensure          = 'Present'
                     Credential      = $Credential
                 }
@@ -78,33 +78,33 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 Test-TargetResource @testParams | Should -Be $false
             }
 
-            It 'Should create the IntuneCustomConfigurationIOS from the Set method' {
+            It 'Should create the IntuneDeviceConfigurationCustomPolicyiOS from the Set method' {
                 Set-TargetResource @testParams
                 Should -Invoke -CommandName 'New-MgBetaDeviceManagementDeviceConfiguration' -Exactly 1
             }
         }
 
-        Context -Name 'When the IntuneCustomConfigurationIOS already exists and is NOT in the Desired State' -Fixture {
+        Context -Name 'When the IntuneDeviceConfigurationCustomPolicyiOS already exists and is NOT in the Desired State' -Fixture {
             BeforeAll {
                 $testParams = @{
-                    DisplayName     = 'Test IntuneCustomConfigurationIOS'
-                    Description     = 'Test IntuneCustomConfigurationIOS Description'
+                    DisplayName     = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
+                    Description     = 'Test IntuneDeviceConfigurationCustomPolicyiOS Description'
                     Payload         = 'PHJvb3Q+PC9yb290Pg=='
                     PayloadFileName = 'simple.xml'
-                    PayloadName     = 'Test IntuneCustomConfigurationIOS'
+                    PayloadName     = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
                     Ensure          = 'Present'
                     Credential      = $Credential
                 }
 
                 Mock -CommandName Get-MgBetaDeviceManagementDeviceConfiguration -MockWith {
                     return @{
-                        DisplayName          = 'Test IntuneCustomConfigurationIOS'
+                        DisplayName          = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
                         Description          = 'Different Value'
                         Id                   = 'e30954ac-a65e-4dcb-ab79-91d45f3c52b4'                    
                         AdditionalProperties = @{
                             Payload         = 'PHJvb3Q+PC9yb290Pg=='
                             PayloadFileName = 'simple.xml'
-                            PayloadName     = 'Test IntuneCustomConfigurationIOS'
+                            PayloadName     = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
                             '@odata.type'   = '#microsoft.graph.iosCustomConfiguration'
                         }
                     }
@@ -119,7 +119,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 Test-TargetResource @testParams | Should -Be $false
             }
 
-            It 'Should update the IntuneCustomConfigurationIOS from the Set method' {
+            It 'Should update the IntuneDeviceConfigurationCustomPolicyiOS from the Set method' {
                 Set-TargetResource @testParams
                 Should -Invoke -CommandName Update-MgBetaDeviceManagementDeviceConfiguration -Exactly 1
                
@@ -129,24 +129,24 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
         Context -Name 'When the policy already exists and IS in the Desired State' -Fixture {
             BeforeAll {
                 $testParams = @{
-                    DisplayName     = 'Test IntuneCustomConfigurationIOS'
-                    Description     = 'Test IntuneCustomConfigurationIOS Description'
+                    DisplayName     = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
+                    Description     = 'Test IntuneDeviceConfigurationCustomPolicyiOS Description'
                     Payload         = 'PHJvb3Q+PC9yb290Pg=='
                     PayloadFileName = 'simple.xml'
-                    PayloadName     = 'Test IntuneCustomConfigurationIOS'
+                    PayloadName     = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
                     Ensure          = 'Present'
                     Credential      = $Credential
                 }
 
                 Mock -CommandName Get-MgBetaDeviceManagementDeviceConfiguration -MockWith {
                     return @{
-                        DisplayName          = 'Test IntuneCustomConfigurationIOS'
-                        Description          = 'Test IntuneCustomConfigurationIOS Description'
+                        DisplayName          = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
+                        Description          = 'Test IntuneDeviceConfigurationCustomPolicyiOS Description'
                         Id                   = 'e30954ac-a65e-4dcb-ab79-91d45f3c52b4'                   
                         AdditionalProperties = @{
                             Payload         = 'PHJvb3Q+PC9yb290Pg=='
                             PayloadFileName = 'simple.xml'
-                            PayloadName     = 'Test IntuneCustomConfigurationIOS'
+                            PayloadName     = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
                             '@odata.type'   = '#microsoft.graph.iosCustomConfiguration'
                         }
                     }
@@ -161,24 +161,24 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
         Context -Name 'When the policy exists and it SHOULD NOT' -Fixture {
             BeforeAll {
                 $testParams = @{
-                    DisplayName     = 'Test IntuneCustomConfigurationIOS'
-                    Description     = 'Test IntuneCustomConfigurationIOS Description'
+                    DisplayName     = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
+                    Description     = 'Test IntuneDeviceConfigurationCustomPolicyiOS Description'
                     Payload         = 'PHJvb3Q+PC9yb290Pg=='
                     PayloadFileName = 'simple.xml'
-                    PayloadName     = 'Test IntuneCustomConfigurationIOS'
+                    PayloadName     = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
                     Ensure          = 'Absent'
                     Credential      = $Credential
                 }
 
                 Mock -CommandName Get-MgBetaDeviceManagementDeviceConfiguration -MockWith {
                     return @{
-                        DisplayName          = 'Test IntuneCustomConfigurationIOS'
-                        Description          = 'Test IntuneCustomConfigurationIOS Description'
+                        DisplayName          = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
+                        Description          = 'Test IntuneDeviceConfigurationCustomPolicyiOS Description'
                         Id                   = 'e30954ac-a65e-4dcb-ab79-91d45f3c52b4'
                         AdditionalProperties = @{
                             Payload         = 'PHJvb3Q+PC9yb290Pg=='
                             PayloadFileName = 'simple.xml'
-                            PayloadName     = 'Test IntuneCustomConfigurationIOS'
+                            PayloadName     = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
                             '@odata.type'   = '#microsoft.graph.iosCustomConfiguration'
                         }
                     }
@@ -193,7 +193,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 Test-TargetResource @testParams | Should -Be $false
             }
 
-            It 'Should remove the IntuneCustomConfigurationIOS from the Set method' {
+            It 'Should remove the IntuneDeviceConfigurationCustomPolicyiOS from the Set method' {
                 Set-TargetResource @testParams
                 Should -Invoke -CommandName Remove-MgBetaDeviceManagementDeviceConfiguration -Exactly 1
             }
@@ -209,13 +209,13 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
                 Mock -CommandName Get-MgBetaDeviceManagementDeviceConfiguration -MockWith {
                     return @{
-                        DisplayName          = 'Test IntuneCustomConfigurationIOS'
-                        Description          = 'Test IntuneCustomConfigurationIOS Description'
+                        DisplayName          = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
+                        Description          = 'Test IntuneDeviceConfigurationCustomPolicyiOS Description'
                         Id                   = 'e30954ac-a65e-4dcb-ab79-91d45f3c52b4'
                         AdditionalProperties = @{
                             Payload         = 'PHJvb3Q+PC9yb290Pg=='
                             PayloadFileName = 'simple.xml'
-                            PayloadName     = 'Test IntuneCustomConfigurationIOS'
+                            PayloadName     = 'Test IntuneDeviceConfigurationCustomPolicyiOS'
                             '@odata.type'   = '#microsoft.graph.iosCustomConfiguration'
                         }
                     }
