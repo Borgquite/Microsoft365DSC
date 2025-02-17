@@ -150,21 +150,21 @@ function Get-TargetResource
                     if ($null -ne $currentValue.mobileAppIdentifier.AdditionalProperties.bundleId)
                     {
                         $complexMobileAppIdentifier = @{
-                            bundleID       = $currentValue.mobileAppIdentifier.AdditionalProperties.bundleId
+                            bundleID = $currentValue.mobileAppIdentifier.AdditionalProperties.bundleId
                         }
                     }
 
                     if ($null -ne $currentValue.mobileAppIdentifier.AdditionalProperties.packageId)
                     {
                         $complexMobileAppIdentifier = @{
-                            packageId       = $currentValue.mobileAppIdentifier.AdditionalProperties.packageId
+                            packageId = $currentValue.mobileAppIdentifier.AdditionalProperties.packageId
                         }
                     }
 
                     if ($null -ne $currentValue.mobileAppIdentifier.AdditionalProperties.windowsAppId)
                     {
                         $complexMobileAppIdentifier = @{
-                            windowsAppId       = $currentValue.mobileAppIdentifier.AdditionalProperties.windowsAppId
+                            windowsAppId  = $currentValue.mobileAppIdentifier.AdditionalProperties.windowsAppId
                         }
                     }
                     $complexAppsHash = @{}
@@ -384,7 +384,7 @@ function Set-TargetResource
     elseif ($Ensure -eq 'Present' -and $currentconfigPolicy.Ensure -eq 'Present')
     {
         Write-Verbose -Message "Updating Intune App Configuration Policy {$DisplayName}"
-        #apps handled separately as not supported by Update-MgBetaDeviceAppManagementTargetedManagedAppConfiguration
+        
         $updateParams = @{
             targetedManagedAppConfigurationId = $currentconfigPolicy.Id
             displayName                       = $DisplayName
@@ -395,7 +395,7 @@ function Set-TargetResource
             $customSettingsValue = ConvertTo-M365DSCIntuneAppConfigurationPolicyCustomSettings -Settings $CustomSettings
             $updateParams.Add('customSettings', $customSettingsValue)
         }
-        
+
         if ($null -ne $Apps)
         {
             $appsArray = @()
@@ -434,7 +434,7 @@ function Set-TargetResource
                 appGroupType = $AppGroupType
                 apps = $appsArray
             }
-
+            #apps handled separately as not supported by Update-MgBetaDeviceAppManagementTargetedManagedAppConfiguration
             Write-Verbose -Message "Updating Apps for Intune App Configuration Policy {$DisplayName}"
             $Uri = (Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + "beta/deviceAppManagement/targetedManagedAppConfigurations('$($currentconfigPolicy.Id)')/targetApps"
             Invoke-MgGraphRequest -Method POST -Uri $Uri -Body $($appsBody | ConvertTo-Json -Depth 10) -Verbose
@@ -558,12 +558,6 @@ function Test-TargetResource
 
     Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
     Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $PSBoundParameters)"
-
-    if ($CurrentValues.Ensure -ne $Ensure)
-    {
-        Write-Verbose -Message "Test-TargetResource returned $false"
-        return $false
-    }
     $testResult = $true
 
     #Compare Cim instances
@@ -660,7 +654,7 @@ function Export-TargetResource
             $complexFunctions = Get-ComplexFunctionsFromFilterQuery -FilterQuery $Filter
             $Filter = Remove-ComplexFunctionsFromFilterQuery -FilterQuery $Filter
         }
-        [array]$configPolicies = Get-MgBetaDeviceAppManagementTargetedManagedAppConfiguration -ExpandProperty 'Apps' -All:$true -Filter $Filter -ErrorAction Stop
+        [array]$configPolicies = Get-MgBetaDeviceAppManagementTargetedManagedAppConfiguration -All:$true  -ExpandProperty 'Apps' -Filter $Filter -ErrorAction Stop
         $configPolicies = Find-GraphDataUsingComplexFunctions -ComplexFunctions $complexFunctions -Policies $configPolicies
 
         $i = 1
@@ -749,38 +743,13 @@ function Export-TargetResource
                 }
             }
 
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
+
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-
-            if ($null -ne $Results.CustomSettings)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'CustomSettings'
-            }
-
-            if ($Results.Assignments)
-            {
-                $isCIMArray = $false
-                if ($Results.Assignments.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Assignments' -IsCIMArray:$isCIMArray
-            }
-
-            if ($Results.Apps)
-            {
-                $isCIMArray = $false
-                if ($Results.Apps.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Apps' -IsCIMArray:$isCIMArray
-            }
+                -Credential $Credential `
+                -NoEscape @('CustomSettings', 'Assignments', 'Apps')
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
