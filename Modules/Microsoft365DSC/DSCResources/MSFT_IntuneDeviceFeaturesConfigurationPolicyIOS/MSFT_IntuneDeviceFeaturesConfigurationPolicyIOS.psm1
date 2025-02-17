@@ -126,6 +126,8 @@ function Get-TargetResource
 
     )
 
+    Write-Verbose -Message "Getting configuration of the Intune Device Features Configuration Policy for iOS with Id {$Id} and DisplayName {$DisplayName}"
+
     try
     {
         if (-not $Script:exportedInstance)
@@ -148,9 +150,9 @@ function Get-TargetResource
             $nullResult = $PSBoundParameters
             $nullResult.Ensure = 'Absent'
 
-            if (-not [string]::IsNullOrWhiteSpace($id))
+            if (-not [string]::IsNullOrWhiteSpace($Id))
             { 
-                $getValue = Get-MgBetaDeviceManagementDeviceConfiguration -DeviceConfigurationId $id -ErrorAction SilentlyContinue 
+                $getValue = Get-MgBetaDeviceManagementDeviceConfiguration -DeviceConfigurationId $Id -ErrorAction SilentlyContinue 
             }
 
             #region resource generator code
@@ -165,13 +167,13 @@ function Get-TargetResource
 
             if ($null -eq $getValue)
             {
-                Write-Verbose -Message "No Intune Device Features Policy for iOS with Id {$id} was found"
+                Write-Verbose -Message "No Intune Device Features Policy for iOS with Id {$Id} was found"
                 return $nullResult
             }
 
             $Id = $getValue.Id
 
-            Write-Verbose -Message "An Intune Device Features Policy for iOS with id {$id} and DisplayName {$DisplayName} was found"
+            Write-Verbose -Message "An Intune Device Features Policy for iOS with id {$Id} and DisplayName {$DisplayName} was found"
         }
         else
         {
@@ -386,7 +388,7 @@ function Set-TargetResource
 
     if ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Absent')
     {
-        Write-Verbose -Message "Creating {$DisplayName}"
+        Write-Verbose -Message "Creating an Intune Device Features Configuration Policy for iOS with DisplayName {$DisplayName}"
         $BoundParameters.Remove('Assignments') | Out-Null
         $CreateParameters = ([Hashtable]$BoundParameters).clone()
         $CreateParameters = Rename-M365DSCCimInstanceParameter -Properties $CreateParameters
@@ -661,7 +663,7 @@ function Test-TargetResource
     Add-M365DSCTelemetryEvent -Data $data
     #endregion
 
-    Write-Verbose -Message "Testing configuration of {$id}"
+    Write-Verbose -Message "Testing configuration of {$Id}"
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
     $ValuesToCheck = ([Hashtable]$PSBoundParameters).clone()
