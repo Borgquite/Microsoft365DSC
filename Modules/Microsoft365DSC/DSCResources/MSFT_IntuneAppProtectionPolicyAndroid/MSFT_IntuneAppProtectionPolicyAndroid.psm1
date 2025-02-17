@@ -494,28 +494,28 @@ function Get-TargetResource
             {
                 'String'
                 {
-                    if($null -ne $policyInfo.$param)
+                    if ($null -ne $policyInfo.$param)
                     {
-                    $policy.add($param, $policyInfo.$param.tostring())
+                    $policy.Add($param, $policyInfo.$param.tostring())
                     }
 
                 }
 
                 'Array'
                 {
-                    if($null -ne $policyInfo.$param)
+                    if ($null -ne $policyInfo.$param)
                     {
                         $tmparray = @()
                         $policyInfo.$param | ForEach-Object { $tmparray += $_.tostring() }
-                        $policy.add($param, $tmparray)
+                        $policy.Add($param, $tmparray)
                     }
                 }
 
                 DEFAULT
                 {
-                    if($null -ne $policyInfo.$param)
+                    if ($null -ne $policyInfo.$param)
                     {
-                        $policy.add($param, $policyInfo.$param)
+                        $policy.Add($param, $policyInfo.$param)
                     }
                 }
             }
@@ -523,38 +523,40 @@ function Get-TargetResource
         # loop credential parameters and add them from input params
         foreach ($param in ($Allparams.keys | Where-Object { $allparams.$_.Type -eq 'Credential' }) )
         {
-            $policy.add($param, (Get-Variable -Name $param).value)
+            $policy.Add($param, (Get-Variable -Name $param).value)
         }
         # fix for managed identity credential value
-        $policy.add('ManagedIdentity', $ManagedIdentity.IsPresent)
+        $policy.Add('ManagedIdentity', $ManagedIdentity.IsPresent)
         # add complex parameters manually as they all have different requirements - potential to change in future
-        $policy.add('Ensure', 'Present')
-        $policy.add('Apps', $appsArray)
-        $policy.add('Assignments', $assignmentsArray)
-        $policy.add('ExcludedGroups', $exclusionArray)
-        $policy.add('AppGroupType', $policyInfo.AppGroupType.toString())
+        $policy.Add('Ensure', 'Present')
+        $policy.Add('Apps', $appsArray)
+        $policy.Add('Assignments', $assignmentsArray)
+        $policy.Add('ExcludedGroups', $exclusionArray)
+        $policy.Add('AppGroupType', $policyInfo.AppGroupType.toString())
         #managed browser settings - export as is, when re-applying function will correct
-        $policy.add('ManagedBrowser', $policyInfo.ManagedBrowser.toString())
-        $policy.add('ManagedBrowserToOpenLinksRequired', $policyInfo.ManagedBrowserToOpenLinksRequired)
-        $policy.add('CustomBrowserDisplayName', $policyInfo.CustomBrowserDisplayName)
-        $policy.add('CustomBrowserPackageId', $policyInfo.CustomBrowserPackageId)
-        $policy.add('AccessTokens', $AccessTokens)
+        $policy.Add('ManagedBrowser', $policyInfo.ManagedBrowser.toString())
+        $policy.Add('ManagedBrowserToOpenLinksRequired', $policyInfo.ManagedBrowserToOpenLinksRequired)
+        $policy.Add('CustomBrowserDisplayName', $policyInfo.CustomBrowserDisplayName)
+        $policy.Add('CustomBrowserPackageId', $policyInfo.CustomBrowserPackageId)
+        $policy.Add('AccessTokens', $AccessTokens)
 
         #convert keyvaluepairs to array
         $approvedKeyboardArray = @()
-        foreach ($keyboard in $policyInfo.approvedKeyboards){
-            $approvedKeyboardArray += $keyboard.Name +'|' + $keyboard.Value
+        foreach ($keyboard in $policyInfo.approvedKeyboards)
+        {
+            $approvedKeyboardArray += $keyboard.Name + '|' + $keyboard.Value
         }
-        if($approvedKeyboardArray.Count -gt 0)
+        if ($approvedKeyboardArray.Count -gt 0)
         {
             $policy.ApprovedKeyboards = $approvedKeyboardArray
         }
         
         $exemptedAppPackagesArray = @()
-        foreach ($exemptedapppackage in $policyInfo.exemptedAppPackages){
-            $exemptedAppPackagesArray += $exemptedapppackage.Name +'|' + $exemptedapppackage.Value
+        foreach ($exemptedapppackage in $policyInfo.exemptedAppPackages)
+        {
+            $exemptedAppPackagesArray += $exemptedapppackage.Name + '|' + $exemptedapppackage.Value
         }
-        if($exemptedAppPackagesArray.Count -gt 0)
+        if ($exemptedAppPackagesArray.Count -gt 0)
         {
             $policy.ExemptedAppPackages = $exemptedAppPackagesArray
         }
