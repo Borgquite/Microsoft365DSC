@@ -756,30 +756,7 @@ function Export-TargetResource
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
                 -Credential $Credential
-            if ($null -ne $Results.CustomSettings)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'CustomSettings'
-            }
-
-            if ($Results.Assignments)
-            {
-                $isCIMArray = $false
-                if ($Results.Assignments.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Assignments' -IsCIMArray:$isCIMArray
-            }
-
-            if ($Results.Apps)
-            {
-                $isCIMArray = $false
-                if ($Results.Apps.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Apps' -IsCIMArray:$isCIMArray
-            }
+                -NoEscape @('CustomSettings', 'Assignments', 'Apps')
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
