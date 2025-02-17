@@ -8,6 +8,8 @@
 * ADOSecurityPolicy
   * Fixes an issue where the resource threw an error trying to parse the default
     values.
+* IntuneAccountProtectionLocalUserGroupMembershipPolicy
+  * [BREAKING CHANGE] Remove deprecated value `add_replace` from `Action` parameter.
 * M365DSCUtil
   * Add M365DSC prefix to `Remove-EmptyValue`.
     FIXES [#3861](https://github.com/microsoft/Microsoft365DSC/issues/3861)
