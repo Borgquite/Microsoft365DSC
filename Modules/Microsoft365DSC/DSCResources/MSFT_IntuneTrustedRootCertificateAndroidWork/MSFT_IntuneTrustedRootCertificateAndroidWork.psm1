@@ -83,17 +83,17 @@ function Get-TargetResource
                 -CommandName $CommandName `
                 -Parameters $PSBoundParameters
             Add-M365DSCTelemetryEvent -Data $data
-            #endregion   
+            #endregion
 
             $nullResult = $PSBoundParameters
             $nullResult.Ensure = 'Absent'
 
             $getValue = $null
             if (-not [string]::IsNullOrWhiteSpace($id))
-            { 
+            {
                 $getValue = Get-MgBetaDeviceManagementDeviceConfiguration -DeviceConfigurationId $id -ErrorAction SilentlyContinue
             }
-            
+
             #region resource generator code
             if ($null -eq $getValue)
             {
@@ -123,9 +123,9 @@ function Get-TargetResource
             #region resource generator code
             Id                             = $getValue.Id
             Description                    = $getValue.Description
-            DisplayName                    = $getValue.DisplayName       
+            DisplayName                    = $getValue.DisplayName
             certFileName                   = $getValue.AdditionalProperties.certFileName
-            trustedRootCertificate         = $getValue.AdditionalProperties.trustedRootCertificate 
+            trustedRootCertificate         = $getValue.AdditionalProperties.trustedRootCertificate
             Ensure                         = 'Present'
             Credential                     = $Credential
             ApplicationId                  = $ApplicationId
@@ -136,7 +136,7 @@ function Get-TargetResource
             AccessTokens                   = $AccessTokens
             version                        = $getValue.AdditionalProperties.version
         }
-                                          
+
         $assignmentsValues = Get-MgBetaDeviceManagementDeviceConfigurationAssignment -DeviceConfigurationId $Results.Id
         $assignmentResult = @()
         if ($assignmentsValues.Count -gt 0)
@@ -285,7 +285,7 @@ function Set-TargetResource
         }
 
         $CreateParameters.add('AdditionalProperties', $AdditionalProperties)
-           
+
         #region resource generator code
         $policy = New-MgBetaDeviceManagementDeviceConfiguration @CreateParameters
         $assignmentsHash = ConvertTo-IntunePolicyAssignment -IncludeDeviceFilter:$true -Assignments $Assignments
@@ -432,12 +432,6 @@ function Test-TargetResource
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
     $ValuesToCheck = ([Hashtable]$PSBoundParameters).clone()
-
-    if ($CurrentValues.Ensure -ne $Ensure)
-    {
-        Write-Verbose -Message "Test-TargetResource returned $false"
-        return $false
-    }
     $testResult = $true
 
     #Compare Cim instances
@@ -584,8 +578,6 @@ function Export-TargetResource
 
             $Script:exportedInstance = $config
             $Results = Get-TargetResource @Params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
 
             if ($Results.Assignments)
             {
@@ -604,17 +596,8 @@ function Export-TargetResource
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-
-            if ($Results.Assignments)
-            {
-                $isCIMArray = $false
-                if ($Results.Assignments.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Assignments' -IsCIMArray:$isCIMArray
-            }
+                -Credential $Credential `
+                -NoEscape @('Assignments')
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
@@ -622,7 +605,7 @@ function Export-TargetResource
             $i++
             Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
-        
+
         return $dscContent
     }
     catch

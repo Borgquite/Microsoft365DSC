@@ -412,24 +412,36 @@ function Export-TargetResource
                 AccessTokens          = $AccessTokens
             }
             $result = Get-TargetResource @params
-            $result = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Result
 
             if ($null -ne $result.EmergencyNumbers)
             {
-                $result.EmergencyNumbers = ConvertTo-TeamsEmergencyNumbersString -Numbers $result.EmergencyNumbers
+                $complexMapping = @(
+                    @{
+                        Name            = 'EmergencyNumbers'
+                        CimInstanceName = 'TeamsEmergencyNumber'
+                        IsRequired      = $False
+                    }
+                )
+                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                    -ComplexObject $result.EmergencyNumbers `
+                    -CIMInstanceName 'TeamsEmergencyNumber' `
+                    -ComplexTypeMapping $complexMapping
+                if (-Not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                {
+                    $result.EmergencyNumbers = $complexTypeStringResult
+                }
+                else
+                {
+                    $result.Remove('EmergencyNumbers') | Out-Null
+                }
             }
 
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Result `
-                -Credential $Credential
-
-            if ($null -ne $result.EmergencyNumbers)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'EmergencyNumbers'
-            }
+                -Credential $Credential `
+                -NoEscape @('EmergencyNumbers')
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
@@ -480,36 +492,6 @@ function Get-TeamsEmergencyNumbers
     }
 
     return $result
-}
-
-function ConvertTo-TeamsEmergencyNumbersString
-{
-    [CmdletBinding()]
-    [OutputType([System.String])]
-    param
-    (
-        [Parameter(Mandatory = $true)]
-        [System.Object[]]
-        $Numbers
-    )
-
-    if ($null -eq $Numbers)
-    {
-        return $null
-    }
-
-    $StringContent = "@(`r`n"
-    foreach ($number in $numbers)
-    {
-        $StringContent += "                MSFT_TeamsEmergencyNumber`r`n"
-        $StringContent += "                {`r`n"
-        $StringContent += "                    EmergencyDialString = '$($number.EmergencyDialString)'`r`n"
-        $StringContent += "                    EmergencyDialMask   = '$($number.EmergencyDialMask)'`r`n"
-        $StringContent += "                    OnlinePSTNUsage     = '$($number.OnlinePSTNUsage)'`r`n"
-        $StringContent += "                }`r`n"
-    }
-    $StringContent += '            )'
-    return $StringContent
 }
 
 function Convert-CIMToTeamsEmergencyNumbers

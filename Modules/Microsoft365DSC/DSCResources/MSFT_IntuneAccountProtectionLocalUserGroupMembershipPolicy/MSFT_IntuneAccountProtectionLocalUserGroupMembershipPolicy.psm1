@@ -60,7 +60,7 @@ function Get-TargetResource
 
     Write-Verbose -Message "Getting configuration of the Intune Account Protection Local User Group Membership Policy with Id {$Identity} and DisplayName {$DisplayName}"
 
-    try 
+    try
     {
         if (-not $Script:exportedInstance)
         {
@@ -89,7 +89,7 @@ function Get-TargetResource
             {
                 $policy = Get-MgBetaDeviceManagementConfigurationPolicy -DeviceManagementConfigurationPolicyId $Identity -ExpandProperty settings -ErrorAction SilentlyContinue
             }
-            
+
             if ($null -eq $policy)
             {
                 Write-Verbose -Message "No Account Protection Local User Group Membership Policy with identity {$Identity} was found"
@@ -429,13 +429,7 @@ function Test-TargetResource
     Write-Verbose -Message "Testing configuration of Account Protection Local User Group Membership Policy {$DisplayName}"
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
-    $ValuesToCheck = ([Hashtable]$PSBoundParameters).Clone()
-
-    if ($CurrentValues.Ensure -ne $Ensure)
-    {
-        Write-Verbose -Message "Test-TargetResource returned $false"
-        return $false
-    }
+    $ValuesToCheck = ([Hashtable]$PSBoundParameters).clone()
     $testResult = $true
 
     Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
@@ -611,37 +605,12 @@ function Export-TargetResource
                 }
             }
 
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
-
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-
-
-            if ($Results.LocalUserGroupCollection)
-            {
-                $isCIMArray = $false
-                if ($Results.LocalUserGroupCollection.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'LocalUserGroupCollection' -IsCIMArray:$isCIMArray
-            }
-
-            if ($Results.Assignments)
-            {
-                $isCIMArray = $false
-                if ($Results.Assignments.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Assignments' -IsCIMArray:$isCIMArray
-            }
-
-            $currentDSCBlock = $currentDSCBlock.Replace("`r`n            `");", "`r`n            );")
+                -Credential $Credential `
+                -NoEscape @('LocalUserGroupCollection', 'Assignments')
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `

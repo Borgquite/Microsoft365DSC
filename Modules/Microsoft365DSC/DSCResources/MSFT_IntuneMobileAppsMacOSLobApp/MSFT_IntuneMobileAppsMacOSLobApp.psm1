@@ -689,12 +689,6 @@ function Test-TargetResource
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
     $ValuesToCheck = ([Hashtable]$PSBoundParameters).Clone()
-
-    if ($CurrentValues.Ensure -ne $Ensure)
-    {
-        Write-Verbose -Message "Test-TargetResource returned $false"
-        return $false
-    }
     $testResult = $true
 
     #Compare Cim instances
@@ -837,9 +831,7 @@ function Export-TargetResource
             }
 
             $Script:exportedInstance = $config
-            $Results = Get-TargetResource @params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
+            $Results = Get-TargetResource @Params
 
             #region complex types
             if ($null -ne $Results.Categories)
@@ -930,34 +922,8 @@ function Export-TargetResource
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-
-            #region complex types
-            if ($null -ne $Results.Categories)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Categories' -IsCIMArray:$true
-            }
-
-            if ($null -ne $Results.ChildApps)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'ChildApps' -IsCIMArray:$true
-            }
-
-            if ($null -ne $Results.LargeIcon)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'LargeIcon' -IsCIMArray:$false
-            }
-
-            if ($null -ne $Results.MinimumSupportedOperatingSystem)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'MinimumSupportedOperatingSystem' -IsCIMArray:$false
-            }
-
-            if ($null -ne $Results.Assignments)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Assignments' -IsCIMArray:$true
-            }
-            #endregion complex types
+                -Credential $Credential `
+                -NoEscape @('Categories', 'ChildApps', 'LargeIcon', 'MinimumSupportedOperatingSystem', 'Assignments')
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `

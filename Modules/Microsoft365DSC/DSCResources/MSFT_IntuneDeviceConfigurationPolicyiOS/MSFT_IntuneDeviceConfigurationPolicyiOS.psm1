@@ -833,7 +833,7 @@ function Get-TargetResource
 
             $nullResult = $PSBoundParameters
             $nullResult.Ensure = 'Absent'
-        
+
             $getValue = $null
             #region resource generator code
             if (-not [string]::IsNullOrEmpty($Id))
@@ -1058,7 +1058,7 @@ function Get-TargetResource
             foreach ($currentValue in $currentValueArray)
             {
                 $currentHash = @{}
-                $currentHash.add('AppId', $currentValue.appid)
+                $currentHash.add('AppId', $currentValue.appId)
                 $currentHash.add('Publisher', $currentValue.publisher)
                 $currentHash.add('AppStoreUrl', $currentValue.appStoreUrl)
                 $currentHash.add('Name', $currentValue.name)
@@ -1075,7 +1075,7 @@ function Get-TargetResource
             foreach ($currentValue in $currentValueArray)
             {
                 $currentHash = @{}
-                $currentHash.add('AppId', $currentValue.appid)
+                $currentHash.add('AppId', $currentValue.appId)
                 $currentHash.add('Publisher', $currentValue.publisher)
                 $currentHash.add('AppStoreUrl', $currentValue.appStoreUrl)
                 $currentHash.add('Name', $currentValue.name)
@@ -1092,7 +1092,7 @@ function Get-TargetResource
             foreach ($currentValue in $currentValueArray)
             {
                 $currentHash = @{}
-                $currentHash.add('AppId', $currentValue.appid)
+                $currentHash.add('AppId', $currentValue.appId)
                 $currentHash.add('Publisher', $currentValue.publisher)
                 $currentHash.add('AppStoreUrl', $currentValue.appStoreUrl)
                 $currentHash.add('Name', $currentValue.name)
@@ -1149,7 +1149,7 @@ function Get-TargetResource
                     foreach ($currentChildValue in $currentValueChildArray)
                     {
                         $currentHash = @{}
-                        $currentHash.add('AppId', $currentValue.appid)
+                        $currentHash.add('AppId', $currentValue.appId)
                         $currentHash.add('Publisher', $currentValue.publisher)
                         $currentHash.add('AppStoreUrl', $currentValue.appStoreUrl)
                         $currentHash.add('Name', $currentValue.name)
@@ -2948,12 +2948,6 @@ function Test-TargetResource
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
     $ValuesToCheck = ([Hashtable]$PSBoundParameters).clone()
-
-    if ($CurrentValues.Ensure -ne $Ensure)
-    {
-        Write-Verbose -Message "Test-TargetResource returned $false"
-        return $false
-    }
     $testResult = $true
 
     #Compare Cim instances
@@ -3093,8 +3087,6 @@ function Export-TargetResource
 
             $Script:exportedInstance = $config
             $Results = Get-TargetResource @Params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
 
             if ($Results.AppsSingleAppModeList)
             {
@@ -3132,7 +3124,7 @@ function Export-TargetResource
                     $Results.Remove('CompliantAppsList') | Out-Null
                 }
             }
-            if ($Results.MediaContentRatingAustralia)
+            if ($Results.MediaContentRatingAustralia.Count -gt 0)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString -ComplexObject $Results.MediaContentRatingAustralia -CIMInstanceName MicrosoftGraphmediacontentratingaustralia
                 if ($complexTypeStringResult)
@@ -3144,7 +3136,11 @@ function Export-TargetResource
                     $Results.Remove('MediaContentRatingAustralia') | Out-Null
                 }
             }
-            if ($Results.MediaContentRatingCanada)
+            else
+            {
+                $Results.Remove('MediaContentRatingAustralia') | Out-Null
+            }
+            if ($Results.MediaContentRatingCanada.Count -gt 0)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString -ComplexObject $Results.MediaContentRatingCanada -CIMInstanceName MicrosoftGraphmediacontentratingcanada
                 if ($complexTypeStringResult)
@@ -3156,7 +3152,11 @@ function Export-TargetResource
                     $Results.Remove('MediaContentRatingCanada') | Out-Null
                 }
             }
-            if ($Results.MediaContentRatingFrance)
+            else
+            {
+                $Results.Remove('MediaContentRatingCanada') | Out-Null
+            }
+            if ($Results.MediaContentRatingFrance.Count -gt 0)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString -ComplexObject $Results.MediaContentRatingFrance -CIMInstanceName MicrosoftGraphmediacontentratingfrance
                 if ($complexTypeStringResult)
@@ -3168,7 +3168,11 @@ function Export-TargetResource
                     $Results.Remove('MediaContentRatingFrance') | Out-Null
                 }
             }
-            if ($Results.MediaContentRatingGermany)
+            else
+            {
+                $Results.Remove('MediaContentRatingFrance') | Out-Null
+            }
+            if ($Results.MediaContentRatingGermany.Count -gt 0)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString -ComplexObject $Results.MediaContentRatingGermany -CIMInstanceName MicrosoftGraphmediacontentratinggermany
                 if ($complexTypeStringResult)
@@ -3180,7 +3184,11 @@ function Export-TargetResource
                     $Results.Remove('MediaContentRatingGermany') | Out-Null
                 }
             }
-            if ($Results.MediaContentRatingIreland)
+            else
+            {
+                $Results.Remove('MediaContentRatingGermany') | Out-Null
+            }
+            if ($Results.MediaContentRatingIreland.Count -gt 0)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString -ComplexObject $Results.MediaContentRatingIreland -CIMInstanceName MicrosoftGraphmediacontentratingireland
                 if ($complexTypeStringResult)
@@ -3192,7 +3200,11 @@ function Export-TargetResource
                     $Results.Remove('MediaContentRatingIreland') | Out-Null
                 }
             }
-            if ($Results.MediaContentRatingJapan)
+            else
+            {
+                $Results.Remove('MediaContentRatingIreland') | Out-Null
+            }
+            if ($Results.MediaContentRatingJapan.Count -gt 0)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString -ComplexObject $Results.MediaContentRatingJapan -CIMInstanceName MicrosoftGraphmediacontentratingjapan
                 if ($complexTypeStringResult)
@@ -3204,7 +3216,11 @@ function Export-TargetResource
                     $Results.Remove('MediaContentRatingJapan') | Out-Null
                 }
             }
-            if ($Results.MediaContentRatingNewZealand)
+            else
+            {
+                $Results.Remove('MediaContentRatingJapan') | Out-Null
+            }
+            if ($Results.MediaContentRatingNewZealand.Count -gt 0)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString -ComplexObject $Results.MediaContentRatingNewZealand -CIMInstanceName MicrosoftGraphmediacontentratingnewzealand
                 if ($complexTypeStringResult)
@@ -3216,7 +3232,11 @@ function Export-TargetResource
                     $Results.Remove('MediaContentRatingNewZealand') | Out-Null
                 }
             }
-            if ($Results.MediaContentRatingUnitedKingdom)
+            else
+            {
+                $Results.Remove('MediaContentRatingNewZealand') | Out-Null
+            }
+            if ($Results.MediaContentRatingUnitedKingdom.Count -gt 0)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString -ComplexObject $Results.MediaContentRatingUnitedKingdom -CIMInstanceName MicrosoftGraphmediacontentratingunitedkingdom
                 if ($complexTypeStringResult)
@@ -3228,7 +3248,11 @@ function Export-TargetResource
                     $Results.Remove('MediaContentRatingUnitedKingdom') | Out-Null
                 }
             }
-            if ($Results.MediaContentRatingUnitedStates)
+            else
+            {
+                $Results.Remove('MediaContentRatingUnitedKingdom') | Out-Null
+            }
+            if ($Results.MediaContentRatingUnitedStates.Count -gt 0)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString -ComplexObject $Results.MediaContentRatingUnitedStates -CIMInstanceName MicrosoftGraphmediacontentratingunitedstates
                 if ($complexTypeStringResult)
@@ -3239,6 +3263,10 @@ function Export-TargetResource
                 {
                     $Results.Remove('MediaContentRatingUnitedStates') | Out-Null
                 }
+            }
+            else
+            {
+                $Results.Remove('MediaContentRatingUnitedStates') | Out-Null
             }
             if ($Results.NetworkUsageRules)
             {
@@ -3270,93 +3298,11 @@ function Export-TargetResource
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-
-            if ($Results.AppsSingleAppModeList)
-            {
-                $isCIMArray = $false
-                if ($Results.AppsSingleAppModeList.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'AppsSingleAppModeList' -IsCIMArray:$isCIMArray
-            }
-            if ($Results.AppsVisibilityList)
-            {
-                $isCIMArray = $false
-                if ($Results.AppsVisibilityList.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'AppsVisibilityList' -IsCIMArray:$isCIMArray
-            }
-            if ($Results.CompliantAppsList)
-            {
-                $isCIMArray = $false
-                if ($Results.CompliantAppsList.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'CompliantAppsList' -IsCIMArray:$isCIMArray
-            }
-
-            if ($Results.MediaContentRatingAustralia)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'MediaContentRatingAustralia'
-            }
-            if ($Results.MediaContentRatingCanada)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'MediaContentRatingCanada'
-            }
-            if ($Results.MediaContentRatingFrance)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'MediaContentRatingFrance'
-            }
-
-            if ($Results.MediaContentRatingGermany)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'MediaContentRatingGermany'
-            }
-            if ($Results.MediaContentRatingIreland)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'MediaContentRatingIreland'
-            }
-            if ($Results.MediaContentRatingJapan)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'MediaContentRatingJapan'
-            }
-            if ($Results.MediaContentRatingNewZealand)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'MediaContentRatingNewZealand'
-            }
-            if ($Results.MediaContentRatingUnitedKingdom)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'MediaContentRatingUnitedKingdom'
-            }
-            if ($Results.MediaContentRatingUnitedStates)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'MediaContentRatingUnitedStates'
-            }
-
-            if ($Results.NetworkUsageRules)
-            {
-                $isCIMArray = $false
-                if ($Results.NetworkUsageRules.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'NetworkUsageRules' -IsCIMArray:$isCIMArray
-            }
-
-            if ($Results.Assignments)
-            {
-                $isCIMArray = $false
-                if ($Results.Assignments.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Assignments' -IsCIMArray:$isCIMArray
-            }
+                -Credential $Credential `
+                -NoEscape @('AppsSingleAppModeList', 'AppsVisibilityList', 'CompliantAppsList', 'MediaContentRatingAustralia',
+                    'MediaContentRatingCanada', 'MediaContentRatingFrance', 'MediaContentRatingGermany', 'MediaContentRatingIreland',
+                    'MediaContentRatingJapan', 'MediaContentRatingNewZealand', 'MediaContentRatingUnitedKingdom',
+                    'MediaContentRatingUnitedStates', 'NetworkUsageRules', 'Assignments')
 
             $dscContent += $currentDSCBlock
 
