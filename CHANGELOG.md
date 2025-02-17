@@ -4,6 +4,29 @@
 
 * IntuneSecurityBaselineWindows365
   * Initial release.
+* AADRoleEligibilityScheduleRequest
+  * Reduce call count when reconciling object type
+    FIXES [#5621](https://github.com/microsoft/Microsoft365DSC/issues/5621)
+* ADOSecurityPolicy
+  * Fixes an issue where the resource threw an error trying to parse the default
+    values.
+* M365DSCUtil
+  * Add M365DSC prefix to `Remove-EmptyValue`.
+  * Fixes an issue with `Credential` property being escaped and indentation.
+  * Adds the possibility to allow variables in strings and no authentication
+    results update during conversion to final export.
+    FIXES [#3861](https://github.com/microsoft/Microsoft365DSC/issues/3861)
+* SCSensitivityLabel
+  * Fixes invalid accepted content type values.
+* TeamsAppPermissionPolicy
+  * Updated correct Typecasting for AppPresetMeeting and PinnedMessagebarApps before adding them to the policy
+* TeamsAppSetupPolicy
+  * FIXES [[#5752](https://github.com/microsoft/Microsoft365DSC/issues/5752)
+* TeamsM365App
+  * Remove `Ensure` property from being exported.
+    FIXES [#5781](https://github.com/microsoft/Microsoft365DSC/issues/5781)
+* DEPENDENCIES
+  * Updated ReverseDSC to version 2.0.0.27
 
 # 1.25.212.2
 
@@ -27,6 +50,7 @@
 * EXOSmtpDaneInbound
   * Updated authentication properties to align with MOF definition.
     FIXES [#5709](https://github.com/microsoft/Microsoft365DSC/issues/5709)
+
 * MISC
   * PowerPlatform resource revamp to use direct REST API calls.
   * Simplify export behavior for all resources and complex objects.
