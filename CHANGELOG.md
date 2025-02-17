@@ -8,6 +8,8 @@
 * ADOSecurityPolicy
   * Fixes an issue where the resource threw an error trying to parse the default
     values.
+* IntuneSecurityBaselineMicrosoftEdge
+  * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
 * M365DSCUtil
   * Add M365DSC prefix to `Remove-EmptyValue`.
     FIXES [#3861](https://github.com/microsoft/Microsoft365DSC/issues/3861)
@@ -604,7 +606,8 @@
     FIXES [#5384](https://github.com/microsoft/Microsoft365DSC/issues/5384)
 * IntuneEndpointDetectionAndResponsePolicyWindows10
   * Remove changed property name from export.
-    FIXES [#5300](https://github.com/microsoft/Microsoft365DSC/issues/5300)* IntuneSecurityBaselineMicrosoftEdge
+    FIXES [#5300](https://github.com/microsoft/Microsoft365DSC/issues/5300)
+* IntuneSecurityBaselineMicrosoftEdge
   * Deprecate property `authschemes` and replace with `AuthSchemes_AuthSchemes`
 * M365DSCDRGUtil
   * Restrict CIM instance access to properties that appear multiple times.
