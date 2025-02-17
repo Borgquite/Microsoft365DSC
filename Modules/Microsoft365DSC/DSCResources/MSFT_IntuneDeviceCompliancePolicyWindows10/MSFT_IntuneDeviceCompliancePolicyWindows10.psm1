@@ -203,7 +203,7 @@ function Get-TargetResource
 
             $nullResult = $PSBoundParameters
             $nullResult.Ensure = 'Absent'
-    
+
             $devicePolicy = Get-MgBetaDeviceManagementDeviceCompliancePolicy `
                 -All `
                 -ErrorAction SilentlyContinue | Where-Object `
@@ -795,13 +795,8 @@ function Test-TargetResource
         throw "An error occured in Get-TargetResource, the policy {$displayName} will not be processed. Refer to the event viewer logs for more information."
     }
 
-    $ValuesToCheck = ([Hashtable]$PSBoundParameters).Clone()
-
+    $ValuesToCheck = ([Hashtable]$PSBoundParameters).clone()
     $testResult = $true
-    if ($CurrentValues.Ensure -ne $Ensure)
-    {
-        $testResult = $false
-    }
 
     #Compare Cim instances
     foreach ($key in $PSBoundParameters.Keys)
@@ -942,8 +937,6 @@ function Export-TargetResource
                 throw "An error occured in Get-TargetResource, the policy {$($params.displayName)} will not be processed. Refer to the event viewer logs for more information."
             }
 
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
             if ($null -ne $Results.ValidOperatingSystemBuildRanges)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
@@ -959,10 +952,21 @@ function Export-TargetResource
                     $Results.Remove('ValidOperatingSystemBuildRanges') | Out-Null
                 }
             }
-            if ($Results.Assignments)
+            if ($null -ne $Results.Assignments)
             {
-                $complexTypeStringResult = Get-M365DSCAssignmentsAsString -Params $Results.Assignments
-                if ($complexTypeStringResult)
+                $complexMapping = @(
+                    @{
+                        Name            = 'Assignments'
+                        CimInstanceName = 'MSFT_DeviceManagementConfigurationPolicyAssignments'
+                            sRequired      = $False
+                    }
+                )
+                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                    -ComplexObject $Results.Assignments `
+                    -CIMInstanceName 'MSFT_DeviceManagementConfigurationPolicyAssignments' `
+                    -ComplexTypeMapping $complexMapping
+
+                if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
                 {
                     $Results.Assignments = $complexTypeStringResult
                 }
@@ -975,20 +979,8 @@ function Export-TargetResource
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-            if ($Results.ValidOperatingSystemBuildRanges)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'ValidOperatingSystemBuildRanges'
-            }
-            if ($Results.Assignments)
-            {
-                $isCIMArray = $false
-                if ($Results.Assignments.getType().Fullname -like '*[[\]]')
-                {
-                    $isCIMArray = $true
-                }
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Assignments' -IsCIMArray:$isCIMArray
-            }
+                -Credential $Credential `
+                -NoEscape @('ValidOperatingSystemBuildRanges', 'Assignments')
 
             $dscContent += $currentDSCBlock
 

@@ -523,24 +523,40 @@ function Export-TargetResource
                 ManagedIdentity       = $ManagedIdentity.IsPresent
                 AccessTokens          = $AccessTokens
             }
-            $results = Get-TargetResource @params
-            $results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
+            $Results = Get-TargetResource @Params
 
-            if ($results.NormalizationRules.Count -gt 0)
+            if ($null -ne $Results.NormalizationRules)
             {
-                $results.NormalizationRules = Get-M365DSCNormalizationRulesAsString $results.NormalizationRules
+                $complexMapping = @(
+                    @{
+                        Name            = 'NormalizationRules'
+                        CimInstanceName = 'TeamsVoiceNormalizationRule'
+                        IsRequired      = $False
+                    }
+                )
+                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                    -ComplexObject $Results.NormalizationRules `
+                    -CIMInstanceName 'TeamsVoiceNormalizationRule' `
+                    -ComplexTypeMapping $complexMapping
+
+                if (-Not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                {
+                    $Results.NormalizationRules = $complexTypeStringResult
+                }
+                else
+                {
+                    $Results.Remove('NormalizationRules') | Out-Null
+                }
             }
 
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
+                -Credential $Credential `
+                -NoEscape @('NormalizationRules')
 
-            $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'NormalizationRules'
             $dscContent += $currentDSCBlock
-
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
             $i++
@@ -663,53 +679,6 @@ function Get-M365DSCNormalizationRules
     }
 
     return $result
-}
-
-function Get-M365DSCNormalizationRulesAsString
-{
-    [CmdletBinding()]
-    [OutputType([System.String])]
-    param
-    (
-        [Parameter(Mandatory = $true)]
-        [System.Object[]]
-        $Params
-    )
-
-    if ($null -eq $params)
-    {
-        return $null
-    }
-    $currentProperty = "@(`r`n"
-
-    foreach ($rule in $params)
-    {
-        $currentProperty += "                MSFT_TeamsVoiceNormalizationRule{`r`n"
-        foreach ($key in $rule.Keys)
-        {
-            if ($key -eq 'Priority')
-            {
-                $currentProperty += '                    ' + $key + ' = ' + $rule[$key] + "`r`n"
-            }
-            elseif ($key -eq 'IsInternalExtension')
-            {
-                $currentProperty += '                    ' + $key + " = `$" + $rule[$key] + "`r`n"
-            }
-            else
-            {
-                $value = $rule[$key]
-                if (-not [System.String]::IsNullOrEmpty($value))
-                {
-                    $value = $value.Replace("'", "''")
-                }
-                $currentProperty += '                    ' + $key + " = '" + $value + "'`r`n"
-            }
-        }
-        $currentProperty += "                }`r`n"
-    }
-    $currentProperty += '            )'
-
-    return $currentProperty
 }
 
 Export-ModuleMember -Function *-TargetResource

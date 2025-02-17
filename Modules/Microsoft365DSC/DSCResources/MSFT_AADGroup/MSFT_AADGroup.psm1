@@ -201,32 +201,36 @@ function Get-TargetResource
             }
         }
 
-            $MembersValues = $null
-            $result = @{}
-            if ($Group.MembershipRuleProcessingState -ne 'On')
+        $MembersValues = $null
+        $result = @{}
+        if ($Group.MembershipRuleProcessingState -ne 'On')
+        {
+            # Members
+            [Array]$members = Get-MgBetaGroupMember -GroupId $Group.Id -All:$true
+            $MembersValues = @()
+            $GroupAsMembersValues = @()
+            foreach ($member in $members)
             {
-                # Members
-                [Array]$members = Get-MgBetaGroupMember -GroupId $Group.Id -All:$true
-                $MembersValues = @()
-                $GroupAsMembersValues = @()
-                foreach ($member in $members)
+                if ($member.AdditionalProperties.'@odata.type' -eq '#microsoft.graph.user')
                 {
-                    if ($member.AdditionalProperties.'@odata.type' -eq '#microsoft.graph.user')
-                    {
-                        $MembersValues += $member.AdditionalProperties.userPrincipalName
-                    }
-                    elseif ($member.AdditionalProperties.'@odata.type' -eq '#microsoft.graph.servicePrincipal')
-                    {
-                        $MembersValues += $member.AdditionalProperties.displayName
-                    }
-                    elseif ($member.AdditionalProperties.'@odata.type' -eq '#microsoft.graph.group')
-                    {
-                        $GroupAsMembersValues += $member.AdditionalProperties.displayName
-                    }
+                    $MembersValues += $member.AdditionalProperties.userPrincipalName
                 }
-                $result.Add('Members', $MembersValues)
-                $result.Add('GroupAsMembers', $GroupAsMembersValues)
+                elseif ($member.AdditionalProperties.'@odata.type' -eq '#microsoft.graph.servicePrincipal')
+                {
+                    $MembersValues += $member.AdditionalProperties.displayName
+                }
+                elseif ($member.AdditionalProperties.'@odata.type' -eq '#microsoft.graph.device')
+                {
+                    $MembersValues += $member.AdditionalProperties.displayName
+                }
+                elseif ($member.AdditionalProperties.'@odata.type' -eq '#microsoft.graph.group')
+                {
+                    $GroupAsMembersValues += $member.AdditionalProperties.displayName
+                }
             }
+            $result.Add('Members', $MembersValues)
+            $result.Add('GroupAsMembers', $GroupAsMembersValues)
+        }
 
         # MemberOf
         [Array]$memberOf = Get-MgBetaGroupMemberOf -GroupId $Group.Id -All # result also used for/by AssignedToRole
@@ -734,6 +738,12 @@ function Set-TargetResource
                     }
                 }
 
+                if ($null -eq $directoryObject)
+                {
+                    Write-Verbose -Message "Trying to retrieve Device {$($diff.InputObject)}"
+                    $directoryObject = Get-MgBetaDevice -Filter "DisplayName eq '$($diff.InputObject)'"
+                }
+
                 if ($diff.SideIndicator -eq '=>')
                 {
                     Write-Verbose -Message "Adding new member {$($diff.InputObject)} to AAD Group {$($currentGroup.DisplayName)}"
@@ -1055,128 +1065,47 @@ function Test-TargetResource
     Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
     Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $PSBoundParameters)"
 
-    # Check Licenses
-    if (-not ($null -eq $AssignedLicenses -and $null -eq $CurrentValues.AssignedLicenses))
+    $ValuesToCheck = ([Hashtable]$PSBoundParameters).clone()
+    $ValuesToCheck.Remove('Id') | Out-Null
+
+    $testTargetResource = $true
+
+    #Compare Cim instances
+    foreach ($key in $PSBoundParameters.Keys)
     {
-        try
+        $source = $PSBoundParameters.$key
+        $target = $CurrentValues.$key
+        if ($null -ne $source -and $source.GetType().Name -like '*CimInstance*')
         {
-            if ($null -ne $CurrentValues.AssignedLicenses -and $CurrentValues.AssignedLicenses.Length -gt 0 -and `
-                ($PSBoundParameters.ContainsKey('AssignedLicenses') -and $null -eq $AssignedLicenses))
+            $testResult = Compare-M365DSCComplexObject `
+                -Source ($source) `
+                -Target ($target)
+
+            if (-not $testResult)
             {
-                Write-Verbose -Message "The group {$DisplayName} currently has licenses assigned but it shouldn't"
-                Write-Verbose -Message "Test-TargetResource returned $false"
-                $EventMessage = "Assigned Licenses for Azure AD Group {$DisplayName} were not in the desired state.`r`nThe group should not have any licenses assigned but instead contained {$($CurrentValues.AssignedLicenses.SkuId -join ',')}"
-                Add-M365DSCEvent -Message $EventMessage -EntryType 'Warning' `
-                    -EventID 1 -Source $($MyInvocation.MyCommand.Source)
-
-                return $false
-            }
-            elseif ($null -eq $CurrentValues.AssignedLicenses -and $null -ne $AssignedLicenses -and `
-                    $AssignedLicenses.Length -gt 0)
-            {
-                Write-Verbose -Message "The group {$DisplayName} currently doesn't have licenses assigned but it should"
-                Write-Verbose -Message "Test-TargetResource returned $false"
-                $EventMessage = "Assigned Licenses for Azure AD Group {$DisplayName} were not in the desired state.`r`nThe group doesn't not have any licenses assigned but should have {$($CurrentValues.AssignedLicenses.SkuId -join ',')}"
-                Add-M365DSCEvent -Message $EventMessage -EntryType 'Warning' `
-                    -EventID 1 -Source $($MyInvocation.MyCommand.Source)
-
-                return $false
-            }
-            elseif ($CurrentValues.AssignedLicenses.Length -gt 0 -and $AssignedLicenses.Length -gt 0)
-            {
-                Write-Verbose -Message "Current assigned licenses and desired assigned licenses for group {$DisplayName} are not null and will be compared"
-                $licensesDiff = Compare-Object -ReferenceObject ($CurrentValues.AssignedLicenses.SkuId) -DifferenceObject ($AssignedLicenses.SkuId)
-                if ($null -ne $licensesDiff)
-                {
-                    Write-Verbose -Message "AssignedLicenses differ for group {$DisplayName}: $($licensesDiff | Out-String)"
-                    Write-Verbose -Message "Test-TargetResource returned $false"
-                    $EventMessage = "Assigned Licenses for Azure AD Group {$DisplayName} were not in the desired state.`r`nThey should contain {$($AssignedLicenses.SkuId -join ',')} but instead contained {$($CurrentValues.AssignedLicenses.SkuId -join ',')}"
-                    Add-M365DSCEvent -Message $EventMessage -EntryType 'Warning' `
-                        -EventID 1 -Source $($MyInvocation.MyCommand.Source)
-
-                    return $false
-                }
-                else
-                {
-                    Write-Verbose -Message "AssignedLicenses for Azure AD Group {$DisplayName} are the same, checking DisabledPlans"
-                }
-
-                # Disabled Plans
-                #Compare DisabledPlans for each SkuId - all SkuId's are processed regardless of result
-                $result = $true
-                foreach ($assignedLicense in $AssignedLicenses)
-                {
-                    Write-Verbose "Compare DisabledPlans for SkuId $($assignedLicense.SkuId) in group {$DisplayName}"
-                    $currentLicense = $CurrentValues.AssignedLicenses | Where-Object -FilterScript { $_.SkuId -eq $assignedLicense.SkuId }
-                    if ($assignedLicense.DisabledPlans.Count -ne 0 -or $currentLicense.DisabledPlans.Count -ne 0)
-                    {
-                        try
-                        {
-                            $licensesDiff = Compare-Object -ReferenceObject $assignedLicense.DisabledPlans -DifferenceObject $currentLicense.DisabledPlans
-                            if ($null -ne $licensesDiff)
-                            {
-                                Write-Verbose -Message "DisabledPlans for SkuId $($assignedLicense.SkuId) differ: $($licensesDiff | Out-String)"
-                                Write-Verbose -Message "Test-TargetResource returned $false"
-                                $EventMessage = "Disabled Plans for Azure AD Group Licenses {$DisplayName} SkuId $($assignedLicense.SkuId) were not in the desired state.`r`n" + `
-                                    "They should contain {$($assignedLicense.DisabledPlans -join ',')} but instead contained {$($currentLicense.DisabledPlans -join ',')}"
-                                Add-M365DSCEvent -Message $EventMessage -EntryType 'Warning' `
-                                    -EventID 1 -Source $($MyInvocation.MyCommand.Source)
-
-                                $result = $false
-                            }
-                            else
-                            {
-                                Write-Verbose -Message "DisabledPlans for SkuId $($assignedLicense.SkuId) are the same"
-                            }
-                        }
-                        catch
-                        {
-                            Write-Verbose -Message "Test-TargetResource returned `$false (DisabledPlans: $($_.Exception.Message))"
-                            $result = $false
-                        }
-                    }
-                }
-                if ($true -ne $result)
-                {
-                    return $result
-                }
-            }
-            elseif ($PSBoundParameters.ContainsKey('AssignedLicenses'))
-            {
-                Write-Verbose -Message "The group {$DisplayName} currently has licenses assigned but it shouldn't have"
-                Write-Verbose -Message "Test-TargetResource returned $false"
-                $EventMessage = "Assigned Licenses for Azure AD Group {$DisplayName} were not in the desired state.`r`nThe group has licenses assigned but shouldn't have {$($CurrentValues.AssignedLicenses.SkuId)}"
-                Add-M365DSCEvent -Message $EventMessage -EntryType 'Warning' `
-                    -EventID 1 -Source $($MyInvocation.MyCommand.Source)
-
-                return $false
+                Write-Verbose "TestResult returned False for $source"
+                $testTargetResource = $false
             }
             else
             {
-                Write-Verbose -Message "Both the current and desired assigned licenses lists for group {$DisplayName} are empty or not specified."
+                $ValuesToCheck.Remove($key) | Out-Null
             }
         }
-        catch
-        {
-            Write-Verbose -Message "Error evaluating the AssignedLicenses for group {$DisplayName}: $_"
-            Write-Verbose -Message "Test-TargetResource returned $false"
-            return $false
-        }
     }
-
-    $ValuesToCheck = $PSBoundParameters
-    $ValuesToCheck.Remove('Id') | Out-Null
-    $ValuesToCheck.Remove('GroupTypes') | Out-Null
-    $ValuesToCheck.Remove('AssignedLicenses') | Out-Null
 
     $TestResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `
         -Source $($MyInvocation.MyCommand.Source) `
         -DesiredValues $PSBoundParameters `
         -ValuesToCheck $ValuesToCheck.Keys
 
-    Write-Verbose -Message "Test-TargetResource returned $TestResult"
+    if (-not $TestResult)
+    {
+        $testTargetResource = $false
+    }
 
-    return $TestResult
+    Write-Verbose -Message "Test-TargetResource returned $testTargetResource"
+
+    return $testTargetResource
 }
 
 function Export-TargetResource
@@ -1306,22 +1235,36 @@ function Export-TargetResource
             }
             $Script:exportedInstance = $group
             $Results = Get-TargetResource @Params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
-            if ($results.AssignedLicenses.Length -gt 0)
+
+            if ($null -ne $Results.AssignedLicenses)
             {
-                $Results.AssignedLicenses = Get-M365DSCAzureADGroupLicensesAsString $Results.AssignedLicenses
+                $complexMapping = @(
+                    @{
+                        Name            = 'AssignedLicenses'
+                        CimInstanceName = 'AADGroupLicense'
+                        IsRequired      = $False
+                    }
+                )
+                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                    -ComplexObject $Results.AssignedLicenses `
+                    -CIMInstanceName 'AADGroupLicense' `
+                    -ComplexTypeMapping $complexMapping
+
+                if (-Not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                {
+                    $Results.AssignedLicenses = $complexTypeStringResult
+                }
+                else
+                {
+                    $Results.Remove('AssignedLicenses') | Out-Null
+                }
             }
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-            if ($null -ne $Results.AssignedLicenses)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock `
-                    -ParameterName 'AssignedLicenses'
-            }
+                -Credential $Credential `
+                -NoEscape @('AssignedLicenses')
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
@@ -1391,36 +1334,6 @@ function Get-M365DSCAzureADGroupLicenses
     }
 
     return $returnValue
-}
-
-function Get-M365DSCAzureADGroupLicensesAsString
-{
-    [CmdletBinding()]
-    [OutputType([System.String])]
-    param(
-        [Parameter(Mandatory = $true)]
-        [System.Collections.ArrayList]
-        $AssignedLicenses
-    )
-
-    $StringContent = [System.Text.StringBuilder]::new()
-    $StringContent.Append('@(') | Out-Null
-    foreach ($assignedLicense in $AssignedLicenses)
-    {
-        $StringContent.Append("MSFT_AADGroupLicense { `r`n") | Out-Null
-        if ($assignedLicense.DisabledPlans.Length -gt 0)
-        {
-            $StringContent.Append("                DisabledPlans = @('" + ($assignedLicense.DisabledPlans -join "','") + "')`r`n") | Out-Null
-        }
-        else
-        {
-            $StringContent.Append("                DisabledPlans = @()`r`n") | Out-Null
-        }
-        $StringContent.Append("                SkuId         = '" + $assignedLicense.SkuId + "'`r`n") | Out-Null
-        $StringContent.Append("            }`r`n") | Out-Null
-    }
-    $StringContent.Append('            )') | Out-Null
-    return $StringContent.ToString()
 }
 
 function Get-M365DSCCombinedLicenses

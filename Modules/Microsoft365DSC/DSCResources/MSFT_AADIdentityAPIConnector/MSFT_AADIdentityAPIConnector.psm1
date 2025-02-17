@@ -490,12 +490,6 @@ function Test-TargetResource
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
     $ValuesToCheck = ([Hashtable]$PSBoundParameters).clone()
-
-    if ($CurrentValues.Ensure -ne $Ensure)
-    {
-        Write-Verbose -Message "Test-TargetResource returned $false"
-        return $false
-    }
     $testResult = $true
 
     #Compare Cim instances
@@ -692,9 +686,6 @@ function Export-TargetResource
             $Results = Get-TargetResource @Params
             $Results.Password = "New-Object System.Management.Automation.PSCredential('Password', (ConvertTo-SecureString ('Please insert a valid Password') -AsPlainText -Force));"
 
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
-
             if ($null -ne $Results.Certificates)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
@@ -714,13 +705,9 @@ function Export-TargetResource
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
+                -Credential $Credential `
+                -NoEscape @('Certificates')
 
-
-            if ($Results.Certificates)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Certificates' -IsCIMArray:$True
-            }
 
             # Replace the main password variable.
             $currentDSCBlock = $currentDSCBlock.Replace('"New-Object System.', 'New-Object System.').Replace(') -AsPlainText -Force));";', ') -AsPlainText -Force));')
@@ -728,6 +715,7 @@ function Export-TargetResource
             # Replace the certificate variables.
             $currentDSCBlock = $currentDSCBlock.Replace("'New-Object System.", "New-Object System.").Replace(" -Force))'", " -Force))")
             $currentDSCBlock = $currentDSCBlock.Replace("(ConvertTo-SecureString (''", "(ConvertTo-SecureString ('").Replace("''Password''", "'Password'").Replace("'') -AsPlainText", "') -AsPlainText")
+            $currentDSCBlock = $currentDSCBlock.Replace(''') -AsPlainText -Force))"', "') -AsPlainText -Force))")
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `

@@ -673,12 +673,6 @@ function Test-TargetResource
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
     $ValuesToCheck = ([Hashtable]$PSBoundParameters).Clone()
-
-    if ($CurrentValues.Ensure -ne $Ensure)
-    {
-        Write-Verbose -Message "Test-TargetResource returned $false"
-        return $false
-    }
     $testResult = $true
 
     #Compare Cim instances
@@ -836,8 +830,6 @@ function Export-TargetResource
             }
 
             $Results = Get-TargetResource @Params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
             if ($null -ne $Results.DetectionScriptParameters)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
@@ -898,22 +890,8 @@ function Export-TargetResource
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-            if ($Results.DetectionScriptParameters)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'DetectionScriptParameters' -IsCIMArray:$True
-            }
-            if ($Results.RemediationScriptParameters)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'RemediationScriptParameters' -IsCIMArray:$True
-            }
-            if ($Results.Assignments)
-            {
-                $currentDSCBlock = (Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Assignments' -IsCIMArray:$true).Replace("''", "'")
-                $currentDSCBlock = [Regex]::Replace($currentDSCBlock, "Assignment = '\r\n                ", 'Assignment = ')
-                $currentDSCBlock = $currentDSCBlock.Replace("RunSchedule = '", 'RunSchedule = ').Replace("}'", '}')
-                $currentDSCBlock = [Regex]::Replace($currentDSCBlock, "\r\n            '", '')
-            }
+                -Credential $Credential `
+                -NoEscape @('DetectionScriptParameters', 'RemediationScriptParameters', 'Assignments')
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `

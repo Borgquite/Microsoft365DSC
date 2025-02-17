@@ -802,38 +802,78 @@ function Export-TargetResource
 
             $Results = Get-TargetResource @Params
 
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
-            try
+            if ($null -ne $Results.ScheduleInfo)
             {
-                if ($null -ne $results.ScheduleInfo)
+                $complexMapping = @(
+                    @{
+                        Name            = 'ScheduleInfo'
+                        CimInstanceName = 'MSFT_AADRoleAssignmentScheduleRequestSchedule'
+                        IsRequired      = $False
+                    },
+                    @{
+                        Name            = 'expiration'
+                        CimInstanceName = 'MSFT_AADRoleAssignmentScheduleRequestScheduleExpiration'
+                        IsRequired      = $False
+                    },
+                    @{
+                        Name            = 'recurrence'
+                        CimInstanceName = 'MSFT_AADRoleAssignmentScheduleRequestScheduleRecurrence'
+                        IsRequired      = $False
+                    },
+                    @{
+                        Name            = 'pattern'
+                        CimInstanceName = 'MSFT_AADRoleAssignmentScheduleRequestScheduleRecurrencePattern'
+                        IsRequired      = $False
+                    },
+                    @{
+                        Name            = 'range'
+                        CimInstanceName = 'MSFT_AADRoleAssignmentScheduleRequestScheduleRecurrenceRange'
+                        IsRequired      = $False
+                    }
+                )
+                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                    -ComplexObject $Results.ScheduleInfo `
+                    -CIMInstanceName 'MSFT_AADRoleAssignmentScheduleRequestSchedule' `
+                    -ComplexTypeMapping $complexMapping
+
+                if (-Not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
                 {
-                    $Results.ScheduleInfo = Get-M365DSCAzureADEligibilityRequestScheduleInfoAsString -ScheduleInfo $Results.ScheduleInfo
+                    $Results.ScheduleInfo = $complexTypeStringResult
+                }
+                else
+                {
+                    $Results.Remove('ScheduleInfo') | Out-Null
                 }
             }
-            catch
+            if ($null -ne $Results.TicketInfo)
             {
-                Write-Verbose -Message "Error converting Schedule: $_"
-            }
-            if ($Results.TicketInfo)
-            {
-                $Results.TicketInfo = Get-M365DSCAzureADEligibilityRequestTicketInfoAsString -TicketInfo $Results.TicketInfo
+                $complexMapping = @(
+                    @{
+                        Name            = 'TicketInfo'
+                        CimInstanceName = 'MSFT_AADRoleAssignmentScheduleRequestTicketInfo'
+                        IsRequired      = $False
+                    }
+                )
+                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                    -ComplexObject $Results.TicketInfo `
+                    -CIMInstanceName 'MSFT_AADRoleAssignmentScheduleRequestTicketInfo' `
+                    -ComplexTypeMapping $complexMapping
+
+                if (-Not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                {
+                    $Results.TicketInfo = $complexTypeStringResult
+                }
+                else
+                {
+                    $Results.Remove('TicketInfo') | Out-Null
+                }
             }
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-            if ($null -ne $Results.ScheduleInfo)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock `
-                    -ParameterName 'ScheduleInfo'
-            }
-            if ($null -ne $Results.TicketInfo)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock `
-                    -ParameterName 'TicketInfo'
-            }
+                -Credential $Credential `
+                -NoEscape @('ScheduleInfo', 'TicketInfo')
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
@@ -863,139 +903,6 @@ function Export-TargetResource
 
         return ''
     }
-}
-
-function Get-M365DSCAzureADEligibilityRequestTicketInfoAsString
-{
-    [CmdletBinding()]
-    [OutputType([System.String])]
-    param(
-        [Parameter(Mandatory = $true)]
-        [System.Collections.Hashtable]
-        $TicketInfo
-    )
-
-    if ($TicketInfo.TicketNumber -or $TicketInfo.TicketSystem)
-    {
-        $StringContent = "MSFT_AADRoleAssignmentScheduleRequestTicketInfo {`r`n"
-        $StringContent += "                ticketNumber = '$($TicketInfo.TicketNumber)'`r`n"
-        $StringContent += "                ticketSystem = '$($TicketInfo.TicketSystem)'`r`n"
-        $StringContent += "             }`r`n"
-        return $StringContent
-    }
-    else
-    {
-        return $null
-    }
-}
-
-function Get-M365DSCAzureADEligibilityRequestScheduleInfoAsString
-{
-    [CmdletBinding()]
-    [OutputType([System.String])]
-    param(
-        [Parameter(Mandatory = $true)]
-        [System.Collections.Hashtable]
-        $ScheduleInfo
-    )
-
-    $Found = $false
-    $StringContent = "MSFT_AADRoleAssignmentScheduleRequestSchedule {`r`n"
-    if ($ScheduleInfo.StartDateTime)
-    {
-        $StringContent += "                startDateTime             = '$($ScheduleInfo.StartDateTime)'`r`n"
-    }
-    if ($ScheduleInfo.Expiration.Duration -or $ScheduleInfo.Expiration.EndDateTime -or $ScheduleInfo.Expiration.Type)
-    {
-        $Found = $true
-        $StringContent += "                expiration                = MSFT_AADRoleAssignmentScheduleRequestScheduleExpiration`r`n"
-        $StringContent += "                    {`r`n"
-        if ($ScheduleInfo.Expiration.Duration)
-        {
-            $StringContent += "                        duration    = '$($ScheduleInfo.Expiration.Duration)'`r`n"
-        }
-        if ($ScheduleInfo.Expiration.EndDateTime)
-        {
-            $StringContent += "                        endDateTime = '$($ScheduleInfo.Expiration.EndDateTime.ToString())'`r`n"
-        }
-        if ($ScheduleInfo.Expiration.Type)
-        {
-            $StringContent += "                        type        = '$($ScheduleInfo.Expiration.Type)'`r`n"
-        }
-        $StringContent += "                    }`r`n"
-    }
-    if ($ScheduleInfo.Recurrence.Pattern.DayOfMonth -or $ScheduleInfo.Recurrence.Pattern.DaysOfWeek -or `
-            $ScheduleInfo.Recurrence.Pattern.firstDayOfWeek -or $ScheduleInfo.Recurrence.Pattern.Index -or `
-            $ScheduleInfo.Recurrence.Pattern.Interval -or $ScheduleInfo.Recurrence.Pattern.Month -or `
-            $ScheduleInfo.Recurrence.Pattern.Type -or $ScheduleInfo.Recurrence.Range.EndDate -or $ScheduleInfo.Recurrence.Range.numberOfOccurrences -or `
-            $ScheduleInfo.Recurrence.Range.recurrenceTimeZone -or $ScheduleInfo.Recurrence.Range.startDate -or `
-            $ScheduleInfo.Recurrence.Range.type)
-    {
-        $StringContent += "                recurrence                = MSFT_AADRoleAssignmentScheduleRequestScheduleRecurrence`r`n"
-        $StringContent += "                    {`r`n"
-
-        if ($ScheduleInfo.Recurrence.Pattern.DayOfMonth -or $ScheduleInfo.Recurrence.Pattern.DaysOfWeek -or `
-                $ScheduleInfo.Recurrence.Pattern.firstDayOfWeek -or $ScheduleInfo.Recurrence.Pattern.Index -or `
-                $ScheduleInfo.Recurrence.Pattern.Interval -or $ScheduleInfo.Recurrence.Pattern.Month -or `
-                $ScheduleInfo.Recurrence.Pattern.Type)
-        {
-            $Found = $true
-            $StringContent += "                         pattern = MSFT_AADRoleAssignmentScheduleRequestScheduleRecurrencePattern`r`n"
-            $StringContent += "                             {`r`n"
-            if ($ScheduleInfo.Recurrence.Pattern.DayOfMonth)
-            {
-                $StringContent += "                                 dayOfMonth     = $($ScheduleInfo.Recurrence.Pattern.DayOfMonth)`r`n"
-            }
-            if ($ScheduleInfo.Recurrence.Pattern.DaysOfWeek)
-            {
-                $StringContent += "                                 daysOfWeek     = @($($ScheduleInfo.Recurrence.Pattern.DaysOfWeek -join ','))`r`n"
-            }
-            if ($ScheduleInfo.Recurrence.Pattern.firstDayOfWeek)
-            {
-                $StringContent += "                                 firstDayOfWeek = '$($ScheduleInfo.Recurrence.Pattern.firstDayOfWeek)'`r`n"
-            }
-            if ($ScheduleInfo.Recurrence.Pattern.Index)
-            {
-                $StringContent += "                                 index          = '$($ScheduleInfo.Recurrence.Pattern.Index)'`r`n"
-            }
-            if ($ScheduleInfo.Recurrence.Pattern.Interval)
-            {
-                $StringContent += "                                 interval       = $($ScheduleInfo.Recurrence.Pattern.Interval.ToString())`r`n"
-            }
-            if ($ScheduleInfo.Recurrence.Pattern.Month)
-            {
-                $StringContent += "                                 month          = $($ScheduleInfo.Recurrence.Pattern.Month.ToString())`r`n"
-            }
-            if ($ScheduleInfo.Recurrence.Pattern.Type)
-            {
-                $StringContent += "                                 type           = '$($ScheduleInfo.Recurrence.Pattern.Type)'`r`n"
-            }
-            $StringContent += "                             }`r`n"
-        }
-        if ($ScheduleInfo.Recurrence.Range.EndDate -or $ScheduleInfo.Recurrence.Range.numberOfOccurrences -or `
-                $ScheduleInfo.Recurrence.Range.recurrenceTimeZone -or $ScheduleInfo.Recurrence.Range.startDate -or `
-                $ScheduleInfo.Recurrence.Range.type)
-        {
-            $Found = $true
-            $StringContent += "                         range = MSFT_AADRoleAssignmentScheduleRequestScheduleRange`r`n"
-            $StringContent += "                             {`r`n"
-            $StringContent += "                                 endDate             = '$($ScheduleInfo.Recurrence.Range.EndDate)'`r`n"
-            $StringContent += "                                 numberOfOccurrences = $($ScheduleInfo.Recurrence.Range.numberOfOccurrences)`r`n"
-            $StringContent += "                                 recurrenceTimeZone  = '$($ScheduleInfo.Recurrence.Range.recurrenceTimeZone)'`r`n"
-            $StringContent += "                                 startDate           = '$($ScheduleInfo.Recurrence.Range.startDate)'`r`n"
-            $StringContent += "                                 type                = '$($ScheduleInfo.Recurrence.Range.type)'`r`n"
-            $StringContent += "                             }`r`n"
-        }
-
-        $StringContent += "                    }`r`n"
-    }
-    $StringContent += "            }`r`n"
-
-    if ($Found)
-    {
-        return $StringContent
-    }
-    return $null
 }
 
 Export-ModuleMember -Function *-TargetResource

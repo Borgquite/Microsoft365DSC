@@ -415,25 +415,37 @@ function Export-TargetResource
             }
 
             $Results = Get-TargetResource @Params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
 
             if ($null -ne $Results.PolicyRules)
             {
-                $Results.PolicyRules = Get-MicrosoftGraphNetworkAccessForwardingPolicyRulesAsString -PolicyRules $Results.PolicyRules
+                $complexMapping = @(
+                    @{
+                        Name            = 'PolicyRules'
+                        CimInstanceName = 'MicrosoftGraphNetworkAccessForwardingPolicyRule'
+                        IsRequired      = $False
+                    }
+                )
+                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                    -ComplexObject $Results.PolicyRules `
+                    -CIMInstanceName 'MicrosoftGraphNetworkAccessForwardingPolicyRule' `
+                    -ComplexTypeMapping $complexMapping
+
+                if (-Not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                {
+                    $Results.PolicyRules = $complexTypeStringResult
+                }
+                else
+                {
+                    $Results.Remove('PolicyRules') | Out-Null
+                }
             }
 
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-
-            if ($null -ne $Results.PolicyRules)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock `
-                    -ParameterName 'PolicyRules'
-            }
+                -Credential $Credential `
+                -NoEscape @('PolicyRules')
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
@@ -486,35 +498,6 @@ function Get-MicrosoftGraphNetworkAccessForwardingPolicyRules
     }
 
     return $newPolicyRules
-}
-
-function Get-MicrosoftGraphNetworkAccessForwardingPolicyRulesAsString
-{
-    [CmdletBinding()]
-    [OutputType([System.String])]
-    param(
-        [Parameter(Mandatory = $true)]
-        [System.Collections.ArrayList]
-        $PolicyRules
-    )
-
-    $StringContent = [System.Text.StringBuilder]::new()
-    $StringContent.Append('@(') | Out-Null
-
-    foreach ($rule in $PolicyRules)
-    {
-        $StringContent.Append("`n                MSFT_MicrosoftGraphNetworkAccessForwardingPolicyRule {`r`n") | Out-Null
-        $StringContent.Append("                    Name           = '" + $rule.Name + "'`r`n") | Out-Null
-        $StringContent.Append("                    ActionValue    = '" + $rule.ActionValue + "'`r`n") | Out-Null
-        $StringContent.Append("                    RuleType       = '" + $rule.RuleType + "'`r`n") | Out-Null
-        $StringContent.Append("                    Protocol       = '" + $rule.Protocol + "'`r`n") | Out-Null
-        $StringContent.Append('                    Ports          = @(' + $($rule.Ports -join ', ') + ")`r`n") | Out-Null
-        $StringContent.Append('                    Destinations   = @(' + $(($rule.Destinations | ForEach-Object { "'$_'" }) -join ', ') + ")`r`n") | Out-Null
-        $StringContent.Append("                }`r`n") | Out-Null
-    }
-
-    $StringContent.Append('            )') | Out-Null
-    return $StringContent.ToString()
 }
 
 
