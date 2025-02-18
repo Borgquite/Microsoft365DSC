@@ -1,3 +1,4 @@
+
 function Get-TargetResource
 {
     [CmdletBinding()]
@@ -125,8 +126,6 @@ function Get-TargetResource
         $AccessTokens
 
     )
-
-    Write-Verbose -Message "Getting configuration of the Intune Device Features Configuration Policy for iOS with Id {$Id} and DisplayName {$DisplayName}"
 
     try
     {
@@ -358,7 +357,7 @@ function Set-TargetResource
         $AccessTokens
 
     )
-
+    Write-Verbose -Message "Getting configuration of the Intune Device Features Configuration Policy for iOS with Id {$Id} and DisplayName {$DisplayName}"
     try
     {
         $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
@@ -428,6 +427,10 @@ function Set-TargetResource
             Convert-DataTypeFormat $CreateParameters.ContentFilterSettings
             $CreateParameters['ContentFilterSettings'] = $CreateParameters.ContentFilterSettings[0] #needs the hashtable not embedded in array
         }
+        if ($CreateParameters.SingleSignOnSettings)
+        {
+            $CreateParameters['SingleSignOnSettings'] = $CreateParameters.SingleSignOnSettings[0] #needs the hashtable not embedded in array
+        }
         if ($CreateParameters.IosSingleSignOnExtension)
         {
             Convert-DataTypeFormat $CreateParameters.IosSingleSignOnExtension 
@@ -494,6 +497,10 @@ function Set-TargetResource
         {
             Convert-DataTypeFormat $UpdateParameters.ContentFilterSettings
             $UpdateParameters['ContentFilterSettings'] = $UpdateParameters.ContentFilterSettings[0] #needs the hashtable not embedded in array
+        }
+        if ($UpdateParameters.SingleSignOnSettings)
+        {
+            $UpdateParameters['SingleSignOnSettings'] = $UpdateParameters.SingleSignOnSettings[0] #needs the hashtable not embedded in array
         }
         if ($UpdateParameters.IosSingleSignOnExtension)
         {
@@ -819,8 +826,6 @@ function Export-TargetResource
 
             $Script:exportedInstance = $config
             $Results = Get-TargetResource @Params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
 
             if ($Results.Assignments)
             {
@@ -996,47 +1001,8 @@ function Export-TargetResource
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-
-            if ($Results.AirPrintDestinations)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName "AirPrintDestinations" -isCIMArray:$True
-            }
-            
-            if ($Results.ContentFilterSettings)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName "ContentFilterSettings" -isCIMArray:$True
-            }
-            
-            if ($Results.HomeScreenDockIcons)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName "HomeScreenDockIcons" -isCIMArray:$True
-            }
-
-            if ($Results.HomeScreenPages)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName "HomeScreenPages" -isCIMArray:$True
-            }
-
-            if ($Results.WallpaperImage)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName "WallpaperImage" -isCIMArray:$True
-            }
-
-            if ($Results.IosSingleSignOnExtension)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName "IosSingleSignOnExtension" -isCIMArray:$True
-            }
-
-            if ($Results.NotificationSettings)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName "NotificationSettings" -isCIMArray:$True
-            }
-
-            if ($Results.SingleSignOnSettings)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName "SingleSignOnSettings" -isCIMArray:$True
-            }
+                -Credential $Credential `
+                -NoEscape @('Assignments', 'AirPrintDestinations', 'ContentFilterSettings', 'HomeScreenDockIcons', 'HomeScreenPages', 'WallpaperImage', 'IosSingleSignOnExtension', 'NotificationSettings', 'SingleSignOnSettings')
 
             if ($Results.Assignments)
             {
