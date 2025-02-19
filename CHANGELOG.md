@@ -1,9 +1,9 @@
 # Change log for Microsoft365DSC
 
 # UNRELEASED
+
 * EXOMailboxSettings
   * Add AuditEnabled
-
 * AADRoleEligibilityScheduleRequest
   * Reduce call count when reconciling object type
     FIXES [#5621](https://github.com/microsoft/Microsoft365DSC/issues/5621)
