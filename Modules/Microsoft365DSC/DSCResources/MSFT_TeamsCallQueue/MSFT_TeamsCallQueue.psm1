@@ -255,13 +255,13 @@ function Get-TargetResource
     {
         if (-not $Script:ExportMode)
         {
-            Write-M365DSCHost -Message -Message "Getting Office 365 queue $Name"
+            Write-M365DSCHost -Message "Getting Office 365 queue $Name"
             $queue = Get-CsCallQueue -NameFilter $Name `
                 -ErrorAction SilentlyContinue | Where-Object -FilterScript { $_.Name -eq $Name }
         }
         else
         {
-            Write-M365DSCHost -Message -Message "Retrieving queue $Name from the exported instances"
+            Write-M365DSCHost -Message "Retrieving queue $Name from the exported instances"
             $queue = $Script:exportedInstances | Where-Object -FilterScript { $_.Name -eq $Name }
         }
 

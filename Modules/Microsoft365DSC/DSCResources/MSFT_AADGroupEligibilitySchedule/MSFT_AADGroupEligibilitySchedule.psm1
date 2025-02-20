@@ -217,17 +217,27 @@ function Get-TargetResource
         }
         #endregion
 
-        switch ($getValue.PrincipalType)
+        if ([string]::IsNullOrEmpty($getValue.PrincipalType))
         {
-            'group' {
-                $PrincipalDisplayName = (Get-MgGroup -GroupId $getvalue.PrincipalId).DisplayName
-            }
-            'user' {
-                $PrincipalDisplayName = (Get-MgUser -UserId $getvalue.PrincipalId).DisplayName
-            }
+            $getValue.PrincipalType = "unknown"
         }
 
-        $GroupDisplayName = (Get-MgGroup -GroupId $getvalue.GroupId).DisplayName
+       	switch ($getValue.PrincipalType)
+       	{
+       	    'group' {
+		$PrincipalDisplayName = (Get-MgGroup -GroupId $getvalue.PrincipalId).DisplayName
+            }
+       	    'user' {
+		$PrincipalDisplayName = (Get-MgUser -UserId $getvalue.PrincipalId).DisplayName
+       	    }
+       	    'unknown' {
+		        $objectInfo = Get-MgBetaDirectoryObjectById -Ids $getvalue.PrincipalId -ErrorAction SilentlyContinue
+            	$getValue.PrincipalType = $objectInfo.AdditionalProperties['@odata.type'].Split('.')[2]
+		        $PrincipalDisplayName = $objectInfo.AdditionalProperties['displayName']
+       	    }
+       	}
+
+	$GroupDisplayName = (Get-MgGroup -GroupId $getvalue.GroupId).DisplayName
 
         $results = @{
             #region resource generator code
@@ -235,7 +245,7 @@ function Get-TargetResource
             GroupId               = $getValue.groupId
             GroupDisplayName      = $GroupDisplayName
             MemberType            = $enumMemberType
-            PrincipalType         = $PrincipalType
+            PrincipalType         = $getValue.PrincipalType
             PrincipalDisplayname  = $PrincipalDisplayName
             ScheduleInfo          = $complexScheduleInfo
             Id                    = $getValue.Id
@@ -794,6 +804,9 @@ function Export-TargetResource
         {
             Write-M365DSCHost -Message "`r`n" -DeferWrite
         }
+
+        $dscContent = ''
+
         foreach ($group in $groups)
         {
             Write-M365DSCHost -Message  "    |---[$j/$($groups.Count)] $($group.DisplayName)" -DeferWrite
@@ -804,7 +817,7 @@ function Export-TargetResource
                 -ErrorAction SilentlyContinue
 
             $i = 1
-            $dscContent = ''
+
             if ($getValue.Length -eq 0)
             {
                 Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
