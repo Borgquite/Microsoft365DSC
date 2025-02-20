@@ -393,11 +393,11 @@ function Export-TargetResource
 
         if ($environments.Length -eq 0)
         {
-            Write-Host $Global:M365DSCEmojiGreenCheckMark
+            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
         }
         else
         {
-            Write-Host "`r`n" -NoNewline
+            Write-M365DSCHost -Message "`r`n" -DeferWrite
         }
         foreach ($environment in $environments.value)
         {
@@ -408,7 +408,7 @@ function Export-TargetResource
                     $Global:M365DSCExportResourceInstancesCount++
                 }
 
-                Write-Host "    |---[$i/$($environments.Count)] $($environment.properties.displayName)" -NoNewline
+                Write-M365DSCHost -Message "    |---[$i/$($environments.Count)] $($environment.properties.displayName)" -DeferWrite
                 $environmentType = $environment.properties.environmentType
                 if ($environmentType -eq 'Notspecified')
                 {
@@ -434,12 +434,12 @@ function Export-TargetResource
 
                 Save-M365DSCPartialExport -Content $currentDSCBlock `
                     -FileName $Global:PartialExportFileName
-                Write-Host $Global:M365DSCEmojiGreenCheckMark
+                Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
             }
             else
             {
-                Write-Host "    |---[$i/$($environments.Count)] Skipping Default Environment $($environment.DisplayName)" -NoNewline
-                Write-Host $Global:M365DSCEmojiInformation
+                Write-M365DSCHost -Message "    |---[$i/$($environments.Count)] Skipping Default Environment $($environment.DisplayName)" -DeferWrite
+                Write-M365DSCHost -Message $Global:M365DSCEmojiInformation
             }
             $i++
         }
@@ -447,7 +447,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-Host $Global:M365DSCEmojiRedX
+        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

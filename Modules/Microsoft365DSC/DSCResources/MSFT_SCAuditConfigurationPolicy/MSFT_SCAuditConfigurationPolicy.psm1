@@ -348,11 +348,11 @@ function Export-TargetResource
         $i = 1
         if ($policies.Length -eq 0)
         {
-            Write-Host $Global:M365DSCEmojiGreenCheckMark
+            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
         }
         else
         {
-            Write-Host "`r`n" -NoNewline
+            Write-M365DSCHost -Message "`r`n" -DeferWrite
         }
         foreach ($policy in $policies)
         {
@@ -361,7 +361,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-Host "    |---[$i/$($policies.Length)] $($policy.Workload)" -NoNewline
+            Write-M365DSCHost -Message "    |---[$i/$($policies.Length)] $($policy.Workload)" -DeferWrite
 
             $Script:exportedInstance = $policy
             $Results = Get-TargetResource @PSBoundParameters -Workload $policy.Workload
@@ -373,7 +373,7 @@ function Export-TargetResource
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
-            Write-Host $Global:M365DSCEmojiGreenCheckMark
+            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
             $i++
         }
 
@@ -381,7 +381,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-Host $Global:M365DSCEmojiRedX
+        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

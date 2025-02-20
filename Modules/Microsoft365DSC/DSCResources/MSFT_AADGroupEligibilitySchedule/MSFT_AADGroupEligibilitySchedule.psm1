@@ -788,15 +788,15 @@ function Export-TargetResource
         $j = 1
         if ($groups.Length -eq 0)
         {
-            Write-Host $Global:M365DSCEmojiGreenCheckMark
+            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
         }
         else
         {
-            Write-Host "`r`n" -NoNewline
+            Write-M365DSCHost -Message "`r`n" -DeferWrite
         }
         foreach ($group in $groups)
         {
-            Write-Host "    |---[$j/$($groups.Count)] $($group.DisplayName)" -NoNewline
+            Write-M365DSCHost -Message  "    |---[$j/$($groups.Count)] $($group.DisplayName)" -DeferWrite
             #region resource generator code
             $getValue = Get-MgBetaIdentityGovernancePrivilegedAccessGroupEligibilitySchedule `
                 -Filter "groupId eq '$($group.Id)'" `
@@ -807,11 +807,11 @@ function Export-TargetResource
             $dscContent = ''
             if ($getValue.Length -eq 0)
             {
-                Write-Host $Global:M365DSCEmojiGreenCheckMark
+                Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
             }
             else
             {
-                Write-Host "`r`n" -NoNewline
+                Write-M365DSCHost -Message "`r`n" -DeferWrite
             }
             foreach ($config in $getValue)
             {
@@ -819,7 +819,7 @@ function Export-TargetResource
                 {
                     $Global:M365DSCExportResourceInstancesCount++
                 }
-                Write-Host "        |---[$i/$($getValue.Count)] $($config.Id)" -NoNewline
+                Write-M365DSCHost -Message "        |---[$i/$($getValue.Count)] $($config.Id)" -DeferWrite
                 $params = @{
                     Id                    = $config.Id
                     GroupDisplayName      = $group.DisplayName
@@ -890,7 +890,7 @@ function Export-TargetResource
                 Save-M365DSCPartialExport -Content $currentDSCBlock `
                     -FileName $Global:PartialExportFileName
                 $i++
-                Write-Host $Global:M365DSCEmojiGreenCheckMark
+                Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
             }
             $j++
         }
@@ -898,7 +898,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-Host $Global:M365DSCEmojiRedX
+        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `
