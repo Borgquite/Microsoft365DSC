@@ -179,6 +179,13 @@ function Get-TargetResource
             $getValue = $Script:exportedInstance
         }
 
+        #value could be bool, string or int - export as a string and handle later
+        $complexIosSingleSignonExtension = Convert-ComplexObjectToHashtableArray_ExportDataType $getValue.AdditionalProperties.iosSingleSignOnExtension
+        foreach($configuration in $complexIosSingleSignonExtension.configurations)
+        {
+            $configuration.value = [string]$configuration.value
+        }
+
         $results = @{
             #region resource generator code
             Id                       = $getValue.Id
@@ -204,7 +211,7 @@ function Get-TargetResource
             SingleSignOnSettings     = Convert-ComplexObjectToHashtableArray $getValue.AdditionalProperties.singleSignOnSettings
             WallpaperDisplayLocation = $getValue.AdditionalProperties.wallpaperDisplayLocation 
             WallpaperImage           = Convert-ComplexObjectToHashtableArray $getValue.AdditionalProperties.wallpaperImage
-            IosSingleSignOnExtension = Convert-ComplexObjectToHashtableArray_ExportDataType $getValue.AdditionalProperties.iosSingleSignOnExtension
+            IosSingleSignOnExtension = $complexIosSingleSignonExtension
         }
                                           
         $assignmentsValues = Get-MgBetaDeviceManagementDeviceConfigurationAssignment -DeviceConfigurationId $Results.Id
