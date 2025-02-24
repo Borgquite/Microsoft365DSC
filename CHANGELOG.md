@@ -4,6 +4,22 @@
 
 * IntuneSecurityBaselineWindows365
   * Initial release.
+* AADAppplication
+  * Fixed an issue where specifying an empty ReplyURLs array would not remove
+    the existing entries.
+* EXOCalendarProcessing
+  * Changed the Get-TargetResource logic to return UPN instead of id.
+* EXODistributionGroup
+  * Fixed the ability to set members.
+* Security & Compliance
+  * Updated export functions to remove skipping of loading module, to prevent
+    missing cmdlet errors that are causing failing exports.
+* SCPolicyConfig
+  * Handle default values in the Get-TargetResource function.
+  * Added support for the FileCopiedToCloudFullUrlEnabled property.
+
+# 1.25.219.2
+
 * AADAccessReviewPolicy
   * Missing AccessReview permission for Application Read access
     FIXES [#5796](https://github.com/microsoft/Microsoft365DSC/issues/5796)
@@ -21,8 +37,10 @@
 * AADRoleEligibilityScheduleRequest
   * Reduce call count when reconciling object type
     FIXES [#5621](https://github.com/microsoft/Microsoft365DSC/issues/5621)
+  * Add check if object lookup fails
+    FIXES [#5801](https://github.com/microsoft/Microsoft365DSC/issues/5801)
 * AADServicePrincipal
-  * Evaluating assigned users based on UPN and not just on DisplayName.  
+  * Evaluating assigned users based on UPN and not just on DisplayName.
   * FIXES [#5359](https://github.com/microsoft/Microsoft365DSC/issues/5359) AADServicePrincipal fails on Managed Identities when DelegatedPermissions returns 500 response
 * ADOSecurityPolicy
   * Fixes an issue where the resource threw an error trying to parse the default
@@ -46,6 +64,12 @@
   * Enforces the MDATPTriageStatus to be a string array.
 * SCSensitivityLabel
   * Fixes invalid accepted content type values.
+* IntuneDeviceCompliancePolicyAndroidDeviceOwner
+  * Adds support for Scheduled Actions and other missing properties
+    FIXES [#5593] (https://github.com/microsoft/Microsoft365DSC/issues/5593)
+* IntuneDeviceCompliancePolicyAndroidWorkProfile
+  * Adds support for Scheduled Actions and other missing properties
+    FIXES [#5593] (https://github.com/microsoft/Microsoft365DSC/issues/5592)
 * TeamsAppPermissionPolicy
   * Updated correct Typecasting for AppPresetMeeting and PinnedMessagebarApps
     before adding them to the policy
@@ -54,6 +78,9 @@
 * TeamsM365App
   * Remove `Ensure` property from being exported.
     FIXES [#5781](https://github.com/microsoft/Microsoft365DSC/issues/5781)
+* AADGroupEligibilitySchedule
+  * FIXES [#5792](https://github.com/microsoft/Microsoft365DSC/issues/5792) issue where complete DSC isn't exported after generated
+  * FIXES [#5793](https://github.com/microsoft/Microsoft365DSC/issues/5793) issue where PrincipalType isn't correctly captured in AzureGov
 * DEPENDENCIES
   * Updated ReverseDSC to version 2.0.0.27
 
