@@ -5,10 +5,28 @@
 * AADAppplication
   * Fixed an issue where specifying an empty ReplyURLs array would not remove
     the existing entries.
+* AADAuthenticationMethodPolicy
+  * DEPRECATED - PolicyMigrationState property is now deprecated since it
+* AADAuthenticationMethodPolicyFido2
+  * Fixed issue where the Set-TargetResource was throwing an internal server
+    error.
+  cannot be set.
 * EXOCalendarProcessing
   * Changed the Get-TargetResource logic to return UPN instead of id.
 * EXODistributionGroup
   * Fixed the ability to set members.
+* EXOGroupSettings
+  * Removed Id from being evaluated in the Test-TargetResource function.
+* EXOMailboxAutoReplyConfiguration
+  * Changed the Get-TargetResource logic to return UPN instead of Identity.
+* EXOMailboxCalendarFolder
+  * Changed the Get-TargetResource logic to return UPN instead of id.
+* EXOMailboxPermission
+  * Changed the Get-TargetResource logic to return UPN instead of id.
+* EXOSweepRule
+  * Changed the Get-TargetResource logic to return UPN instead of id.
+* IntuneDeviceComplianceScriptWindows10
+  * Initial release.
 * Security & Compliance
   * Updated export functions to remove skipping of loading module, to prevent
     missing cmdlet errors that are causing failing exports.
@@ -48,6 +66,8 @@
     values.
 * EXODistributionGroup
   * Changed logic to retrieve existing members by UserPrincipalName.
+* EXOReportSubmissionPolicy
+  * Add ReportChatMessageEnabled, ReportChatMessageToCustomizedAddressEnabled
 * EXORoleGroup
   * Evaluating assigned users based on UPN and not just on DisplayName if they
     have an associated mailbox.
