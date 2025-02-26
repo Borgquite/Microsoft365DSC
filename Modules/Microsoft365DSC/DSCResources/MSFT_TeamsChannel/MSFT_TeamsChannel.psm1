@@ -415,7 +415,7 @@ function Export-TargetResource
 
     try
     {
-        $teams = Get-Team -ErrorAction Stop
+        $teams = Get-Team -ErrorAction Stop | Sort-Object -Property GroupId
         $j = 1
         $dscContent = ''
         Write-M365DSCHost -Message "`r`n" -DeferWrite
