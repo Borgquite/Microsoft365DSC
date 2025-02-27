@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* AADIdentityAPIConnector
+  * Added missing permissions.
+    FIXES [#5670](https://github.com/microsoft/Microsoft365DSC/issues/5670)
+
 # 1.25.226.1
 
 * AADConditionalAccessPolicy
