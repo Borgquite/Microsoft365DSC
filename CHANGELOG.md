@@ -1,5 +1,12 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* M365DSCDocGenerator
+  * Fixed an issue where open/close tags in descriptions would be considered as HTML.
+    FIXES [#4955](https://github.com/microsoft/Microsoft365DSC/issues/4955)
+    FIXES [#5761](https://github.com/microsoft/Microsoft365DSC/issues/5761)
+
 # 1.25.226.1
 
 * AADConditionalAccessPolicy
