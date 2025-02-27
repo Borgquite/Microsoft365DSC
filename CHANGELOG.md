@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* AADUser
+  * Fixed an issue where the properties with numbers were not exported correctly.
+    FIXES [#4526](https://github.com/microsoft/Microsoft365DSC/issues/4526)
+
 # 1.25.226.1
 
 * AADConditionalAccessPolicy
