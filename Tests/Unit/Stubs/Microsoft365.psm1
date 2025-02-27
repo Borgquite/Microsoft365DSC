@@ -82181,6 +82181,23 @@ function Remove-PnPSiteDesign
         $Force
     )
 }
+function Remove-PnpSiteScript
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $Identity,
+
+        [Parameter()]
+        [PSObject]
+        $Connection,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Force
+    )
+}
 function Remove-PnPStorageEntity
 {
     [CmdletBinding()]
@@ -106173,5 +106190,43 @@ function Set-RetentionPolicyTag
         [Parameter()]
         [System.String]
         $Name
+    )
+}
+
+function Get-MgBetaDirectoryObjectById
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Ids,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.String[]]
+        $Types,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $WhatIf
     )
 }
