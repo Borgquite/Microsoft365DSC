@@ -9,6 +9,9 @@
     policies from calling the cmdlet.
 * AADPasswordRuleSettings
   * Updated schema to only accept values 'Enforced' and 'Audit' for parameter BannedPasswordCheckOnPremisesMode
+* IntuneAppConfigurationPolicy
+  * Adds support for targeted managed apps
+    FIXES [#5566](https://github.com/microsoft/Microsoft365DSC/issues/5566)
 * IntuneDeviceCompliancePolicyWindows10
   * Fixes the handling of the `DeviceCompliancePolicyScript` property.
     FIXES [#5510](https://github.com/microsoft/Microsoft365DSC/issues/5510)
