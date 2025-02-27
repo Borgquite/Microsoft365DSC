@@ -1,5 +1,12 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* EXOTransportConfig
+  * Fixed an issue where `JournalingReportNdrTo` with the default value of `<>`
+    would throw an error during apply.  
+    FIXES [#5606](https://github.com/microsoft/Microsoft365DSC/issues/5606)
+
 # 1.25.226.1
 
 * AADConditionalAccessPolicy
