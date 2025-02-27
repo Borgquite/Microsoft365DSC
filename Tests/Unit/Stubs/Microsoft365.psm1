@@ -82262,6 +82262,23 @@ function Remove-PnPSiteDesign
         $Force
     )
 }
+function Remove-PnpSiteScript
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $Identity,
+
+        [Parameter()]
+        [PSObject]
+        $Connection,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Force
+    )
+}
 function Remove-PnPStorageEntity
 {
     [CmdletBinding()]
