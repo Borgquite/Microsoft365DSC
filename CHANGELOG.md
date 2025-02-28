@@ -1,5 +1,14 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* IntuneDeviceRemediation
+  * Fixed issue when `Assignment` was set to a non-existent group in the tenant,
+    e.g. cloning a script from a source tenant and applying it to another target
+    tenant and the latter doesn't have the assignment group created yet, if this
+    was the case the deployment would fail
+    FIXES [#5856](https://github.com/microsoft/Microsoft365DSC/issues/5856)
+
 # 1.25.226.1
 
 * AADConditionalAccessPolicy
