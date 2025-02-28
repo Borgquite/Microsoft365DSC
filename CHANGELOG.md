@@ -1,5 +1,14 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* M365DSCUtil
+  * Added the new function `Test-CodePage`, which outputs a warning message
+    if the current ANSI code page is not UTF-8.
+    FIXES [#5202](https://github.com/microsoft/Microsoft365DSC/issues/5202)
+    FIXES [#5669](https://github.com/microsoft/Microsoft365DSC/issues/5669)
+    FIXES [#4824](https://github.com/microsoft/Microsoft365DSC/issues/4824)
+
 # 1.25.226.1
 
 * AADConditionalAccessPolicy

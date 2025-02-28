@@ -1587,6 +1587,7 @@ function Confirm-M365DSCDependencies
     {
         Write-Verbose -Message 'Dependencies were not already validated.'
 
+        Test-CodePage
         $result = Update-M365DSCDependencies -ValidateOnly
 
         if ($result.Length -gt 0)
@@ -1613,6 +1614,28 @@ function Confirm-M365DSCDependencies
     else
     {
         Write-Verbose -Message 'Dependencies were already successfully validated.'
+    }
+}
+
+<#
+.DESCRIPTION
+This function tests the code page of the current terminal session.
+
+.EXAMPLE
+Test-CodePage
+
+.FUNCTIONALITY
+Private
+#>
+function Test-CodePage
+{
+    if ([System.Text.Encoding]::Default.CodePage -ne 65001)
+    {
+        Write-Warning -Message 'The code page of the current session is not set to UTF-8. This may cause issues with Unicode characters.
+         To change the code page to UTF-8, you have the following options:
+         * Using the control panel: intl.cpl --> Administrative --> Change system locale --> Beta: Use Unicode UTF-8 for worldwide language support
+         * Using PowerShell: Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Nls\CodePage" -Name "ACP" -Value 65001
+         After that, you need to restart the PowerShell session.'
     }
 }
 
