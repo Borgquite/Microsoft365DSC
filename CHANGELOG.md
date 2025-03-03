@@ -13,6 +13,15 @@
     tenant and the latter doesn't have the assignment group created yet, if this
     was the case the deployment would fail
     FIXES [#5856](https://github.com/microsoft/Microsoft365DSC/issues/5856)
+* O365SearchAndIntelligenceConfigurations
+  * Added note that only Credentials are supported for the resource.
+* TeamsOrgWideAppSettings
+  * Added note that only Credentials are supported for the resource.
+    FIXES [#3394](https://github.com/microsoft/Microsoft365DSC/issues/3394)
+* M365DSCDRGUtil
+  * Fixes an issue with fancy double quotes being replaced that break the string.
+    FIXES [#5775](https://github.com/microsoft/Microsoft365DSC/issues/5775)
+    FIXES [#5623](https://github.com/microsoft/Microsoft365DSC/issues/5623)
 
 # 1.25.226.1
 
