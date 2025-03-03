@@ -4,6 +4,10 @@
 
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
+* M365DSCTelemetryEngine
+  * Allow setting the LCM configuration from outside.
+* M365DSCUtil
+  * Add PowerShell 5 to 7 compatibility layer.
 
 # 1.25.226.1
 
