@@ -1,9 +1,15 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* AADRoleEligibilityScheduleRequest
+  * Updated startdatetime and enddatetime properties to be of type DATETIME.
+
 # 1.25.226.1
 
 * AADConditionalAccessPolicy
-  * Fixed an issue where `TermsOfUse` was not passed as an array, causing failures in GCC-High environments.
+  * Fixed an issue where `TermsOfUse` was not passed as an array, causing
+    failures in GCC-High environments.
     FIXES [#5742](https://github.com/microsoft/Microsoft365DSC/issues/5742)
   * Added verbose to the Get-TargetResource function to print out the retrieved
     policies from calling the cmdlet.
