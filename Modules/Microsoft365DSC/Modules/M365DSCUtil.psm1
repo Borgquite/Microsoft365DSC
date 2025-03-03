@@ -3940,7 +3940,14 @@ function Get-M365DSCExportContentForResource
     $instanceName = $ResourceName
     if (-not [System.String]::IsNullOrEmpty($primaryKey))
     {
-        $primaryKey = $primaryKey.Replace('`', '``').Replace('$', '`$').Replace('"', '`"')
+        if ($AllowVariablesInStrings)
+        {
+            $primaryKey = $primaryKey.Replace('`', '``').Replace('"', '`"')
+        }
+        else
+        {
+            $primaryKey = $primaryKey.Replace('`', '``').Replace('$', '`$').Replace('"', '`"')
+        }
         $instanceName += "-$primaryKey"
     }
 
