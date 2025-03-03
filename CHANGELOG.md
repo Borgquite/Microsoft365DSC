@@ -4,6 +4,9 @@
 
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
+* IntuneDeviceEnrollmentPlatformRestriction
+  * Added note that update is no longer possible.
+    FIXES [#5127](https://github.com/microsoft/Microsoft365DSC/issues/5127)
 * M365DSCDocGenerator
   * Fixed an issue where open/close tags in descriptions would be considered as HTML.
     FIXES [#4955](https://github.com/microsoft/Microsoft365DSC/issues/4955)
