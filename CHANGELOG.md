@@ -11,6 +11,11 @@
   * Fixed an issue where open/close tags in descriptions would be considered as HTML.
     FIXES [#4955](https://github.com/microsoft/Microsoft365DSC/issues/4955)
     FIXES [#5761](https://github.com/microsoft/Microsoft365DSC/issues/5761)
+* O365SearchAndIntelligenceConfigurations
+  * Added note that only Credentials are supported for the resource.
+* TeamsOrgWideAppSettings
+  * Added note that only Credentials are supported for the resource.
+    FIXES [#3394](https://github.com/microsoft/Microsoft365DSC/issues/3394)
 
 # 1.25.226.1
 
