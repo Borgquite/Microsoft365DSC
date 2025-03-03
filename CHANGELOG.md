@@ -4,6 +4,9 @@
 
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
+* M365DSCUtil
+  * Escape strings in primary key of resource name for export content.
+    FIXES [#5865](https://github.com/microsoft/Microsoft365DSC/issues/5865)
 
 # 1.25.226.1
 
