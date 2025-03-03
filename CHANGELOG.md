@@ -7,6 +7,9 @@
 * AADUser
   * Fixed an issue where the properties with numbers were not exported correctly.
     FIXES [#4526](https://github.com/microsoft/Microsoft365DSC/issues/4526)
+* IntuneDeviceEnrollmentPlatformRestriction
+  * Added note that update is no longer possible.
+    FIXES [#5127](https://github.com/microsoft/Microsoft365DSC/issues/5127)
 
 # 1.25.226.1
 
