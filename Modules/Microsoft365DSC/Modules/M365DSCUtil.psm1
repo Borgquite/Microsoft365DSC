@@ -5233,7 +5233,7 @@ Specifies the message to write.
 Specifies if writing the message should be deferred. Adheres to -NoNewLine behavior of Write-Host.
 
 .PARAMETER CommitWrite
-Specifies if cached messages of -DeferWrite should be combined and written. 
+Specifies if cached messages of -DeferWrite should be combined and written.
 Combining of the messages is done by joining them without any characters between.
 
 .EXAMPLE
@@ -5280,7 +5280,7 @@ function Write-M365DSCHost
 
     if ([Environment]::UserInteractive)
     {
-        if ($CommitWrite)
+        if ($CommitWrite -and $Script:M365DSCHostMessages.Count -gt 0)
         {
             for ($i = 0; $i -lt $Script:M365DSCHostMessages.Count - 1; $i++)
             {
