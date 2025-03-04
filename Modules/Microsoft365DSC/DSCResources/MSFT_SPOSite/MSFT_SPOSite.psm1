@@ -241,7 +241,6 @@ function Get-TargetResource
             HubUrl                                      = $CurrentHubUrl
             Classification                              = $site.Classification
             DisableFlows                                = $DisableFlowValue
-            LogoFilePath                                = $LogoFilePath
             SharingCapability                           = $site.SharingCapability
             StorageMaximumLevel                         = $site.StorageQuota
             StorageWarningLevel                         = $site.StorageQuotaWarningLevel
@@ -252,18 +251,16 @@ function Get-TargetResource
             DefaultSharingLinkType                      = $site.DefaultSharingLinkType
             DisableAppViews                             = $site.DisableAppViews
             DisableCompanyWideSharingLinks              = $site.DisableCompanyWideSharingLinks
-            DisableSharingForNonOwners                  = $DisableSharingForNonOwners
             LocaleId                                    = $site.LocaleId
-            RestrictedToRegion                          = $RestrictedToRegion
-            SocialBarOnSitePagesDisabled                = $SocialBarOnSitePagesDisabled
-            SiteDesign                                  = $SiteDesign
+            RestrictedToRegion                          = $site.RestrictedToGeo
+            SocialBarOnSitePagesDisabled                = $site.SocialBarOnSitePagesDisabled
             DenyAddAndCustomizePages                    = $DenyAddAndCustomizePagesValue
-            SharingAllowedDomainList                    = $SharingAllowedDomainList
-            SharingBlockedDomainList                    = $SharingBlockedDomainList
-            SharingDomainRestrictionMode                = $SharingDomainRestrictionMode
-            ShowPeoplePickerSuggestionsForGuestUsers    = $ShowPeoplePickerSuggestionsForGuestUsers
-            AnonymousLinkExpirationInDays               = $AnonymousLinkExpirationInDays
-            OverrideTenantAnonymousLinkExpirationPolicy = $OverrideTenantAnonymousLinkExpirationPolicy
+            SharingAllowedDomainList                    = $site.SharingAllowedDomainList
+            SharingBlockedDomainList                    = $site.SharingBlockedDomainList
+            SharingDomainRestrictionMode                = $site.SharingDomainRestrictionMode
+            ShowPeoplePickerSuggestionsForGuestUsers    = $site.ShowPeoplePickerSuggestionsForGuestUsers
+            AnonymousLinkExpirationInDays               = $site.AnonymousLinkExpirationInDays
+            OverrideTenantAnonymousLinkExpirationPolicy = $site.OverrideTenantAnonymousLinkExpirationPolicy
             Ensure                                      = 'Present'
             Credential                                  = $Credential
             ApplicationId                               = $ApplicationId
@@ -946,7 +943,7 @@ function Export-TargetResource
         }
         $dscContent = ''
         $i = 1
-        Write-Host "`r`n" -NoNewline
+        Write-M365DSCHost -Message "`r`n" -DeferWrite
         foreach ($site in $sites)
         {
             if ($null -ne $Global:M365DSCExportResourceInstancesCount)
@@ -954,7 +951,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-Host "    [$i/$($sites.Length)] $($site.Url)" -NoNewline
+            Write-M365DSCHost -Message "    [$i/$($sites.Length)] $($site.Url)" -DeferWrite
             $site = Get-PnPTenantSite -Identity $site.Url
             $siteTitle = 'Null'
             if (-not [System.String]::IsNullOrEmpty($site.Title))
@@ -974,7 +971,7 @@ function Export-TargetResource
                 CertificatePassword   = $CertificatePassword
                 CertificatePath       = $CertificatePath
                 CertificateThumbprint = $CertificateThumbprint
-                Managedidentity       = $ManagedIdentity.IsPresent
+                ManagedIdentity       = $ManagedIdentity.IsPresent
                 Credential            = $Credential
                 AccessTokens          = $AccessTokens
             }
@@ -1023,11 +1020,11 @@ function Export-TargetResource
                 $dscContent += $currentDSCBlock
                 Save-M365DSCPartialExport -Content $currentDSCBlock `
                     -FileName $Global:PartialExportFileName
-                Write-Host $Global:M365DSCEmojiGreenCheckMark
+                Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
             }
             catch
             {
-                Write-Host "$($Global:M365DSCEmojiYellowCircle) $_"
+                Write-M365DSCHost -Message "$($Global:M365DSCEmojiYellowCircle) $_"
             }
             $i++
         }
@@ -1035,7 +1032,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-Host $Global:M365DSCEmojiRedX
+        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

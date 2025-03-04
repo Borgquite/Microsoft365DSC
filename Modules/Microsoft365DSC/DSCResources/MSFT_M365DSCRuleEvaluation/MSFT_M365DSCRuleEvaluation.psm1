@@ -419,7 +419,7 @@ function Export-TargetResource
         [System.String[]]
         $AccessTokens
     )
-    Write-Host "`r`n" -NoNewline
+    Write-M365DSCHost -Message "`r`n" -DeferWrite
     return $null
 }
 

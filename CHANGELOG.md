@@ -2,17 +2,28 @@
 
 # UNRELEASED
 
+* AADApplication
+  * If both the current and desired values have the Ensure property set
+    to absent, ignoring the drift detection and return true from
+    the Test-TargetResource function.
 * AADAuthenticationMethodPolicyQRCodeImage
   * Initial release.
+* AADGroupSettings
+  * Filtered EnableMSStandardBlockedWords parameter from the policy results,
+    to prevent issues with this deprecated parameter
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
+* FabricAdminTenantSettings
+  * Fixed issue where the export would add double quotes in front of boolean
+    variables
 * IntuneDeviceEnrollmentPlatformRestriction
   * Added note that update is no longer possible.
     FIXES [#5127](https://github.com/microsoft/Microsoft365DSC/issues/5127)
-* O365SearchAndIntelligenceConfigurations
-  * Added note that only Credentials are supported for the resource.
 * PPEnvironmentAppsEnvironment
   * Added support for legacy Basic and Standard EnvironmentSKU.
+* SPOSite
+  * Fixed an issue where the exported properties were not defined.
+    FIXES [#4773](https://github.com/microsoft/Microsoft365DSC/issues/4773)
 * TeamsOrgWideAppSettings
   * Added note that only Credentials are supported for the resource.
     FIXES [#3394](https://github.com/microsoft/Microsoft365DSC/issues/3394)
@@ -23,6 +34,9 @@
 * M365DSCUtil
   * Escape strings in primary key of resource name for export content.
     FIXES [#5865](https://github.com/microsoft/Microsoft365DSC/issues/5865)
+* MISC
+  * Replace `Write-Host` with custom function to support logs in non-interactive
+    environments using the verbose stream.
 
 # 1.25.226.1
 
@@ -55,8 +69,6 @@
   * Apply ordering during export.
 * TeamsUser
   * Apply ordering during export.
-* DEPENDENCIES
-  * Updated MSCloudLoginAssistant to version 1.1.39.
 
 # 1.25.219.3
 
