@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* AADApplication
+  * If both the current and desired values have the Ensure property set
+    to absent, ignoring the drift detection and return true from
+    the Test-TargetResource function.
 * AADAuthenticationMethodPolicyQRCodeImage
   * Initial release.
 * AADGroupSettings
