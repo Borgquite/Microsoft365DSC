@@ -2730,11 +2730,11 @@ function Export-TargetResource
         $i = 1
         if ($Script:exportedInstances.Length -eq 0)
         {
-            Write-Host $Global:M365DSCEmojiGreenCheckMark
+            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
         }
         else
         {
-            Write-Host "`r`n" -NoNewline
+            Write-M365DSCHost -Message "`r`n" -DeferWrite
         }
         foreach ($config in $Script:exportedInstances)
         {
@@ -2743,7 +2743,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
             $displayedKey = $config.Name
-            Write-Host "    |---[$i/$($Script:exportedInstances.Count)] $displayedKey" -NoNewline
+            Write-M365DSCHost -Message "    |---[$i/$($Script:exportedInstances.Count)] $displayedKey" -DeferWrite
             $params = @{
                 Name                  = $config.Name
                 InsiderRiskScenario   = $config.InsiderRiskScenario
@@ -2765,14 +2765,14 @@ function Export-TargetResource
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
-            Write-Host $Global:M365DSCEmojiGreenCheckMark
+            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
             $i++
         }
         return $dscContent
     }
     catch
     {
-        Write-Host $Global:M365DSCEmojiRedX
+        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `
