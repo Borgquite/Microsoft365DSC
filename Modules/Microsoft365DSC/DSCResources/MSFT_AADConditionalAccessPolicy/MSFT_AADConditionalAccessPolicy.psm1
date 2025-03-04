@@ -1875,7 +1875,7 @@ function Set-TargetResource
         }
     }
 
-    Write-M365DSCHost -Message "newparameters: $($NewParameters | ConvertTo-Json -Depth 5)"
+    Write-Host "newparameters: $($NewParameters | ConvertTo-Json -Depth 5)"
 
     if ($Ensure -eq 'Present' -and $currentPolicy.Ensure -eq 'Present')
     {
@@ -2339,11 +2339,11 @@ function Export-TargetResource
 
         if ($Policies.Length -eq 0)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
             foreach ($Policy in $Policies)
             {
                 if ($null -ne $Global:M365DSCExportResourceInstancesCount)
@@ -2351,7 +2351,7 @@ function Export-TargetResource
                     $Global:M365DSCExportResourceInstancesCount++
                 }
 
-                Write-M365DSCHost -Message "    |---[$i/$($Policies.Count)] $($Policy.DisplayName)" -DeferWrite
+                Write-Host "    |---[$i/$($Policies.Count)] $($Policy.DisplayName)" -NoNewline
                 $Params = @{
                     DisplayName           = $Policy.DisplayName
                     Id                    = $Policy.Id
@@ -2379,7 +2379,7 @@ function Export-TargetResource
                 $dscContent += $currentDSCBlock
                 Save-M365DSCPartialExport -Content $currentDSCBlock `
                     -FileName $Global:PartialExportFileName
-                Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+                Write-Host $Global:M365DSCEmojiGreenCheckMark
                 $i++
             }
         }
@@ -2388,7 +2388,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

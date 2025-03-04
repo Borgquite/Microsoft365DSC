@@ -890,12 +890,12 @@ function Export-TargetResource
 
         if ($null -eq $mailboxes)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             return ''
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
         }
 
         $i = 1
@@ -906,7 +906,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-M365DSCHost -Message "    |---[$i/$($mailboxes.Count)] $($mailbox.UserPrincipalName)" -DeferWrite
+            Write-Host "    |---[$i/$($mailboxes.Count)] $($mailbox.UserPrincipalName)" -NoNewline
             $Params = @{
                 Identity              = $mailbox.UserPrincipalName
                 Credential            = $Credential
@@ -928,7 +928,7 @@ function Export-TargetResource
 
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             $i++
         }
 
@@ -937,7 +937,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

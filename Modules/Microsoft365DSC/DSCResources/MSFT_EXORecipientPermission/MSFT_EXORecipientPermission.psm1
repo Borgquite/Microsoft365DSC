@@ -441,11 +441,11 @@ function Export-TargetResource
         $i = 1
         if ($recipientPermissions.Length -eq 0)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
         }
         $ObjectGuid = [System.Guid]::empty
         foreach ($recipientPermission in $recipientPermissions)
@@ -461,7 +461,7 @@ function Export-TargetResource
                 $user = Get-User -Identity $IdentityValue
                 $IdentityValue = $user.UserPrincipalName
             }
-            Write-M365DSCHost -Message "    |---[$i/$($recipientPermissions.Length)] $($IdentityValue)" -DeferWrite
+            Write-Host "    |---[$i/$($recipientPermissions.Length)] $($IdentityValue)" -NoNewline
 
             $params = @{
                 Identity              = $IdentityValue
@@ -490,11 +490,11 @@ function Export-TargetResource
                 Save-M365DSCPartialExport -Content $currentDSCBlock `
                     -FileName $Global:PartialExportFileName
 
-                Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+                Write-Host $Global:M365DSCEmojiGreenCheckMark
             }
             else
             {
-                Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+                Write-Host $Global:M365DSCEmojiRedX
             }
 
             $i++
@@ -504,7 +504,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

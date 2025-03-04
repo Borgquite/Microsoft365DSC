@@ -537,9 +537,9 @@ function Export-TargetResource
 
         $IRMConfiguration = Get-IRMConfiguration -ErrorAction Stop
         $dscContent = ''
-        Write-M365DSCHost -Message "`r`n" -DeferWrite
+        Write-Host "`r`n" -NoNewline
 
-        Write-M365DSCHost -Message  "    |---[1/1] $($IRMConfiguration.Identity)" -DeferWrite
+        Write-Host "    |---[1/1] $($IRMConfiguration.Identity)" -NoNewline
 
         $Params = @{
             IsSingleInstance      = 'Yes'
@@ -562,12 +562,12 @@ function Export-TargetResource
         $dscContent += $currentDSCBlock
         Save-M365DSCPartialExport -Content $currentDSCBlock `
             -FileName $Global:PartialExportFileName
-        Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+        Write-Host $Global:M365DSCEmojiGreenCheckMark
         return $dscContent
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

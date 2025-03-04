@@ -27,8 +27,8 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
             Mock -CommandName Invoke-MgGraphRequest -MockWith {
                 @{ status = "Success" }
             }
-            # Hide Write-M365DSCHost output during the tests
-            Mock -CommandName Write-M365DSCHost -MockWith {}
+            # Hide Write-Host output during the tests
+            Mock -CommandName Write-Host -MockWith {}
 
             $Script:exportedInstances = $null
             $Script:ExportMode = $false
