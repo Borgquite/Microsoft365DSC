@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* AADAuthenticationMethodPolicyQRCodeImage
+  * Initial release.
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
 * IntuneDeviceEnrollmentPlatformRestriction
@@ -15,6 +17,8 @@
     FIXES [#5856](https://github.com/microsoft/Microsoft365DSC/issues/5856)
 * O365SearchAndIntelligenceConfigurations
   * Added note that only Credentials are supported for the resource.
+* PPEnvironmentAppsEnvironment
+  * Added support for legacy Basic and Standard EnvironmentSKU.
 * TeamsOrgWideAppSettings
   * Added note that only Credentials are supported for the resource.
     FIXES [#3394](https://github.com/microsoft/Microsoft365DSC/issues/3394)
