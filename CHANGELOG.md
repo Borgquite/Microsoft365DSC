@@ -2,12 +2,28 @@
 
 # UNRELEASED
 
+* AADAuthenticationMethodPolicyQRCodeImage
+  * Initial release.
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
 * EXOTransportConfig
   * Fixed an issue where `JournalingReportNdrTo` with the default value of `<>`
     would throw an error during apply.  
     FIXES [#5606](https://github.com/microsoft/Microsoft365DSC/issues/5606)
+* IntuneDeviceEnrollmentPlatformRestriction
+  * Added note that update is no longer possible.
+    FIXES [#5127](https://github.com/microsoft/Microsoft365DSC/issues/5127)
+* O365SearchAndIntelligenceConfigurations
+  * Added note that only Credentials are supported for the resource.
+* PPEnvironmentAppsEnvironment
+  * Added support for legacy Basic and Standard EnvironmentSKU.
+* TeamsOrgWideAppSettings
+  * Added note that only Credentials are supported for the resource.
+    FIXES [#3394](https://github.com/microsoft/Microsoft365DSC/issues/3394)
+* M365DSCDRGUtil
+  * Fixes an issue with fancy double quotes being replaced that break the string.
+    FIXES [#5775](https://github.com/microsoft/Microsoft365DSC/issues/5775)
+    FIXES [#5623](https://github.com/microsoft/Microsoft365DSC/issues/5623)
 
 # 1.25.226.1
 
