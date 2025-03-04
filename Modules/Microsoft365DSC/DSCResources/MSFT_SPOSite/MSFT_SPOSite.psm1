@@ -943,7 +943,7 @@ function Export-TargetResource
         }
         $dscContent = ''
         $i = 1
-        Write-M365DSCHost -Message "`r`n" -DeferWrite
+        Write-Host "`r`n" -NoNewline
         foreach ($site in $sites)
         {
             if ($null -ne $Global:M365DSCExportResourceInstancesCount)
@@ -951,7 +951,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-M365DSCHost -Message "    [$i/$($sites.Length)] $($site.Url)" -DeferWrite
+            Write-Host "    [$i/$($sites.Length)] $($site.Url)" -NoNewline
             $site = Get-PnPTenantSite -Identity $site.Url
             $siteTitle = 'Null'
             if (-not [System.String]::IsNullOrEmpty($site.Title))
@@ -1020,11 +1020,11 @@ function Export-TargetResource
                 $dscContent += $currentDSCBlock
                 Save-M365DSCPartialExport -Content $currentDSCBlock `
                     -FileName $Global:PartialExportFileName
-                Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+                Write-Host $Global:M365DSCEmojiGreenCheckMark
             }
             catch
             {
-                Write-M365DSCHost -Message "$($Global:M365DSCEmojiYellowCircle) $_"
+                Write-Host "$($Global:M365DSCEmojiYellowCircle) $_"
             }
             $i++
         }
@@ -1032,7 +1032,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

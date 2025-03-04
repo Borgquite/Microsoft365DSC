@@ -383,7 +383,7 @@ function Export-TargetResource
         }
         $dscContent = ''
 
-        Write-M365DSCHost -Message "`r`n    |---[1/2] Public" -DeferWrite
+        Write-Host "`r`n    |---[1/2] Public" -NoNewline
         $Results = Get-TargetResource @Params
         if ($Results -is [System.Collections.Hashtable] -and $Results.Count -gt 1)
         {
@@ -395,11 +395,11 @@ function Export-TargetResource
             Save-M365DSCPartialExport -Content $dscContent `
                 -FileName $Global:PartialExportFileName
 
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckmark
         }
         else
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+            Write-Host $Global:M365DSCEmojiRedX
         }
 
         if ($null -ne $Global:M365DSCExportResourceInstancesCount)
@@ -417,7 +417,7 @@ function Export-TargetResource
             Managedidentity       = $ManagedIdentity.IsPresent
             Credential            = $Credential
         }
-        Write-M365DSCHost -Message '    |---[2/2] Private' -DeferWrite
+        Write-Host '    |---[2/2] Private' -NoNewline
         $Results = Get-TargetResource @Params
         if ($Results -is [System.Collections.Hashtable] -and $Results.Count -gt 1)
         {
@@ -431,11 +431,11 @@ function Export-TargetResource
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
 
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckmark
         }
         else
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+            Write-Host $Global:M365DSCEmojiRedX
         }
 
         return $dscContent
@@ -445,11 +445,11 @@ function Export-TargetResource
         # This method is not implemented in some sovereign clouds (e.g. GCCHigh)
         if ($_.Exception -like '*The method or operation is not implemented*')
         {
-            Write-M365DSCHost -Message "`r`n    $($Global:M365DSCEmojiYellowCircle) The current tenant does not support this feature."
+            Write-Host "`r`n    $($Global:M365DSCEmojiYellowCircle) The current tenant does not support this feature."
         }
         else
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+            Write-Host $Global:M365DSCEmojiRedX
 
             New-M365DSCLogEntry -Message 'Error during Export:' `
                 -Exception $_ `

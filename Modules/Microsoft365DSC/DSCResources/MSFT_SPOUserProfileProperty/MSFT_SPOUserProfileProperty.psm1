@@ -326,11 +326,11 @@ function Export-TargetResource
         # Get all instances;
         $instances = Get-PnPUser | Where-Object -FilterScript { $_.PrincipalType -eq 'User' -and '' -ne $_.Email }
         $dscContent = ''
-        Write-M365DSCHost -Message "`r`n" -DeferWrite
+        Write-Host "`r`n" -NoNewline
         $i = 1
         foreach ($instance in $Instances)
         {
-            Write-M365DSCHost -Message "    |---[$i/$($Instances.Count)] $($instance.Email)" -DeferWrite
+            Write-Host "    |---[$i/$($Instances.Count)] $($instance.Email)" -NoNewline
             $Params = @{
                 UserName              = $instance.Email
                 ApplicationId         = $ApplicationId
@@ -387,11 +387,11 @@ function Export-TargetResource
                         -FileName $Global:PartialExportFileName
                 }
 
-                Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+                Write-Host $Global:M365DSCEmojiGreenCheckMark
             }
             else
             {
-                Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+                Write-Host $Global:M365DSCEmojiRedX
             }
 
             $i++
@@ -415,7 +415,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

@@ -35,9 +35,6 @@
   * Allow setting the LCM configuration from outside.
 * M365DSCUtil
   * Add PowerShell 5 to 7 compatibility layer.
-* MISC
-  * Replace `Write-Host` with custom function to support logs in non-interactive
-    environments using the verbose stream.
 
 # 1.25.226.1
 
@@ -70,6 +67,8 @@
   * Apply ordering during export.
 * TeamsUser
   * Apply ordering during export.
+* DEPENDENCIES
+  * Updated MSCloudLoginAssistant to version 1.1.39.
 
 # 1.25.219.3
 

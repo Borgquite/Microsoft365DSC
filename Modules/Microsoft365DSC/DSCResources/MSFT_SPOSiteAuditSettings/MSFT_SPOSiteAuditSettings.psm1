@@ -330,7 +330,7 @@ function Export-TargetResource
         $sites = Get-PnPTenantSite -ErrorAction Stop
 
         $i = 1
-        Write-M365DSCHost -Message "`r`n" -DeferWrite
+        Write-Host "`r`n" -NoNewline
 
         $principal = '' # Principal represents the "NetBios" name of the tenant (e.g. the M365DSC part of M365DSC.onmicrosoft.com)
         if ($null -ne $Credential -and $Credential.UserName.Contains('@'))
@@ -358,7 +358,7 @@ function Export-TargetResource
                     $Global:M365DSCExportResourceInstancesCount++
                 }
 
-                Write-M365DSCHost -Message "    [$i/$($sites.Length)] Audit Settings for {$($site.Url)}" -DeferWrite
+                Write-Host "    [$i/$($sites.Length)] Audit Settings for {$($site.Url)}" -NoNewline
 
                 $Params = @{
                     Url                   = $site.Url
@@ -397,16 +397,16 @@ function Export-TargetResource
                     Save-M365DSCPartialExport -Content $currentDSCBlock `
                         -FileName $Global:PartialExportFileName
 
-                    Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+                    Write-Host $Global:M365DSCEmojiGreenCheckMark
                 }
                 else
                 {
-                    Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+                    Write-Host $Global:M365DSCEmojiRedX
                 }
             }
             catch
             {
-                Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+                Write-Host $Global:M365DSCEmojiRedX
 
                 New-M365DSCLogEntry -Message 'Error during Export:' `
                     -Exception $_ `
@@ -421,14 +421,14 @@ function Export-TargetResource
 
         if ($i -eq 1)
         {
-            Write-M365DSCHost -Message ''
+            Write-Host ''
         }
 
         return $dscContent
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

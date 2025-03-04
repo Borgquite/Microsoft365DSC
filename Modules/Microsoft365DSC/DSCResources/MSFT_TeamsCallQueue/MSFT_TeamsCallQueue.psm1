@@ -255,13 +255,13 @@ function Get-TargetResource
     {
         if (-not $Script:ExportMode)
         {
-            Write-M365DSCHost -Message "Getting Office 365 queue $Name"
+            Write-Host -Message "Getting Office 365 queue $Name"
             $queue = Get-CsCallQueue -NameFilter $Name `
                 -ErrorAction SilentlyContinue | Where-Object -FilterScript { $_.Name -eq $Name }
         }
         else
         {
-            Write-M365DSCHost -Message "Retrieving queue $Name from the exported instances"
+            Write-Host -Message "Retrieving queue $Name from the exported instances"
             $queue = $Script:exportedInstances | Where-Object -FilterScript { $_.Name -eq $Name }
         }
 
@@ -946,7 +946,7 @@ function Export-TargetResource
         }
 
         $dscContent = [System.Text.StringBuilder]::New()
-        Write-M365DSCHost -Message "`r`n" -DeferWrite
+        Write-Host "`r`n" -NoNewline
         foreach ($instance in $exportedInstances)
         {
             if ($null -ne $Global:M365DSCExportResourceInstancesCount)
@@ -954,7 +954,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-M365DSCHost -Message "    |---[$i/$($exportedInstances.Count)] $($instance.Name)" -DeferWrite
+            Write-Host "    |---[$i/$($exportedInstances.Count)] $($instance.Name)" -NoNewline
 
             $params = @{
                 Name                  = $instance.Name
@@ -976,13 +976,13 @@ function Export-TargetResource
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
             $i++
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         return $dscContent.ToString()
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `
