@@ -2,20 +2,37 @@
 
 # UNRELEASED
 
+* AADAuthenticationMethodPolicyQRCodeImage
+  * Initial release.
+* AADGroupSettings
+  * Filtered EnableMSStandardBlockedWords parameter from the policy results,
+    to prevent issues with this deprecated parameter
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
+* FabricAdminTenantSettings
+  * Fixed issue where the export would add double quotes in front of boolean
+    variables
 * IntuneDeviceEnrollmentPlatformRestriction
   * Added note that update is no longer possible.
     FIXES [#5127](https://github.com/microsoft/Microsoft365DSC/issues/5127)
+* O365SearchAndIntelligenceConfigurations
+  * Added note that only Credentials are supported for the resource.
+* PPEnvironmentAppsEnvironment
+  * Added support for legacy Basic and Standard EnvironmentSKU.
+* SPOSite
+  * Fixed an issue where the exported properties were not defined.
+    FIXES [#4773](https://github.com/microsoft/Microsoft365DSC/issues/4773)
+* TeamsOrgWideAppSettings
+  * Added note that only Credentials are supported for the resource.
+    FIXES [#3394](https://github.com/microsoft/Microsoft365DSC/issues/3394)
 * M365DSCDocGenerator
   * Fixed an issue where open/close tags in descriptions would be considered as HTML.
     FIXES [#4955](https://github.com/microsoft/Microsoft365DSC/issues/4955)
     FIXES [#5761](https://github.com/microsoft/Microsoft365DSC/issues/5761)
-* O365SearchAndIntelligenceConfigurations
-  * Added note that only Credentials are supported for the resource.
-* TeamsOrgWideAppSettings
-  * Added note that only Credentials are supported for the resource.
-    FIXES [#3394](https://github.com/microsoft/Microsoft365DSC/issues/3394)
+* M365DSCDRGUtil
+  * Fixes an issue with fancy double quotes being replaced that break the string.
+    FIXES [#5775](https://github.com/microsoft/Microsoft365DSC/issues/5775)
+    FIXES [#5623](https://github.com/microsoft/Microsoft365DSC/issues/5623)
 
 # 1.25.226.1
 
