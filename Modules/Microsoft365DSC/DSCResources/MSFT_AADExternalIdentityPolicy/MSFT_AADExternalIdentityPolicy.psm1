@@ -342,8 +342,8 @@ function Export-TargetResource
 
         if ($Results -is [System.Collections.Hashtable] -and $Results.Count -gt 1)
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
-            Write-M365DSCHost -Message '    |---[1/1] External Identity Policy' -DeferWrite
+            Write-Host "`r`n" -NoNewline
+            Write-Host '    |---[1/1] External Identity Policy' -NoNewline
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
@@ -352,18 +352,18 @@ function Export-TargetResource
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
 
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         else
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+            Write-Host $Global:M365DSCEmojiRedX
         }
 
         return $currentDSCBlock
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `
