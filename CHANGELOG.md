@@ -4,8 +4,14 @@
 
 * AADAuthenticationMethodPolicyQRCodeImage
   * Initial release.
+* AADGroupSettings
+  * Filtered EnableMSStandardBlockedWords parameter from the policy results,
+    to prevent issues with this deprecated parameter
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
+* FabricAdminTenantSettings
+  * Fixed issue where the export would add double quotes in front of boolean
+    variables
 * IntuneDeviceEnrollmentPlatformRestriction
   * Added note that update is no longer possible.
     FIXES [#5127](https://github.com/microsoft/Microsoft365DSC/issues/5127)
@@ -15,10 +21,11 @@
     tenant and the latter doesn't have the assignment group created yet, if this
     was the case the deployment would fail
     FIXES [#5856](https://github.com/microsoft/Microsoft365DSC/issues/5856)
-* O365SearchAndIntelligenceConfigurations
-  * Added note that only Credentials are supported for the resource.
 * PPEnvironmentAppsEnvironment
   * Added support for legacy Basic and Standard EnvironmentSKU.
+* SPOSite
+  * Fixed an issue where the exported properties were not defined.
+    FIXES [#4773](https://github.com/microsoft/Microsoft365DSC/issues/4773)
 * TeamsOrgWideAppSettings
   * Added note that only Credentials are supported for the resource.
     FIXES [#3394](https://github.com/microsoft/Microsoft365DSC/issues/3394)
