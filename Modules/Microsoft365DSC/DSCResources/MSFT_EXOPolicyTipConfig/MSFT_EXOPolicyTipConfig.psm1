@@ -380,11 +380,11 @@ function Export-TargetResource
             $i = 1
             if ($AllPolicyTips.Length -eq 0)
             {
-                Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+                Write-Host $Global:M365DSCEmojiGreenCheckMark
             }
             else
             {
-                Write-M365DSCHost -Message "`r`n" -DeferWrite
+                Write-Host "`r`n" -NoNewline
             }
             foreach ($PolicyTipConfig in $AllPolicyTips)
             {
@@ -393,7 +393,7 @@ function Export-TargetResource
                     $Global:M365DSCExportResourceInstancesCount++
                 }
 
-                Write-M365DSCHost -Message "    |---[$i/$($AllPolicyTips.Length)] $($PolicyTipConfig.Name)" -DeferWrite
+                Write-Host "    |---[$i/$($AllPolicyTips.Length)] $($PolicyTipConfig.Name)" -NoNewline
 
                 $Params = @{
                     Name                  = $PolicyTipConfig.Name
@@ -415,19 +415,19 @@ function Export-TargetResource
                 $dscContent += $currentDSCBlock
                 Save-M365DSCPartialExport -Content $currentDSCBlock `
                     -FileName $Global:PartialExportFileName
-                Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+                Write-Host $Global:M365DSCEmojiGreenCheckMark
                 $i++
             }
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n    $($Global:M365DSCEmojiYellowCircle) The current tenant is not registered for Policy Tip Configurations."
+            Write-Host "`r`n    $($Global:M365DSCEmojiYellowCircle) The current tenant is not registered for Policy Tip Configurations."
         }
         return $dscContent
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

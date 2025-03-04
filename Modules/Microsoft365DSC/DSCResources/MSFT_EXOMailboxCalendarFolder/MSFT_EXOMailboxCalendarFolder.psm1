@@ -429,12 +429,12 @@ function Export-TargetResource
 
         if ($null -eq $mailboxes)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             return ''
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
         }
 
         $i = 1
@@ -448,7 +448,7 @@ function Export-TargetResource
             # Name of calendar folder depends on the language of the mailbox
             $calendarFolderName = (Get-MailboxFolderStatistics -Identity $($mailbox.UserPrincipalName) -FolderScope Calendar | Where-Object { $_.FolderType -eq 'Calendar' }).Name
             $folderPath = $mailbox.UserPrincipalName + ':\' + $calendarFolderName
-            Write-M365DSCHost -Message "    |---[$i/$($mailboxes.Count)] $($folderPath)" -DeferWrite
+            Write-Host "    |---[$i/$($mailboxes.Count)] $($folderPath)" -NoNewline
             $Params = @{
                 Identity              = $folderPath
                 Credential            = $Credential
@@ -475,7 +475,7 @@ function Export-TargetResource
 
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             $i++
         }
 
@@ -483,7 +483,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

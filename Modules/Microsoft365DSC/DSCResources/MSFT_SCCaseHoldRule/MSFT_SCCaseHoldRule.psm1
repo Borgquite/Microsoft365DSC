@@ -388,11 +388,11 @@ function Export-TargetResource
         $i = 1
         if ($Rules.Length -eq 0)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
         }
         foreach ($Rule in $Rules)
         {
@@ -401,7 +401,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-M365DSCHost -Message "    |---[$i/$($Rules.Count)] $($Rule.Name)" -DeferWrite
+            Write-Host "    |---[$i/$($Rules.Count)] $($Rule.Name)" -NoNewline
             try
             {
                 $policy = Get-CaseHoldPolicy -Identity $Rule.Policy -ErrorAction Stop
@@ -423,14 +423,14 @@ function Export-TargetResource
             {
                 Write-Verbose -Message "You are not authorized to access Case Hold Policy {$($Rule.Policy)}"
             }
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             $i++
         }
         return $dscContent
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

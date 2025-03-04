@@ -1535,7 +1535,7 @@ function Export-TargetResource
 
     $dscContent = [System.Text.StringBuilder]::new()
     $i = 1
-    Write-M365DSCHost -Message "`r`n" -DeferWrite
+    Write-Host "`r`n" -NoNewline
     try
     {
         $Script:ExportMode = $true
@@ -1547,7 +1547,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-M365DSCHost -Message "    |---[$i/$($Script:exportedInstances.Count)] $($AADApp.DisplayName)" -DeferWrite
+            Write-Host "    |---[$i/$($Script:exportedInstances.Count)] $($AADApp.DisplayName)" -NoNewline
             $Params = @{
                 ApplicationId         = $ApplicationId
                 AppId                 = $AADApp.AppId
@@ -1777,7 +1777,7 @@ function Export-TargetResource
                     $dscContent.Append($currentDSCBlock) | Out-Null
                     Save-M365DSCPartialExport -Content $currentDSCBlock `
                         -FileName $Global:PartialExportFileName
-                    Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+                    Write-Host $Global:M365DSCEmojiGreenCheckMark
                     $i++
                 }
             }
@@ -1785,8 +1785,8 @@ function Export-TargetResource
             {
                 if ($_.Exception.Message -like '*Multiple AAD Apps with the Displayname*')
                 {
-                    Write-M365DSCHost -Message "`r`n        $($Global:M365DSCEmojiYellowCircle)" -DeferWrite
-                    Write-M365DSCHost -Message " Multiple app instances wth name {$($AADApp.DisplayName)} were found. We will skip exporting these instances." -CommitWrite
+                    Write-Host "`r`n        $($Global:M365DSCEmojiYellowCircle)" -NoNewline
+                    Write-Host " Multiple app instances wth name {$($AADApp.DisplayName)} were found. We will skip exporting these instances."
                 }
                 $i++
             }
@@ -1795,7 +1795,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

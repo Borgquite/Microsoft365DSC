@@ -385,7 +385,7 @@ function Export-TargetResource
         [array] $Script:exportedInstances = Get-MgBetaIdentityUserFlowAttribute -Filter "userFlowAttributeType ne 'builtIn'" -Sort DisplayName -ErrorAction Stop
         $i = 1
         $dscContent = ''
-        Write-M365DSCHost -Message "`r`n" -DeferWrite
+        Write-Host "`r`n" -NoNewline
         foreach ($userFlowAttribute in $Script:exportedInstances)
         {
             if ($null -ne $Global:M365DSCExportResourceInstancesCount)
@@ -393,7 +393,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-M365DSCHost -Message "    |---[$i/$($Script:exportedInstances.Count)] $($userFlowAttribute.DisplayName)" -DeferWrite
+            Write-Host "    |---[$i/$($Script:exportedInstances.Count)] $($userFlowAttribute.DisplayName)" -NoNewline
             $Params = @{
                 Id                    = $userFlowAttribute.Id
                 DisplayName           = $userFlowAttribute.DisplayName
@@ -418,7 +418,7 @@ function Export-TargetResource
                 Save-M365DSCPartialExport -Content $currentDSCBlock `
                     -FileName $Global:PartialExportFileName
             }
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             $i++
         }
         return $dscContent
@@ -426,7 +426,7 @@ function Export-TargetResource
 
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

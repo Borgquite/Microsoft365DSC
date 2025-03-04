@@ -444,7 +444,7 @@ function Export-TargetResource
         }
         catch
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             return ''
         }
 
@@ -477,13 +477,13 @@ function Export-TargetResource
                 -FileName $Global:PartialExportFileName
         }
 
-        Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+        Write-Host $Global:M365DSCEmojiGreenCheckMark
 
         return $dscContent
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

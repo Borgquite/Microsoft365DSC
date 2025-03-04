@@ -415,15 +415,15 @@ function Export-TargetResource
         $i = 1
         if ($AllAddressBookPolicies.Length -eq 0)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
         }
         foreach ($AddressBookPolicy in $AllAddressBookPolicies)
         {
-            Write-M365DSCHost -Message "    |---[$i/$($AllAddressBookPolicies.Count)] $($AddressBookPolicy.Name)" -DeferWrite
+            Write-Host "    |---[$i/$($AllAddressBookPolicies.Count)] $($AddressBookPolicy.Name)" -NoNewline
 
             if ($null -ne $Global:M365DSCExportResourceInstancesCount)
             {
@@ -451,14 +451,14 @@ function Export-TargetResource
 
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             $i++
         }
         return $dscContent
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

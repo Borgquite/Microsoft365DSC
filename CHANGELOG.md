@@ -31,9 +31,6 @@
   * Fixes an issue with fancy double quotes being replaced that break the string.
     FIXES [#5775](https://github.com/microsoft/Microsoft365DSC/issues/5775)
     FIXES [#5623](https://github.com/microsoft/Microsoft365DSC/issues/5623)
-* MISC
-  * Replace `Write-Host` with custom function to support logs in non-interactive
-    environments using the verbose stream.
 
 # 1.25.226.1
 
@@ -66,6 +63,8 @@
   * Apply ordering during export.
 * TeamsUser
   * Apply ordering during export.
+* DEPENDENCIES
+  * Updated MSCloudLoginAssistant to version 1.1.39.
 
 # 1.25.219.3
 

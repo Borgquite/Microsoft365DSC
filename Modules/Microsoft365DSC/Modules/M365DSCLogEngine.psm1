@@ -138,7 +138,7 @@ function New-M365DSCLogEntry
         }
         else
         {
-            Write-M365DSCHost -Message "Error Log created at {file://$LogFileName}" -ForegroundColor Red
+            Write-Host "Error Log created at {file://$LogFileName}" -ForegroundColor Red
         }
         #endregion
     }

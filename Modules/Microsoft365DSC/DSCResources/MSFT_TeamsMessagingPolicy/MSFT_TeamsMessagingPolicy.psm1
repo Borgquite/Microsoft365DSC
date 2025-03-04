@@ -638,7 +638,7 @@ function Export-TargetResource
         $i = 1
         [array]$policies = Get-CsTeamsMessagingPolicy -ErrorAction Stop
         $dscContent = ''
-        Write-M365DSCHost -Message "`r`n" -DeferWrite
+        Write-Host "`r`n" -NoNewline
         foreach ($policy in $policies)
         {
             if ($null -ne $Global:M365DSCExportResourceInstancesCount)
@@ -646,7 +646,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-M365DSCHost -Message "    |---[$i/$($policies.Count)] $($policy.Identity)" -DeferWrite
+            Write-Host "    |---[$i/$($policies.Count)] $($policy.Identity)" -NoNewline
             if ($policy.Identity.ToString().contains(':'))
             {
                 $currentIdentity = $policy.Identity.split(':')[1]
@@ -676,13 +676,13 @@ function Export-TargetResource
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
             $i++
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         return $dscContent
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

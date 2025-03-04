@@ -344,14 +344,14 @@ function Export-TargetResource
 
         if ($null -eq (Get-Command Get-AvailabilityConfig -ErrorAction SilentlyContinue))
         {
-            Write-M365DSCHost -Message "`r`n    $($Global:M365DSCEmojiRedX) The specified account doesn't have permissions to access Availibility Config"
+            Write-Host "`r`n    $($Global:M365DSCEmojiRedX) The specified account doesn't have permissions to access Availibility Config"
             return ''
         }
         $AvailabilityConfig = Get-AvailabilityConfig -ErrorAction Stop
 
         if ($null -eq $AvailabilityConfig)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             return ''
         }
 
@@ -382,12 +382,12 @@ function Export-TargetResource
 
         Save-M365DSCPartialExport -Content $currentDSCBlock `
             -FileName $Global:PartialExportFileName
-        Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+        Write-Host $Global:M365DSCEmojiGreenCheckMark
         return $dscContent
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

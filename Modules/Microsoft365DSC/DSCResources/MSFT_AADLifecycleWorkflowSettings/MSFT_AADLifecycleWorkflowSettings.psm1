@@ -322,11 +322,11 @@ function Export-TargetResource
         $dscContent = ''
         if ($Script:exportedInstances.Length -eq 0)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
         }
         foreach ($config in $Script:exportedInstances)
         {
@@ -336,7 +336,7 @@ function Export-TargetResource
             }
 
             $displayedKey = $config.Id
-            Write-M365DSCHost -Message "    |---[$i/$($Script:exportedInstances.Count)] $displayedKey" -DeferWrite
+            Write-Host "    |---[$i/$($Script:exportedInstances.Count)] $displayedKey" -NoNewline
             $params = @{
                 IsSingleInstance      = 'Yes'
                 Credential            = $Credential
@@ -359,7 +359,7 @@ function Export-TargetResource
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
             $i++
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         return $dscContent
     }
@@ -367,13 +367,13 @@ function Export-TargetResource
     {
         if ($_.ErrorDetails.Message -like "Insufficient license *")
         {
-            Write-M365DSCHost -Message "`r`n    " -DeferWrite
-            Write-M365DSCHost -Message $Global:M365DSCEmojiYellowCircle -DeferWrite
-            Write-M365DSCHost -Message " Insufficient license. You need the Entra ID Governance license." -CommitWrite
+            Write-Host "`r`n    " -NoNewline
+            Write-Host $Global:M365DSCEmojiYellowCircle -NoNewline
+            Write-Host " Insufficient license. You need the Entra ID Governance license."
         }
         else
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+            Write-Host $Global:M365DSCEmojiRedX
 
             New-M365DSCLogEntry -Message 'Error during Export:' `
                 -Exception $_ `
