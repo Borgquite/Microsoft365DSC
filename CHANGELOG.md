@@ -35,6 +35,9 @@
     tenant and the latter doesn't have the assignment group created yet, if this
     was the case the deployment would fail
     FIXES [#5856](https://github.com/microsoft/Microsoft365DSC/issues/5856)
+* IntuneSecurityBaselineWindows365
+  * Initial release.
+    FIXES [#3348](https://github.com/microsoft/Microsoft365DSC/issues/3348)
 * PPEnvironmentAppsEnvironment
   * Added support for legacy Basic and Standard EnvironmentSKU.
 * SPOSite
