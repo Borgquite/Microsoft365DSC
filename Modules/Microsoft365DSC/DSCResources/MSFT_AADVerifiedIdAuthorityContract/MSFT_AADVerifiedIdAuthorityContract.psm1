@@ -455,7 +455,7 @@ function Export-TargetResource
 
     $dscContent = [System.Text.StringBuilder]::new()
     $i = 1
-    Write-M365DSCHost -Message "`r`n" -DeferWrite
+    Write-Host "`r`n" -NoNewline
     try
     {
         $Script:ExportMode = $true
@@ -481,7 +481,7 @@ function Export-TargetResource
                     $Global:M365DSCExportResourceInstancesCount++
                 }
 
-                Write-M365DSCHost -Message "    |---[$i/$($Script:exportedInstances.Count)] $($contract.name)" -DeferWrite
+                Write-Host "    |---[$i/$($Script:exportedInstances.Count)] $($contract.name)" -NoNewline
                 $Params = @{
                     linkedDomainUrl       = $authority.didModel.linkedDomainUrls[0]
                     name                  = $contract.name
@@ -623,7 +623,7 @@ function Export-TargetResource
                     $dscContent.Append($currentDSCBlock) | Out-Null
                     Save-M365DSCPartialExport -Content $currentDSCBlock `
                         -FileName $Global:PartialExportFileName
-                    Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+                    Write-Host $Global:M365DSCEmojiGreenCheckMark
                     $i++
                 }
             }
@@ -632,7 +632,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

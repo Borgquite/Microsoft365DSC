@@ -387,11 +387,11 @@ function Export-TargetResource
         $i = 1
         if ($Cases.Length -eq 0)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
         }
         foreach ($Case in $Cases)
         {
@@ -400,7 +400,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-M365DSCHost -Message "    eDiscovery: [$i/$($Cases.Count)] $($Case.Name)" -DeferWrite
+            Write-Host "    eDiscovery: [$i/$($Cases.Count)] $($Case.Name)" -NoNewline
 
             $Script:exportedInstance = $Case
             $Results = Get-TargetResource @PSBoundParameters -Name $Case.Name
@@ -409,7 +409,7 @@ function Export-TargetResource
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
                 -Credential $Credential
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             $i++
         }
 
@@ -418,7 +418,7 @@ function Export-TargetResource
         $i = 1
         foreach ($Case in $Cases)
         {
-            Write-M365DSCHost -Message "    GDPR: [$i/$($Cases.Count)] $($Case.Name)" -DeferWrite
+            Write-Host "    GDPR: [$i/$($Cases.Count)] $($Case.Name)" -NoNewline
             $Results = Get-TargetResource @PSBoundParameters -Name $Case.Name
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
@@ -430,14 +430,14 @@ function Export-TargetResource
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
 
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             $i++
         }
         return $dscContent
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

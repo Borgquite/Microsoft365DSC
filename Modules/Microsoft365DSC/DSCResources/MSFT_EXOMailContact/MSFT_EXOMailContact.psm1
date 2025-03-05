@@ -822,11 +822,11 @@ function Export-TargetResource
         [array]$contactList = Get-MailContact -ResultSize 'Unlimited' -ErrorAction Stop
         if ($contactList.Length -eq 0)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
         }
         $i = 1
 
@@ -837,7 +837,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-M365DSCHost -Message "    |---[$i/$($contactList.Count)] $($contact.Name)" -DeferWrite
+            Write-Host "    |---[$i/$($contactList.Count)] $($contact.Name)" -NoNewline
             $params = @{
                 Name                  = $contact.Name
                 ExternalEmailAddress  = $contact.ExternalEmailAddress
@@ -860,14 +860,14 @@ function Export-TargetResource
 
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             $i ++
         }
         return $dscContent.ToString()
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

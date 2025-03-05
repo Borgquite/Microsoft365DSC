@@ -1487,7 +1487,7 @@ function Export-M365DSCConfiguration
     Add-M365DSCTelemetryEvent -Type 'ExportInitiated' -Data $data
     if ($null -ne $Workloads)
     {
-        Write-M365DSCHost -Message "Exporting Microsoft 365 configuration for Workloads: $($Workloads -join ', ')"
+        Write-Output -InputObject "Exporting Microsoft 365 configuration for Workloads: $($Workloads -join ', ')"
         Start-M365DSCConfigurationExtract -Credential $Credential `
             -Workloads $Workloads `
             -Mode $Mode `
@@ -1508,7 +1508,7 @@ function Export-M365DSCConfiguration
     }
     elseif ($null -ne $Components)
     {
-        Write-M365DSCHost -Message "Exporting Microsoft 365 configuration for Components: $($Components -join ', ')"
+        Write-Output -InputObject "Exporting Microsoft 365 configuration for Components: $($Components -join ', ')"
         Start-M365DSCConfigurationExtract -Credential $Credential `
             -Components $Components `
             -Path $Path -FileName $FileName `
@@ -1528,7 +1528,7 @@ function Export-M365DSCConfiguration
     }
     elseif ($null -ne $Mode)
     {
-        Write-M365DSCHost -Message "Exporting Microsoft 365 configuration for Mode: $Mode"
+        Write-Output -InputObject "Exporting Microsoft 365 configuration for Mode: $Mode"
         Start-M365DSCConfigurationExtract -Credential $Credential `
             -Mode $Mode `
             -Path $Path -FileName $FileName `
@@ -5105,18 +5105,18 @@ function Get-M365DSCConfigurationConflict
 }
 
 <#
-.Description
-This function returns a hashtable with aligned to the parameter pattern of the given cmdlet.
+        .Description
+        This function returns a hashtable with aligned to the parameter pattern of the given cmdlet.
 
-.Example
-$param = @{
-    Path = 'C:\Test'
-    DoesNotExist = '123'
-}
-Sync-M365DSCParameter -Command (Get-Command -Name Get-ChildItem) -Parameters $param
+        .Example
+        $param = @{
+            Path = 'C:\Test'
+            DoesNotExist = '123'
+        }
+        Sync-M365DSCParameter -Command (Get-Command -Name Get-ChildItem) -Parameters $param
 
-.Functionality
-Private
+        .Functionality
+        Private
 #>
 function Sync-M365DSCParameter
 {
@@ -5230,88 +5230,6 @@ function Sync-M365DSCParameter
     }
 }
 
-<#
-.Description
-This function writes messages to the console or verbose output.
-
-.PARAMETER Message
-Specifies the message to write.
-
-.PARAMETER DeferWrite
-Specifies if writing the message should be deferred. Adheres to -NoNewLine behavior of Write-Host.
-
-.PARAMETER CommitWrite
-Specifies if cached messages of -DeferWrite should be combined and written. 
-Combining of the messages is done by joining them without any characters between.
-
-.EXAMPLE
-Write-M365DSCHost -Message "This is a message."
-
-.Functionality
-Internal
-#>
-function Write-M365DSCHost
-{
-    [CmdletBinding(DefaultParameterSetName = 'Default')]
-    param
-    (
-        [Parameter(Mandatory = $true)]
-        [System.String]
-        $Message,
-
-        [Parameter()]
-        [ConsoleColor]
-        $ForegroundColor = [System.Console]::ForegroundColor,
-
-        [Parameter(ParameterSetName = 'DeferWrite')]
-        [switch]
-        $DeferWrite,
-
-        [Parameter(ParameterSetName = 'CommitWrite')]
-        [switch]
-        $CommitWrite
-    )
-
-    if ($null -eq $Script:M365DSCHostMessages)
-    {
-        $Script:M365DSCHostMessages = @()
-    }
-
-    if ($DeferWrite)
-    {
-        $Script:M365DSCHostMessages += @{
-            Message = $Message
-            ForegroundColor = $ForegroundColor
-        }
-        return
-    }
-
-    if ([Environment]::UserInteractive)
-    {
-        if ($CommitWrite)
-        {
-            for ($i = 0; $i -lt $Script:M365DSCHostMessages.Count - 1; $i++)
-            {
-                Write-Host -Object $Script:M365DSCHostMessages[$i].Message -ForegroundColor $Script:M365DSCHostMessages[$i].ForegroundColor -NoNewline
-            }
-            Write-Host -Object $Script:M365DSCHostMessages[-1].Message -ForegroundColor $Script:M365DSCHostMessages[-1].ForegroundColor -NoNewline
-            $Script:M365DSCHostMessages = @()
-        }
-        Write-Host -Object $Message -ForegroundColor $ForegroundColor
-    }
-    else
-    {
-        $outputMessage = ''
-        if ($CommitWrite)
-        {
-            $outputMessage += $Script:M365DSCHostMessages.Message -join ''
-            $Script:M365DSCHostMessages = @()
-        }
-        $finalMessage = $outputMessage + $Message
-        Write-Verbose -Message $finalMessage -Verbose
-    }
-}
-
 Export-ModuleMember -Function @(
     'Assert-M365DSCBlueprint',
     'Clear-M365DSCAuthenticationParameter',
@@ -5358,6 +5276,5 @@ Export-ModuleMember -Function @(
     'Update-M365DSCExportAuthenticationResults',
     'Update-M365DSCModule',
     'Write-M365DSCLogEvent',
-    'Write-M365DSCHost',
     'Sync-M365DSCParameter'
 )

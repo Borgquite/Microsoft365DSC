@@ -568,11 +568,11 @@ function Export-TargetResource
 
         if ($Script:exportedInstances.Length -eq 0)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
         }
         $i = 1
         foreach ($assignment in $Script:exportedInstances)
@@ -582,7 +582,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-M365DSCHost -Message "    |---[$i/$($Script:exportedInstances.Count)] $($assignment.Name)" -DeferWrite
+            Write-Host "    |---[$i/$($Script:exportedInstances.Count)] $($assignment.Name)" -NoNewline
 
             $Params = @{
                 Name                  = $assignment.Name
@@ -606,14 +606,14 @@ function Export-TargetResource
             $dscContent.Append($currentDSCBlock) | Out-Null
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             $i++
         }
         return $dscContent.ToString()
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

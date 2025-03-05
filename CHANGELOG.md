@@ -13,6 +13,9 @@
     to prevent issues with this deprecated parameter
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
+* AADUser
+  * Fixed an issue where the properties with numbers were not exported correctly.
+    FIXES [#4526](https://github.com/microsoft/Microsoft365DSC/issues/4526)
 * FabricAdminTenantSettings
   * Fixed issue where the export would add double quotes in front of boolean
     variables
@@ -31,12 +34,13 @@
   * Fixes an issue with fancy double quotes being replaced that break the string.
     FIXES [#5775](https://github.com/microsoft/Microsoft365DSC/issues/5775)
     FIXES [#5623](https://github.com/microsoft/Microsoft365DSC/issues/5623)
-* M365DSCUtil
   * Escape strings in primary key of resource name for export content.
     FIXES [#5865](https://github.com/microsoft/Microsoft365DSC/issues/5865)
 * MISC
   * Replace `Write-Host` with custom function to support logs in non-interactive
     environments using the verbose stream.
+* DEPENDENCIES
+  * Updated MSCloudLoginAssistant to version 1.1.40.
 
 # 1.25.226.1
 
@@ -69,6 +73,8 @@
   * Apply ordering during export.
 * TeamsUser
   * Apply ordering during export.
+* DEPENDENCIES
+  * Updated MSCloudLoginAssistant to version 1.1.39.
 
 # 1.25.219.3
 

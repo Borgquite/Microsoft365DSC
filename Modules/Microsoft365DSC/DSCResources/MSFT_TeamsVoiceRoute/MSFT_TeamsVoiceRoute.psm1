@@ -412,7 +412,7 @@ function Export-TargetResource
         $i = 1
         [array]$routes = Get-CsOnlineVoiceRoute -ErrorAction Stop
         $dscContent = ''
-        Write-M365DSCHost -Message "`r`n" -DeferWrite
+        Write-Host "`r`n" -NoNewline
         foreach ($route in $routes)
         {
             if ($null -ne $Global:M365DSCExportResourceInstancesCount)
@@ -420,7 +420,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-M365DSCHost -Message "    |---[$i/$($routes.Count)] $($route.Identity)" -DeferWrite
+            Write-Host "    |---[$i/$($routes.Count)] $($route.Identity)" -NoNewline
             $params = @{
                 Identity              = $route.Identity
                 Ensure                = 'Present'
@@ -441,13 +441,13 @@ function Export-TargetResource
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
             $i++
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         return $dscContent
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

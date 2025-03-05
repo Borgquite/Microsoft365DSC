@@ -399,11 +399,11 @@ function Export-TargetResource
 
         if ($environments.Length -eq 0)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
         }
         foreach ($environment in $environments.value)
         {
@@ -414,7 +414,7 @@ function Export-TargetResource
                     $Global:M365DSCExportResourceInstancesCount++
                 }
 
-                Write-M365DSCHost -Message "    |---[$i/$($environments.Count)] $($environment.properties.displayName)" -DeferWrite
+                Write-Host "    |---[$i/$($environments.Count)] $($environment.properties.displayName)" -NoNewline
                 $environmentType = $environment.properties.environmentType
                 if ($environmentType -eq 'Notspecified')
                 {
@@ -440,12 +440,12 @@ function Export-TargetResource
 
                 Save-M365DSCPartialExport -Content $currentDSCBlock `
                     -FileName $Global:PartialExportFileName
-                Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+                Write-Host $Global:M365DSCEmojiGreenCheckMark
             }
             else
             {
-                Write-M365DSCHost -Message "    |---[$i/$($environments.Count)] Skipping Default Environment $($environment.DisplayName)" -DeferWrite
-                Write-M365DSCHost -Message $Global:M365DSCEmojiInformation
+                Write-Host "    |---[$i/$($environments.Count)] Skipping Default Environment $($environment.DisplayName)" -NoNewline
+                Write-Host $Global:M365DSCEmojiInformation
             }
             $i++
         }
@@ -453,7 +453,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

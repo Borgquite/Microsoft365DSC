@@ -316,22 +316,22 @@ function Export-TargetResource
 
         if ($mailboxes.Length -eq 0)
         {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
         }
         else
         {
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
         }
         $dscContent = ''
         $i = 1
         foreach ($mailbox in $mailboxes)
         {
-            Write-M365DSCHost -Message "    |---[$i/$($mailboxes.Count)] $($mailbox.UserPrincipalName)" -DeferWrite
+            Write-Host "    |---[$i/$($mailboxes.Count)] $($mailbox.UserPrincipalName)" -NoNewline
 
             [Array]$irmAccesses = Get-MailboxIRMAccess -Identity $mailbox.UserPrincipalName
 
             $j = 1
-            Write-M365DSCHost -Message "`r`n" -DeferWrite
+            Write-Host "`r`n" -NoNewline
             foreach ($irmAccess in $irmAccesses)
             {
                 if ($null -ne $Global:M365DSCExportResourceInstancesCount)
@@ -339,8 +339,8 @@ function Export-TargetResource
                     $Global:M365DSCExportResourceInstancesCount++
                 }
 
-                Write-M365DSCHost -Message "        |---[$j/$($irmAccesses.Count)] $($irmAccess.User)" -DeferWrite
-                Write-M365DSCHost -Message "`r`n" -DeferWrite
+                Write-Host "        |---[$j/$($irmAccesses.Count)] $($irmAccess.User)" -NoNewline
+                Write-Host "`r`n" -NoNewline
                 $dscIRMAccess = @{
                     Identity              = $mailbox.UserPrincipalName
                     User                  = $irmAccess.User
@@ -375,7 +375,7 @@ function Export-TargetResource
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `

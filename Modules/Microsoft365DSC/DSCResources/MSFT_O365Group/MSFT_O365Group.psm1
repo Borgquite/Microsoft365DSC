@@ -599,7 +599,7 @@ function Export-TargetResource
         }
 
         $i = 1
-        Write-M365DSCHost -Message "`r`n" -DeferWrite
+        Write-Host "`r`n" -NoNewline
         foreach ($group in $groups)
         {
             if ($null -ne $Global:M365DSCExportResourceInstancesCount)
@@ -607,7 +607,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-M365DSCHost -Message "    |---[$i/$($groups.Length)] $($group.DisplayName)" -DeferWrite
+            Write-Host "    |---[$i/$($groups.Length)] $($group.DisplayName)" -NoNewline
             $Params = @{
                 Credential            = $Credential
                 ApplicationId         = $ApplicationId
@@ -631,14 +631,14 @@ function Export-TargetResource
 
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
-            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
+            Write-Host $Global:M365DSCEmojiGreenCheckMark
             $i++
         }
         return $dscContent
     }
     catch
     {
-        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-Host $Global:M365DSCEmojiRedX
 
         New-M365DSCLogEntry -Message 'Error during Export:' `
             -Exception $_ `
