@@ -4,6 +4,11 @@
 
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
+* IntuneAppConfigurationPolicy
+  * Adds support for targeted managed apps
+    FIXES [#5566](https://github.com/microsoft/Microsoft365DSC/issues/5566)
+  * Adds support for testing drift in Apps settings. 
+    FIXES [#5566](https://github.com/microsoft/Microsoft365DSC/issues/5566)
 
 # 1.25.226.1
 
@@ -15,9 +20,6 @@
     policies from calling the cmdlet.
 * AADPasswordRuleSettings
   * Updated schema to only accept values 'Enforced' and 'Audit' for parameter BannedPasswordCheckOnPremisesMode
-* IntuneAppConfigurationPolicy
-  * Adds support for targeted managed apps
-    FIXES [#5566](https://github.com/microsoft/Microsoft365DSC/issues/5566)
 * IntuneDeviceCompliancePolicyWindows10
   * Fixes the handling of the `DeviceCompliancePolicyScript` property.
     FIXES [#5510](https://github.com/microsoft/Microsoft365DSC/issues/5510)
@@ -283,8 +285,6 @@
 * IntuneAppConfigurationPolicy
   * Fixes an issue with fetching a policy that does not exist.
     FIXES [#5666](https://github.com/microsoft/Microsoft365DSC/issues/5666)
-  * Adds support for testing drift in Apps settings. 
-    FIXES [#5566](https://github.com/microsoft/Microsoft365DSC/issues/5566)
 * IntuneApplicationControlPolicyWindows10
   * Fixes an issue with fetching a policy that does not exist.
 * IntuneAppProtectionPolicyAndroid
