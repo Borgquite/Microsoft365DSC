@@ -27276,6 +27276,41 @@
                        ]
     },
     {
+        "ClassName":  "MSFT_managedMobileApp",
+        "Parameters":  [
+                           {
+                               "CIMType":  "String",
+                               "Name":  "id",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "MSFT_AppIdentifier[]",
+                               "Name":  "mobileAppIdentifier",
+                               "Option":  "Write"
+                           }
+                       ]
+    },
+    {
+        "ClassName":  "MSFT_AppIdentifier",
+        "Parameters":  [
+                           {
+                               "CIMType":  "String",
+                               "Name":  "bundleID",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "packageID",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "windowsAppId",
+                               "Option":  "Write"
+                           }
+                       ]
+    },
+    {
         "ClassName":  "MSFT_IntuneAppConfigurationPolicy",
         "Parameters":  [
                            {
@@ -27341,6 +27376,26 @@
                            {
                                "CIMType":  "String[]",
                                "Name":  "AccessTokens",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String[]",
+                               "Name":  "roleScopeTagIds",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "targetedAppManagementLevels",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "appGroupType",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "MSFT_managedMobileApp[]",
+                               "Name":  "Apps",
                                "Option":  "Write"
                            }
                        ]
