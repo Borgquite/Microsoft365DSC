@@ -34,6 +34,8 @@
   * Fixes an issue with fancy double quotes being replaced that break the string.
     FIXES [#5775](https://github.com/microsoft/Microsoft365DSC/issues/5775)
     FIXES [#5623](https://github.com/microsoft/Microsoft365DSC/issues/5623)
+  * Escape strings in primary key of resource name for export content.
+    FIXES [#5865](https://github.com/microsoft/Microsoft365DSC/issues/5865)
 * DEPENDENCIES
   * Updated MSCloudLoginAssistant to version 1.1.40.
 
