@@ -27554,6 +27554,191 @@
                                "Option":  "Write"
                            },
                            {
+                               "CIMType":  "string[]",
+                               "Name":  "AllowedAndroidDeviceModels",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "uint32",
+                               "Name":  "AllowedOutboundClipboardSharingExceptionLength",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "boolean",
+                               "Name":  "BiometricAuthenticationBlocked",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "uint32",
+                               "Name":  "BlockAfterCompanyPortalUpdateDeferralInDays",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "boolean",
+                               "Name":  "BlockDataIngestionIntoOrganizationDocuments",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "boolean",
+                               "Name":  "ConnectToVpnOnLaunch",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "string",
+                               "Name":  "CustomDialerAppDisplayName",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "string",
+                               "Name":  "CustomDialerAppPackageId",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "boolean",
+                               "Name":  "DeviceLockRequired",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "boolean",
+                               "Name":  "FingerprintAndBiometricEnabled",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "boolean",
+                               "Name":  "KeyboardsRestricted",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "string",
+                               "Name":  "MessagingRedirectAppDisplayName",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "string",
+                               "Name":  "MessagingRedirectAppPackageId",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "string",
+                               "Name":  "MinimumWipePatchVersion",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "uint32",
+                               "Name":  "PreviousPinBlockCount",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "uint32",
+                               "Name":  "WarnAfterCompanyPortalUpdateDeferralInDays",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "uint32",
+                               "Name":  "WipeAfterCompanyPortalUpdateDeferralInDays",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String[]",
+                               "Name":  "Alloweddataingestionlocations",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "AppActionIfAndroidDeviceManufacturerNotAllowed",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "AppActionIfAndroidDeviceModelNotAllowed",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "AppActionIfAndroidSafetyNetAppsVerificationFailed",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "AppActionIfAndroidSafetyNetDeviceAttestationFailed",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "AppActionIfDeviceComplianceRequired",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "AppActionIfDeviceLockNotSet",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "AppActionIfMaximumPinRetriesExceeded",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "appActionIfUnableToAuthenticateUser",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "MobileThreatDefenseRemediationAction",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "DialerRestrictionLevel",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "MaximumAllowedDeviceThreatLevel",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "NotificationRestriction",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "ProtectedMessagingRedirectAppType",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "RequiredAndroidSafetyNetAppsVerificationType",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "RequiredAndroidSafetyNetDeviceAttestationType",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "RequiredAndroidSafetyNetEvaluationType",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "TargetedAppManagementLevels",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String[]",
+                               "Name":  "ApprovedKeyboards",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String[]",
+                               "Name":  "Exemptedapppackages",
+                               "Option":  "Write"
+                           },
+                           {
                                "CIMType":  "String",
                                "Name":  "PeriodOfflineBeforeAccessCheck",
                                "Option":  "Write"
