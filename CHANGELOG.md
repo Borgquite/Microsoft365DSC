@@ -36,9 +36,6 @@
     FIXES [#5623](https://github.com/microsoft/Microsoft365DSC/issues/5623)
   * Escape strings in primary key of resource name for export content.
     FIXES [#5865](https://github.com/microsoft/Microsoft365DSC/issues/5865)
-* MISC
-  * Replace `Write-Host` with custom function to support logs in non-interactive
-    environments using the verbose stream.
 * DEPENDENCIES
   * Updated MSCloudLoginAssistant to version 1.1.40.
 
