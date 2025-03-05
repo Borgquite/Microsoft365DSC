@@ -341,8 +341,6 @@ function Set-TargetResource
         $UpdateParameters = ([Hashtable]$BoundParameters).clone()
         $UpdateParameters = Rename-M365DSCCimInstanceParameter -Properties $UpdateParameters
 
-        $UpdateParameters.Remove('Id') | Out-Null
-
         $keys = (([Hashtable]$UpdateParameters).clone()).Keys
         foreach ($key in $keys)
         {
@@ -378,7 +376,7 @@ function Set-TargetResource
             }
         }
         #region resource generator code
-        $UpdateParameters.Add('@odata.type', '#microsoft.graph.fido2AuthenticationMethodConfiguration')
+        Write-Verbose -Message "Parameters:`r`n$(ConvertTo-Json $UpdateParameters -Depth 10)"
         Update-MgBetaPolicyAuthenticationMethodPolicyAuthenticationMethodConfiguration  `
             -AuthenticationMethodConfigurationId $currentInstance.Id `
             -BodyParameter $UpdateParameters
@@ -483,6 +481,7 @@ function Test-TargetResource
     $testResult = $true
 
     #Compare Cim instances
+    $testTargetResource = $true
     foreach ($key in $PSBoundParameters.Keys)
     {
         $source = $PSBoundParameters.$key
@@ -497,7 +496,7 @@ function Test-TargetResource
 
             if (-Not $testResult)
             {
-                $testResult = $false
+                $testTargetResource = $false
                 break
             }
 
@@ -510,17 +509,18 @@ function Test-TargetResource
     Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
     Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $ValuesToCheck)"
 
-    if ($testResult)
+    $testResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `
+        -Source $($MyInvocation.MyCommand.Source) `
+        -DesiredValues $PSBoundParameters `
+        -ValuesToCheck $ValuesToCheck.Keys
+
+    if (-not $TestResult)
     {
-        $testResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `
-            -Source $($MyInvocation.MyCommand.Source) `
-            -DesiredValues $PSBoundParameters `
-            -ValuesToCheck $ValuesToCheck.Keys
+        $testTargetResource = $false
     }
+    Write-Verbose -Message "Test-TargetResource returned $testTargetResource"
 
-    Write-Verbose -Message "Test-TargetResource returned $testResult"
-
-    return $testResult
+    return $testTargetResource
 }
 
 function Export-TargetResource
@@ -614,8 +614,6 @@ function Export-TargetResource
 
             $Script:exportedInstance = $config
             $Results = Get-TargetResource @Params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
             if ($null -ne $Results.KeyRestrictions)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
@@ -663,19 +661,9 @@ function Export-TargetResource
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-            if ($Results.KeyRestrictions)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'KeyRestrictions' -IsCIMArray:$False
-            }
-            if ($Results.ExcludeTargets)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'ExcludeTargets' -IsCIMArray:$True
-            }
-            if ($Results.IncludeTargets)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'IncludeTargets' -IsCIMArray:$True
-            }
+                -Credential $Credential `
+                -NoEscape @('KeyRestrictions', 'ExcludeTargets', 'IncludeTargets')
+
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName

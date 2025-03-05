@@ -920,6 +920,7 @@ function Test-TargetResource
     Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
     Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $PSBoundParameters)"
     $ValuesToCheck = $PSBoundParameters
+    $ValuesToCheck.Remove('Id') | Out-Null
     $TestResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `
         -Source $($MyInvocation.MyCommand.Source) `
         -DesiredValues $PSBoundParameters `
@@ -1024,11 +1025,8 @@ function Export-TargetResource
                 }
                 $Script:exportedInstance = $group
                 $Results = Get-TargetResource @Params
-
                 if ($Results -is [System.Collections.Hashtable] -and $Results.Count -gt 1)
                 {
-                    $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                        -Results $Results
                     $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                         -ConnectionMode $ConnectionMode `
                         -ModulePath $PSScriptRoot `

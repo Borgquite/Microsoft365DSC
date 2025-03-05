@@ -667,7 +667,7 @@ function Test-M365DSCParameterState
             $propertyName = $existingDrift.Keys[0]
             $value =  $existingDrift."$propertyName"
             $start = $value.IndexOf('</CurrentValue>')
-            $currentValue = $value.Substring(0, $start).Replace('<CurrentValue>', '')            
+            $currentValue = $value.Substring(0, $start).Replace('<CurrentValue>', '')
             $desiredValue = $value.Substring($start+15, ($value.Length)-($start+15)).Replace('<DesiredValue>', '').Replace('</DesiredValue>', '')
             $DriftObject.DriftInfo.Add($propertyName, @{
                 PropertyName = $propertyName
@@ -1881,8 +1881,8 @@ function New-M365DSCConnection
     param
     (
         [Parameter(Mandatory = $true)]
-        [ValidateSet('AdminAPI', 'Azure', 'AzureDevOPS', 'DefenderForEndPoint', 'ExchangeOnline', 'Fabric', 'Intune', `
-                'SecurityComplianceCenter', 'PnP', 'PowerPlatforms', `
+        [ValidateSet('AdminAPI', 'Azure', 'AzureDevOPS', 'DefenderForEndPoint', 'ExchangeOnline', 'Fabric', 'Intune', 'Licensing', `
+                'SecurityComplianceCenter', 'PnP', 'PowerPlatforms', 'PowerPlatformREST', `
                 'MicrosoftTeams', 'MicrosoftGraph', 'SharePointOnlineREST', 'Tasks', 'AdminAPI')]
         [System.String]
         $Workload,
@@ -3256,9 +3256,14 @@ function Update-M365DSCDependencies
         [Parameter()]
         [Switch]
         $ValidateOnly,
+
         [Parameter()]
         [ValidateSet("CurrentUser", "AllUsers")]
-        $Scope = "AllUsers"
+        $Scope = "AllUsers",
+
+        [Parameter()]
+        [System.String]
+        $Proxy
     )
 
     try
@@ -3272,6 +3277,12 @@ function Update-M365DSCDependencies
         $i = 1
 
         $returnValue = @()
+
+        $params = @{}
+        if (-not [System.String]::IsNullOrEmpty($Proxy))
+        {
+            $params.Add('Proxy', $Proxy)
+        }
 
         foreach ($dependency in $dependencies)
         {
@@ -3328,7 +3339,7 @@ function Update-M365DSCDependencies
                             Remove-Module 'Microsoft.Graph.Authentication' -Force -ErrorAction SilentlyContinue
                         }
                         Remove-Module $dependency.ModuleName -Force -ErrorAction SilentlyContinue
-                        Install-Module $dependency.ModuleName -RequiredVersion $dependency.RequiredVersion -AllowClobber -Force -Scope "$Scope"
+                        Install-Module $dependency.ModuleName -RequiredVersion $dependency.RequiredVersion -AllowClobber -Force -Scope "$Scope" @Params
                     }
                 }
 
@@ -3505,13 +3516,13 @@ This function removes all empty values from a dictionary object
 .Functionality
 Internal
 #>
-function Remove-EmptyValue
+function Remove-M365DSCEmptyValue
 {
-    [alias('Remove-EmptyValues')]
+    [Alias('Remove-M365DSCEmptyValues')]
     [CmdletBinding()]
     param
     (
-        [alias('Splat', 'IDictionary')][Parameter(Mandatory)][System.Collections.IDictionary] $Hashtable,
+        [Alias('Splat', 'IDictionary')][Parameter(Mandatory)][System.Collections.IDictionary] $Hashtable,
         [string[]] $ExcludeParameter,
         [switch] $Recursive,
         [int] $Rerun
@@ -3531,7 +3542,7 @@ function Remove-EmptyValue
                     }
                     else
                     {
-                        Remove-EmptyValue -Hashtable $Hashtable[$Key] -Recursive:$Recursive
+                        Remove-M365DSCEmptyValue -Hashtable $Hashtable[$Key] -Recursive:$Recursive
                     }
                 }
                 else
@@ -3555,7 +3566,7 @@ function Remove-EmptyValue
     {
         for ($i = 0; $i -lt $Rerun; $i++)
         {
-            Remove-EmptyValue -Hashtable $Hashtable -Recursive:$Recursive
+            Remove-M365DSCEmptyValue -Hashtable $Hashtable -Recursive:$Recursive
         }
     }
 }
@@ -3584,6 +3595,7 @@ function Update-M365DSCExportAuthenticationResults
         $Results
     )
 
+    $noEscape = @()
     if ($Results.ContainsKey('ManagedIdentity') -and -not $Results.ManagedIdentity)
     {
         $Results.Remove('ManagedIdentity')
@@ -3591,6 +3603,7 @@ function Update-M365DSCExportAuthenticationResults
     if ($ConnectionMode -eq 'Credentials')
     {
         $Results.Credential = Resolve-Credentials -UserName 'credential'
+        $noEscape += 'Credential'
         if ($Results.ContainsKey('ApplicationId'))
         {
             $Results.Remove('ApplicationId') | Out-Null
@@ -3619,6 +3632,7 @@ function Update-M365DSCExportAuthenticationResults
     elseif ($ConnectionMode -eq 'CredentialsWithTenantId')
     {
         $Results.Credential = Resolve-Credentials -UserName 'credential'
+        $noEscape += 'Credential'
         if ($Results.ContainsKey('ApplicationId'))
         {
             $Results.Remove('ApplicationId') | Out-Null
@@ -3649,10 +3663,12 @@ function Update-M365DSCExportAuthenticationResults
         elseif ($Results.ContainsKey('Credential') -and $ConnectionMode -eq 'CredentialsWithApplicationId')
         {
             $Results.Credential = Resolve-Credentials -UserName 'credential'
+            $noEscape += 'Credential'
         }
         if (-not [System.String]::IsNullOrEmpty($Results.ApplicationId))
         {
             $Results.ApplicationId = "`$ConfigurationData.NonNodeData.ApplicationId"
+            $noEscape += 'ApplicationId'
         }
         else
         {
@@ -3668,6 +3684,7 @@ function Update-M365DSCExportAuthenticationResults
         if (-not [System.String]::IsNullOrEmpty($Results.CertificateThumbprint))
         {
             $Results.CertificateThumbprint = "`$ConfigurationData.NonNodeData.CertificateThumbprint"
+            $noEscape += 'CertificateThumbprint'
         }
         else
         {
@@ -3683,6 +3700,7 @@ function Update-M365DSCExportAuthenticationResults
         if (-not [System.String]::IsNullOrEmpty($Results.CertificatePath))
         {
             $Results.CertificatePath = "`$ConfigurationData.NonNodeData.CertificatePath"
+            $noEscape += 'CertificatePath'
         }
         else
         {
@@ -3698,6 +3716,7 @@ function Update-M365DSCExportAuthenticationResults
         if (-not [System.String]::IsNullOrEmpty($Results.TenantId))
         {
             $Results.TenantId = "`$ConfigurationData.NonNodeData.TenantId"
+            $noEscape += 'TenantId'
         }
         else
         {
@@ -3713,6 +3732,7 @@ function Update-M365DSCExportAuthenticationResults
         if (-not [System.String]::IsNullOrEmpty($Results.ApplicationSecret))
         {
             $Results.ApplicationSecret = "New-Object System.Management.Automation.PSCredential ('ApplicationSecret', (ConvertTo-SecureString `$ConfigurationData.NonNodeData.ApplicationSecret -AsPlainText -Force))"
+            $noEscape += 'ApplicationSecret'
         }
         else
         {
@@ -3744,9 +3764,14 @@ function Update-M365DSCExportAuthenticationResults
         if ($null -ne $Results.AccessTokens)
         {
             $results.AccessTokens = "`$ConfigurationData.NonNodeData.AccessTokens"
+            $noEscape += 'AccessTokens'
         }
     }
-    return $Results
+
+    return @{
+        Results = $Results
+        NoEscape = $noEscape
+    }
 }
 
 <#
@@ -3781,8 +3806,29 @@ function Get-M365DSCExportContentForResource
 
         [Parameter()]
         [System.Management.Automation.PSCredential]
-        $Credential
+        $Credential,
+
+        [Parameter()]
+        [System.String[]]
+        $NoEscape,
+
+        [Parameter()]
+        [switch]
+        $SkipAuthenticationUpdate,
+
+        [Parameter()]
+        [switch]
+        $AllowVariablesInStrings
     )
+
+    if (-not $SkipAuthenticationUpdate)
+    {
+        $withoutAuthentication = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
+            -Results $Results
+        $Results = $withoutAuthentication.Results
+        $NoEscape += $withoutAuthentication.NoEscape
+    }
+    $NoEscape = $NoEscape | Select-Object -Unique
 
     $OrganizationName = ''
     if ($ConnectionMode -like 'ServicePrincipal*' -or `
@@ -3894,6 +3940,14 @@ function Get-M365DSCExportContentForResource
     $instanceName = $ResourceName
     if (-not [System.String]::IsNullOrEmpty($primaryKey))
     {
+        if ($AllowVariablesInStrings)
+        {
+            $primaryKey = $primaryKey.Replace('`', '``').Replace('"', '`"')
+        }
+        else
+        {
+            $primaryKey = $primaryKey.Replace('`', '``').Replace('$', '`$').Replace('"', '`"')
+        }
         $instanceName += "-$primaryKey"
     }
 
@@ -3904,7 +3958,7 @@ function Get-M365DSCExportContentForResource
 
     # Check to see if a resource with this exact name was already exported, if so, append a number to the end.
     $i = 2
-    $tempName = $instanceName.Replace('"', '')
+    $tempName = $instanceName
     while ($null -ne $Global:M365DSCExportedResourceInstancesNames -and `
            $Global:M365DSCExportedResourceInstancesNames.Contains($tempName))
     {
@@ -3917,56 +3971,7 @@ function Get-M365DSCExportContentForResource
     $content = [System.Text.StringBuilder]::New()
     [void]$content.Append("        $ResourceName `"$instanceName`"`r`n")
     [void]$content.Append("        {`r`n")
-    $partialContent = Get-DSCBlock -Params $Results -ModulePath $ModulePath
-    # Test for both Credentials and CredentialsWithApplicationId
-    if ($ConnectionMode -match 'Credentials')
-    {
-        $partialContent = Convert-DSCStringParamToVariable -DSCBlock $partialContent `
-            -ParameterName 'Credential'
-        if (![System.String]::IsNullOrEmpty($Results.ApplicationId))
-        {
-            $partialContent = Convert-DSCStringParamToVariable -DSCBlock $partialContent `
-                -ParameterName 'ApplicationId'
-        }
-    }
-    else
-    {
-        if (![System.String]::IsNullOrEmpty($Results.ApplicationId))
-        {
-            $partialContent = Convert-DSCStringParamToVariable -DSCBlock $partialContent `
-                -ParameterName 'ApplicationId'
-        }
-        if (![System.String]::IsNullOrEmpty($Results.TenantId))
-        {
-            $partialContent = Convert-DSCStringParamToVariable -DSCBlock $partialContent `
-                -ParameterName 'TenantId'
-        }
-        if (![System.String]::IsNullOrEmpty($Results.ApplicationSecret))
-        {
-            $partialContent = Convert-DSCStringParamToVariable -DSCBlock $partialContent `
-                -ParameterName 'ApplicationSecret'
-        }
-        if (![System.String]::IsNullOrEmpty($Results.CertificatePath))
-        {
-            $partialContent = Convert-DSCStringParamToVariable -DSCBlock $partialContent `
-                -ParameterName 'CertificatePath'
-        }
-        if (![System.String]::IsNullOrEmpty($Results.CertificateThumbprint))
-        {
-            $partialContent = Convert-DSCStringParamToVariable -DSCBlock $partialContent `
-                -ParameterName 'CertificateThumbprint'
-        }
-        if (![System.String]::IsNullOrEmpty($Results.CertificatePassword))
-        {
-            $partialContent = Convert-DSCStringParamToVariable -DSCBlock $partialContent `
-                -ParameterName 'CertificatePassword'
-        }
-        if (![System.String]::IsNullOrEmpty($Results.AccessTokens))
-        {
-            $partialContent = Convert-DSCStringParamToVariable -DSCBlock $partialContent `
-                -ParameterName 'AccessTokens'
-        }
-    }
+    $partialContent = Get-DSCBlock -Params $Results -ModulePath $ModulePath -NoEscape $NoEscape -AllowVariablesInStrings:$AllowVariablesInStrings
 
     if ($partialContent.ToLower().IndexOf($OrganizationName.ToLower()) -gt 0)
     {
@@ -4788,11 +4793,22 @@ function Update-M365DSCModule
     param(
         [Parameter()]
         [ValidateSet("CurrentUser", "AllUsers")]
-        $Scope = "AllUsers"
+        $Scope = "AllUsers",
+
+        [Parameter()]
+        [System.String]
+        $Proxy
     )
+
+    $params = @{}
+
+    if (-not [System.String]::IsNullOrEmpty($proxy))
+    {
+        $params.Add('Proxy', $Proxy)
+    }
     try
     {
-        Update-Module -Name 'Microsoft365DSC' -ErrorAction Stop
+        Update-Module -Name 'Microsoft365DSC' @Params -ErrorAction Stop
     }
     catch
     {
@@ -4821,7 +4837,7 @@ function Update-M365DSCModule
             -Source $($MyInvocation.MyCommand.Source)
         throw $_
     }
-    Update-M365DSCDependencies -Scope $Scope
+    Update-M365DSCDependencies -Scope $Scope -Proxy $Proxy
     Uninstall-M365DSCOutdatedDependencies
 }
 
@@ -5245,7 +5261,7 @@ Export-ModuleMember -Function @(
     'New-M365DSCCmdletDocumentation',
     'New-M365DSCConnection',
     'New-M365DSCMissingResourcesExample',
-    'Remove-EmptyValue',
+    'Remove-M365DSCEmptyValue',
     'Remove-M365DSCAuthenticationParameter',
     'Remove-NullEntriesFromHashtable',
     'Set-EXOSafeAttachmentRule',

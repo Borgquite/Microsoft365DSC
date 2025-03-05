@@ -2010,8 +2010,6 @@ function Export-TargetResource
         }
 
         $Results = Get-TargetResource @Params
-        $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-            -Results $Results
 
         $newResults = ([Hashtable]$Results).Clone()
         foreach ($key in $Results.Keys)
@@ -2042,6 +2040,7 @@ function Export-TargetResource
         }
         if ($fixQuotes)
         {
+            $currentDSCBlock = $currentDSCBlock.Replace('`$', '$')
             $currentDSCBlock = $currentDSCBlock.Replace('`', '"')
         }
         $dscContent += $currentDSCBlock

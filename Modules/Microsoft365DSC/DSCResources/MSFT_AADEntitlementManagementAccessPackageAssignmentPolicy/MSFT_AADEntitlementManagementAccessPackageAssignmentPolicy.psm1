@@ -693,7 +693,7 @@ function Set-TargetResource
             $UpdateParameters.AccessPackageId = $AccessPackageId
         }
 
-        #write-verbose ($UpdateParameters|convertto-json -Depth 100)
+        Write-Verbose -Message "Updating with values:`r`n$($UpdateParameters | convertto-json -Depth 10)"
         Set-MgBetaEntitlementManagementAccessPackageAssignmentPolicy `
             -BodyParameter $UpdateParameters `
             -AccessPackageAssignmentPolicyId $currentInstance.Id
@@ -811,6 +811,9 @@ function Test-TargetResource
     $ValuesToCheck = ([Hashtable]$PSBoundParameters).clone()
     $testResult = $true
 
+    Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
+    Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $ValuesToCheck)"
+
     #Compare Cim instances
     foreach ($key in $PSBoundParameters.Keys)
     {
@@ -834,9 +837,6 @@ function Test-TargetResource
         }
     }
     $ValuesToCheck.Remove('Id') | Out-Null
-
-    Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
-    Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $ValuesToCheck)"
 
     if ($testResult)
     {
@@ -944,8 +944,6 @@ function Export-TargetResource
             }
 
             $Results = Get-TargetResource @Params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
 
             if ($null -ne $Results.AccessReviewSettings)
             {
@@ -1083,29 +1081,8 @@ function Export-TargetResource
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-
-            if ($null -ne $Results.AccessReviewSettings)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'AccessReviewSettings'
-                #$currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Reviewers'
-            }
-            if ($null -ne $Results.Questions )
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Questions' -IsCIMArray:$true
-            }
-            if ($null -ne $Results.RequestApprovalSettings)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'RequestApprovalSettings'
-            }
-            if ($null -ne $Results.RequestorSettings)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'RequestorSettings'
-            }
-            if ($null -ne $Results.CustomExtensionHandlers)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'CustomExtensionHandlers' -IsCIMArray:$true
-            }
+                -Credential $Credential `
+                -NoEscape @('AccessReviewSettings', 'Questions', 'RequestApprovalSettings', 'RequestorSettings', 'CustomExtensionHandlers')
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `

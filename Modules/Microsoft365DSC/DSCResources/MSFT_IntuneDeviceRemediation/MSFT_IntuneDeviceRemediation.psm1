@@ -456,11 +456,10 @@ function Set-TargetResource
 
         if ($policy.Id)
         {
-            $uri = "/beta/deviceManagement/deviceHealthScripts/$($policy.Id)/assign"
-            $body = @{
-                deviceHealthScriptAssignments = $assignmentsHash
-            } | ConvertTo-Json -Depth 20
-            Invoke-MgGraphRequest -Method POST -Uri $uri -Body $body -ErrorAction Stop 4> $null
+            Update-DeviceConfigurationPolicyAssignment -DeviceConfigurationPolicyId $policy.Id `
+                -Targets $assignmentsHash `
+                -Repository 'deviceManagement/deviceHealthScripts' `
+                -RootIdentifier 'deviceHealthScriptAssignments'
         }
         #endregion
     }
@@ -533,11 +532,10 @@ function Set-TargetResource
                 target               = $assignmentTarget.target
             }
         }
-        $uri = "/beta/deviceManagement/deviceHealthScripts/$($currentInstance.Id)/assign"
-        $body = @{
-            deviceHealthScriptAssignments = $assignmentsHash
-        } | ConvertTo-Json -Depth 20
-        Invoke-MgGraphRequest -Method POST -Uri $uri -Body $body -ErrorAction Stop 4> $null
+        Update-DeviceConfigurationPolicyAssignment -DeviceConfigurationPolicyId $currentInstance.Id `
+            -Targets $assignmentsHash `
+            -Repository 'deviceManagement/deviceHealthScripts' `
+            -RootIdentifier 'deviceHealthScriptAssignments'
         #endregion
     }
     elseif ($Ensure -eq 'Absent' -and $currentInstance.Ensure -eq 'Present')
@@ -830,8 +828,6 @@ function Export-TargetResource
             }
 
             $Results = Get-TargetResource @Params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
             if ($null -ne $Results.DetectionScriptParameters)
             {
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
@@ -892,22 +888,8 @@ function Export-TargetResource
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-            if ($Results.DetectionScriptParameters)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'DetectionScriptParameters' -IsCIMArray:$True
-            }
-            if ($Results.RemediationScriptParameters)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'RemediationScriptParameters' -IsCIMArray:$True
-            }
-            if ($Results.Assignments)
-            {
-                $currentDSCBlock = (Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'Assignments' -IsCIMArray:$true).Replace("''", "'")
-                $currentDSCBlock = [Regex]::Replace($currentDSCBlock, "Assignment = '\r\n                ", 'Assignment = ')
-                $currentDSCBlock = $currentDSCBlock.Replace("RunSchedule = '", 'RunSchedule = ').Replace("}'", '}')
-                $currentDSCBlock = [Regex]::Replace($currentDSCBlock, "\r\n            '", '')
-            }
+                -Credential $Credential `
+                -NoEscape @('DetectionScriptParameters', 'RemediationScriptParameters', 'Assignments')
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `

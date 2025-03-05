@@ -145,7 +145,7 @@ function Get-TargetResource
         {
             $ownerValue = Get-User -Identity $config.Identity
             $result = @{
-                Identity                         = $config.Identity
+                Identity                         = $ownerValue.UserPrincipalName
                 Owner                            = $ownerValue.UserPrincipalName
                 AutoDeclineFutureRequestsWhenOOF = [Boolean]$config.AutoDeclineFutureRequestsWhenOOF
                 AutoReplyState                   = $config.AutoReplyState
@@ -550,8 +550,6 @@ function Export-TargetResource
                 AccessTokens          = $AccessTokens
             }
             $Results = Get-TargetResource @Params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `

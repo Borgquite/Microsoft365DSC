@@ -725,7 +725,7 @@ function Export-TargetResource
             $organization = $Credential.UserName.Split('@')[1]
         }
 
-        $teams = Get-Team
+        $teams = Get-Team | Sort-Object -Property GroupId
         $i = 1
         $dscContent = ''
         Write-Host "`r`n" -NoNewline
@@ -751,8 +751,6 @@ function Export-TargetResource
                     AccessTokens          = $AccessTokens
                 }
                 $Results = Get-TargetResource @Params
-                $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                    -Results $Results
                 $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                     -ConnectionMode $ConnectionMode `
                     -ModulePath $PSScriptRoot `
