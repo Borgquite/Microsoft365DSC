@@ -1,4 +1,4 @@
-﻿# IntuneSecurityBaselineWindows10
+﻿# IntuneSecurityBaselineWindows365
 
 ## Parameters
 
@@ -8,8 +8,8 @@
 | **DisplayName** | Key | String | Policy name | |
 | **RoleScopeTagIds** | Write | StringArray[] | List of Scope Tags for this Entity instance. | |
 | **Id** | Write | String | The unique identifier for an entity. Read-only. | |
-| **DeviceSettings** | Write | MSFT_MicrosoftGraphIntuneSettingsCatalogDeviceSettings_IntuneSecurityBaselineWindows10 | The policy settings for the device scope. | |
-| **UserSettings** | Write | MSFT_MicrosoftGraphIntuneSettingsCatalogUserSettings_IntuneSecurityBaselineWindows10 | The policy settings for the user scope. | |
+| **DeviceSettings** | Write | MSFT_MicrosoftGraphIntuneSettingsCatalogDeviceSettings_IntuneSecurityBaselineWindows365 | The device scope settings for the policy. | |
+| **UserSettings** | Write | MSFT_MicrosoftGraphIntuneSettingsCatalogUserSettings_IntuneSecurityBaselineWindows365 | The user scope settings for the policy. | |
 | **Assignments** | Write | MSFT_DeviceManagementConfigurationPolicyAssignments[] | Represents the assignment to the Intune policy. | |
 | **Ensure** | Write | String | Present ensures the policy exists, absent ensures it is removed. | `Present`, `Absent` |
 | **Credential** | Write | PSCredential | Credentials of the Admin | |
@@ -42,7 +42,7 @@
 | **value** | Write | String | Value | |
 | **key** | Write | String | Name | |
 
-### MSFT_MicrosoftGraphIntuneSettingsCatalogDeviceSettings_IntuneSecurityBaselineWindows10
+### MSFT_MicrosoftGraphIntuneSettingsCatalogDeviceSettings_IntuneSecurityBaselineWindows365
 
 #### Parameters
 
@@ -67,19 +67,6 @@
 | **hardeneduncpaths_Pol_HardenedPaths** | Write | String | Hardened UNC Paths (0: Disabled, 1: Enabled) | `0`, `1` |
 | **pol_hardenedpaths** | Write | MSFT_MicrosoftGraphIntuneSettingsCatalogpol_hardenedpaths[] | Hardened UNC Paths: (Device) - Depends on hardeneduncpaths_Pol_HardenedPaths | |
 | **WCM_BlockNonDomain** | Write | String | Prohibit connection to non-domain networks when connected to domain authenticated network (0: Disabled, 1: Enabled) | `0`, `1` |
-| **ConfigureRedirectionGuardPolicy** | Write | String | Configure Redirection Guard (0: Disabled, 1: Enabled) | `0`, `1` |
-| **RedirectionGuardPolicy_Enum** | Write | String | Redirection Guard Options (Device) - Depends on ConfigureRedirectionGuardPolicy (0: Redirection Guard Disabled, 1: Redirection Guard Enabled, 2: Redirection Guard Audit Only) | `0`, `1`, `2` |
-| **ConfigureRpcConnectionPolicy** | Write | String | Configure RPC connection settings (0: Disabled, 1: Enabled) | `0`, `1` |
-| **RpcConnectionAuthentication_Enum** | Write | String | Use authentication for outgoing RPC connections: (Device) - Depends on ConfigureRpcConnectionPolicy (0: Default, 1: Authentication enabled, 2: Authentication disabled) | `0`, `1`, `2` |
-| **RpcConnectionProtocol_Enum** | Write | String | Protocol to use for outgoing RPC connections: (Device) - Depends on ConfigureRpcConnectionPolicy (0: RPC over TCP, 1: RPC over named pipes) | `0`, `1` |
-| **ConfigureRpcListenerPolicy** | Write | String | Configure RPC listener settings (0: Disabled, 1: Enabled) | `0`, `1` |
-| **RpcAuthenticationProtocol_Enum** | Write | String | Authentication protocol to use for incoming RPC connections: (Device) - Depends on ConfigureRpcListenerPolicy (0: Negotiate, 1: Kerberos) | `0`, `1` |
-| **RpcListenerProtocols_Enum** | Write | String | Protocols to allow for incoming RPC connections: (Device) - Depends on ConfigureRpcListenerPolicy (3: RPC over named pipes, 5: RPC over TCP, 7: RPC over named pipes and TCP) | `3`, `5`, `7` |
-| **ConfigureRpcTcpPort** | Write | String | Configure RPC over TCP port (0: Disabled, 1: Enabled) | `0`, `1` |
-| **RpcTcpPort** | Write | SInt32 | RPC over TCP port: (Device) - Depends on ConfigureRpcTcpPort | |
-| **RestrictDriverInstallationToAdministrators** | Write | String | Limits print driver installation to Administrators (0: Disabled, 1: Enabled) | `0`, `1` |
-| **ConfigureCopyFilesPolicy** | Write | String | Manage processing of Queue-specific files (0: Disabled, 1: Enabled) | `0`, `1` |
-| **CopyFilesPolicy_Enum** | Write | String | Manage processing of Queue-Specific files: (Device) - Depends on ConfigureCopyFilesPolicy (0: Do not allow Queue-specific files, 1: Limit Queue-specific files to Color profiles, 2: Allow all Queue-specfic files) | `0`, `1`, `2` |
 | **AllowEncryptionOracle** | Write | String | Encryption Oracle Remediation (0: Disabled, 1: Enabled) | `0`, `1` |
 | **AllowEncryptionOracleDrop** | Write | String | Protection Level: (Device) - Depends on AllowEncryptionOracle (0: Force Updated Clients, 1: Mitigated, 2: Vulnerable) | `0`, `1`, `2` |
 | **AllowProtectedCreds** | Write | String | Remote host allows delegation of non-exportable credentials (0: Disabled, 1: Enabled) | `0`, `1` |
@@ -93,11 +80,6 @@
 | **CSE_NOCHANGES10** | Write | String | Process even if the Group Policy objects have not changed (Device) - Depends on CSE_Registry (0: False, 1: True) | `0`, `1` |
 | **DisableWebPnPDownload_2** | Write | String | Turn off downloading of print drivers over HTTP (0: Disabled, 1: Enabled) | `0`, `1` |
 | **ShellPreventWPWDownload_2** | Write | String | Turn off Internet download for Web publishing and online ordering wizards (0: Disabled, 1: Enabled) | `0`, `1` |
-| **AllowCustomSSPsAPs** | Write | String | Allow Custom SSPs and APs to be loaded into LSASS (0: Disabled, 1: Enabled) | `0`, `1` |
-| **AllowStandbyStatesDC_2** | Write | String | Allow standby states (S1-S3) when sleeping (on battery) (0: Disabled, 1: Enabled) | `0`, `1` |
-| **AllowStandbyStatesAC_2** | Write | String | Allow standby states (S1-S3) when sleeping (plugged in) (0: Disabled, 1: Enabled) | `0`, `1` |
-| **DCPromptForPasswordOnResume_2** | Write | String | Require a password when a computer wakes (on battery) (0: Disabled, 1: Enabled) | `0`, `1` |
-| **ACPromptForPasswordOnResume_2** | Write | String | Require a password when a computer wakes (plugged in) (0: Disabled, 1: Enabled) | `0`, `1` |
 | **RA_Solicit** | Write | String | Configure Solicited Remote Assistance (0: Disabled, 1: Enabled) | `0`, `1` |
 | **RA_Solicit_ExpireUnits_List** | Write | String | Maximum ticket time (units): - Depends on RA_Solicit (0: Minutes, 1: Hours, 2: Days) | `0`, `1`, `2` |
 | **RA_Solicit_ExpireValue_Edt** | Write | SInt32 | Maximum ticket time (value): - Depends on RA_Solicit | |
@@ -111,9 +93,6 @@
 | **NoAutorun_Dropdown** | Write | String | Default AutoRun Behavior - Depends on NoAutorun (1: Do not execute any autorun commands, 2: Automatically execute autorun commands) | `1`, `2` |
 | **Autorun** | Write | String | Turn off Autoplay (0: Disabled, 1: Enabled) | `0`, `1` |
 | **Autorun_Box** | Write | String | Turn off Autoplay on: - Depends on Autorun (181: CD-ROM and removable media drives, 255: All drives) | `181`, `255` |
-| **FDVDenyWriteAccess_Name** | Write | String | Deny write access to fixed drives not protected by BitLocker (0: Disabled, 1: Enabled) | `0`, `1` |
-| **RDVDenyWriteAccess_Name** | Write | String | Deny write access to removable drives not protected by BitLocker (0: Disabled, 1: Enabled) | `0`, `1` |
-| **RDVCrossOrg** | Write | String | Do not allow write access to devices configured in another organization - Depends on RDVDenyWriteAccess_Name (0: False, 1: True) | `0`, `1` |
 | **EnumerateAdministrators** | Write | String | Enumerate administrator accounts on elevation (0: Disabled, 1: Enabled) | `0`, `1` |
 | **Channel_LogMaxSize_1** | Write | String | Specify the maximum log file size (KB) (0: Disabled, 1: Enabled) | `0`, `1` |
 | **Channel_LogMaxSize_1_Channel_LogMaxSize** | Write | SInt32 | Maximum Log Size (KB) - Depends on Channel_LogMaxSize_1 | |
@@ -340,7 +319,6 @@
 | **TS_ENCRYPTION_POLICY** | Write | String | Set client connection encryption level (0: Disabled, 1: Enabled) | `0`, `1` |
 | **TS_ENCRYPTION_LEVEL** | Write | String | Encryption Level - Depends on TS_ENCRYPTION_POLICY (1: Low Level, 2: Client Compatible, 3: High Level) | `1`, `2`, `3` |
 | **Disable_Downloading_of_Enclosures** | Write | String | Prevent downloading of enclosures (0: Disabled, 1: Enabled) | `0`, `1` |
-| **EnableMPRNotifications** | Write | String | Enable MPR notifications for the system (0: Disabled, 1: Enabled) | `0`, `1` |
 | **AutomaticRestartSignOn** | Write | String | Sign-in and lock last interactive user automatically after a restart (0: Disabled, 1: Enabled) | `0`, `1` |
 | **EnableScriptBlockLogging** | Write | String | Turn on PowerShell Script Block Logging (0: Disabled, 1: Enabled) | `0`, `1` |
 | **EnableScriptBlockInvocationLogging** | Write | String | Log script block invocation start / stop events: - Depends on EnableScriptBlockLogging (0: False, 1: True) | `0`, `1` |
@@ -373,11 +351,6 @@
 | **System_AuditOtherSystemEvents** | Write | String | System Audit Other System Events (0: Off/None, 1: Success, 2: Failure, 3: Success+Failure) | `0`, `1`, `2`, `3` |
 | **System_AuditSecurityStateChange** | Write | String | System Audit Security State Change (0: Off/None, 1: Success, 2: Failure, 3: Success+Failure) | `0`, `1`, `2`, `3` |
 | **System_AuditSystemIntegrity** | Write | String | System Audit System Integrity (0: Off/None, 1: Success, 2: Failure, 3: Success+Failure) | `0`, `1`, `2`, `3` |
-| **AllowPasswordManager** | Write | String | Allow Password Manager (0: Not allowed., 1: Allowed.) | `0`, `1` |
-| **AllowSmartScreen** | Write | String | Allow Smart Screen (0: Turned off. Do not protect users from potential threats and prevent users from turning it on., 1: Turned on. Protect users from potential threats and prevent users from turning it off.) | `0`, `1` |
-| **PreventCertErrorOverrides** | Write | String | Prevent Cert Error Overrides (0: Allowed/turned on. Override the security warning to sites that have SSL errors., 1: Prevented/turned on.) | `0`, `1` |
-| **Browser_PreventSmartScreenPromptOverride** | Write | String | Prevent Smart Screen Prompt Override (0: Allowed/turned off. Users can ignore the warning and continue to the site., 1: Prevented/turned on.) | `0`, `1` |
-| **PreventSmartScreenPromptOverrideForFiles** | Write | String | Prevent Smart Screen Prompt Override For Files (0: Allowed/turned off. Users can ignore the warning and continue to download the unverified file(s)., 1: Prevented/turned on.) | `0`, `1` |
 | **AllowDirectMemoryAccess** | Write | String | Allow Direct Memory Access (0: Not allowed., 1: Allowed.) | `0`, `1` |
 | **AllowArchiveScanning** | Write | String | Allow Archive Scanning (0: Not allowed. Turns off scanning on archived files., 1: Allowed. Scans the archive files.) | `0`, `1` |
 | **AllowBehaviorMonitoring** | Write | String | Allow Behavior Monitoring (0: Not allowed. Turns off behavior monitoring., 1: Allowed. Turns on real-time behavior monitoring.) | `0`, `1` |
@@ -442,12 +415,49 @@
 | **MinDevicePasswordLength** | Write | SInt32 | Min Device Password Length - Depends on DevicePasswordEnabled | |
 | **AlphanumericDevicePasswordRequired** | Write | String | Alphanumeric Device Password Required - Depends on DevicePasswordEnabled (0: Password or Alphanumeric PIN required., 1: Password or Numeric PIN required., 2: Password, Numeric PIN, or Alphanumeric PIN required.) | `0`, `1`, `2` |
 | **MaxDevicePasswordFailedAttempts** | Write | SInt32 | Max Device Password Failed Attempts - Depends on DevicePasswordEnabled | |
-| **MinDevicePasswordComplexCharacters** | Write | String | Min Device Password Complex Characters - Depends on DevicePasswordEnabled (1: Digits only, 2: Digits and lowercase letters are required, 3: Digits lowercase letters and uppercase letters are required. Not supported in desktop Microsoft accounts and domain accounts, 4: Digits lowercase letters uppercase letters and special characters are required. Not supported in desktop) | `1`, `2`, `3`, `4` |
+| **MinDevicePasswordComplexCharacters** | Write | String | Min Device Password Complex Characters - Depends on DevicePasswordEnabled. (1: Digits only, 2: Digits and lowercase letters are required, 3: Digits lowercase letters and uppercase letters are required. Not supported in desktop Microsoft accounts and domain accounts, 4: Digits lowercase letters uppercase letters and special characters are required. Not supported in desktop) | `1`, `2`, `3`, `4` |
 | **MaxInactivityTimeDeviceLock** | Write | SInt32 | Max Inactivity Time Device Lock - Depends on DevicePasswordEnabled | |
 | **DevicePasswordHistory** | Write | SInt32 | Device Password History - Depends on DevicePasswordEnabled | |
 | **AllowSimpleDevicePassword** | Write | String | Allow Simple Device Password - Depends on DevicePasswordEnabled (0: Not allowed., 1: Allowed.) | `0`, `1` |
 | **DeviceEnumerationPolicy** | Write | String | Device Enumeration Policy (0: Block all (Most restrictive), 1: Only after log in/screen unlock, 2: Allow all (Least restrictive)) | `0`, `1`, `2` |
 | **EnableInsecureGuestLogons** | Write | String | Enable Insecure Guest Logons (0: Disabled, 1: Enabled) | `0`, `1` |
+| **ConfigureLsaProtectedProcess** | Write | String | Configure Lsa Protected Process (0: Disabled. Default value. LSA will not run as protected process., 1: Enabled with UEFI lock. LSA will run as protected process and this configuration is UEFI locked., 2: Enabled without UEFI lock. LSA will run as protected process and this configuration is not UEFI locked.) | `0`, `1`, `2` |
+| **AllowGameDVR** | Write | String | Allow Game DVR (0: Not allowed., 1: Allowed.) | `0`, `1` |
+| **MSIAllowUserControlOverInstall** | Write | String | MSI Allow User Control Over Install (0: Disabled, 1: Enabled) | `0`, `1` |
+| **MSIAlwaysInstallWithElevatedPrivileges** | Write | String | MSI Always Install With Elevated Privileges (0: Disabled, 1: Enabled) | `0`, `1` |
+| **MicrosoftEdge_ContentSettings_DefaultPluginsSetting** | Write | String | Default Adobe Flash setting (0: Disabled, 1: Enabled) | `0`, `1` |
+| **DefaultPluginsSetting_DefaultPluginsSetting** | Write | String | Default Adobe Flash setting (Device) - Depends on MicrosoftEdge_ContentSettings_DefaultPluginsSetting (2: Block the Adobe Flash plugin, 3: Click to play) | `2`, `3` |
+| **edge_SSLVersionMin** | Write | String | Minimum TLS version enabled (0: Disabled, 1: Enabled) | `0`, `1` |
+| **SSLVersionMin_SSLVersionMin** | Write | String | Minimum SSL version enabled (Device) - Depends on edge_SSLVersionMin (tls1: TLS 1.0, tls1.1: TLS 1.1, tls1.2: TLS 1.2) | `tls1`, `tls1.1`, `tls1.2` |
+| **SmartScreenEnabled** | Write | String | Configure Microsoft Defender SmartScreen (0: Disabled, 1: Enabled) | `0`, `1` |
+| **PreventSmartScreenPromptOverride** | Write | String | Prevent bypassing Microsoft Defender SmartScreen prompts for sites (0: Disabled, 1: Enabled) | `0`, `1` |
+| **LetAppsActivateWithVoiceAboveLock** | Write | String | Let Apps Activate With Voice Above Lock (0: User in control. Users can decide if Windows apps can be activated by voice while the screen is locked using Settings &gt; Privacy options on the device., 1: Force allow. Windows apps can be activated by voice while the screen is locked, and users cannot change it., 2: Force deny. Windows apps cannot be activated by voice while the screen is locked, and users cannot change it.) | `0`, `1`, `2` |
+| **AllowIndexingEncryptedStoresOrItems** | Write | String | Allow Indexing Encrypted Stores Or Items (0: Not allowed., 1: Allowed.) | `0`, `1` |
+| **EnableSmartScreenInShell** | Write | String | Enable Smart Screen In Shell (0: Disabled., 1: Enabled.) | `0`, `1` |
+| **NotifyMalicious** | Write | String | Notify Malicious (0: Disabled, 1: Enabled) | `0`, `1` |
+| **NotifyPasswordReuse** | Write | String | Notify Password Reuse (0: Disabled, 1: Enabled) | `0`, `1` |
+| **NotifyUnsafeApp** | Write | String | Notify Unsafe App (0: Disabled, 1: Enabled) | `0`, `1` |
+| **ServiceEnabled** | Write | String | Service Enabled (0: Disabled, 1: Enabled) | `0`, `1` |
+| **PreventOverrideForFilesInShell** | Write | String | Prevent Override For Files In Shell (0: Do not prevent override., 1: Prevent override.) | `0`, `1` |
+| **AccessFromNetwork** | Write | StringArray[] | Access From Network | |
+| **AllowLocalLogOn** | Write | StringArray[] | Allow Local Log On | |
+| **BackupFilesAndDirectories** | Write | StringArray[] | Backup Files And Directories | |
+| **CreateGlobalObjects** | Write | StringArray[] | Create Global Objects | |
+| **CreatePageFile** | Write | StringArray[] | Create Page File | |
+| **DebugPrograms** | Write | StringArray[] | Debug Programs | |
+| **DenyAccessFromNetwork** | Write | StringArray[] | Deny Access From Network | |
+| **DenyRemoteDesktopServicesLogOn** | Write | StringArray[] | Deny Remote Desktop Services Log On | |
+| **ImpersonateClient** | Write | StringArray[] | Impersonate Client | |
+| **LoadUnloadDeviceDrivers** | Write | StringArray[] | Load Unload Device Drivers | |
+| **ManageAuditingAndSecurityLog** | Write | StringArray[] | Manage Auditing And Security Log | |
+| **ManageVolume** | Write | StringArray[] | Manage Volume | |
+| **ModifyFirmwareEnvironment** | Write | StringArray[] | Modify Firmware Environment | |
+| **ProfileSingleProcess** | Write | StringArray[] | Profile Single Process | |
+| **RemoteShutdown** | Write | StringArray[] | Remote Shutdown | |
+| **RestoreFilesAndDirectories** | Write | StringArray[] | Restore Files And Directories | |
+| **TakeOwnership** | Write | StringArray[] | Take Ownership | |
+| **HypervisorEnforcedCodeIntegrity** | Write | String | Hypervisor Enforced Code Integrity (0: (Disabled) Turns off Hypervisor-Protected Code Integrity remotely if configured previously without UEFI Lock., 1: (Enabled with UEFI lock) Turns on Hypervisor-Protected Code Integrity with UEFI lock., 2: (Enabled without lock) Turns on Hypervisor-Protected Code Integrity without UEFI lock.) | `0`, `1`, `2` |
+| **AllowWindowsInkWorkspace** | Write | String | Allow Windows Ink Workspace (0: access to ink workspace is disabled. The feature is turned off., 1: ink workspace is enabled (feature is turned on), but the user cannot access it above the lock screen., 2: ink workspace is enabled (feature is turned on), and the user is allowed to use it above the lock screen.) | `0`, `1`, `2` |
 | **Accounts_LimitLocalAccountUseOfBlankPasswordsToConsoleLogonOnly** | Write | String | Accounts Limit Local Account Use Of Blank Passwords To Console Logon Only (0: Disabled, 1: Enabled) | `0`, `1` |
 | **InteractiveLogon_MachineInactivityLimit** | Write | SInt32 | Interactive Logon Machine Inactivity Limit | |
 | **InteractiveLogon_SmartCardRemovalBehavior** | Write | String | Interactive Logon Smart Card Removal Behavior (0: No Action, 1: Lock Workstation, 2: Force Logoff, 3: Disconnect if a Remote Desktop Services session) | `0`, `1`, `2`, `3` |
@@ -469,56 +479,8 @@
 | **UserAccountControl_RunAllAdministratorsInAdminApprovalMode** | Write | String | User Account Control Run All Administrators In Admin Approval Mode (0: Disabled, 1: Enabled) | `0`, `1` |
 | **UserAccountControl_UseAdminApprovalMode** | Write | String | User Account Control Use Admin Approval Mode (1: Enable, 0: Disable) | `1`, `0` |
 | **UserAccountControl_VirtualizeFileAndRegistryWriteFailuresToPerUserLocations** | Write | String | User Account Control Virtualize File And Registry Write Failures To Per User Locations (0: Disabled, 1: Enabled) | `0`, `1` |
-| **ConfigureLsaProtectedProcess** | Write | String | Configure Lsa Protected Process (0: Disabled. Default value. LSA will not run as protected process., 1: Enabled with UEFI lock. LSA will run as protected process and this configuration is UEFI locked., 2: Enabled without UEFI lock. LSA will run as protected process and this configuration is not UEFI locked.) | `0`, `1`, `2` |
-| **AllowGameDVR** | Write | String | Allow Game DVR (0: Not allowed., 1: Allowed.) | `0`, `1` |
-| **MSIAllowUserControlOverInstall** | Write | String | MSI Allow User Control Over Install (0: Disabled, 1: Enabled) | `0`, `1` |
-| **MSIAlwaysInstallWithElevatedPrivileges** | Write | String | MSI Always Install With Elevated Privileges (0: Disabled, 1: Enabled) | `0`, `1` |
-| **SmartScreenEnabled** | Write | String | Configure Microsoft Defender SmartScreen (0: Disabled, 1: Enabled) | `0`, `1` |
-| **MicrosoftEdge_SmartScreen_PreventSmartScreenPromptOverride** | Write | String | Prevent bypassing Microsoft Defender SmartScreen prompts for sites (0: Disabled, 1: Enabled) | `0`, `1` |
-| **LetAppsActivateWithVoiceAboveLock** | Write | String | Let Apps Activate With Voice Above Lock (0: User in control. Users can decide if Windows apps can be activated by voice while the screen is locked using Settings &gt; Privacy options on the device., 1: Force allow. Windows apps can be activated by voice while the screen is locked, and users cannot change it., 2: Force deny. Windows apps cannot be activated by voice while the screen is locked, and users cannot change it.) | `0`, `1`, `2` |
-| **AllowIndexingEncryptedStoresOrItems** | Write | String | Allow Indexing Encrypted Stores Or Items (0: Not allowed., 1: Allowed.) | `0`, `1` |
-| **EnableSmartScreenInShell** | Write | String | Enable Smart Screen In Shell (0: Disabled., 1: Enabled.) | `0`, `1` |
-| **NotifyMalicious** | Write | String | Notify Malicious (0: Disabled, 1: Enabled) | `0`, `1` |
-| **NotifyPasswordReuse** | Write | String | Notify Password Reuse (0: Disabled, 1: Enabled) | `0`, `1` |
-| **NotifyUnsafeApp** | Write | String | Notify Unsafe App (0: Disabled, 1: Enabled) | `0`, `1` |
-| **ServiceEnabled** | Write | String | Service Enabled (0: Disabled, 1: Enabled) | `0`, `1` |
-| **PreventOverrideForFilesInShell** | Write | String | Prevent Override For Files In Shell (0: Do not prevent override., 1: Prevent override.) | `0`, `1` |
-| **ConfigureXboxAccessoryManagementServiceStartupMode** | Write | String | Configure Xbox Accessory Management Service Startup Mode (2: Automatic, 3: Manual, 4: Disabled) | `2`, `3`, `4` |
-| **ConfigureXboxLiveAuthManagerServiceStartupMode** | Write | String | Configure Xbox Live Auth Manager Service Startup Mode (2: Automatic, 3: Manual, 4: Disabled) | `2`, `3`, `4` |
-| **ConfigureXboxLiveGameSaveServiceStartupMode** | Write | String | Configure Xbox Live Game Save Service Startup Mode (2: Automatic, 3: Manual, 4: Disabled) | `2`, `3`, `4` |
-| **ConfigureXboxLiveNetworkingServiceStartupMode** | Write | String | Configure Xbox Live Networking Service Startup Mode (2: Automatic, 3: Manual, 4: Disabled) | `2`, `3`, `4` |
-| **EnableXboxGameSaveTask** | Write | String | Enable Xbox Game Save Task (0: Disabled, 1: Enabled) | `0`, `1` |
-| **AccessFromNetwork** | Write | StringArray[] | Access From Network | |
-| **AllowLocalLogOn** | Write | StringArray[] | Allow Local Log On | |
-| **BackupFilesAndDirectories** | Write | StringArray[] | Backup Files And Directories | |
-| **CreateGlobalObjects** | Write | StringArray[] | Create Global Objects | |
-| **CreatePageFile** | Write | StringArray[] | Create Page File | |
-| **DebugPrograms** | Write | StringArray[] | Debug Programs | |
-| **DenyAccessFromNetwork** | Write | StringArray[] | Deny Access From Network | |
-| **DenyRemoteDesktopServicesLogOn** | Write | StringArray[] | Deny Remote Desktop Services Log On | |
-| **ImpersonateClient** | Write | StringArray[] | Impersonate Client | |
-| **LoadUnloadDeviceDrivers** | Write | StringArray[] | Load Unload Device Drivers | |
-| **ManageAuditingAndSecurityLog** | Write | StringArray[] | Manage Auditing And Security Log | |
-| **ManageVolume** | Write | StringArray[] | Manage Volume | |
-| **ModifyFirmwareEnvironment** | Write | StringArray[] | Modify Firmware Environment | |
-| **ProfileSingleProcess** | Write | StringArray[] | Profile Single Process | |
-| **RemoteShutdown** | Write | StringArray[] | Remote Shutdown | |
-| **RestoreFilesAndDirectories** | Write | StringArray[] | Restore Files And Directories | |
-| **TakeOwnership** | Write | StringArray[] | Take Ownership | |
-| **HypervisorEnforcedCodeIntegrity** | Write | String | Hypervisor Enforced Code Integrity (0: (Disabled) Turns off Hypervisor-Protected Code Integrity remotely if configured previously without UEFI Lock., 1: (Enabled with UEFI lock) Turns on Hypervisor-Protected Code Integrity with UEFI lock., 2: (Enabled without lock) Turns on Hypervisor-Protected Code Integrity without UEFI lock.) | `0`, `1`, `2` |
-| **AllowAutoConnectToWiFiSenseHotspots** | Write | String | Allow Auto Connect To Wi Fi Sense Hotspots (0: Not allowed., 1: Allowed.) | `0`, `1` |
-| **AllowInternetSharing** | Write | String | Allow Internet Sharing (0: Not allowed., 1: Allowed.) | `0`, `1` |
-| **FacialFeaturesUseEnhancedAntiSpoofing** | Write | String | Facial Features Use Enhanced Anti Spoofing (false: Disabled, true: Enabled) | `false`, `true` |
-| **AllowWindowsInkWorkspace** | Write | String | Allow Windows Ink Workspace (0: access to ink workspace is disabled. The feature is turned off., 1: ink workspace is enabled (feature is turned on), but the user cannot access it above the lock screen., 2: ink workspace is enabled (feature is turned on), and the user is allowed to use it above the lock screen.) | `0`, `1`, `2` |
-| **BackupDirectory** | Write | String | Backup Directory (0: Disabled (password will not be backed up), 1: Backup the password to Azure AD only, 2: Backup the password to Active Directory only) | `0`, `1`, `2` |
-| **ADEncryptedPasswordHistorySize** | Write | SInt32 | AD Encrypted Password History Size - Depends on BackupDirectory | |
-| **passwordagedays** | Write | SInt32 | Password Age Days - Depends on BackupDirectory | |
-| **ADPasswordEncryptionEnabled** | Write | String | AD Password Encryption Enabled - Depends on BackupDirectory (false: Store the password in clear-text form in Active Directory, true: Store the password in encrypted form in Active Directory) | `false`, `true` |
-| **passwordagedays_aad** | Write | SInt32 | Password Age Days - Depends on BackupDirectory | |
-| **ADPasswordEncryptionPrincipal** | Write | String | AD Password Encryption Principal - Depends on BackupDirectory | |
-| **PasswordExpirationProtectionEnabled** | Write | String | Password Expiration Protection Enabled - Depends on BackupDirectory (false: Allow configured password expiriration timestamp to exceed maximum password age, true: Do not allow configured password expiriration timestamp to exceed maximum password age) | `false`, `true` |
 
-### MSFT_MicrosoftGraphIntuneSettingsCatalogUserSettings_IntuneSecurityBaselineWindows10
+### MSFT_MicrosoftGraphIntuneSettingsCatalogUserSettings_IntuneSecurityBaselineWindows365
 
 #### Parameters
 
@@ -535,11 +497,15 @@
 | **ConfigureWindowsSpotlightOnLockScreen** | Write | String | Configure Windows Spotlight On Lock Screen (User) - Depends on AllowWindowsSpotlight (0: Windows spotlight disabled., 1: Windows spotlight enabled., 2: Windows spotlight is always enabled, the user cannot disable it, 3: Windows spotlight is always enabled, the user cannot disable it. For special configurations only) | `0`, `1`, `2`, `3` |
 | **AllowWindowsSpotlightWindowsWelcomeExperience** | Write | String | Allow Windows Spotlight Windows Welcome Experience (User) - Depends on AllowWindowsSpotlight (0: Not allowed., 1: Allowed.) | `0`, `1` |
 | **AllowThirdPartySuggestionsInWindowsSpotlight** | Write | String | Allow Third Party Suggestions In Windows Spotlight (User) - Depends on AllowWindowsSpotlight (0: Third-party suggestions not allowed., 1: Third-party suggestions allowed.) | `0`, `1` |
+| **MicrosoftEdge_ContentSettings_DefaultPluginsSetting** | Write | String | Default Adobe Flash setting (User) (0: Disabled, 1: Enabled) | `0`, `1` |
+| **DefaultPluginsSetting_DefaultPluginsSetting** | Write | String | Default Adobe Flash setting (User) - Depends on MicrosoftEdge_ContentSettings_DefaultPluginsSetting (2: Block the Adobe Flash plugin, 3: Click to play) | `2`, `3` |
+| **edge_SSLVersionMin** | Write | String | Minimum TLS version enabled (User) (0: Disabled, 1: Enabled) | `0`, `1` |
+| **SSLVersionMin_SSLVersionMin** | Write | String | Minimum SSL version enabled (User) - Depends on edge_SSLVersionMin (tls1: TLS 1.0, tls1.1: TLS 1.1, tls1.2: TLS 1.2) | `tls1`, `tls1.1`, `tls1.2` |
 
 
 ## Description
 
-Intune Security Baseline for Windows10
+Intune Security Baseline Windows365
 
 ## Permissions
 
@@ -594,14 +560,13 @@ Configuration Example
 
     node localhost
     {
-        IntuneSecurityBaselineWindows10 'mySecurityBaselineWindows10'
+        IntuneSecurityBaselineWindows365 'mySecurityBaselineWindows365'
         {
             DisplayName           = 'test'
-            DeviceSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogDeviceSettings_IntuneSecurityBaselineWindows10
+            DeviceSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogDeviceSettings_IntuneSecurityBaselineWindows365
             {
                 Pol_MSS_DisableIPSourceRoutingIPv6 = '1'
                 DisableIPSourceRoutingIPv6 = '0'
-                BlockExecutionOfPotentiallyObfuscatedScripts = 'block'                             
                 HardenedUNCPaths_Pol_HardenedPaths = '1'
                 pol_hardenedPaths = @(
                     MSFT_MicrosoftGraphIntuneSettingsCatalogpol_hardenedpaths{
@@ -610,7 +575,7 @@ Configuration Example
                     }
                 )
             }
-            UserSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogUserSettings_IntuneSecurityBaselineWindows10
+            UserSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogUserSettings_IntuneSecurityBaselineWindows365
             {
                 AllowWindowsSpotlight = '1'
             }
@@ -648,14 +613,13 @@ Configuration Example
 
     node localhost
     {
-        IntuneSecurityBaselineWindows10 'mySecurityBaselineWindows10'
+        IntuneSecurityBaselineWindows365 'mySecurityBaselineWindows365'
         {
             DisplayName           = 'test'
-            DeviceSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogDeviceSettings_IntuneSecurityBaselineWindows10
+            DeviceSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogDeviceSettings_IntuneSecurityBaselineWindows365
             {
                 Pol_MSS_DisableIPSourceRoutingIPv6 = '1'
                 DisableIPSourceRoutingIPv6 = '0'
-                BlockExecutionOfPotentiallyObfuscatedScripts = 'block'                         
                 HardenedUNCPaths_Pol_HardenedPaths = '1'
                 pol_hardenedPaths = @(
                     MSFT_MicrosoftGraphIntuneSettingsCatalogpol_hardenedpaths{
@@ -664,7 +628,7 @@ Configuration Example
                     }
                 )
             }
-            UserSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogUserSettings_IntuneSecurityBaselineWindows10
+            UserSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogUserSettings_IntuneSecurityBaselineWindows365
             {
                 AllowWindowsSpotlight = '1' #drift
             }
@@ -702,7 +666,7 @@ Configuration Example
 
     node localhost
     {
-        IntuneSecurityBaselineWindows10 'mySecurityBaselineWindows10'
+        IntuneSecurityBaselineWindows365 'mySecurityBaselineWindows365'
         {
             DisplayName           = 'test'
             Ensure                = 'Absent'
