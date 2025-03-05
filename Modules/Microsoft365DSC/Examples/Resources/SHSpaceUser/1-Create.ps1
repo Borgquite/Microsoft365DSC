@@ -21,6 +21,17 @@ Configuration Example
     Import-DscResource -ModuleName Microsoft365DSC
     node localhost
     {
-        
+        SHSpaceUser "SHSpaceUser"
+        {
+            ApplicationId         = $ApplicationId;
+            CertificateThumbprint = $CertificateThumbprint;
+            Email                 = "Test@contoso.com";
+            Ensure                = "Present";
+            Kind                  = "User";
+            Roles                 = @("TrainingPermissionRole","HealthPermissionRole");
+            SpaceName             = "Test Workspace";
+            Status                = "Active";
+            TenantId              = $TenantId;
+        }
     }
 }

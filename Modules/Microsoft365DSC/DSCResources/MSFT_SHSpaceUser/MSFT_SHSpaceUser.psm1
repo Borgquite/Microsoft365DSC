@@ -140,11 +140,19 @@ function Set-TargetResource
 
         [Parameter(Mandatory = $true)]
         [System.String]
-        $GroupName,
+        $Email,
 
         [Parameter()]
         [System.String[]]
         $Roles,
+
+        [Parameter()]
+        [System.String]
+        $Status,
+
+        [Parameter()]
+        [System.String]
+        $Kind,
 
         [Parameter()]
         [ValidateSet('Present', 'Absent')]
@@ -209,7 +217,7 @@ function Set-TargetResource
         Write-Verbose -Message "Adding new user {$Email} with Roles {$($Roles -join ',')}"
         $body = @{
             email  = $Email
-            roles  = $Roles;
+            roles  = $Roles
             kind   = $Kind
             status = $Status
         }
@@ -255,11 +263,19 @@ function Test-TargetResource
 
         [Parameter(Mandatory = $true)]
         [System.String]
-        $GroupName,
+        $Email,
 
         [Parameter()]
         [System.String[]]
         $Roles,
+
+        [Parameter()]
+        [System.String]
+        $Status,
+
+        [Parameter()]
+        [System.String]
+        $Kind,
 
         [Parameter()]
         [ValidateSet('Present', 'Absent')]

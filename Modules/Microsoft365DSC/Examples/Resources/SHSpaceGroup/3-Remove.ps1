@@ -21,6 +21,15 @@ Configuration Example
     Import-DscResource -ModuleName Microsoft365DSC
     node localhost
     {
-        
+        SHSpaceGroup "SHSpaceGroup"
+        {
+            ApplicationId         = $ApplicationId;
+            CertificateThumbprint = $CertificateThumbprint;
+            Ensure                = "Absent";
+            GroupName             = "TestApplications";
+            Roles                 = @("TrainingPermissionRole","CustomerActivityPagePermissionRole","InviteUsersPermissionRole");
+            SpaceName             = "Test Workspace";
+            TenantId              = $TenantId;
+        }
     }
 }
