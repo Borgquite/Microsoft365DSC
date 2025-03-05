@@ -1,14 +1,50 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* AADApplication
+  * If both the current and desired values have the Ensure property set
+    to absent, ignoring the drift detection and return true from
+    the Test-TargetResource function.
+* AADAuthenticationMethodPolicyQRCodeImage
+  * Initial release.
+* AADGroupSettings
+  * Filtered EnableMSStandardBlockedWords parameter from the policy results,
+    to prevent issues with this deprecated parameter
+* AADRoleEligibilityScheduleRequest
+  * Updated startdatetime and enddatetime properties to be of type DATETIME.
+* FabricAdminTenantSettings
+  * Fixed issue where the export would add double quotes in front of boolean
+    variables
+* IntuneDeviceEnrollmentPlatformRestriction
+  * Added note that update is no longer possible.
+    FIXES [#5127](https://github.com/microsoft/Microsoft365DSC/issues/5127)
+* PPEnvironmentAppsEnvironment
+  * Added support for legacy Basic and Standard EnvironmentSKU.
+* SPOSite
+  * Fixed an issue where the exported properties were not defined.
+    FIXES [#4773](https://github.com/microsoft/Microsoft365DSC/issues/4773)
+* TeamsOrgWideAppSettings
+  * Added note that only Credentials are supported for the resource.
+    FIXES [#3394](https://github.com/microsoft/Microsoft365DSC/issues/3394)
+* M365DSCDRGUtil
+  * Fixes an issue with fancy double quotes being replaced that break the string.
+    FIXES [#5775](https://github.com/microsoft/Microsoft365DSC/issues/5775)
+    FIXES [#5623](https://github.com/microsoft/Microsoft365DSC/issues/5623)
+* DEPENDENCIES
+  * Updated MSCloudLoginAssistant to version 1.1.40.
+
 # 1.25.226.1
 
 * AADConditionalAccessPolicy
-  * Fixed an issue where `TermsOfUse` was not passed as an array, causing failures in GCC-High environments.
+  * Fixed an issue where `TermsOfUse` was not passed as an array, causing
+    failures in GCC-High environments.
     FIXES [#5742](https://github.com/microsoft/Microsoft365DSC/issues/5742)
   * Added verbose to the Get-TargetResource function to print out the retrieved
     policies from calling the cmdlet.
 * AADPasswordRuleSettings
-  * Updated schema to only accept values 'Enforced' and 'Audit' for parameter BannedPasswordCheckOnPremisesMode
+  * Updated schema to only accept values 'Enforced' and 'Audit' for parameter
+    BannedPasswordCheckOnPremisesMode
 * IntuneDeviceCompliancePolicyWindows10
   * Fixes the handling of the `DeviceCompliancePolicyScript` property.
     FIXES [#5510](https://github.com/microsoft/Microsoft365DSC/issues/5510)
