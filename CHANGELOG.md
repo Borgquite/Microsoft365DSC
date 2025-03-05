@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* AADApplication
+  * If both the current and desired values have the Ensure property set
+    to absent, ignoring the drift detection and return true from
+    the Test-TargetResource function.
 * AADAuthenticationMethodPolicyQRCodeImage
   * Initial release.
 * AADGroupSettings
@@ -9,6 +13,9 @@
     to prevent issues with this deprecated parameter
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
+* AADUser
+  * Fixed an issue where the properties with numbers were not exported correctly.
+    FIXES [#4526](https://github.com/microsoft/Microsoft365DSC/issues/4526)
 * EXOTransportConfig
   * Fixed an issue where `JournalingReportNdrTo` with the default value of `<>`
     would throw an error during apply.  
@@ -31,6 +38,8 @@
   * Fixes an issue with fancy double quotes being replaced that break the string.
     FIXES [#5775](https://github.com/microsoft/Microsoft365DSC/issues/5775)
     FIXES [#5623](https://github.com/microsoft/Microsoft365DSC/issues/5623)
+* DEPENDENCIES
+  * Updated MSCloudLoginAssistant to version 1.1.40.
 
 # 1.25.226.1
 
