@@ -24466,6 +24466,19 @@ function New-MgBetaDeviceAppManagementAndroidManagedAppProtection
     [CmdletBinding()]
     param(
         [Parameter()]
+        [System.String]
+        $MessagingRedirectAppPackageId,
+
+        [Parameter()]
+        [System.String]
+        $MessagingRedirectAppDisplayName,
+
+        [Parameter()]
+        [ValidateSet("anyApp", "anyManagedApp", "specificApps", "blocked")]
+        [System.String]
+        $ProtectedMessagingRedirectAppType,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
 
@@ -25939,6 +25952,19 @@ function Update-MgBetaDeviceAppManagementAndroidManagedAppProtection
 {
     [CmdletBinding()]
     param(
+        [Parameter()]
+        [System.String]
+        $MessagingRedirectAppPackageId,
+
+        [Parameter()]
+        [System.String]
+        $MessagingRedirectAppDisplayName,
+
+        [Parameter()]
+        [ValidateSet("anyApp", "anyManagedApp", "specificApps", "blocked")]
+        [System.String]
+        $ProtectedMessagingRedirectAppType,
+
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
@@ -57837,6 +57863,19 @@ function New-MgBetaDeviceAppManagementAndroidManagedAppProtection
     [CmdletBinding()]
     param(
         [Parameter()]
+        [System.String]
+        $MessagingRedirectAppPackageId,
+
+        [Parameter()]
+        [System.String]
+        $MessagingRedirectAppDisplayName,
+
+        [Parameter()]
+        [ValidateSet("anyApp", "anyManagedApp", "specificApps", "blocked")]
+        [System.String]
+        $ProtectedMessagingRedirectAppType,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
 
@@ -59310,6 +59349,19 @@ function Update-MgBetaDeviceAppManagementAndroidManagedAppProtection
 {
     [CmdletBinding()]
     param(
+        [Parameter()]
+        [System.String]
+        $MessagingRedirectAppPackageId,
+
+        [Parameter()]
+        [System.String]
+        $MessagingRedirectAppDisplayName,
+
+        [Parameter()]
+        [ValidateSet("anyApp", "anyManagedApp", "specificApps", "blocked")]
+        [System.String]
+        $ProtectedMessagingRedirectAppType,
+
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
