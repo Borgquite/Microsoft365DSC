@@ -11,6 +11,9 @@
 * AADGroupSettings
   * Filtered EnableMSStandardBlockedWords parameter from the policy results,
     to prevent issues with this deprecated parameter
+* AADIdentityAPIConnector
+  * Added missing permissions.
+    FIXES [#5670](https://github.com/microsoft/Microsoft365DSC/issues/5670)
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
 * AADUser
@@ -23,11 +26,27 @@
 * FabricAdminTenantSettings
   * Fixed issue where the export would add double quotes in front of boolean
     variables
+* IntuneAppConfigurationPolicy
+  * Adds support for targeted managed apps and for testing drift in Apps settings
+    FIXES [#5566](https://github.com/microsoft/Microsoft365DSC/issues/5566)
 * IntuneDeviceEnrollmentPlatformRestriction
   * Added note that update is no longer possible.
     FIXES [#5127](https://github.com/microsoft/Microsoft365DSC/issues/5127)
+* IntuneDeviceRemediation
+  * Fixed issue when `Assignment` was set to a non-existent group in the tenant,
+    e.g. cloning a script from a source tenant and applying it to another target
+    tenant and the latter doesn't have the assignment group created yet, if this
+    was the case the deployment would fail
+    FIXES [#5856](https://github.com/microsoft/Microsoft365DSC/issues/5856)
+* IntuneSecurityBaselineWindows365
+  * Initial release.
+    FIXES [#3348](https://github.com/microsoft/Microsoft365DSC/issues/3348)
 * PPEnvironmentAppsEnvironment
   * Added support for legacy Basic and Standard EnvironmentSKU.
+* SCInsiderRiskPolicy
+  * Enforced default values when the setting object is undefined.
+* SCPolicyConfig
+  * Enforced default values when the setting object is undefined.
 * SPOSite
   * Fixed an issue where the exported properties were not defined.
     FIXES [#4773](https://github.com/microsoft/Microsoft365DSC/issues/4773)
@@ -59,8 +78,7 @@
   * Added verbose to the Get-TargetResource function to print out the retrieved
     policies from calling the cmdlet.
 * AADPasswordRuleSettings
-  * Updated schema to only accept values 'Enforced' and 'Audit' for parameter
-    BannedPasswordCheckOnPremisesMode
+  * Updated schema to only accept values 'Enforced' and 'Audit' for parameter BannedPasswordCheckOnPremisesMode
 * IntuneDeviceCompliancePolicyWindows10
   * Fixes the handling of the `DeviceCompliancePolicyScript` property.
     FIXES [#5510](https://github.com/microsoft/Microsoft365DSC/issues/5510)
@@ -330,6 +348,8 @@
   * Fixes an issue with fetching a policy that does not exist.
 * IntuneAppProtectionPolicyAndroid
   * Fixes an issue with fetching a policy that does not exist.
+  * Added support for additional App Protection policies
+    FIXES [#5590](https://github.com/microsoft/Microsoft365DSC/issues/5590)
 * IntuneDeviceEnrollmentPlatformRestriction
   * Fixes an issue with fetching a policy that does not exist.
 * M365DSCReverse
