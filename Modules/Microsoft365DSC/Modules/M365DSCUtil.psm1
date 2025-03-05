@@ -5255,7 +5255,7 @@ function Write-M365DSCHost
     [CmdletBinding(DefaultParameterSetName = 'Default')]
     param
     (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, Position = 0)]
         [System.String]
         $Message,
 
