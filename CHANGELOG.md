@@ -16,6 +16,10 @@
 * AADUser
   * Fixed an issue where the properties with numbers were not exported correctly.
     FIXES [#4526](https://github.com/microsoft/Microsoft365DSC/issues/4526)
+* EXOTransportConfig
+  * Fixed an issue where `JournalingReportNdrTo` with the default value of `<>`
+    would throw an error during apply.  
+    FIXES [#5606](https://github.com/microsoft/Microsoft365DSC/issues/5606)
 * FabricAdminTenantSettings
   * Fixed issue where the export would add double quotes in front of boolean
     variables
