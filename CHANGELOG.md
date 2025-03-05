@@ -26,6 +26,9 @@
 * FabricAdminTenantSettings
   * Fixed issue where the export would add double quotes in front of boolean
     variables
+* IntuneAppConfigurationPolicy
+  * Adds support for targeted managed apps and for testing drift in Apps settings
+    FIXES [#5566](https://github.com/microsoft/Microsoft365DSC/issues/5566)
 * IntuneDeviceEnrollmentPlatformRestriction
   * Added note that update is no longer possible.
     FIXES [#5127](https://github.com/microsoft/Microsoft365DSC/issues/5127)
@@ -68,8 +71,7 @@
   * Added verbose to the Get-TargetResource function to print out the retrieved
     policies from calling the cmdlet.
 * AADPasswordRuleSettings
-  * Updated schema to only accept values 'Enforced' and 'Audit' for parameter
-    BannedPasswordCheckOnPremisesMode
+  * Updated schema to only accept values 'Enforced' and 'Audit' for parameter BannedPasswordCheckOnPremisesMode
 * IntuneDeviceCompliancePolicyWindows10
   * Fixes the handling of the `DeviceCompliancePolicyScript` property.
     FIXES [#5510](https://github.com/microsoft/Microsoft365DSC/issues/5510)
