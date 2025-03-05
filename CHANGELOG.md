@@ -43,6 +43,8 @@
     FIXES [#3348](https://github.com/microsoft/Microsoft365DSC/issues/3348)
 * PPEnvironmentAppsEnvironment
   * Added support for legacy Basic and Standard EnvironmentSKU.
+* SCPolicyConfig
+  * Enforced default values when the setting object is undefined.
 * SPOSite
   * Fixed an issue where the exported properties were not defined.
     FIXES [#4773](https://github.com/microsoft/Microsoft365DSC/issues/4773)
