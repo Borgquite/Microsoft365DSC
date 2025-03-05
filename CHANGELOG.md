@@ -13,6 +13,9 @@
     to prevent issues with this deprecated parameter
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
+* AADUser
+  * Fixed an issue where the properties with numbers were not exported correctly.
+    FIXES [#4526](https://github.com/microsoft/Microsoft365DSC/issues/4526)
 * FabricAdminTenantSettings
   * Fixed issue where the export would add double quotes in front of boolean
     variables
