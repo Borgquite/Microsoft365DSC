@@ -30,6 +30,10 @@
 * TeamsOrgWideAppSettings
   * Added note that only Credentials are supported for the resource.
     FIXES [#3394](https://github.com/microsoft/Microsoft365DSC/issues/3394)
+* M365DSCDocGenerator
+  * Fixed an issue where open/close tags in descriptions would be considered as HTML.
+    FIXES [#4955](https://github.com/microsoft/Microsoft365DSC/issues/4955)
+    FIXES [#5761](https://github.com/microsoft/Microsoft365DSC/issues/5761)
 * M365DSCDRGUtil
   * Fixes an issue with fancy double quotes being replaced that break the string.
     FIXES [#5775](https://github.com/microsoft/Microsoft365DSC/issues/5775)
