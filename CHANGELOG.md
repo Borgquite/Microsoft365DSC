@@ -43,6 +43,8 @@
     FIXES [#3348](https://github.com/microsoft/Microsoft365DSC/issues/3348)
 * PPEnvironmentAppsEnvironment
   * Added support for legacy Basic and Standard EnvironmentSKU.
+* SCInsiderRiskPolicy
+  * Enforced default values when the setting object is undefined.
 * SCPolicyConfig
   * Enforced default values when the setting object is undefined.
 * SPOSite
