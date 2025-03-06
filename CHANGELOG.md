@@ -1,5 +1,12 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* SHSpaceGroup
+  * Initial release.
+* SHSpaceUSer
+  * Initial release.
+
 # 1.25.305.1
 
 * AADApplication
