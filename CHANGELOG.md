@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* EXORoleGroup
+  * Removed parameter `Roles` when creating a new group if there were
+    no roles assigned to it.
+    FIXES [#5725](https://github.com/microsoft/Microsoft365DSC/issues/5725)
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwin an error
     complaining about a null object.
