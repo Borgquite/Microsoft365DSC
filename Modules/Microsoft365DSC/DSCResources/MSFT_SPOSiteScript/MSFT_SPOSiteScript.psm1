@@ -414,12 +414,13 @@ function Test-TargetResource
     Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
     Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $PSBoundParameters)"
 
-    $keysToCheck = Remove-M365DSCAuthenticationParameter $PSBoundParameters
-    $keysToCheck.Add('Ensure', $Ensure)
+    [hashtable]$valuesToCheck = Remove-M365DSCAuthenticationParameter $PSBoundParameters
+    $valuesToCheck.Remove('Identity') | Out-Null
+    $valuesToCheck.Add('Ensure', $Ensure)
     $TestResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `
         -Source $($MyInvocation.MyCommand.Source) `
         -DesiredValues $PSBoundParameters `
-        -ValuesToCheck $keysToCheck
+        -ValuesToCheck $valuesToCheck.Keys -Verbose
 
     Write-Verbose -Message "Test-TargetResource returned $TestResult"
 
