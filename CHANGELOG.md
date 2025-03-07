@@ -5,6 +5,10 @@
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwin an error
     complaining about a null object.
+* M365DSCLogEngine
+  * Fixed an error message appearing if one or more event logs could
+    not be accessed while searching the event source.
+    FIXES [#3811](https://github.com/microsoft/Microsoft365DSC/issues/3811)
 * DEPENDENCIES
   * Updated ReverseDSC to version 2.0.0.28.
 
