@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* DEPENDENCIES
+  * Updated ReverseDSC to version 2.0.0.28.
+
 # 1.25.305.1
 
 * AADApplication
