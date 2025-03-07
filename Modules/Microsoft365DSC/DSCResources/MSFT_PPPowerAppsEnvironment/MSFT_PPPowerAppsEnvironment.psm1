@@ -414,7 +414,7 @@ function Export-TargetResource
                     $Global:M365DSCExportResourceInstancesCount++
                 }
 
-                Write-M365DSCHost -Message "    |---[$i/$($environments.Count)] $($environment.properties.displayName)" -DeferWrite
+                Write-M365DSCHost -Message "    |---[$i/$($environments.value.Count)] $($environment.properties.displayName)" -DeferWrite
                 $environmentType = $environment.properties.environmentType
                 if ($environmentType -eq 'Notspecified')
                 {

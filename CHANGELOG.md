@@ -2,6 +2,14 @@
 
 # UNRELEASED
 
+* SCDLPCompliancePolicy
+  * Fixes strange issue with the Get-TargetResource throwin an error
+    complaining about a null object.
+* DEPENDENCIES
+  * Updated ReverseDSC to version 2.0.0.28.
+
+# 1.25.305.1
+
 * AADApplication
   * If both the current and desired values have the Ensure property set
     to absent, ignoring the drift detection and return true from
@@ -21,7 +29,7 @@
     FIXES [#4526](https://github.com/microsoft/Microsoft365DSC/issues/4526)
 * EXOTransportConfig
   * Fixed an issue where `JournalingReportNdrTo` with the default value of `<>`
-    would throw an error during apply.  
+    would throw an error during apply.
     FIXES [#5606](https://github.com/microsoft/Microsoft365DSC/issues/5606)
 * FabricAdminTenantSettings
   * Fixed issue where the export would add double quotes in front of boolean
@@ -67,7 +75,7 @@
   * Replace `Write-Host` with custom function to support logs in non-interactive
     environments using the verbose stream.
 * DEPENDENCIES
-  * Updated MSCloudLoginAssistant to version 1.1.40.
+  * Updated MSCloudLoginAssistant to version 1.1.41.
 
 # 1.25.226.1
 
