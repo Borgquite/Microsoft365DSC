@@ -430,29 +430,7 @@ function Export-TargetResource
                 AccessTokens          = $AccessTokens
             }
             $Results = Get-TargetResource @Params
-            if ($null -ne $Results.Palette)
-            {
-                $complexMapping = @(
-                    @{
-                        Name            = 'OptionalClaims'
-                        CimInstanceName = 'MSFT_SPOThemePaletteProperty'
-                        IsRequired      = $False
-                    }
-                )
-                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
-                    -ComplexObject $Results.Palette `
-                    -CIMInstanceName 'MSFT_SPOThemePaletteProperty' `
-                    -ComplexTypeMapping $complexMapping
-
-                if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
-                {
-                    $Results.Palette = $complexTypeStringResult
-                }
-                else
-                {
-                    $Results.Remove('Palette') | Out-Null
-                }
-            }
+            $Results.Palette = ConvertTo-SPOThemePalettePropertyString $Results.Palette
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
@@ -530,12 +508,12 @@ function ConvertTo-SPOThemePalettePropertyString
     $StringContent = '@('
     foreach ($property in $Palette.Keys)
     {
-        $StringContent += "            MSFT_SPOThemePaletteProperty`r`n            {`r`n"
-        $StringContent += "                Property = '$($property)'`r`n"
-        $StringContent += "                Value    = '$($Palette[$property])'`r`n"
-        $StringContent += "            }`r`n"
+        $StringContent += "`r`n                MSFT_SPOThemePaletteProperty{`r`n"
+        $StringContent += "                    Property = '$($property)'`r`n"
+        $StringContent += "                    Value    = '$($Palette[$property])'`r`n"
+        $StringContent += "                }"
     }
-    $StringCOntent += "            )`r`n"
+    $StringCOntent += "`r`n            )`r`n"
     return $StringContent
 }
 

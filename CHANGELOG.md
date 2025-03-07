@@ -5,6 +5,9 @@
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwin an error
     complaining about a null object.
+* SPOTheme
+  * Updated export of `Palette` property to match schema.
+    FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)
 * DEPENDENCIES
   * Updated ReverseDSC to version 2.0.0.28.
 
