@@ -4,8 +4,6 @@ function Get-TargetResource
     [OutputType([System.Collections.Hashtable])]
     param
     (
-        #region Intune resource parameters
-
         [Parameter(Mandatory = $true)]
         [System.String]
         $Id,
@@ -148,8 +146,6 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        #region Intune resource parameters
-
         [Parameter(Mandatory = $true)]
         [System.String]
         $Id,
@@ -177,8 +173,6 @@ function Set-TargetResource
         [Parameter()]
         [System.Boolean]
         $AndroidDeviceOwnerFullyManagedEnrollmentEnabled,
-
-        #endregion
 
         [Parameter()]
         [ValidateSet('Present', 'Absent')]
@@ -242,20 +236,19 @@ function Set-TargetResource
             } -ContentType 'application/json'
         }
 
-        # Request enrollment signup URL if necessary
-        # TO DO: Once Android team has added adjusted code, uncomment the following code block
-        # if ($BindStatus -eq 'notBound') {
-        #     Write-Verbose -Message "Requesting signup URL for enrollment..."
-        #     $params = @{
-        #         hostName = "intune.microsoft.com"
-        #     }
-
-        #     $signupUrl = Invoke-MgGraphRequest -Uri ((Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + "beta/deviceManagement/androidManagedStoreAccountEnterpriseSettings/requestSignupUrl") -Method 'POST' -Body @{
-        #         hostName = "intune.microsoft.com"
-        #     } -ContentType "application/json"
-
-        # return $nullResult
-        # }
+        if ($BindStatus -eq 'notBound')
+        {
+            Write-Verbose -Message "Requesting signup URL for enrollment..."
+            $signupUri = ((Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + `
+                            "beta/deviceManagement/androidManagedStoreAccountEnterpriseSettings/requestSignupUrl")
+            $body = @{
+                hostName = 'intune.microsoft.com'
+            }
+            Invoke-MgGraphRequest -Uri $signupUri `
+                                  -Method 'POST' `
+                                  -ContentType "application/json" `
+                                  -Body $body
+        }
     }
     elseif ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Present')
     {
@@ -291,8 +284,6 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        #region Intune resource parameters
-
         [Parameter(Mandatory = $true)]
         [System.String]
         $Id,
@@ -320,8 +311,6 @@ function Test-TargetResource
         [Parameter()]
         [System.Boolean]
         $AndroidDeviceOwnerFullyManagedEnrollmentEnabled,
-
-        #endregion
 
         [Parameter()]
         [ValidateSet('Present', 'Absent')]
