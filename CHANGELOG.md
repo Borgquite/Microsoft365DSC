@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* IntuneAppleMDMPushNotificationCertificate
+  * Hide error message if no certificate was found during export.
+    FIXES [#5884](https://github.com/microsoft/Microsoft365DSC/issues/5884)
+
 # 1.25.305.1
 
 * AADApplication
