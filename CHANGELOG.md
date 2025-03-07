@@ -5,6 +5,11 @@
 * IntuneAppleMDMPushNotificationCertificate
   * Hide error message if no certificate was found during export.
     FIXES [#5884](https://github.com/microsoft/Microsoft365DSC/issues/5884)
+* SCDLPCompliancePolicy
+  * Fixes strange issue with the Get-TargetResource throwin an error
+    complaining about a null object.
+* DEPENDENCIES
+  * Updated ReverseDSC to version 2.0.0.28.
 
 # 1.25.305.1
 
