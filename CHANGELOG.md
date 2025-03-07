@@ -5,6 +5,9 @@
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwin an error
     complaining about a null object.
+* SPOSiteScript
+  * Fixed an issue where the Get method would fail on fetching a specific script.
+    FIXES [#5701](https://github.com/microsoft/Microsoft365DSC/issues/5701)
 * DEPENDENCIES
   * Updated ReverseDSC to version 2.0.0.28.
 
