@@ -5,6 +5,11 @@
 * AADRoleSetting
   * Fixed the required permissions.
     FIXES [#3696](https://github.com/microsoft/Microsoft365DSC/issues/3696)
+* SCDLPCompliancePolicy
+  * Fixes strange issue with the Get-TargetResource throwin an error
+    complaining about a null object.
+* DEPENDENCIES
+  * Updated ReverseDSC to version 2.0.0.28.
 
 # 1.25.305.1
 
