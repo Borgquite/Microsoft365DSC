@@ -5,6 +5,8 @@
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwin an error
     complaining about a null object.
+* M35DSCReport
+  * Require Excel to be installed for .xlsx export.
 * DEPENDENCIES
   * Updated ReverseDSC to version 2.0.0.28.
 
