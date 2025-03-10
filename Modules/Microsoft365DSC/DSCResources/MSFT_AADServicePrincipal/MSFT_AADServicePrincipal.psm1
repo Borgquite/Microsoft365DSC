@@ -175,14 +175,12 @@ function Get-TargetResource
                     $appInstance = Get-MgApplication -Filter "DisplayName eq '$AppId'"
                     if ($appInstance)
                     {
-                        $AADServicePrincipal = Get-MgServicePrincipal -Filter "AppID eq '$($appInstance.AppId)'" `
-                            -Expand 'AppRoleAssignedTo'
+                        $AADServicePrincipal = Get-MgServicePrincipal -Filter "AppID eq '$($appInstance.AppId)'"
                     }
                 }
                 else
                 {
-                    $AADServicePrincipal = Get-MgServicePrincipal -Filter "AppID eq '$($AppId)'" `
-                        -Expand 'AppRoleAssignedTo'
+                    $AADServicePrincipal = Get-MgServicePrincipal -Filter "AppID eq '$($AppId)'"
                 }
             }
             if ($null -eq $AADServicePrincipal)
@@ -196,7 +194,8 @@ function Get-TargetResource
         }
 
         $AppRoleAssignedToValues = @()
-        foreach ($principal in $AADServicePrincipal.AppRoleAssignedTo)
+        $assignmentsValue = Get-MgServicePrincipalAppROleAssignedTo -ServicePrincipalId $AADServicePrincipal.Id -ErrorAction SilentlyContinue
+        foreach ($principal in $assignmentsValue)
         {
             $currentAssignment = @{
                 PrincipalType = $null
@@ -206,7 +205,7 @@ function Get-TargetResource
             {
                 $user = Get-MgUser -UserId $principal.PrincipalId
                 $currentAssignment.PrincipalType = 'User'
-                $currentAssignment.Identity = $user.UserPrincipalName.Split('@')[0]
+                $currentAssignment.Identity = $user.UserPrincipalName
                 $AppRoleAssignedToValues += $currentAssignment
             }
             elseif ($principal.PrincipalType -eq 'Group')
@@ -230,8 +229,17 @@ function Get-TargetResource
         }
 
         [Array]$complexDelegatedPermissionClassifications = @()
-        $Uri = (Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + "v1.0/servicePrincipals/$($AADServicePrincipal.Id)/delegatedPermissionClassifications"
-        $permissionClassifications = Invoke-MgGraphRequest -Uri $Uri -Method Get
+        #Managed Identities in AzureGov return exception when pulling delegatedPermissionClassifications
+        try
+        {
+            $Uri = (Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + "v1.0/servicePrincipals/$($AADServicePrincipal.Id)/delegatedPermissionClassifications"
+            $permissionClassifications = Invoke-MgGraphRequest -Uri $Uri -Method Get
+        }
+        catch
+        {
+            Write-Verbose -Message "Service Principal didn't return delegated permission classifications. Expected for Managedidentities."
+        }
+
         foreach ($permissionClassification in $permissionClassifications.Value)
         {
             $hashtable = @{
@@ -608,6 +616,15 @@ function Set-TargetResource
         {
             [Array]$currentPrincipals = $currentAADServicePrincipal.AppRoleAssignedTo.Identity
             [Array]$desiredPrincipals = $AppRoleAssignedTo.Identity
+
+            if ($null -eq $currentPrincipals)
+            {
+                $currentPrincipals = @()
+            }
+            if ($null -eq $desiredPrincipals)
+            {
+                $desiredPrincipals = @()
+            }
 
             [Array]$differences = Compare-Object -ReferenceObject $currentPrincipals -DifferenceObject $desiredPrincipals
             [Array]$membersToAdd = $differences | Where-Object -FilterScript { $_.SideIndicator -eq '=>' }
@@ -1022,11 +1039,8 @@ function Export-TargetResource
             }
             $Script:exportedInstance = $AADServicePrincipal
             $Results = Get-TargetResource @Params
-
             if ($Results.Ensure -eq 'Present')
             {
-                $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                    -Results $Results
                 if ($Results.AppRoleAssignedTo.Count -gt 0)
                 {
                     $Results.AppRoleAssignedTo = Get-M365DSCAzureADServicePrincipalAssignmentAsString -Assignments $Results.AppRoleAssignedTo
@@ -1071,34 +1085,8 @@ function Export-TargetResource
                     -ConnectionMode $ConnectionMode `
                     -ModulePath $PSScriptRoot `
                     -Results $Results `
-                    -Credential $Credential
-                if ($null -ne $Results.AppRoleAssignedTo)
-                {
-                    $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock `
-                        -ParameterName 'AppRoleAssignedTo'
-                }
-                if ($null -ne $Results.DelegatedPermissionClassifications)
-                {
-                    $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock `
-                        -ParameterName 'DelegatedPermissionClassifications'
-                }
-                if ($null -ne $Results.KeyCredentials)
-                {
-                    $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock `
-                        -ParameterName 'KeyCredentials' -IsCIMArray:$True
-                }
-
-                if ($null -ne $Results.PasswordCredentials)
-                {
-                    $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock `
-                        -ParameterName 'PasswordCredentials' -IsCIMArray:$True
-                }
-
-                if ($null -ne $Results.CustomSecurityAttributes)
-                {
-                    $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock `
-                        -ParameterName 'CustomSecurityAttributes'
-                }
+                    -Credential $Credential `
+                    -NoEscape @('AppRoleAssignedTo', 'DelegatedPermissionClassifications', 'KeyCredentials', 'PasswordCredentials', 'CustomSecurityAttributes')
 
                 $dscContent += $currentDSCBlock
                 Save-M365DSCPartialExport -Content $currentDSCBlock `

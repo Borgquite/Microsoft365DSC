@@ -270,7 +270,7 @@ function Get-TargetResource
         }
 
         $result = @{
-            Identity                             = $calendarProc.Identity
+            Identity                             = $Identity
             AddAdditionalResponse                = $calendarProc.AddAdditionalResponse
             AdditionalResponse                   = $calendarProc.AdditionalResponse
             AddNewRequestsTentatively            = $calendarProc.AddNewRequestsTentatively
@@ -906,7 +906,7 @@ function Export-TargetResource
                 $Global:M365DSCExportResourceInstancesCount++
             }
 
-            Write-Host "    |---[$i/$($mailboxes.Count)] $($mailbox.Identity.Split('-')[0])" -NoNewline
+            Write-Host "    |---[$i/$($mailboxes.Count)] $($mailbox.UserPrincipalName)" -NoNewline
             $Params = @{
                 Identity              = $mailbox.UserPrincipalName
                 Credential            = $Credential
@@ -919,8 +919,6 @@ function Export-TargetResource
                 AccessTokens          = $AccessTokens
             }
             $Results = Get-TargetResource @Params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `

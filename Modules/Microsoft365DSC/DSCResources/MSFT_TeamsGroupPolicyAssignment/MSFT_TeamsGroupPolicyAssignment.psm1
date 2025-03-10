@@ -121,7 +121,7 @@ function Get-TargetResource
         Write-Verbose -Message $Message
         return @{
             GroupId               = $Group.Id
-            GroupDisplayName      = $Group.Displayname
+            GroupDisplayName      = $Group.DisplayName
             PolicyType            = $GroupPolicyAssignment.PolicyType
             PolicyName            = $GroupPolicyAssignment.PolicyName
             Priority              = $GroupPolicyAssignment.Priority
@@ -443,9 +443,7 @@ function Export-TargetResource
                 ManagedIdentity       = $ManagedIdentity.IsPresent
                 AccessTokens          = $AccessTokens
             }
-            #$results = Get-TargetResource @getParams
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
+            #$results = Get-TargetResource @results
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `

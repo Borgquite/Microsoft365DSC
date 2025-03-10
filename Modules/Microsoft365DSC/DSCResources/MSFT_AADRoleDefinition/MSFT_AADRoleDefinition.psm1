@@ -122,7 +122,7 @@ function Get-TargetResource
             Description           = $AADRoleDefinition.Description
             ResourceScopes        = $AADRoleDefinition.ResourceScopes
             IsEnabled             = $AADRoleDefinition.IsEnabled
-            RolePermissions       = $AADRoleDefinition.RolePermissions.AllowedResourceActions
+            RolePermissions       = [Array]$AADRoleDefinition.RolePermissions.AllowedResourceActions
             TemplateId            = $AADRoleDefinition.TemplateId
             Version               = $AADRoleDefinition.Version
             Ensure                = 'Present'
@@ -472,11 +472,8 @@ function Export-TargetResource
             }
             $Script:exportedInstance = $AADRoleDefinition
             $Results = Get-TargetResource @Params
-
             if ($Results.Ensure -eq 'Present' -and ([array]$results.RolePermissions).Length -gt 0)
             {
-                $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                    -Results $Results
                 $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                     -ConnectionMode $ConnectionMode `
                     -ModulePath $PSScriptRoot `

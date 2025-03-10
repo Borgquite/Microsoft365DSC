@@ -415,7 +415,7 @@ function Export-TargetResource
 
     try
     {
-        $teams = Get-Team -ErrorAction Stop
+        $teams = Get-Team -ErrorAction Stop | Sort-Object -Property GroupId
         $j = 1
         $dscContent = ''
         Write-Host "`r`n" -NoNewline
@@ -446,8 +446,6 @@ function Export-TargetResource
                         AccessTokens          = $AccessTokens
                     }
                     $Results = Get-TargetResource @Params
-                    $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                        -Results $Results
                     $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                         -ConnectionMode $ConnectionMode `
                         -ModulePath $PSScriptRoot `

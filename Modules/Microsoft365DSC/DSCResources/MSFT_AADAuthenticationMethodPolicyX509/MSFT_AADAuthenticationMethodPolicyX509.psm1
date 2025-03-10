@@ -505,6 +505,7 @@ function Test-TargetResource
     $CurrentValues = Get-TargetResource @PSBoundParameters
     $ValuesToCheck = ([Hashtable]$PSBoundParameters).clone()
     $testResult = $true
+    $testTargetResource = $true
 
     #Compare Cim instances
     foreach ($key in $PSBoundParameters.Keys)
@@ -521,7 +522,7 @@ function Test-TargetResource
 
             if (-Not $testResult)
             {
-                $testResult = $false
+                $testTargetResource = $false
                 break
             }
 
@@ -534,17 +535,17 @@ function Test-TargetResource
     Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
     Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $ValuesToCheck)"
 
-    if ($testResult)
+    $testResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `
+        -Source $($MyInvocation.MyCommand.Source) `
+        -DesiredValues $PSBoundParameters `
+        -ValuesToCheck $ValuesToCheck.Keys
+
+    if (-not $TestResult)
     {
-        $testResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `
-            -Source $($MyInvocation.MyCommand.Source) `
-            -DesiredValues $PSBoundParameters `
-            -ValuesToCheck $ValuesToCheck.Keys
+        $testTargetResource = $false
     }
-
-    Write-Verbose -Message "Test-TargetResource returned $testResult"
-
-    return $testResult
+    Write-Verbose -Message "Test-TargetResource returned $testTargetResource"
+    return $testTargetResource
 }
 
 function Export-TargetResource
@@ -638,8 +639,6 @@ function Export-TargetResource
 
             $Script:exportedInstance = $config
             $Results = Get-TargetResource @Params
-            $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                -Results $Results
             if ($null -ne $Results.AuthenticationModeConfiguration)
             {
                 $complexMapping = @(
@@ -716,25 +715,9 @@ function Export-TargetResource
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
-            if ($Results.AuthenticationModeConfiguration)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'AuthenticationModeConfiguration' -IsCIMArray:$False
-            }
-            if ($Results.CertificateUserBindings)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'CertificateUserBindings' -IsCIMArray:$True
-                $currentDSCBlock = $currentDSCBlock.Replace('CertificateUserBindings         = @("', 'CertificateUserBindings         = @(')
-                $currentDSCBlock = $currentDSCBlock.Replace("            `",`"`r`n", '')
-            }
-            if ($Results.ExcludeTargets)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'ExcludeTargets' -IsCIMArray:$True
-            }
-            If ($Results.IncludeTargets)
-            {
-                $currentDSCBlock = Convert-DSCStringParamToVariable -DSCBlock $currentDSCBlock -ParameterName 'IncludeTargets' -IsCIMArray:$True
-            }
+                -Credential $Credential `
+                -NoEscape @('AuthenticationModeConfiguration', 'CertificateUserBindings', 'ExcludeTargets', 'IncludeTargets')
+
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName

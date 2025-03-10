@@ -349,7 +349,7 @@ function Export-TargetResource
 
     try
     {
-        [array]$instances = Get-Team
+        [array]$instances = Get-Team | Sort-Object -Property GroupId
         if ($instances.Length -eq 0)
         {
             Write-Host $Global:M365DSCEmojiGreenCheckMark
@@ -394,8 +394,6 @@ function Export-TargetResource
                             AccessTokens          = $AccessTokens
                         }
                         $results = Get-TargetResource @getParams
-                        $Results = Update-M365DSCExportAuthenticationResults -ConnectionMode $ConnectionMode `
-                            -Results $Results
                         $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                             -ConnectionMode $ConnectionMode `
                             -ModulePath $PSScriptRoot `
