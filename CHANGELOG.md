@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* AADAuthenticationStrengthPolicy
+  * Added check to ensure the current exported instance names match in
+    Get-TargetResource.
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwin an error
     complaining about a null object.
