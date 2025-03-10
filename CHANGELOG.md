@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* AADAuthenticationStrengthPolicy
+  * Added check to ensure the current exported instance names match in
+    Get-TargetResource.
 * AADRoleSetting
   * Fixed the required permissions.
     FIXES [#3696](https://github.com/microsoft/Microsoft365DSC/issues/3696)
