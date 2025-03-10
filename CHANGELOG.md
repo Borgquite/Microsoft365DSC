@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* AADAuthenticationStrengthPolicy
+  * Added check to ensure the current exported instance names match in
+    Get-TargetResource.
 * EXORoleGroup
   * Removed parameter `Roles` when creating a new group if there were
     no roles assigned to it.
