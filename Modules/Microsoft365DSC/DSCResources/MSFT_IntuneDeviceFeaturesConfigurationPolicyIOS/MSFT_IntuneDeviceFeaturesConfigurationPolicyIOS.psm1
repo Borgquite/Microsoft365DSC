@@ -126,7 +126,7 @@ function Get-TargetResource
         $AccessTokens
 
     )
-
+    Write-Verbose -Message "Getting configuration of the Intune Device Features Configuration Policy for iOS with Id {$Id} and DisplayName {$DisplayName}"
     try
     {
         if (-not $Script:exportedInstance)
@@ -364,7 +364,7 @@ function Set-TargetResource
         $AccessTokens
 
     )
-    Write-Verbose -Message "Getting configuration of the Intune Device Features Configuration Policy for iOS with Id {$Id} and DisplayName {$DisplayName}"
+    Write-Verbose -Message "Setting configuration of the Intune Device Features Configuration Policy for iOS with Id {$Id} and DisplayName {$DisplayName}"
     try
     {
         $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
@@ -665,6 +665,7 @@ function Test-TargetResource
         $AccessTokens
 
     )
+    Write-Verbose -Message "Testing configuration of the Intune Device Features Configuration Policy for iOS with Id {$Id} and DisplayName {$DisplayName}"
     #Ensure the proper dependencies are installed in the current environment.
     Confirm-M365DSCDependencies
 
