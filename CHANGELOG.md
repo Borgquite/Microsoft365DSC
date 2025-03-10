@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* AADAuthenticationStrengthPolicy
+  * Added check to ensure the current exported instance names match in
+    Get-TargetResource.
 * AADDomain
   * Fixed an issue where the test checked a string instead of the variable.
     FIXES [#5886](https://github.com/microsoft/Microsoft365DSC/issues/5886)
