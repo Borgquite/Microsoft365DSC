@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* IntuneAppProtectionPolicyAndroid
+  * Fix export of `ApprovedKeyboards` and `ExemptedAppPackages` properties.
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwin an error
     complaining about a null object.
