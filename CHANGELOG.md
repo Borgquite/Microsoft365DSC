@@ -2,14 +2,20 @@
 
 # UNRELEASED
 
+* AADApplication
+  * Defaulting AuthenticationBehaviors as an empty array from the
+    Get-TargetResource function.
 * AADAuthenticationStrengthPolicy
   * Added check to ensure the current exported instance names match in
     Get-TargetResource.
 * AADRoleSetting
   * Fixed the required permissions.
     FIXES [#3696](https://github.com/microsoft/Microsoft365DSC/issues/3696)
+* IntuneDeviceManagementEnrollmentAndroidGooglePlay
+  * Changed the resource to be read-only due to the associated APIs not being
+    owned by Microsoft.
 * SCDLPCompliancePolicy
-  * Fixes strange issue with the Get-TargetResource throwin an error
+  * Fixes strange issue with the Get-TargetResource throwing an error
     complaining about a null object.
 * DEPENDENCIES
   * Updated ReverseDSC to version 2.0.0.28.
