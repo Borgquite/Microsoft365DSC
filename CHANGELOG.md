@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+
+* AADAuthenticationStrengthPolicy
+  * Added check to ensure the current exported instance names match in
+    Get-TargetResource.
 * IntuneAppProtectionPolicyAndroid
   * Fix export of `ApprovedKeyboards` and `ExemptedAppPackages` properties.
 * SCDLPCompliancePolicy
