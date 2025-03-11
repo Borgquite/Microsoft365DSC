@@ -75,7 +75,14 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                         @{
                             Id                                = "androidManagedStoreAccountEnterpriseSettings"
                             BindStatus                        = "boundAndValidated"  # Required for unbinding
-                            
+                            LastAppSyncDateTime               = "2024-10-28T01:24:41.5529479Z"
+                            LastAppSyncStatus                 = "success"
+                            OwnerUserPrincipalName            = "admin@m365x22684512.onmicrosoft.com"
+                            OwnerOrganizationName             = "Contoso"
+                            LastModifiedDateTime              = "2024-10-28T01:24:39.1855089Z"
+                            EnrollmentTarget                  = "targetedAsEnrollmentRestrictions"
+                            DeviceOwnerManagementEnabled      = $true
+                            AndroidDeviceOwnerFullyManagedEnrollmentEnabled = $false
                         }
                     )
                 }
