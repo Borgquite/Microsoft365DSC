@@ -71,7 +71,7 @@ function Get-TargetResource
         $ResourceName = $MyInvocation.MyCommand.ModuleName -replace 'MSFT_', ''
         $CommandName = $MyInvocation.MyCommand
         $data = Format-M365DSCTelemetryParameters -ResourceName $ResourceName `
-                CommandName $CommandName `
+                -CommandName $CommandName `
             -Parameters $PSBoundParameters
         Add-M365DSCTelemetryEvent -Data $data
         #endregion
