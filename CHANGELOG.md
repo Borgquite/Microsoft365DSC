@@ -3,7 +3,7 @@
 # UNRELEASED
 
 * SCDLPCompliancePolicy
-  * Fixes strange issue with the Get-TargetResource throwin an error
+  * Fixes strange issue with the Get-TargetResource throwing an error
     complaining about a null object.
 * DEPENDENCIES
   * Updated ReverseDSC to version 2.0.0.28.
