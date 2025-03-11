@@ -2,14 +2,14 @@
 
 # UNRELEASED
 
-* AADAuthenticationStrengthPolicy
-  * Added check to ensure the current exported instance names match in
-    Get-TargetResource.
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwin an error
     complaining about a null object.
 * DEPENDENCIES
   * Updated ReverseDSC to version 2.0.0.28.
+* MISC
+  * Added check to ensure the current exported instance names match in
+    Get-TargetResource.
 
 # 1.25.305.1
 
