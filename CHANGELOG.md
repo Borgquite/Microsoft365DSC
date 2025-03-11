@@ -5,6 +5,9 @@
 * AADAuthenticationStrengthPolicy
   * Added check to ensure the current exported instance names match in
     Get-TargetResource.
+* IntuneDeviceManagementEnrollmentAndroidGooglePlay
+  * Changed the resource to be read-only due to the associated APIs not being
+    owned by Microsoft.
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwing an error
     complaining about a null object.

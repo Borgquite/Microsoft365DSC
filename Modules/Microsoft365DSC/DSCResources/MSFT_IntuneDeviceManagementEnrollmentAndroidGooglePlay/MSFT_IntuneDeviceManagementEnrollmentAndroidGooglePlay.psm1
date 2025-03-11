@@ -209,7 +209,7 @@ function Set-TargetResource
     )
 
     #Ensure the proper dependencies are installed in the current environment.
-    Confirm-M365DSCDependencies
+    <#Confirm-M365DSCDependencies
 
     #region Telemetry
     $ResourceName = $MyInvocation.MyCommand.ModuleName.Replace('MSFT_', '')
@@ -222,6 +222,7 @@ function Set-TargetResource
 
     $currentInstance = Get-TargetResource @PSBoundParameters
     $BoundParameters = Remove-M365DSCAuthenticationParameter -BoundParameters $PSBoundParameters
+
 
     if ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Absent')
     {
@@ -275,7 +276,9 @@ function Set-TargetResource
     {
         Write-Host "Remove the Intune Device Management Android Google Play Enrollment with Id {$($currentInstance.Id)}"
         $unbindResult = Invoke-MgGraphRequest -Uri ((Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + 'beta/deviceManagement/androidManagedStoreAccountEnterpriseSettings/unbind') -Method 'POST' -Body @{} -ContentType 'application/json'
-    }
+    }#>
+
+    Write-Verbose -Message "WARNING: This resource is currently read-only. This means you can use it to monitor for drifts, but it can't automate any configuration changes. The APIs associated with the binding process are owned by Google."
 }
 
 function Test-TargetResource
