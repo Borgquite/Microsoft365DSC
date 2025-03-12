@@ -11,6 +11,8 @@
 * IntuneDeviceManagementEnrollmentAndroidGooglePlay
   * Changed the resource to be read-only due to the associated APIs not being
     owned by Microsoft.
+* O365OrgSettings
+  * Add required `Insights Administrator` role for Get and Update.
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwing an error
     complaining about a null object.
