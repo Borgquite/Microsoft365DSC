@@ -8,9 +8,13 @@
 * AADAuthenticationStrengthPolicy
   * Added check to ensure the current exported instance names match in
     Get-TargetResource.
+* IntuneAppProtectionPolicyAndroid
+  * Fix export of `ApprovedKeyboards` and `ExemptedAppPackages` properties.
 * IntuneDeviceManagementEnrollmentAndroidGooglePlay
   * Changed the resource to be read-only due to the associated APIs not being
     owned by Microsoft.
+* O365OrgSettings
+  * Add required `Insights Administrator` role for Get and Update.
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwing an error
     complaining about a null object.
@@ -19,6 +23,8 @@
 * SPOSiteScript
   * Fixed an issue where the Get method would fail on fetching a specific script.
     FIXES [#5701](https://github.com/microsoft/Microsoft365DSC/issues/5701)
+* M35DSCReport
+  * Require Excel to be installed for .xlsx export.
 * M365DSCReverse
   * Fixed an issue where specifying a component multiple times in the Export
     would skip the resource altogether.
