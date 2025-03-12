@@ -18,6 +18,8 @@
     complaining about a null object.
 * SCLabelPolicy
   * Fixed evaluation of CIMInstances in Test-TargetResource.
+* M35DSCReport
+  * Require Excel to be installed for .xlsx export.
 * M365DSCReverse
   * Fixed an issue where specifying a component multiple times in the Export
     would skip the resource altogether.
