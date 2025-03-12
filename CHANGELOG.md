@@ -11,6 +11,10 @@
 * AADRoleSetting
   * Fixed the required permissions.
     FIXES [#3696](https://github.com/microsoft/Microsoft365DSC/issues/3696)
+* EXORoleGroup
+  * Removed parameter `Roles` when creating a new group if there were
+    no roles assigned to it.
+    FIXES [#5725](https://github.com/microsoft/Microsoft365DSC/issues/5725)
 * IntuneAppProtectionPolicyAndroid
   * Fix export of `ApprovedKeyboards` and `ExemptedAppPackages` properties.
 * IntuneDeviceManagementEnrollmentAndroidGooglePlay
@@ -36,6 +40,10 @@
 * MISC
   * Added check to ensure the current exported instance names match in
     Get-TargetResource.
+* M365DSCLogEngine
+  * Fixed an error message appearing if one or more event logs could
+    not be accessed while searching the event source.
+    FIXES [#3811](https://github.com/microsoft/Microsoft365DSC/issues/3811)
 
 # 1.25.305.1
 
