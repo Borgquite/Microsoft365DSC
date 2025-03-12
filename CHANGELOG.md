@@ -18,7 +18,7 @@
   * Fixed evaluation of CIMInstances in Test-TargetResource.
 * SHSpaceGroup
   * Initial release.
-* SHSpaceUSer
+* SHSpaceUser
   * Initial release.
 * M365DSCReverse
   * Fixed an issue where specifying a component multiple times in the Export

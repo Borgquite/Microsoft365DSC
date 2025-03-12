@@ -198,12 +198,12 @@ function Set-TargetResource
     {
         Write-Verbose -Message "Creating new group {$GroupName} with Roles {$($Roles -join ',')}"
         $body = @{
-            groupName = $GroupName
-            roles     = $Roles;
+            displayName = $GroupName
+            roles       = $Roles
         }
 
         $uri = (Get-MSCloudLoginConnectionProfile -Workload EngageHub).APIUrl + "/spaces/" + $space.spaceId + "/groups"
-        Write-Verbose -Message "POST request to {$uri}"
+        Write-Verbose -Message "POST request to {$uri}`r`n$(ConvertTo-Json $body -Depth 5)"
         Invoke-M365DSCServicesHubWebRequest -Uri $uri `
                                             -Method POST `
                                             -Body $body
@@ -217,6 +217,7 @@ function Set-TargetResource
         }
 
         $uri = (Get-MSCloudLoginConnectionProfile -Workload EngageHub).APIUrl + "/spaces/" + $space.spaceId + "/groups/" + $group.groupId
+        Write-Verbose -Message "PATCH request to {$uri}`r`n$(ConvertTo-Json $body -Depth 5)"
         Invoke-M365DSCServicesHubWebRequest -Uri $uri `
                                             -Method PATCH `
                                             -Body $body
