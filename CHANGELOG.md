@@ -14,6 +14,8 @@
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwing an error
     complaining about a null object.
+* SCLabelPolicy
+  * Fixed evaluation of CIMInstances in Test-TargetResource.
 * DEPENDENCIES
   * Updated ReverseDSC to version 2.0.0.28.
 * MISC
