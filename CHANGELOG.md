@@ -14,6 +14,8 @@
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwing an error
     complaining about a null object.
+* SCLabelPolicy
+  * Fixed evaluation of CIMInstances in Test-TargetResource.
 * M35DSCReport
   * Require Excel to be installed for .xlsx export.
 * M365DSCReverse
