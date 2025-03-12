@@ -11,6 +11,9 @@
 * AADDomain
   * Fixed an issue where the test checked a string instead of the variable.
     FIXES [#5886](https://github.com/microsoft/Microsoft365DSC/issues/5886)
+* AADRoleSetting
+  * Fixed the required permissions.
+    FIXES [#3696](https://github.com/microsoft/Microsoft365DSC/issues/3696)
 * EXORoleGroup
   * Removed parameter `Roles` when creating a new group if there were
     no roles assigned to it.
