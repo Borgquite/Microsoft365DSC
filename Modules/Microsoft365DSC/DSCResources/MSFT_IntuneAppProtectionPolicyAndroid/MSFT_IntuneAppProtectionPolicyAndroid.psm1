@@ -385,7 +385,7 @@ function Get-TargetResource
 
     try
     {
-        if (-not $Script:exportedInstance)
+        if (-not $Script:exportedInstance -or $Script:exportedInstance.DisplayName -ne $DisplayName)
         {
             $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
                 -InboundParameters $PSBoundParameters
@@ -550,7 +550,7 @@ function Get-TargetResource
         {
             $policy.ApprovedKeyboards = $approvedKeyboardArray
         }
-        
+
         $exemptedAppPackagesArray = @()
         foreach ($exemptedapppackage in $policyInfo.exemptedAppPackages)
         {
@@ -1060,13 +1060,13 @@ function Set-TargetResource
         $approvedKeyboardHastableArray = @()
         $PSBoundParameters.ApprovedKeyboards | ForEach-Object {
             if ($_ -ne $null)
-            {               
+            {
                 $tempArray = @()
                 $tempArray = $_ -split '[|]'
                 $tempHash = @{}
                 $tempHash.Add('name', $tempArray[0])
                 $tempHash.Add('value', $tempArray[1])
-                $approvedKeyboardHastableArray += $tempHash             
+                $approvedKeyboardHastableArray += $tempHash
             }
         }
         $configstring += ( 'ApprovedKeyboards' + ":`r`n" + ($PSBoundParameters.ApprovedKeyboards | Out-String) + "`r`n" )
@@ -1079,13 +1079,13 @@ function Set-TargetResource
         $exemptedAppPackagesHastableArray = @()
         $PSBoundParameters.ExemptedAppPackages | ForEach-Object {
             if ($_ -ne $null)
-            {               
+            {
                 $tempArray = @()
                 $tempArray = $_ -split '[|]'
                 $tempHash = @{}
                 $tempHash.Add('name', $tempArray[0])
                 $tempHash.Add('value', $tempArray[1])
-                $exemptedAppPackagesHastableArray += $tempHash             
+                $exemptedAppPackagesHastableArray += $tempHash
             }
         }
         $configstring += ( 'ExemptedAppPackages' + ":`r`n" + ($PSBoundParameters.ExemptedAppPackages | Out-String) + "`r`n" )
