@@ -14,6 +14,9 @@
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwing an error
     complaining about a null object.
+* M365DSCReverse
+  * Fixed an issue where specifying a component multiple times in the Export
+    would skip the resource altogether.
 * DEPENDENCIES
   * Updated ReverseDSC to version 2.0.0.28.
 * MISC
