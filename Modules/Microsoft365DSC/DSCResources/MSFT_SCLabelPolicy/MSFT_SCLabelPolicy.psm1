@@ -167,12 +167,42 @@ function Get-TargetResource
         }
         else
         {
+            Write-Verbose -Message "Retrieved policy from cache"
             $policy = $Script:exportedInstance
         }
 
         if ($null -ne $policy.Settings)
         {
+            Write-Verbose -Message "Converting Settings"
             $advancedSettingsValue = Convert-StringToAdvancedSettings -AdvancedSettings $policy.Settings
+        }
+
+        $ExchangeLocationValue = $null
+        if ($null -ne $policy.ExchangeLocation)
+        {
+            Write-Verbose -Message "Converting ExchangeLocation to an Array."
+            $ExchangeLocationValue = Convert-ArrayList -CurrentProperty $policy.ExchangeLocation
+        }
+
+        $ExchangeLocationExceptionValue = $null
+        if ($null -ne $policy.ExchangeLocationException)
+        {
+            Write-Verbose -Message "Converting ExchangeLocationException to an Array."
+            $ExchangeLocationExceptionValue = Convert-ArrayList -CurrentProperty $policy.ExchangeLocationException
+        }
+
+        $ModernGroupLocationValue = $null
+        if ($null -ne $policy.ModernGroupLocation)
+        {
+            Write-Verbose -Message "Converting ModernGroupLocation to an Array."
+            $ModernGroupLocationValue = Convert-ArrayList -CurrentProperty $policy.ModernGroupLocation
+        }
+
+        $ModernGroupLocationExceptionValue = $null
+        if ($null -ne $policy.ModernGroupLocationException)
+        {
+            Write-Verbose -Message "Converting ModernGroupLocationException to an Array."
+            $ModernGroupLocationExceptionValue = Convert-ArrayList -CurrentProperty $policy.ModernGroupLocationException
         }
 
         Write-Verbose "Found existing Sensitivity Label policy $($Name)"
@@ -188,10 +218,10 @@ function Get-TargetResource
             CertificatePassword          = $CertificatePassword
             Ensure                       = 'Present'
             Labels                       = $policy.Labels
-            ExchangeLocation             = Convert-ArrayList -CurrentProperty $policy.ExchangeLocation
-            ExchangeLocationException    = Convert-ArrayList -CurrentProperty $policy.ExchangeLocationException
-            ModernGroupLocation          = Convert-ArrayList -CurrentProperty $policy.ModernGroupLocation
-            ModernGroupLocationException = Convert-ArrayList -CurrentProperty $policy.ModernGroupLocationException
+            ExchangeLocation             = $ExchangeLocationValue
+            ExchangeLocationException    = $ExchangeLocationExceptionValue
+            ModernGroupLocation          = $ModernGroupLocationValue
+            ModernGroupLocationException = $ModernGroupLocationExceptionValue
             AccessTokens                 = $AccessTokens
         }
 
@@ -936,6 +966,7 @@ function Convert-StringToAdvancedSettings
     $settings = @()
     foreach ($setting in $AdvancedSettings)
     {
+        Write-Verbose -Message "SETTING: $setting"
         $settingString = $setting.Replace('[', '').Replace(']', '')
         $settingKey = $settingString.Split(',')[0]
 
@@ -1032,7 +1063,6 @@ function Test-AdvancedSettings
         [Parameter (Mandatory = $true)]
         $CurrentProperty
     )
-
     $foundSettings = $true
     foreach ($desiredSetting in $DesiredProperty)
     {
@@ -1040,7 +1070,7 @@ function Test-AdvancedSettings
         if ($null -ne $foundKey)
         {
             $checkValue = $desiredSetting.Value
-            if ($checkValue.Count -gt 1)
+            if ($checkValue.GetType().BaseType -eq 'array' -or $checkValue.GetType().Name -like "string[]")
             {
                 $checkValue = $desiredSetting.Value[0]
             }
@@ -1052,7 +1082,7 @@ function Test-AdvancedSettings
         }
     }
 
-    Write-Verbose -Message "Test AdvancedSettings  returns $foundSettings"
+    Write-Verbose -Message "Test AdvancedSettings returned {$foundSettings}"
     return $foundSettings
 }
 
