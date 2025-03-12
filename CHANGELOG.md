@@ -8,6 +8,10 @@
 * AADAuthenticationStrengthPolicy
   * Added check to ensure the current exported instance names match in
     Get-TargetResource.
+* EXORoleGroup
+  * Removed parameter `Roles` when creating a new group if there were
+    no roles assigned to it.
+    FIXES [#5725](https://github.com/microsoft/Microsoft365DSC/issues/5725)
 * IntuneAppProtectionPolicyAndroid
   * Fix export of `ApprovedKeyboards` and `ExemptedAppPackages` properties.
 * IntuneDeviceManagementEnrollmentAndroidGooglePlay
