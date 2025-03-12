@@ -20,6 +20,9 @@
     complaining about a null object.
 * SCLabelPolicy
   * Fixed evaluation of CIMInstances in Test-TargetResource.
+* SPOSiteScript
+  * Fixed an issue where the Get method would fail on fetching a specific script.
+    FIXES [#5701](https://github.com/microsoft/Microsoft365DSC/issues/5701)
 * M35DSCReport
   * Require Excel to be installed for .xlsx export.
 * M365DSCReverse
