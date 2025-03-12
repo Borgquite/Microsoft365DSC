@@ -245,7 +245,7 @@ function Set-TargetResource
     {
         $NeedAdditionalUpdate = $false
         $UpdatePasswordNotificationWindowInDays = $false
-        if (-not [System.String]::IsNullOrEmpty('PasswordNotificationWindowInDays'))
+        if (-not [System.String]::IsNullOrEmpty($PasswordNotificationWindowInDays))
         {
             $NeedAdditionalUpdate = $true
             $UpdatePasswordNotificationWindowInDays = $true

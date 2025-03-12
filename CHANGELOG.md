@@ -8,6 +8,19 @@
 * AADAuthenticationStrengthPolicy
   * Added check to ensure the current exported instance names match in
     Get-TargetResource.
+* AADDomain
+  * Fixed an issue where the test checked a string instead of the variable.
+    FIXES [#5886](https://github.com/microsoft/Microsoft365DSC/issues/5886)
+* AADRoleSetting
+  * Fixed the required permissions.
+    FIXES [#3696](https://github.com/microsoft/Microsoft365DSC/issues/3696)
+* EXORoleGroup
+  * Removed parameter `Roles` when creating a new group if there were
+    no roles assigned to it.
+    FIXES [#5725](https://github.com/microsoft/Microsoft365DSC/issues/5725)
+* IntuneAppleMDMPushNotificationCertificate
+  * Hide error message if no certificate was found during export.
+    FIXES [#5884](https://github.com/microsoft/Microsoft365DSC/issues/5884)
 * IntuneAppProtectionPolicyAndroid
   * Fix export of `ApprovedKeyboards` and `ExemptedAppPackages` properties.
 * IntuneDeviceManagementEnrollmentAndroidGooglePlay
@@ -20,6 +33,9 @@
     complaining about a null object.
 * SCLabelPolicy
   * Fixed evaluation of CIMInstances in Test-TargetResource.
+* SPOSiteScript
+  * Fixed an issue where the Get method would fail on fetching a specific script.
+    FIXES [#5701](https://github.com/microsoft/Microsoft365DSC/issues/5701)
 * M35DSCReport
   * Require Excel to be installed for .xlsx export.
 * M365DSCReverse
@@ -30,6 +46,10 @@
 * MISC
   * Added check to ensure the current exported instance names match in
     Get-TargetResource.
+* M365DSCLogEngine
+  * Fixed an error message appearing if one or more event logs could
+    not be accessed while searching the event source.
+    FIXES [#3811](https://github.com/microsoft/Microsoft365DSC/issues/3811)
 
 # 1.25.305.1
 
