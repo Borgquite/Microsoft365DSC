@@ -1070,7 +1070,7 @@ function Test-AdvancedSettings
         if ($null -ne $foundKey)
         {
             $checkValue = $desiredSetting.Value
-            if ($checkValue.GetType().BaseType -eq 'array' -or $checkValue.GetType().Name -like "string[]")
+            if ($checkValue.GetType().BaseType -eq 'array' -or $checkValue.GetType().Name -contains 'string[]')
             {
                 $checkValue = $desiredSetting.Value[0]
             }
