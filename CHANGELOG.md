@@ -14,6 +14,8 @@
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwing an error
     complaining about a null object.
+* SCLabelPolicy
+  * Fixed evaluation of CIMInstances in Test-TargetResource.
 * M365DSCReverse
   * Fixed an issue where specifying a component multiple times in the Export
     would skip the resource altogether.
