@@ -14,6 +14,8 @@
 * SCDLPCompliancePolicy
   * Fixes strange issue with the Get-TargetResource throwing an error
     complaining about a null object.
+* SCLabelPolicy
+  * Fixed evaluation of CIMInstances in Test-TargetResource.
 * SPOSiteScript
   * Fixed an issue where the Get method would fail on fetching a specific script.
     FIXES [#5701](https://github.com/microsoft/Microsoft365DSC/issues/5701)

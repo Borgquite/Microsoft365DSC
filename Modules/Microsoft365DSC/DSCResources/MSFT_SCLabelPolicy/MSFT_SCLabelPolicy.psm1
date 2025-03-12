@@ -683,6 +683,7 @@ function Test-TargetResource
         {
             return $false
         }
+        $ValuesToCheck.Remove('AdvancedSettings') | Out-Null
     }
 
     if ($null -ne $RemoveModernGroupLocation -or $null -ne $AddModernGroupLocation -or $null -ne $ModernGroupLocation)
@@ -698,6 +699,9 @@ function Test-TargetResource
         {
             return $false
         }
+        $ValuesToCheck.Remove('RemoveModernGroupLocation') | Out-Null
+        $ValuesToCheck.Remove('AddModernGroupLocation') | Out-Null
+        $ValuesToCheck.Remove('ModernGroupLocation') | Out-Null
     }
 
     if ($null -ne $RemoveModernGroupLocationException -or $null -ne $AddModernGroupLocationException `
@@ -715,6 +719,9 @@ function Test-TargetResource
         {
             return $false
         }
+        $ValuesToCheck.Remove('RemoveModernGroupLocationException') | Out-Null
+        $ValuesToCheck.Remove('AddModernGroupLocationException') | Out-Null
+        $ValuesToCheck.Remove('ModernGroupLocationException') | Out-Null
     }
 
     if ($null -ne $RemoveExchangeLocation -or $null -ne $AddExchangeLocation -or $null -ne $ExchangeLocation)
@@ -730,6 +737,9 @@ function Test-TargetResource
         {
             return $false
         }
+        $ValuesToCheck.Remove('RemoveExchangeLocation') | Out-Null
+        $ValuesToCheck.Remove('AddExchangeLocation') | Out-Null
+        $ValuesToCheck.Remove('ExchangeLocation') | Out-Null
     }
 
     if ($null -ne $RemoveExchangeLocationException -or $null -ne $AddExchangeLocationException -or $null -ne $ExchangeLocationException)
@@ -747,6 +757,9 @@ function Test-TargetResource
         {
             return $false
         }
+        $ValuesToCheck.Remove('RemoveExchangeLocationException') | Out-Null
+        $ValuesToCheck.Remove('AddExchangeLocationException') | Out-Null
+        $ValuesToCheck.Remove('ExchangeLocationException') | Out-Null
     }
 
     if ($null -ne $RemoveLabels -or $null -ne $AddLabels -or $null -ne $Labels)
@@ -764,6 +777,9 @@ function Test-TargetResource
         {
             return $false
         }
+        $ValuesToCheck.Remove('RemoveLabels') | Out-Null
+        $ValuesToCheck.Remove('AddLabels') | Out-Null
+        $ValuesToCheck.Remove('Labels') | Out-Null
     }
 
     Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
@@ -1024,7 +1040,7 @@ function Test-AdvancedSettings
         if ($null -ne $foundKey)
         {
             $checkValue = $desiredSetting.Value
-            if ($checkValue.Count -eq 1)
+            if ($checkValue.Count -gt 1)
             {
                 $checkValue = $desiredSetting.Value[0]
             }
