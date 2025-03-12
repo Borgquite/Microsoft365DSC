@@ -8,6 +8,9 @@
 * AADAuthenticationStrengthPolicy
   * Added check to ensure the current exported instance names match in
     Get-TargetResource.
+* AADDomain
+  * Fixed an issue where the test checked a string instead of the variable.
+    FIXES [#5886](https://github.com/microsoft/Microsoft365DSC/issues/5886)
 * AADRoleSetting
   * Fixed the required permissions.
     FIXES [#3696](https://github.com/microsoft/Microsoft365DSC/issues/3696)
@@ -15,6 +18,9 @@
   * Removed parameter `Roles` when creating a new group if there were
     no roles assigned to it.
     FIXES [#5725](https://github.com/microsoft/Microsoft365DSC/issues/5725)
+* IntuneAppleMDMPushNotificationCertificate
+  * Hide error message if no certificate was found during export.
+    FIXES [#5884](https://github.com/microsoft/Microsoft365DSC/issues/5884)
 * IntuneAppProtectionPolicyAndroid
   * Fix export of `ApprovedKeyboards` and `ExemptedAppPackages` properties.
 * IntuneDeviceManagementEnrollmentAndroidGooglePlay
