@@ -101,7 +101,7 @@ function Get-TargetResource
             CertificatePassword   = $CertificatePassword
             CertificatePath       = $CertificatePath
             CertificateThumbprint = $CertificateThumbprint
-            Managedidentity       = $ManagedIdentity.IsPresent
+            ManagedIdentity       = $ManagedIdentity.IsPresent
             AccessTokens          = $AccessTokens
         }
     }
@@ -430,7 +430,28 @@ function Export-TargetResource
                 AccessTokens          = $AccessTokens
             }
             $Results = Get-TargetResource @Params
-            $Results.Palette = ConvertTo-SPOThemePalettePropertyString $Results.Palette
+            if ($null -ne $Results.Palette)
+            {
+                $formatted = $Results.Palette.GetEnumerator() | ForEach-Object {
+                    [ordered]@{
+                        Property = $_.Key
+                        Value    = $_.Value
+                    }
+                }
+                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                    -ComplexObject $formatted `
+                    -CIMInstanceName 'MSFT_SPOThemePaletteProperty' `
+                    -IsArray
+
+                if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                {
+                    $Results.Palette = $complexTypeStringResult
+                }
+                else
+                {
+                    $Results.Remove('Palette') | Out-Null
+                }
+            }
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
@@ -493,30 +514,6 @@ function Convert-NewThemePaletteToHashTable
     }
     return $results
 }
-
-function ConvertTo-SPOThemePalettePropertyString
-{
-    [CmdletBinding()]
-    [OutputType([System.String])]
-    param
-    (
-        [Parameter(Mandatory = $true)]
-        [System.Collections.Hashtable]
-        $Palette
-    )
-
-    $StringContent = '@('
-    foreach ($property in $Palette.Keys)
-    {
-        $StringContent += "`r`n                MSFT_SPOThemePaletteProperty{`r`n"
-        $StringContent += "                    Property = '$($property)'`r`n"
-        $StringContent += "                    Value    = '$($Palette[$property])'`r`n"
-        $StringContent += "                }"
-    }
-    $StringCOntent += "`r`n            )`r`n"
-    return $StringContent
-}
-
 
 function Compare-SPOTheme
 {
