@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* EXOArcConfig
+  * [BREAKING CHANGE] Removed the `Identity` parameter since it does not 
+    have any functionality and is not exported by default.
+
 # 1.25.312.1
 
 * AADApplication
