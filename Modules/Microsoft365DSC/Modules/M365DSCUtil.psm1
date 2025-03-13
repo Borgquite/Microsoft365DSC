@@ -5230,6 +5230,70 @@ function Sync-M365DSCParameter
     }
 }
 
+<#
+.SYNOPSIS
+    Joins two M365DSC configurations into a single configuration.
+.DESCRIPTION
+    This function is used to join two M365DSC configurations into a single configuration.
+    The function reads the configuration from the specified paths and combines them into a single configuration.
+    Please note that the function won't be updating the authentication parameters if they differ between the configurations. Make sure that the authentication parameters are the same over all configurations.
+.PARAMETER ConfigurationFile
+    The name of the first configuration file to use as the base configuration.
+.PARAMETER ConfigurationPath
+    The directory path to the configuration files to join to the base configuration.
+.EXAMPLE
+    Join-M365DSCConfiguration -ConfigurationFile 'M365TenantConfig.ps1' -ConfigurationPath 'D:\testbed'
+    This example joins the 'M365TenantConfig.ps1' file with all the configuration files in the 'D:\testbed' directory.
+.FUNCTIONALITY
+    Public
+#>
+function Join-M365DSCConfiguration
+{
+    [CmdletBinding()]
+    param
+    (
+        [Parameter(Mandatory = $true)]
+        [string]
+        $ConfigurationFile,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $ConfigurationPath
+    )
+
+    if ($ConfigurationFile -notlike "*.ps1")
+    {
+        throw "The ConfigurationFile parameter must be a .ps1 file."
+    }
+
+    if (-not (Test-Path -Path $ConfigurationPath))
+    {
+        throw "The ConfigurationPath parameter must be a valid path."
+    }
+
+    $ConfigurationFilePath = Join-Path -Path $ConfigurationPath -ChildPath $ConfigurationFile
+    $ConfigurationPath = Join-Path -Path $ConfigurationPath -ChildPath "*"
+
+    $baseConfiguration = ConvertTo-DSCObject -Path $ConfigurationFilePath
+    $additionalConfigurations = Get-Item -Path $ConfigurationPath -Filter *.ps1 -Exclude $ConfigurationFile | ForEach-Object { ConvertTo-DSCObject -Path $_.FullName }
+
+    $combinedArray = @($baseConfiguration) + @($additionalConfigurations)
+    $combinedConfiguration = ConvertFrom-DSCObject -DSCResources $combinedArray
+    
+    # Indent all lines by 8 spaces to match the indentation of the configuration file
+    $combinedConfiguration = $combinedConfiguration -replace '(?m)^', '        '
+    $combinedConfiguration = $combinedConfiguration.TrimEnd()
+
+    # Remove everything in the "Node localhost" part in the configuration file, while excluding the last two closing brackets
+    $content = Get-Content -Path $ConfigurationFilePath -Raw
+    $content = $content -replace '(?s)(?<=Node localhost\s*\{)(.*\s{8}\}?)(?=\s*\})', ''
+
+    # Append the combined configuration after the "Node localhost" part in the configuration file
+    $content = $content -replace '(?s)(?<=Node localhost\s*\{)', "`r`n$combinedConfiguration"
+
+    return $content
+}
+
 Export-ModuleMember -Function @(
     'Assert-M365DSCBlueprint',
     'Clear-M365DSCAuthenticationParameter',
@@ -5256,6 +5320,7 @@ Export-ModuleMember -Function @(
     'Import-M365DSCDependencies',
     'Install-M365DSCDevBranch',
     'Invoke-M365DSCCommand',
+    'Join-M365DSCConfiguration',
     'New-EXOSafeAttachmentRule',
     'New-EXOSafeLinksRule',
     'New-M365DSCCmdletDocumentation',

@@ -1,5 +1,12 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* M365DSCUtil
+  * Added the new function `Join-M365DSCConfiguration` to merge multiple
+    configuration files.
+    FIXES [#2359](https://github.com/microsoft/Microsoft365DSC/issues/2359)
+
 # 1.25.312.1
 
 * AADApplication
