@@ -675,6 +675,20 @@
                     TenantId              = $TenantId;
                     CertificateThumbprint = $CertificateThumbprint;
                 }
+                IntuneDeviceComplianceScriptWindows10 'Example'
+                {
+                    DisplayName            = "custom";
+                    Ensure                 = "Present";
+                    EnforceSignatureCheck  = $False;
+                    Id                     = "00000000-0000-0000-0000-000000000000";
+                    RunAs32Bit             = $True;
+                    RunAsAccount           = "system";
+                    DetectionScriptContent = "Write-Output `$true";
+                    Publisher              = "";
+                    ApplicationId          = $ApplicationId;
+                    TenantId               = $TenantId;
+                    CertificateThumbprint  = $CertificateThumbprint;
+                }
                 IntuneDeviceConfigurationAdministrativeTemplatePolicyWindows10 'Example'
                 {
                     Assignments                      = @(
@@ -3072,6 +3086,30 @@
                         )
                     }
                     UserSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogUserSettings_IntuneSecurityBaselineWindows10
+                    {
+                        AllowWindowsSpotlight = '1'
+                    }
+                    Ensure                = 'Present'
+                    ApplicationId         = $ApplicationId;
+                    TenantId              = $TenantId;
+                    CertificateThumbprint = $CertificateThumbprint;
+                }
+                IntuneSecurityBaselineWindows365 'mySecurityBaselineWindows365'
+                {
+                    DisplayName           = 'test'
+                    DeviceSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogDeviceSettings_IntuneSecurityBaselineWindows365
+                    {
+                        Pol_MSS_DisableIPSourceRoutingIPv6 = '1'
+                        DisableIPSourceRoutingIPv6 = '0'
+                        HardenedUNCPaths_Pol_HardenedPaths = '1'
+                        pol_hardenedPaths = @(
+                            MSFT_MicrosoftGraphIntuneSettingsCatalogpol_hardenedpaths{
+                                Key = '\\*\SYSVOL'
+                                Value = 'RequireMutualAuthentication=1,RequireIntegrity=1'
+                            }
+                        )
+                    }
+                    UserSettings = MSFT_MicrosoftGraphIntuneSettingsCatalogUserSettings_IntuneSecurityBaselineWindows365
                     {
                         AllowWindowsSpotlight = '1'
                     }

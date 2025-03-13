@@ -110,7 +110,7 @@ function Get-TargetResource
 
     try
     {
-        if (-not $Script:exportedInstance)
+        if (-not $Script:exportedInstance -or $Script:exportedInstance.DisplayName -ne $DisplayName)
         {
             Write-Verbose -Message 'Getting configuration of AzureAD Group'
             $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
@@ -245,7 +245,7 @@ function Get-TargetResource
         }
 
         # AssignedToRole
-        $AssignedToRoleValues = $null
+        $AssignedToRoleValues = @()
         if ($Group.IsAssignableToRole -eq $true)
         {
             $AssignedToRoleValues = @()
@@ -258,7 +258,7 @@ function Get-TargetResource
         }
 
         # Licenses
-        $assignedLicensesValues = $null
+        $assignedLicensesValues = @()
         $uri = (Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + "v1.0/groups/$($Group.Id)/assignedLicenses"
         $assignedLicensesRequest = Invoke-MgGraphRequest -Method 'GET' `
             -Uri $uri

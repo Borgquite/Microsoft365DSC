@@ -370,7 +370,6 @@ function Get-M365DSCDRGComplexTypeToString
                 {
                     $hashPropertyType = ([Array]($ComplexTypeMapping | Where-Object -FilterScript { $_.Name -eq $key }).CimInstanceName)[0]
                     $hashProperty = $itemValue
-                    #$currentProperty += "`r`n"
                 }
                 else
                 {
@@ -418,6 +417,10 @@ function Get-M365DSCDRGComplexTypeToString
                             $nestedPropertyString = $nestedPropertyString.Substring(2)
                         }
                         $currentProperty += $nestedPropertyString
+                        if (-not $currentProperty.EndsWith("`r`n"))
+                        {
+                            $currentProperty += "`r`n"
+                        }
                     }
                     $IndentLevel--
                 }
@@ -483,40 +486,16 @@ function Get-M365DSCDRGComplexTypeToString
     $indent = ''
     $indent = '    ' * ($IndentLevel -1)
 
-    if ($key -in $ComplexTypeMapping.Name)
+    if ($key -in $ComplexTypeMapping.Name -and -not $currentProperty.EndsWith("`r`n"))
     {
         $currentProperty += "`r`n"
     }
 
     $currentProperty += "$indent}"
-    <#
-    if ($IsArray -or $IndentLevel -gt 4)
-    {
-        $currentProperty += "`r`n"
-    }
-    #>
-
-    #Indenting last parenthesis when the cim instance is an array
-    <#
-    if ($IndentLevel -eq 5)
-    {
-        $indent = '    ' * ($IndentLevel -2)
-        $currentProperty += $indent
-    }
-    #>
-
     $emptyCIM = $currentProperty.Replace(' ', '').Replace("`r`n", '')
     if ($emptyCIM -eq "MSFT_$CIMInstanceName{}")
     {
         $currentProperty = [string]::Empty
-    }
-
-    if ($null -ne $currentProperty)
-    {
-        $fancySingleQuotes = "[\u2019\u2018]"
-        $fancyDoubleQuotes = "[\u201C\u201D]"
-        $currentProperty = [regex]::Replace($currentProperty, $fancySingleQuotes, "''")
-        $currentProperty = [regex]::Replace($currentProperty, $fancyDoubleQuotes, '"')
     }
 
     return $currentProperty
@@ -552,8 +531,15 @@ function Get-M365DSCDRGSimpleObjectTypeToString
             {
                 $key = 'odataType'
             }
-            $Value = $Value.Replace('`', '``').Replace('$', '`$').Replace('"', '`"')
-            $returnValue = $Space + $Key + ' = "' + $Value + """`r`n"
+            #0x201E = „
+            #0x201C = “
+            #0x201D = ”
+            $newString = $Value.Replace('`', '``').Replace('$', '`$')
+            $newString = $newString.Replace("$([char]0x201E)", "``$([char]0x201E)")
+            $newString = $newString.Replace("$([char]0x201C)", "``$([char]0x201C)")
+            $newString = $newString.Replace("$([char]0x201D)", "``$([char]0x201D)")
+            $newString = $newString.Replace('"', '`"')
+            $returnValue = $Space + $Key + ' = "' + $newString + """`r`n"
         }
         '*.DateTime'
         {
@@ -866,7 +852,7 @@ function Compare-M365DSCComplexObject
                         }
 
                         $compareResult = $true
-                        $ordinalComparison = [System.String]::Equals($referenceObject, $differenceObject, [System.StringComparison]::Ordinal)
+                        $ordinalComparison = [System.String]::Equals($referenceObject, $differenceObject, [System.StringComparison]::OrdinalIgnoreCase)
                         if (-not $ordinalComparison)
                         {
                             $compareResult = $false

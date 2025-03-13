@@ -141,7 +141,7 @@ function Get-TargetResource
 
     try
     {
-        if (-not $Script:exportedInstance)
+        if (-not $Script:exportedInstance -or $Script:exportedInstance.Name -ne $Name)
         {
             Write-Verbose -Message "Getting configuration of SCProtectionAlert for $Name"
 
@@ -629,8 +629,7 @@ function Export-TargetResource
         $AccessTokens
     )
     $ConnectionMode = New-M365DSCConnection -Workload 'SecurityComplianceCenter' `
-        -InboundParameters $PSBoundParameters `
-        -SkipModuleReload $true
+        -InboundParameters $PSBoundParameters
     #Ensure the proper dependencies are installed in the current environment.
     Confirm-M365DSCDependencies
 

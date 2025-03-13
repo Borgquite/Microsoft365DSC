@@ -71,7 +71,7 @@ function Get-TargetResource
     )
     try
     {
-        if (-not $Script:exportedInstance)
+        if (-not $Script:exportedInstance -or $Script:exportedInstance.DisplayName -ne $DisplayName)
         {
             Write-Verbose -Message 'Getting configuration of Azure AD role definition'
             $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
@@ -122,7 +122,7 @@ function Get-TargetResource
             Description           = $AADRoleDefinition.Description
             ResourceScopes        = $AADRoleDefinition.ResourceScopes
             IsEnabled             = $AADRoleDefinition.IsEnabled
-            RolePermissions       = $AADRoleDefinition.RolePermissions.AllowedResourceActions
+            RolePermissions       = [Array]$AADRoleDefinition.RolePermissions.AllowedResourceActions
             TemplateId            = $AADRoleDefinition.TemplateId
             Version               = $AADRoleDefinition.Version
             Ensure                = 'Present'
