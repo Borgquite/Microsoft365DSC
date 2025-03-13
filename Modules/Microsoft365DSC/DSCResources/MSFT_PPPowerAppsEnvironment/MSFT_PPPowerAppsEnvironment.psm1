@@ -87,6 +87,11 @@ function Get-TargetResource
             if ($environmentInfo.properties.displayName -eq $DisplayName)
             {
                 $environment = $environmentInfo
+                if($null -ne $environmentInfo.properties.linkedEnvironmentMetadata)
+                {
+                    $ProvisionDatabaseparam = $true
+                    $baseLanguageparam = $environmentInfo.properties.linkedEnvironmentMetadata.baseLanguage
+                }
                 break
             }
         }
@@ -107,6 +112,8 @@ function Get-TargetResource
             DisplayName           = $DisplayName
             Location              = $environment.location
             EnvironmentSKU        = $environmentType
+            ProvisionDatabase     = $ProvisionDatabaseparam
+            baseLanguage          = $baseLanguageparam
             Ensure                = 'Present'
             Credential            = $Credential
             ApplicationId         = $ApplicationId
@@ -232,6 +239,26 @@ function Set-TargetResource
                     description    = ''
                     environmentSku = $EnvironmentSku
                 }
+            }
+
+            if ($ProvisionDatabase)
+            {
+                if ($CurrencyName -ne $null -and
+                    $LanguageName -ne $null)
+                {
+                    $newParameters.properties['linkedEnvironmentMetadata'] = @{
+                        baseLanguage = $LanguageName
+                        currency     = @{
+                            code = $CurrencyName
+                        }
+                    }
+                }
+                $newParameters.properties["databaseType"] = "CommonDataService"
+            }
+            if ($EnvironmentSku -eq "Developer" -and !$ProvisionDatabase)
+            {
+                Write-Error "Developer environments must always include Dataverse provisioning parameters."
+                throw $_
             }
             Invoke-M365DSCPowerPlatformRESTWebRequest -Uri $uri -Method 'POST' -Body $newParameters
         }
