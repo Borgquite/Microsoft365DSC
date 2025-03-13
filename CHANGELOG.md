@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* AADUser
+  * Added the property `OtherMails` to the managed properties.
+    FIXES [#4763](https://github.com/microsoft/Microsoft365DSC/issues/4763)
+
 # 1.25.312.1
 
 * AADApplication
