@@ -232,6 +232,11 @@ function Set-TargetResource
     {
         $NewRoleGroupParams.Remove('Description') | Out-Null
     }
+    # Remove Roles Parameter if null or Empty as the creation requires at least one Role
+    if ($Roles.Length -eq 0)
+    {
+        $NewRoleGroupParams.Remove('Roles') | Out-Null
+    }
     # CASE: Role Group doesn't exist but should;
     if ($Ensure -eq 'Present' -and $currentRoleGroupConfig.Ensure -eq 'Absent')
     {
