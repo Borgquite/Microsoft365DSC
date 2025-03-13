@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+  * IntuneDeviceEnrollmentStatusPageWindows10
+    * Use `SelectedMobileAppNames` as the primary source for the apps.
+      FIXES [#5913](https://github.com/microsoft/Microsoft365DSC/issues/5913)
+
 # 1.25.312.1
 
 * AADApplication
