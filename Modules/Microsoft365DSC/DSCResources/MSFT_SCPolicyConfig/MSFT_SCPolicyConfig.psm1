@@ -63,6 +63,10 @@ function Get-TargetResource
 
         [Parameter()]
         [System.Boolean]
+        $FileCopiedToCloudFullUrlEnabled,
+
+        [Parameter()]
+        [System.Boolean]
         $IncludePredefinedUnallowedBluetoothApps,
 
         [Parameter()]
@@ -177,28 +181,52 @@ function Get-TargetResource
         $DlpNetworkShareGroupsObject = ConvertFrom-Json $instance.DlpNetworkShareGroups
 
         # AdvancedClassificationEnabled
-        $AdvancedClassificationEnabledValue = [Boolean]::Parse(($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'AdvancedClassificationEnabled' }).Value)
+        $AdvancedClassificationEnabledValue = $false # default value
+        $valueToParse =($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'AdvancedClassificationEnabled' }).Value
+        if (-not [System.String]::IsNullOrEmpty($valueToParse))
+        {
+            $AdvancedClassificationEnabledValue = [Boolean]::Parse($valueToParse)
+        }
 
         # BandwidthLimitEnabled
-        $toBeParsed = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'BandwidthLimitEnabled' }).Value
-        $parsedValue = $null
-        if ($null -ne $toBeParsed)
+        $valueToParse = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'BandwidthLimitEnabled' }).Value
+        $BandwidthLimitEnabledValue = $true #default value
+        if (-not [System.String]::IsNullOrEmpty($valueToParse))
         {
-            $parsedValue = [Boolean]::Parse($toBeParsed)
+            $BandwidthLimitEnabledValue = [Boolean]::Parse($valueToParse)
         }
-        $BandwidthLimitEnabledValue = $parsedValue
 
         # DailyBandwidthLimitInMB
-        $DailyBandwidthLimitInMBValue = [UInt32]($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'DailyBandwidthLimitInMB' }).Value
+        $DailyBandwidthLimitInMBValue = 1000 # default value
+        $valueToParse = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'DailyBandwidthLimitInMB' }).Value
+        if (-not [System.String]::IsNullOrEmpty($valueToParse))
+        {
+            $DailyBandwidthLimitInMBValue = [UInt32]::Parse($valueToParse)
+        }
 
         # PathExclusion
-        $PathExclusionValue = [Array]($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'PathExclusion' }).Value
+        $PathExclusionValue = @()
+        $valueToParse = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'PathExclusion' }).Value
+        if (-not [System.String]::IsNullOrEmpty($valueToParse))
+        {
+            $PathExclusionValue = [Array]($valueToParse)
+        }
 
         # MacPathExclusion
-        $MacPathExclusionValue = [Array]($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'MacPathExclusion' }).Value
+        $MacPathExclusionValue = @()
+        $valueToParse = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'MacPathExclusion' }).Value
+        if (-not [System.String]::IsNullOrEmpty($valueToParse))
+        {
+            $MacPathExclusionValue = [Array]($valueToParse)
+        }
 
         # MacDefaultPathExclusionsEnabled
-        $MacDefaultPathExclusionsEnabledValue = [Boolean]::Parse(($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'MacDefaultPathExclusionsEnabled' }).Value)
+        $MacDefaultPathExclusionsEnabledValue = $true # default value
+        $valueToParse = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'MacDefaultPathExclusionsEnabled' }).Value
+        if (-not [System.String]::IsNullOrEmpty($valueToParse))
+        {
+            $MacDefaultPathExclusionsEnabledValue = [Boolean]::Parse($valueToParse)
+        }
 
         #EvidenceStoreSettings
         $entry = $EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'EvidenceStoreSettings' }
@@ -214,7 +242,12 @@ function Get-TargetResource
         }
 
         # NetworkPathEnforcementEnabled
-        $NetworkPathEnforcementEnabledValue = [Boolean]::Parse(($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'NetworkPathEnforcementEnabled' }).Value)
+        $valueToParse = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'NetworkPathEnforcementEnabled' }).Value
+        $NetworkPathEnforcementEnabledValue = $false # default value
+        if (-not [System.String]::IsNullOrEmpty($valueToParse))
+        {
+            $NetworkPathEnforcementEnabledValue = [Boolean]::Parse($valueToParse)
+        }
 
         # NetworkPathExclusion
         $NetworkPathExclusionValue = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'NetworkPathExclusion' }).Value
@@ -267,13 +300,12 @@ function Get-TargetResource
         }
 
         # IncludePredefinedUnallowedBluetoothApps
-        $toBeParsed = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'IncludePredefinedUnallowedBluetoothApps' }).Value
-        $parsedValue = $null
-        if ($null -ne $toBeParsed)
+        $valueToParse = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'IncludePredefinedUnallowedBluetoothApps' }).Value
+        $IncludePredefinedUnallowedBluetoothAppsValue = $true # default value
+        if (-not [System.String]::IsNullOrEMpty($valueToParse))
         {
-            $parsedValue = [Boolean]::Parse($toBeParsed)
+            $IncludePredefinedUnallowedBluetoothAppsValue = [Boolean]::Parse($valueToParse)
         }
-        $IncludePredefinedUnallowedBluetoothAppsValue = $parsedValue
 
         # UnallowedBluetoothApp
         $entries = [Array]($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'UnallowedBluetoothApp' })
@@ -303,7 +335,12 @@ function Get-TargetResource
         $CloudAppModeValue = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'CloudAppMode' }).Value
 
         # CloudAppRestrictionList
-        $CloudAppRestrictionListValue = [Array]($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'CloudAppRestrictionList' }).Value
+        $CloudAppRestrictionListValue = @()
+        $valueToParse = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'CloudAppRestrictionList' }).Value
+        if (-not [System.String]::IsNullOrEmpty($valueToParse))
+        {
+            $CloudAppRestrictionListValue = [Array]($valueToParse)
+        }
 
         # SiteGroups
         $SiteGroupsValue = @()
@@ -352,10 +389,20 @@ function Get-TargetResource
             }
 
             # serverDlpEnabled
-            $serverDlpEnabledValue = [Boolean]::Parse(($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'serverDlpEnabled' }).Value)
+            $serverDlpEnabledValue = $false #default value
+            $valueToParse = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'serverDlpEnabled' }).Value
+            if (-not [System.String]::IsNullOrEmpty($valueToParse))
+            {
+                $serverDlpEnabledValue = [Boolean]::Parse($valueToParse)
+            }
 
             # AuditFileActivity
-            $AuditFileActivityValue = [Boolean]::Parse(($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'AuditFileActivity' }).Value)
+            $AuditFileActivityValue = $false # default value
+            $valueToParse = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'AuditFileActivity' }).Value
+            if (-not [System.String]::IsNullOrEmpty($valueToParse))
+            {
+                $AuditFileActivityValue = [Boolean]::Parse($valueToParse)
+            }
 
             # VPNSettings
             $entity = $EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'VPNSettings' }
@@ -364,6 +411,13 @@ function Get-TargetResource
                 $entity = ConvertFrom-Json ($entity.value)
                 $VPNSettingsValue = [Array]$entity.serverAddress
             }
+        }
+        else
+        {
+            $BusinessJustificationListValue = @()
+            $serverDlpEnabledValue = $false
+            $AuditFileActivityValue = $false
+            $VPNSettingsValue = @()
         }
 
         # DlpPrinterGroups
@@ -454,10 +508,26 @@ function Get-TargetResource
             }
         }
 
+        #EnableLabelCoauthValue
+        $EnableLabelCoauthValue = $false # default value
+        if (-not [System.String]::IsNullOrEmpty($instance.EnableLabelCoauth))
+        {
+            $EnableLabelCoauthValue = $instance.EnableLabelCoauth
+        }
+
+        #FileCopiedToCloudFullUrlEnabledValue
+        $FileCopiedToCloudFullUrlEnabledValue = $false
+        $valueToParse = ($EndpointDlpGlobalSettingsValue | Where-Object { $_.Setting -eq 'FileCopiedToCloudFullUrlEnabled' }).Value
+        if (-not [System.String]::IsNullOrEmpty($valueToParse))
+        {
+            $FileCopiedToCloudFullUrlEnabledValue = [Boolean]::Parse($valueToParse)
+        }
+
         $results = @{
             IsSingleInstance                        = 'Yes'
             AdvancedClassificationEnabled           = $AdvancedClassificationEnabledValue
             BandwidthLimitEnabled                   = $BandwidthLimitEnabledValue
+            FileCopiedToCloudFullUrlEnabled         = $FileCopiedToCloudFullUrlEnabledValue
             DailyBandwidthLimitInMB                 = $DailyBandwidthLimitInMBValue
             PathExclusion                           = $PathExclusionValue
             MacPathExclusion                        = $MacPathExclusionValue
@@ -476,13 +546,13 @@ function Get-TargetResource
             SiteGroups                              = $SiteGroupsValue
             CustomBusinessJustificationNotification = $CustomBusinessJustificationNotificationValue
             BusinessJustificationList               = $BusinessJustificationListValue
-            serverDlpEnabled                        = $serverDlpEnabledValue
+            ServerDlpEnabled                        = $serverDlpEnabledValue
             AuditFileActivity                       = $AuditFileActivityValue
             DLPPrinterGroups                        = $DlpPrinterGroupsValue
             DLPRemovableMediaGroups                 = $DLPRemovableMediaGroupsValue
             DLPNetworkShareGroups                   = $DlpNetworkShareGroupsValue
             VPNSettings                             = $VPNSettingsValue
-            EnableLabelCoauth                       = $instance.EnableLabelCoauth
+            EnableLabelCoauth                       = $EnableLabelCoauthValue
             EnableSpoAipMigration                   = $instance.EnableSpoAipMigration
             QuarantineParameters                    = $QuarantineParametersValue
             Credential                              = $Credential
@@ -568,6 +638,10 @@ function Set-TargetResource
         [Parameter()]
         [Microsoft.Management.Infrastructure.CimInstance[]]
         $EvidenceStoreSettings,
+
+        [Parameter()]
+        [System.Boolean]
+        $FileCopiedToCloudFullUrlEnabled,
 
         [Parameter()]
         [System.Boolean]
@@ -1094,6 +1168,10 @@ function Test-TargetResource
 
         [Parameter()]
         [System.Boolean]
+        $FileCopiedToCloudFullUrlEnabled,
+
+        [Parameter()]
+        [System.Boolean]
         $IncludePredefinedUnallowedBluetoothApps,
 
         [Parameter()]
@@ -1302,7 +1380,7 @@ function Export-TargetResource
             $Global:M365DSCExportResourceInstancesCount++
         }
         $Results = Get-TargetResource @Params
-        if ($null -ne $Results.BusinessJustificationList)
+        if ($null -ne $Results.BusinessJustificationList -and $Results.BusinessJustificationList.Length -gt 0)
         {
             $Results.BusinessJustificationList = ConvertTo-BusinessJustificationListString -ObjectHash $Results.BusinessJustificationList
         }

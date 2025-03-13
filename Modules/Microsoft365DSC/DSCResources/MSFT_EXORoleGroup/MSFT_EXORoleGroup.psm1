@@ -61,7 +61,7 @@ function Get-TargetResource
 
     try
     {
-        if (-not $Script:exportedInstance)
+        if (-not $Script:exportedInstance -or $Script:exportedInstance.Name -ne $Name)
         {
             Write-Verbose -Message "Getting Role Group configuration for $Name"
             $ConnectionMode = New-M365DSCConnection -Workload 'ExchangeOnline' `
@@ -97,12 +97,24 @@ function Get-TargetResource
         }
 
         # Get RoleGroup Members DN if RoleGroup exists. This is required especially when adding Members like "Exchange Administrator" or "Global Administrator" that have different Names across Tenants
-        $roleGroupMember = Get-RoleGroupMember -Identity $Name | Select-Object DisplayName
+        $roleGroupMembers = Get-RoleGroupMember -Identity $Name | Select-Object DisplayName, RecipientTypeDetails, PrimarySmtpAddress
 
+        $roleGroupMembersValue = @()
+        foreach ($member in $roleGroupMembers)
+        {
+            if ($member.RecipientTypeDetails -eq 'UserMailbox' -and -not [System.String]::IsNullOrEmpty($member.PrimarySmtpAddress))
+            {
+                $roleGroupMembersValue += $member.PrimarySmtpAddress
+            }
+            else
+            {
+                $roleGroupMembersValue += $member.DisplayName
+            }
+        }
         $result = @{
             Name                  = $RoleGroup.Name
             Description           = $RoleGroup.Description
-            Members               = $roleGroupMember.DisplayName
+            Members               = $roleGroupMembersValue
             Roles                 = $RoleGroup.Roles
             Ensure                = 'Present'
             Credential            = $Credential
@@ -219,6 +231,11 @@ function Set-TargetResource
     if ([System.String]::IsNullOrEmpty($Description))
     {
         $NewRoleGroupParams.Remove('Description') | Out-Null
+    }
+    # Remove Roles Parameter if null or Empty as the creation requires at least one Role
+    if ($Roles.Length -eq 0)
+    {
+        $NewRoleGroupParams.Remove('Roles') | Out-Null
     }
     # CASE: Role Group doesn't exist but should;
     if ($Ensure -eq 'Present' -and $currentRoleGroupConfig.Ensure -eq 'Absent')
