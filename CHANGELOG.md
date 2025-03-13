@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# Unreleased
+
+* MISC
+  * Fix CSV-report so variable-names are passed correctly in the report
+
 # 1.25.312.1
 
 * AADApplication
