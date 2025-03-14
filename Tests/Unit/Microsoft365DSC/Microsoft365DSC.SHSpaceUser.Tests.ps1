@@ -47,8 +47,6 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 $testParams = @{
                     SpaceName           = "Test"
                     Email               = "John.Smith@contoso.com"
-                    Status              = "Active"
-                    Kind                = "User"
                     Ensure              = 'Present'
                     Credential          = $Credential;
                 }
@@ -75,8 +73,6 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 $testParams = @{
                     SpaceName           = "Test"
                     Email               = "John.Smith@contoso.com"
-                    Status              = "Active"
-                    Kind                = "User"
                     Ensure              = 'Absent'
                     Credential          = $Credential;
                 }
@@ -112,8 +108,6 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 $testParams = @{
                     SpaceName           = "Test"
                     Email               = "John.Smith@contoso.com"
-                    Status              = "Active"
-                    Kind                = "User"
                     Ensure              = 'Present'
                     Credential          = $Credential;
                 }
@@ -142,9 +136,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 $testParams = @{
                     SpaceName           = "Test"
                     Email               = "John.Smith@contoso.com"
-                    Status              = "Active"
                     Roles               = @("Role1", "Role2")
-                    Kind                = "User"
                     Ensure              = 'Present'
                     Credential          = $Credential;
                 }
@@ -179,7 +171,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
         }
 
         Context -Name 'ReverseDSC Tests' -Fixture {
-            BeforeAll {            
+            BeforeAll {
                 $Global:CurrentModeIsExport = $true
                 $Global:PartialExportFileName = "$(New-Guid).partial.ps1"
                 $testParams = @{
