@@ -218,12 +218,10 @@ function Set-TargetResource
         $body = @{
             email  = $Email
             roles  = $Roles
-            kind   = $Kind
-            status = $Status
         }
 
         $uri = (Get-MSCloudLoginConnectionProfile -Workload EngageHub).APIUrl + "/spaces/" + $space.spaceId + "/users"
-        Write-Verbose -Message "POST request to {$uri}"
+        Write-Verbose -Message "POST request to {$uri}:`r`n$(ConvertTo-Json $body -Depth 5)"
         Invoke-M365DSCServicesHubWebRequest -Uri $uri `
                                             -Method POST `
                                             -Body $body

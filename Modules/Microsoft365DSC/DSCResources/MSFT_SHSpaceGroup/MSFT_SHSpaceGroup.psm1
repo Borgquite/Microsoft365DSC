@@ -193,13 +193,33 @@ function Set-TargetResource
         $group = $response.value | Where-Object -FilterScript {$_.groupName -eq $GroupName}
     }
 
+    # Retrieve Group ID from Microsoft Graph
+    Write-Verbose -Message "Authenticating to Microsoft Graph"
+    New-M365DSCConnection -Workload 'MicrosoftGraph' `
+        -InboundParameters $PSBoundParameters | Out-Null
+
+    Write-Verbose -Message "Retrieving group id for {$GroupName}"
+    $groupInfo = Get-MgGroup -Filter "displayName eq '$GroupName'"
+    Write-Verbose -Message "Found group info:`r`n$($groupInfo | Out-String)"
+    $groupId = $null
+    if ($null -ne $groupInfo)
+    {
+        $groupId = $groupInfo.Id
+        Write-Verbose -Message "Retrieved GroupId {$groupId}"
+    }
+    else
+    {
+        throw "Could not retrieve group {$GroupName} from Entra Id."
+    }
+
     # CREATE
     if ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Absent')
     {
         Write-Verbose -Message "Creating new group {$GroupName} with Roles {$($Roles -join ',')}"
         $body = @{
-            displayName = $GroupName
-            roles       = $Roles
+            DisplayName = $GroupName
+            Roles       = $Roles
+            GroupId     = $groupId
         }
 
         $uri = (Get-MSCloudLoginConnectionProfile -Workload EngageHub).APIUrl + "/spaces/" + $space.spaceId + "/groups"
