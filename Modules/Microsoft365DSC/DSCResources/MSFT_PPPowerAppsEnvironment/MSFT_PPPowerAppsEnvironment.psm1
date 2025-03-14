@@ -90,7 +90,7 @@ function Get-TargetResource
                 if($null -ne $environmentInfo.properties.linkedEnvironmentMetadata)
                 {
                     $ProvisionDatabaseparam = $true
-                    $baseLanguageparam = $environmentInfo.properties.linkedEnvironmentMetadata.baseLanguage
+                    $LanguageNameparam = $environmentInfo.properties.linkedEnvironmentMetadata.baseLanguage
                 }
                 break
             }
@@ -113,7 +113,7 @@ function Get-TargetResource
             Location              = $environment.location
             EnvironmentSKU        = $environmentType
             ProvisionDatabase     = $ProvisionDatabaseparam
-            baseLanguage          = $baseLanguageparam
+            LanguageName          = $LanguageNameparam
             Ensure                = 'Present'
             Credential            = $Credential
             ApplicationId         = $ApplicationId
@@ -360,8 +360,6 @@ function Test-TargetResource
 
     $ValuesToCheck = $PSBoundParameters
     $ValuesToCheck.Remove('Credential') | Out-Null
-    $ValuesToCheck.Remove('ProvisionDatabase') | Out-Null
-    $ValuesToCheck.Remove('LanguageName') | Out-Null
     $ValuesToCheck.Remove('CurrencyName') | Out-Null
 
     $TestResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `
