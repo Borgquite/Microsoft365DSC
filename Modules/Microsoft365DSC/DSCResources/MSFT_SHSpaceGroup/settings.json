@@ -18,12 +18,12 @@
             "application": {
                 "read": [
                     {
-                        "name": "Permission for Monitoring and Export"
+                        "name": "Group.Read.All"
                     }
                 ],
                 "update": [
                     {
-                        "name": "Permission for deploying"
+                        "name": "Group.Read.All"
                     }
                 ]
             }

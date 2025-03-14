@@ -17,14 +17,6 @@ function Get-TargetResource
         $Roles,
 
         [Parameter()]
-        [System.String]
-        $Status,
-
-        [Parameter()]
-        [System.String]
-        $Kind,
-
-        [Parameter()]
         [ValidateSet('Present', 'Absent')]
         [System.String]
         $Ensure = 'Present',
@@ -103,8 +95,6 @@ function Get-TargetResource
         $results = @{
             SpaceName             = $SpaceName
             Email                 = $instance.email
-            Kind                  = $instance.kind
-            Status                = $instance.Status
             Roles                 = $instance.roles
             Ensure                = 'Present'
             Credential            = $Credential
@@ -145,14 +135,6 @@ function Set-TargetResource
         [Parameter()]
         [System.String[]]
         $Roles,
-
-        [Parameter()]
-        [System.String]
-        $Status,
-
-        [Parameter()]
-        [System.String]
-        $Kind,
 
         [Parameter()]
         [ValidateSet('Present', 'Absent')]
@@ -229,12 +211,13 @@ function Set-TargetResource
     # UPDATE
     elseif ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Present')
     {
-        Write-Verbose -Message "Updating user {$Email} with Roles {$($Roles -join ',')}"
         $body = @{
             roles = $Roles;
+            email = $Email
         }
 
         $uri = (Get-MSCloudLoginConnectionProfile -Workload EngageHub).APIUrl + "/spaces/" + $space.spaceId + "/users/" + $user.id
+        Write-Verbose -Message "PATCH request to {$uri}:`r`n$(ConvertTo-Json $body -Depth 5)"
         Invoke-M365DSCServicesHubWebRequest -Uri $uri `
                                             -Method PATCH `
                                             -Body $body
@@ -266,14 +249,6 @@ function Test-TargetResource
         [Parameter()]
         [System.String[]]
         $Roles,
-
-        [Parameter()]
-        [System.String]
-        $Status,
-
-        [Parameter()]
-        [System.String]
-        $Kind,
 
         [Parameter()]
         [ValidateSet('Present', 'Absent')]
