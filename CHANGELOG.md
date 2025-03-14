@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* PPPowerAppsEnvironment
+  * Add support for creating Environment with Dataverse db
+
 # 1.25.312.1
 
 * AADApplication
