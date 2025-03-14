@@ -2752,6 +2752,14 @@ function Install-M365DSCDevBranch
 
     try {
 
+        $longPathsEnabled = (Get-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem').LongPathsEnabled -eq 1
+        if (-not $longPathsEnabled)
+        {
+            $message = "Long paths are not enabled on this system. You may encounter issues with the installation of Microsoft365DSC because of long file names."
+            $message += "To enable long paths, set the registry LongPathsEnabled DWORD entry to 1 in HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\FileSystem."
+            Write-Warning -Message $message
+        }
+
         #region Download and Extract Dev branch's ZIP
         Write-Host 'Downloading the Zip package...' -NoNewline
         $url = 'https://github.com/microsoft/Microsoft365DSC/archive/Dev.zip'
