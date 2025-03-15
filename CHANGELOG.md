@@ -3,6 +3,8 @@
 # UNRELEASED
 
 * M365DSCUtil
+  * Added note about long paths being recommended when installing the Dev branch.
+    FIXES [#3158](https://github.com/microsoft/Microsoft365DSC/issues/3158)
   * Added the new function `Join-M365DSCConfiguration` to merge multiple
     configuration files.
     FIXES [#2359](https://github.com/microsoft/Microsoft365DSC/issues/2359)
