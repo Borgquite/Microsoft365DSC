@@ -27,10 +27,8 @@ Configuration Example
             CertificateThumbprint = $CertificateThumbprint;
             Email                 = "Test@contoso.com";
             Ensure                = "Absent";
-            Kind                  = "User";
             Roles                 = @("TrainingPermissionRole","HealthPermissionRole");
             SpaceName             = "Test Workspace";
-            Status                = "Active";
             TenantId              = $TenantId;
         }
     }
