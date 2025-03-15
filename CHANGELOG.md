@@ -5,6 +5,9 @@
 * AADUser
   * Added the property `OtherMails` to the managed properties.
     FIXES [#4763](https://github.com/microsoft/Microsoft365DSC/issues/4763)
+* M365DSCUtil
+  * Added note about long paths being recommended when installing the Dev branch.
+    FIXES [#3158](https://github.com/microsoft/Microsoft365DSC/issues/3158)
 
 # 1.25.312.1
 
