@@ -5,6 +5,9 @@
   * IntuneDeviceEnrollmentStatusPageWindows10
     * Use `SelectedMobileAppNames` as the primary source for the apps.
       FIXES [#5913](https://github.com/microsoft/Microsoft365DSC/issues/5913)
+* M365DSCUtil
+  * Added note about long paths being recommended when installing the Dev branch.
+    FIXES [#3158](https://github.com/microsoft/Microsoft365DSC/issues/3158)
 
 # 1.25.312.1
 
