@@ -35,6 +35,13 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 return "Credentials"
             }
 
+            Mock -CommandName Get-MgGroup -MockWith {
+                return @{
+                    DisplayName = "MyGroup"
+                    Id = "12345"
+                }
+            }
+
             # Mock Write-Host to hide output during the tests
             Mock -CommandName Write-Host -MockWith {
             }
