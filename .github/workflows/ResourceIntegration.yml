@@ -14,10 +14,6 @@ jobs:
         with:
           fetch-depth: 0  # OR "2" -> To retrieve the preceding commit.
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v34
-
       - uses: actions/checkout@v3
       - name: Install Microsoft365DSC
         shell: powershell
