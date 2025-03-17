@@ -5,9 +5,15 @@
 * IntuneDeviceConfigurationPolicyAndroidDeviceOwner
   * Fixed an issue where empty complex objects result in a broken export.
     FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)
+* SHSpaceGroup
+  * Initial release.
+* SHSpaceUser
+  * Initial release.
 * M365DSCUtil
   * Added note about long paths being recommended when installing the Dev branch.
     FIXES [#3158](https://github.com/microsoft/Microsoft365DSC/issues/3158)
+* DEPENDENCIES
+  * Updated MicrosoftTeams to version 6.9.0.
 
 # 1.25.312.1
 
