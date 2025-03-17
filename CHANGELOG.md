@@ -9,6 +9,8 @@
   * Initial release.
 * SHSpaceUser
   * Initial release.
+* TeamsApplicationInstance
+  * Initial release.
 * M365DSCUtil
   * Added note about long paths being recommended when installing the Dev branch.
     FIXES [#3158](https://github.com/microsoft/Microsoft365DSC/issues/3158)
