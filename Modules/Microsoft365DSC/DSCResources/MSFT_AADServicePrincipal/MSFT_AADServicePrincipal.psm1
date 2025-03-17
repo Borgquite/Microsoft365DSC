@@ -1099,9 +1099,23 @@ function Export-TargetResource
                 }
                 if ($Results.CustomSecurityAttributes.Count -gt 0)
                 {
+                    $complexMapping = @(
+                        @{
+                            Name            = 'CustomSecurityAttributes'
+                            CimInstanceName = 'AADServicePrincipalAttributeSet'
+                            IsRequired      = $False
+                        },
+                        @{
+                            Name            = 'AttributeValues'
+                            CimInstanceName = 'AADServicePrincipalAttributeValue'
+                            IsRequired      = $False
+                        }
+                    )
                     $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
                         -ComplexObject $Results.CustomSecurityAttributes `
-                        -CIMInstanceName 'AADServicePrincipalAttributeSet' -IsArray:$true
+                        -CIMInstanceName 'AADServicePrincipalAttributeSet' `
+                        -ComplexTypeMapping $complexMapping `
+                        -IsArray:$true
                     if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
                     {
                         $Results.CustomSecurityAttributes = $complexTypeStringResult
