@@ -5,6 +5,9 @@
 * AADUser
   * Added the property `OtherMails` to the managed properties.
     FIXES [#4763](https://github.com/microsoft/Microsoft365DSC/issues/4763)
+* IntuneDeviceConfigurationPolicyAndroidDeviceOwner
+  * Fixed an issue where empty complex objects result in a broken export.
+    FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)
 * M365DSCUtil
   * Added note about long paths being recommended when installing the Dev branch.
     FIXES [#3158](https://github.com/microsoft/Microsoft365DSC/issues/3158)
