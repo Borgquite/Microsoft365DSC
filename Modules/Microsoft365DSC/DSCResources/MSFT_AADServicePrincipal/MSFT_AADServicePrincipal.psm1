@@ -1043,17 +1043,37 @@ function Export-TargetResource
             {
                 if ($Results.AppRoleAssignedTo.Count -gt 0)
                 {
-                    $Results.AppRoleAssignedTo = Get-M365DSCAzureADServicePrincipalAssignmentAsString -Assignments $Results.AppRoleAssignedTo
+                    $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                        -ComplexObject $Results.AppRoleAssignedTo `
+                        -CIMInstanceName 'AADServicePrincipalRoleAssignment'
+                    if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                    {
+                        $Results.AppRoleAssignedTo = $complexTypeStringResult
+                    }
+                    else
+                    {
+                        $Results.Remove('AppRoleAssignedTo') | Out-Null
+                    }
                 }
                 if ($Results.DelegatedPermissionClassifications.Count -gt 0)
                 {
-                    $Results.DelegatedPermissionClassifications = Get-M365DSCAzureADServicePrincipalDelegatedPermissionClassifications -PermissionClassifications $Results.DelegatedPermissionClassifications
+                    $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                        -ComplexObject $Results.DelegatedPermissionClassifications `
+                        -CIMInstanceName 'AADServicePrincipalDelegatedPermissionClassification' -IsArray:$true
+                    if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                    {
+                        $Results.DelegatedPermissionClassifications = $complexTypeStringResult
+                    }
+                    else
+                    {
+                        $Results.Remove('DelegatedPermissionClassifications') | Out-Null
+                    }
                 }
                 if ($null -ne $Results.KeyCredentials)
                 {
                     $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
                         -ComplexObject $Results.KeyCredentials `
-                        -CIMInstanceName 'MicrosoftGraphkeyCredential'
+                        -CIMInstanceName 'MicrosoftGraphkeyCredential' -IsArray:$true
                     if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
                     {
                         $Results.KeyCredentials = $complexTypeStringResult
@@ -1067,7 +1087,7 @@ function Export-TargetResource
                 {
                     $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
                         -ComplexObject $Results.PasswordCredentials `
-                        -CIMInstanceName 'MicrosoftGraphpasswordCredential'
+                        -CIMInstanceName 'MicrosoftGraphpasswordCredential' -IsArray:$true
                     if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
                     {
                         $Results.PasswordCredentials = $complexTypeStringResult
@@ -1079,7 +1099,17 @@ function Export-TargetResource
                 }
                 if ($Results.CustomSecurityAttributes.Count -gt 0)
                 {
-                    $Results.CustomSecurityAttributes = Get-M365DSCAADServicePrincipalCustomSecurityAttributesAsString -CustomSecurityAttributes $Results.CustomSecurityAttributes
+                    $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                        -ComplexObject $Results.CustomSecurityAttributes `
+                        -CIMInstanceName 'AADServicePrincipalAttributeSet' -IsArray:$true
+                    if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                    {
+                        $Results.CustomSecurityAttributes = $complexTypeStringResult
+                    }
+                    else
+                    {
+                        $Results.Remove('CustomSecurityAttributes') | Out-Null
+                    }
                 }
                 $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                     -ConnectionMode $ConnectionMode `
