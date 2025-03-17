@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* IntuneDeviceConfigurationPolicyAndroidDeviceOwner
+  * Fixed an issue where empty complex objects result in a broken export.
+    FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)
 * SHSpaceGroup
   * Initial release.
 * SHSpaceUser
