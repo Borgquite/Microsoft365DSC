@@ -14,6 +14,10 @@
   * Initial release.
 * TeamsApplicationInstance
   * Initial release.
+* M365DSCDRGUtil
+  * Made a change in the Intune assignment evaluation logic not to validate that
+    the provided group is a valid Entra Id group based on GroupId. The logic
+    to validate this will be left to the Set-TargetResource.
 * M365DSCUtil
   * Added note about long paths being recommended when installing the Dev branch.
     FIXES [#3158](https://github.com/microsoft/Microsoft365DSC/issues/3158)

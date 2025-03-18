@@ -1354,11 +1354,6 @@ function Compare-M365DSCIntunePolicyAssignment
                 # Check for mobile app assignments with intent
                 $testResult = $assignment.intent -eq $assignmentTarget.intent
                 # Using assignment groupDisplayName only if the groupId is not found in the directory otherwise groupId should be the key
-                if (-not $testResult)
-                {
-                    Write-Verbose 'Group not found by groupId, checking if group exists by id'
-                    $groupNotFound =  $null -eq (Get-MgGroup -GroupId ($assignment.groupId) -ErrorAction SilentlyContinue)
-                }
                 if (-not $testResult -and $groupNotFound)
                 {
                     Write-Verbose 'Group not found by groupId, looking for group by groupDisplayName'
