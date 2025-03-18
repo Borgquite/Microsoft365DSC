@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* AADServicePrincipal
+  * Removed logic that would translate AppId as a disply name from the
+    Set-TargetResource function.
 * IntuneDeviceConfigurationPolicyAndroidDeviceOwner
   * Fixed an issue where empty complex objects result in a broken export.
     FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)

@@ -537,12 +537,6 @@ function Set-TargetResource
         }
         # removing Delegated permission classifications from this new call, as adding below separately
         $currentParameters.Remove('DelegatedPermissionClassifications') | Out-Null
-        $ObjectGuid = [System.Guid]::empty
-        if (-not [System.Guid]::TryParse($AppId, [System.Management.Automation.PSReference]$ObjectGuid))
-        {
-            $appInstance = Get-MgApplication -Filter "DisplayName eq '$AppId'"
-            $currentParameters.AppId = $appInstance.AppId
-        }
 
         Write-Verbose -Message 'Creating new Service Principal'
         Write-Verbose -Message "With Values: $(Convert-M365DscHashtableToString -Hashtable $currentParameters)"
@@ -577,12 +571,6 @@ function Set-TargetResource
     elseif ($Ensure -eq 'Present' -and $currentAADServicePrincipal.Ensure -eq 'Present')
     {
         Write-Verbose -Message 'Updating existing Service Principal'
-        $ObjectGuid = [System.Guid]::empty
-        if (-not [System.Guid]::TryParse($AppId, [System.Management.Automation.PSReference]$ObjectGuid))
-        {
-            $appInstance = Get-MgApplication -Filter "DisplayName eq '$AppId'"
-            $currentParameters.AppId = $appInstance.AppId
-        }
         Write-Verbose -Message "CurrentParameters: $($currentParameters | Out-String)"
         Write-Verbose -Message "ServicePrincipalID: $($currentAADServicePrincipal.ObjectID)"
         $currentParameters.Remove('AppRoleAssignedTo') | Out-Null
