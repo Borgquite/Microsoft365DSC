@@ -1328,8 +1328,20 @@ function Compare-M365DSCIntunePolicyAssignment
         [Parameter()]
         [array]$Target
     )
-
+    $DriftObject = @{
+        DriftInfo     = @{}
+        CurrentValues = @{}
+        DesiredValues = @{}
+    }
     $testResult = $Source.Count -eq $Target.Count
+    if (-not $testResult)
+    {
+        $DriftObject.DriftInfo.Add("Assignments.Count", @{
+            PropertyName = "Assignments.Count"
+            CurrentValue = $Source.Count
+            DesiredValue = $Target.Count
+        })
+    }
     Write-Verbose "Count: $($Source.Count) - $($Target.Count)"
     if ($testResult)
     {
@@ -1352,6 +1364,15 @@ function Compare-M365DSCIntunePolicyAssignment
                     Write-Verbose 'Group not found by groupId, looking for group by groupDisplayName'
                     $assignmentTarget = $Target | Where-Object -FilterScript { $_.dataType -eq $assignment.DataType -and $_.groupDisplayName -eq $assignment.groupDisplayName }
                     $testResult = $null -ne $assignmentTarget
+
+                    if (-not $testResult)
+                    {
+                        $DriftObject.DriftInfo.Add("Assignments.GroupDisplayName", @{
+                            PropertyName = "Assignments.GroupDisplayName"
+                            CurrentValue = $assignment.groupDisplayName
+                            DesiredValue = $null
+                        })
+                    }
                 }
 
                 if ($testResult)
@@ -1371,22 +1392,48 @@ function Compare-M365DSCIntunePolicyAssignment
                         Write-Verbose 'FilterId specified, checking filterId'
                         $testResult = $assignment.deviceAndAppManagementAssignmentFilterId -eq $assignmentTarget.deviceAndAppManagementAssignmentFilterId
                     }
+                    if (-not $testResult)
+                    {
+                        $DriftObject.DriftInfo.Add("Assignments.Filters", @{
+                            PropertyName = "Assignments.Filters"
+                            CurrentValue = $assignment.deviceAndAppManagementAssignmentFilterType
+                            DesiredValue = $assignmentTarget.deviceAndAppManagementAssignmentFilterType
+                        })
+                    }
                 }
 
                 if ($testResult)
                 {
                     Write-Verbose 'Group and filters match, checking collectionId'
                     $testResult = $assignment.collectionId -eq $assignmentTarget.collectionId
+                    if (-not $testResult)
+                    {
+                        $DriftObject.DriftInfo.Add("Assignments.collectionId", @{
+                            PropertyName = "Assignments.collectionId"
+                            CurrentValue = $assignment.collectionId
+                            DesiredValue = $assignmentTarget.collectionId
+                        })
+                    }
                 }
             }
             else
             {
                 $testResult = $null -ne ($Target | Where-Object -FilterScript { $_.dataType -eq $assignment.DataType })
+                if (-not $testResult)
+                {
+                    $DriftObject.DriftInfo.Add("Assignments.collectionId", @{
+                        PropertyName = "Assignments.DataType"
+                        CurrentValue = $assignment.DataType
+                        DesiredValue = $null
+                    })
+                }
             }
+            $Global:CCMCurrentDriftInfo = $DriftObject
             if (-not $testResult) { break }
         }
     }
 
+    $Global:CCMCurrentDriftInfo = $DriftObject
     return $testResult
 }
 
