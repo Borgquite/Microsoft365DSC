@@ -310,7 +310,7 @@ function Get-TargetResource
         }
 
         $result = @{
-            AppId                              = $AADServicePrincipal.AppId
+            AppId                              = $AADServicePrincipal.AppDisplayName
             AppRoleAssignedTo                  = $AppRoleAssignedToValues
             ObjectID                           = $AADServicePrincipal.Id
             DisplayName                        = $AADServicePrincipal.DisplayName
@@ -532,8 +532,10 @@ function Set-TargetResource
     $ObjectGuid = [System.Guid]::empty
     if (-not [System.Guid]::TryParse($AppId, [System.Management.Automation.PSReference]$ObjectGuid))
     {
+        Write-Verbose -Message "AppId was provided as a DisplayName. Translating it to an a GUID."
         $appInstance = Get-MgApplication -Filter "DisplayName eq '$AppId'"
         $currentParameters.AppId = $appInstance.AppId
+        Write-Verbose -Message "Translated to AppId {$($currentParameters.AppId)}"
     }
 
     # ServicePrincipal should exist but it doesn't
@@ -929,6 +931,20 @@ function Test-TargetResource
             {
                 $ValuesToCheck.Remove($key) | Out-Null
             }
+        }
+    }
+
+    # Evaluate AppId in GUID or DisplayName form.
+    $ObjectGuid = [System.Guid]::empty
+    if ([System.Guid]::TryParse($AppId, [System.Management.Automation.PSReference]$ObjectGuid))
+    {
+        # AppId was provided as a GUID, but Get-TargetResource returns it as Display name.
+        # Evaluate the translation to display name
+        Write-Verbose -Message "AppId was provided as a GUID, translating into a DisplayName"
+        $appInstance = Get-MgApplication -ApplicationId $AppId -ErrorAction SilentlyContinue
+        if ($null -ne $appInstance)
+        {
+            $CurrentValues.AppId = $appInstance.DisplayName
         }
     }
 
