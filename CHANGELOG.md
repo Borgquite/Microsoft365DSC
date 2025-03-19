@@ -3,7 +3,7 @@
 # UNRELEASED
 
 * AADServicePrincipal
-  * Removed logic that would translate AppId as a disply name from the
+  * Streamlined logic to translate AppId from a display name in the
     Set-TargetResource function.
 * IntuneDeviceConfigurationPolicyAndroidDeviceOwner
   * Fixed an issue where empty complex objects result in a broken export.

@@ -528,6 +528,14 @@ function Set-TargetResource
         $currentParameters.Remove('CustomSecurityAttributes')
     }
 
+    # If the AppId was passed as a display name (not in GUID format), translate it to an ID.
+    $ObjectGuid = [System.Guid]::empty
+    if (-not [System.Guid]::TryParse($AppId, [System.Management.Automation.PSReference]$ObjectGuid))
+    {
+        $appInstance = Get-MgApplication -Filter "DisplayName eq '$AppId'"
+        $currentParameters.AppId = $appInstance.AppId
+    }
+
     # ServicePrincipal should exist but it doesn't
     if ($Ensure -eq 'Present' -and $currentAADServicePrincipal.Ensure -eq 'Absent')
     {
