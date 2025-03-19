@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# UNRELEASED
+# 1.25.319.1
 
 * AADServicePrincipal
   * Streamlined logic to translate AppId from a display name.
@@ -22,6 +22,7 @@
     FIXES [#3158](https://github.com/microsoft/Microsoft365DSC/issues/3158)
 * DEPENDENCIES
   * Updated MicrosoftTeams to version 6.9.0.
+  * Updated MSCloudLoginAssistant to version 1.1.42.
 
 # 1.25.312.1
 
