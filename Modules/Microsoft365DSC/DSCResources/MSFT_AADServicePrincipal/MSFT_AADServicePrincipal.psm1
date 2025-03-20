@@ -583,6 +583,7 @@ function Set-TargetResource
         Write-Verbose -Message 'Updating existing Service Principal'
         Write-Verbose -Message "CurrentParameters: $($currentParameters | Out-String)"
         Write-Verbose -Message "ServicePrincipalID: $($currentAADServicePrincipal.ObjectID)"
+        $AppRoleAssignedToSpecified = $currentParameters.ContainsKey('AppRoleAssignedTo')
         $currentParameters.Remove('AppRoleAssignedTo') | Out-Null
         $currentParameters.Remove('DelegatedPermissionClassifications') | Out-Null
 
@@ -610,8 +611,9 @@ function Set-TargetResource
             $appInstance = Get-MgApplication -Filter "AppId eq '$AppId'"
             Update-MgApplication -ApplicationId $appInstance.Id -IdentifierUris $IdentifierUris
         }
-        if ($AppRoleAssignedTo)
+        if ($AppRoleAssignedToSpecified)
         {
+            Write-Verbose -Message "Need to update AppRoleAssignedTo value"
             [Array]$currentPrincipals = $currentAADServicePrincipal.AppRoleAssignedTo.Identity
             [Array]$desiredPrincipals = $AppRoleAssignedTo.Identity
 
