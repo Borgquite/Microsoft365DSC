@@ -936,15 +936,15 @@ function Test-TargetResource
 
     # Evaluate AppId in GUID or DisplayName form.
     $ObjectGuid = [System.Guid]::empty
-    if ([System.Guid]::TryParse($AppId, [System.Management.Automation.PSReference]$ObjectGuid))
+    if ([System.Guid]::TryParse($ValuesToCheck.AppId, [System.Management.Automation.PSReference]$ObjectGuid))
     {
         # AppId was provided as a GUID, but Get-TargetResource returns it as Display name.
         # Evaluate the translation to display name
         Write-Verbose -Message "AppId was provided as a GUID, translating into a DisplayName"
-        $appInstance = Get-MgApplication -ApplicationId $AppId -ErrorAction SilentlyContinue
+        $appInstance = Get-MgApplication -ApplicationId $ValuesToCheck.AppId -ErrorAction SilentlyContinue
         if ($null -ne $appInstance)
         {
-            $CurrentValues.AppId = $appInstance.DisplayName
+            $ValuesToCheck.AppId = $appInstance.DisplayName
         }
     }
 
@@ -953,7 +953,7 @@ function Test-TargetResource
 
     $TestResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `
         -Source $($MyInvocation.MyCommand.Source) `
-        -DesiredValues $PSBoundParameters `
+        -DesiredValues $ValuesToCheck `
         -ValuesToCheck $ValuesToCheck.Keys `
         -IncludedDrifts $driftedParams
 
