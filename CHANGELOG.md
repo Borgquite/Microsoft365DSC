@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# Unreleased
+
+* AADConditionalAccessPolicy
+  * Fixed DisableResilienceDefaultsIsEnabled to allow for nullable boolean
+
 # 1.25.319.1
 
 * AADServicePrincipal
