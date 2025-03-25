@@ -1,5 +1,12 @@
 # Change log for Microsoft365DSC
 
+# Unrelease
+
+* AADAdministrativeUnit
+  * Fix issue where AdministrativeUnit calls fail with ODATA error on dynamic membership.
+    FIXES [#5815](https://github.com/microsoft/Microsoft365DSC/issues/5815)
+  * Fix issue where a role is not detected to be deactivated before adding to an Administrative Unit
+
 # 1.25.319.1
 
 * AADServicePrincipal
