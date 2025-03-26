@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* AADApplication
+  * Added support for SPA and Public Client Url properties.
 * AADServicePrincipal
   * In the translation logic between GUID and display name of the AppId property,
     change the way we are retrieving the application instance to be using a filter
