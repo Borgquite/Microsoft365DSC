@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# UNRELEASED
+# 1.25.326.1
 
 * AADApplication
   * Added support for SPA and Public Client Url properties.
