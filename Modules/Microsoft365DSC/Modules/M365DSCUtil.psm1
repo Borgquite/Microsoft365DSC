@@ -1881,7 +1881,7 @@ function New-M365DSCConnection
     param
     (
         [Parameter(Mandatory = $true)]
-        [ValidateSet('AdminAPI', 'Azure', 'AzureDevOPS', 'DefenderForEndPoint', 'ExchangeOnline', 'Fabric', 'Intune', 'Licensing', `
+        [ValidateSet('AdminAPI', 'Azure', 'AzureDevOPS', 'DefenderForEndPoint', 'EngageHub', 'ExchangeOnline', 'Fabric', 'Intune', 'Licensing', `
                 'SecurityComplianceCenter', 'PnP', 'PowerPlatforms', 'PowerPlatformREST', `
                 'MicrosoftTeams', 'MicrosoftGraph', 'SharePointOnlineREST', 'Tasks', 'AdminAPI')]
         [System.String]
@@ -2190,7 +2190,7 @@ function New-M365DSCConnection
             return 'CredentialsWithApplicationId'
         }
     }
-    # Case only the ServicePrincipal with Thumbprint parameters are specified
+    # Case only the ServicePrincipal with CertificatePath parameters are specified
     elseif ($null -eq $InboundParameters.Credential -and `
             -not [System.String]::IsNullOrEmpty($InboundParameters.ApplicationId) -and `
             -not [System.String]::IsNullOrEmpty($InboundParameters.TenantId) -and `
