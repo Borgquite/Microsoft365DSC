@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* PPPowerAppsEnvironment
+  * Added support for the EnvironmentType property and fixed the
+    values for EnvironmentSKU.
+
 # 1.25.326.1
 
 * AADApplication
