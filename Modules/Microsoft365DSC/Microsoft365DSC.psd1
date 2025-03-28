@@ -103,6 +103,7 @@
     'Get-M365DSCNotificationEndPointRegistration',
     'Get-M365DSCEvaluationRulesForConfiguration',
     'Import-M365DSCDependencies',
+    'Join-M365DSCConfiguration',
     'New-M365DSCDeltaReport',
     'New-M365DSCNotificationEndPointRegistration',
     'New-M365DSCReportFromConfiguration',
