@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* IntuneDeviceFeaturesConfigurationPolicyIOS
+  * Initial release
+
 * AADApplication
   * If both the current and desired values have the Ensure property set
     to absent, ignoring the drift detection and return true from
@@ -32,8 +35,6 @@
 * IntuneDeviceEnrollmentPlatformRestriction
   * Added note that update is no longer possible.
     FIXES [#5127](https://github.com/microsoft/Microsoft365DSC/issues/5127)
-* IntuneDeviceFeaturesConfigurationPolicyIOS
-  * Initial release
 * IntuneDeviceRemediation
   * Fixed issue when `Assignment` was set to a non-existent group in the tenant,
     e.g. cloning a script from a source tenant and applying it to another target
