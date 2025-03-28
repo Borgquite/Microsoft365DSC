@@ -2,9 +2,43 @@
 
 # UNRELEASED
 
+* AADConditionalAccessPolicy
+  * Fixed DisableResilienceDefaultsIsEnabled to allow for nullable boolean
+    FIXES [#5940](https://github.com/microsoft/Microsoft365DSC/issues/5940)
+* AADUser
+  * Added the property `OtherMails` to the managed properties.
+    FIXES [#4763](https://github.com/microsoft/Microsoft365DSC/issues/4763)
+* EXOArcConfig
+  * [BREAKING CHANGE] Removed the `Identity` parameter since it does not 
+    have any functionality and is not exported by default.
+* EXOMailTips
+  * [BREAKING CHANGE] Removed resource. Use `EXOOrganizationConfig` instead.
+    Fixes [#5647](https://github.com/microsoft/Microsoft365DSC/issues/5647)
+* IntuneAccountProtectionLocalUserGroupMembershipPolicy
+  * [BREAKING CHANGE] Remove deprecated value `add_replace` from `Action` parameter.
+* IntuneDeviceConfigurationCustomPolicyiOS
+  * Initial release, adds support for iOS 'Custom' Device Configuration policies.
+* IntuneDeviceEnrollmentStatusPageWindows10
+  * Use `SelectedMobileAppNames` as the primary source for the apps.
+    FIXES [#5913](https://github.com/microsoft/Microsoft365DSC/issues/5913)
+* IntuneSecurityBaselineMicrosoftEdge
+  * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
 * SPOTheme
   * Updated export of `Palette` property to match schema.
     FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)
+* M365DSCUtil
+  * Added the new function `Join-M365DSCConfiguration` to merge multiple
+    configuration files.
+    FIXES [#2359](https://github.com/microsoft/Microsoft365DSC/issues/2359)
+
+# 1.25.326.1
+
+* AADApplication
+  * Added support for SPA and Public Client Url properties.
+* AADServicePrincipal
+  * In the translation logic between GUID and display name of the AppId property,
+    change the way we are retrieving the application instance to be using a filter
+    instead of a direct call to the -ApplicationId parameter.
 
 # 1.25.319.1
 
@@ -875,7 +909,8 @@
     FIXES [#5384](https://github.com/microsoft/Microsoft365DSC/issues/5384)
 * IntuneEndpointDetectionAndResponsePolicyWindows10
   * Remove changed property name from export.
-    FIXES [#5300](https://github.com/microsoft/Microsoft365DSC/issues/5300)* IntuneSecurityBaselineMicrosoftEdge
+  FIXES [#5300](https://github.com/microsoft/Microsoft365DSC/issues/5300)
+* IntuneSecurityBaselineMicrosoftEdge
   * Deprecate property `authschemes` and replace with `AuthSchemes_AuthSchemes`
 * M365DSCDRGUtil
   * Restrict CIM instance access to properties that appear multiple times.
