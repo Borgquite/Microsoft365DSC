@@ -90,7 +90,7 @@ function Get-TargetResource
         $MaximumWipeOsVersion,
 
         [Parameter()]
-        [System.String]   
+        [System.String]
         $MessagingRedirectAppUrlScheme,
 
         [Parameter()]
@@ -360,7 +360,7 @@ function Get-TargetResource
 
     try
     {
-        if (-not $Script:exportedInstance)
+        if (-not $Script:exportedInstance -or $Script:exportedInstance.DisplayName -ne $DisplayName)
         {
             $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
                 -InboundParameters $PSBoundParameters
@@ -480,11 +480,17 @@ function Get-TargetResource
             $myGracePeriodToBlockAppsDuringOffClockHours = $policy.gracePeriodToBlockAppsDuringOffClockHours.toString()
         }
 
+        $AllowedDataIngestionLocationsValue = @()
+        if ($null -ne $policy.AllowedDataIngestionLocations)
+        {
+            $AllowedDataIngestionLocationsValue = [String[]]($policy.AllowedDataIngestionLocations)
+        }
+
         return @{
             Identity                                       = $policy.id
             DisplayName                                    = $policy.DisplayName
             Description                                    = $policy.Description
-            AllowedDataIngestionLocations                  = [String[]]$policy.AllowedDataIngestionLocations
+            AllowedDataIngestionLocations                  = $AllowedDataIngestionLocationsValue
             AllowWidgetContentSync                         = $policy.AllowWidgetContentSync
             AppActionIfAccountIsClockedOut                 = [string]$policy.appActionIfAccountIsClockedOut
             AppActionIfUnableToAuthenticateUser            = [string]$policy.appActionIfUnableToAuthenticateUser
@@ -499,15 +505,15 @@ function Get-TargetResource
             ManagedUniversalLinks                          = $policy.managedUniversalLinks
             MaximumAllowedDeviceThreatLevel                = [string]$policy.maximumAllowedDeviceThreatLevel
             MaximumRequiredOsVersion                       = [string]$policy.maximumRequiredOsVersion
-            MaximumWarningOsVersion                        = [string]$policy.maximumWarningOsVersion     
+            MaximumWarningOsVersion                        = [string]$policy.maximumWarningOsVersion
             MaximumWipeOsVersion                           = [string]$policy.maximumWipeOsVersion
             MessagingRedirectAppUrlScheme                  = [string]$policy.messagingRedirectAppUrlScheme
             MinimumWarningSdkVersion                       = [string]$policy.minimumWarningSdkVersion
             MobileThreatDefensePartnerPriority             = [string]$policy.mobileThreatDefensePartnerPriority
             MobileThreatDefenseRemediationAction           = [string]$policy.mobileThreatDefenseRemediationAction
             PreviousPinBlockCount                          = $policy.previousPinBlockCount
-            ProtectedMessagingRedirectAppType              = [string]$policy.protectedMessagingRedirectAppType     
-            thirdPartyKeyboardsBlocked                     = $policy.thirdPartyKeyboardsBlocked          
+            ProtectedMessagingRedirectAppType              = [string]$policy.protectedMessagingRedirectAppType
+            thirdPartyKeyboardsBlocked                     = $policy.thirdPartyKeyboardsBlocked
             PeriodOfflineBeforeAccessCheck                 = $myPeriodOfflineBeforeAccessCheck
             PeriodOnlineBeforeAccessCheck                  = $myPeriodOnlineBeforeAccessCheck
             AllowedInboundDataTransferSources              = [String]$policy.AllowedInboundDataTransferSources
@@ -677,7 +683,7 @@ function Set-TargetResource
         $MaximumWipeOsVersion,
 
         [Parameter()]
-        [System.String]   
+        [System.String]
         $MessagingRedirectAppUrlScheme,
 
         [Parameter()]
@@ -1182,7 +1188,7 @@ function Test-TargetResource
         $MaximumWipeOsVersion,
 
         [Parameter()]
-        [System.String]   
+        [System.String]
         $MessagingRedirectAppUrlScheme,
 
         [Parameter()]
