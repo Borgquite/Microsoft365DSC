@@ -1105,6 +1105,16 @@
                        ]
     },
     {
+        "ClassName":  "MSFT_AADApplicationSPA",
+        "Parameters":  [
+                           {
+                               "CIMType":  "String[]",
+                               "Name":  "RedirectUris",
+                               "Option":  "Write"
+                           }
+                       ]
+    },
+    {
         "ClassName":  "MSFT_AADApplication",
         "Parameters":  [
                            {
@@ -1215,6 +1225,16 @@
                            {
                                "CIMType":  "String",
                                "Name":  "ApplicationTemplateId",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String[]",
+                               "Name":  "PublicClientRedirectUris",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "MSFT_AADApplicationSpa",
+                               "Name":  "Spa",
                                "Option":  "Write"
                            },
                            {
@@ -15264,27 +15284,27 @@
                                "Option":  "Write"
                            },
                            {
-                               "CIMType":  "string",
+                               "CIMType":  "string[]",
                                "Name":  "ExtensionCustomAttribute1",
                                "Option":  "Write"
                            },
                            {
-                               "CIMType":  "string",
+                               "CIMType":  "string[]",
                                "Name":  "ExtensionCustomAttribute2",
                                "Option":  "Write"
                            },
                            {
-                               "CIMType":  "string",
+                               "CIMType":  "string[]",
                                "Name":  "ExtensionCustomAttribute3",
                                "Option":  "Write"
                            },
                            {
-                               "CIMType":  "string",
+                               "CIMType":  "string[]",
                                "Name":  "ExtensionCustomAttribute4",
                                "Option":  "Write"
                            },
                            {
-                               "CIMType":  "string",
+                               "CIMType":  "string[]",
                                "Name":  "ExtensionCustomAttribute5",
                                "Option":  "Write"
                            },
@@ -15329,7 +15349,7 @@
                                "Option":  "Write"
                            },
                            {
-                               "CIMType":  "string",
+                               "CIMType":  "string[]",
                                "Name":  "MailTipTranslations",
                                "Option":  "Write"
                            },
@@ -64441,6 +64461,116 @@
                        ]
     },
     {
+        "ClassName":  "MSFT_SHSpaceGroup",
+        "Parameters":  [
+                           {
+                               "CIMType":  "String",
+                               "Name":  "SpaceName",
+                               "Option":  "Key"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "GroupName",
+                               "Option":  "Key"
+                           },
+                           {
+                               "CIMType":  "String[]",
+                               "Name":  "Roles",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "string",
+                               "Name":  "Ensure",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "MSFT_Credential",
+                               "Name":  "Credential",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "ApplicationId",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "TenantId",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "CertificateThumbprint",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "Boolean",
+                               "Name":  "ManagedIdentity",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String[]",
+                               "Name":  "AccessTokens",
+                               "Option":  "Write"
+                           }
+                       ]
+    },
+    {
+        "ClassName":  "MSFT_SHSpaceUser",
+        "Parameters":  [
+                           {
+                               "CIMType":  "String",
+                               "Name":  "SpaceName",
+                               "Option":  "Key"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "Email",
+                               "Option":  "Key"
+                           },
+                           {
+                               "CIMType":  "String[]",
+                               "Name":  "Roles",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "string",
+                               "Name":  "Ensure",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "MSFT_Credential",
+                               "Name":  "Credential",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "ApplicationId",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "TenantId",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "CertificateThumbprint",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "Boolean",
+                               "Name":  "ManagedIdentity",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String[]",
+                               "Name":  "AccessTokens",
+                               "Option":  "Write"
+                           }
+                       ]
+    },
+    {
         "ClassName":  "MSFT_SPOAccessControlSettings",
         "Parameters":  [
                            {
@@ -66591,6 +66721,61 @@
                            {
                                "CIMType":  "MSFT_Credential",
                                "Name":  "ApplicationSecret",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "TenantId",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "CertificateThumbprint",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "Boolean",
+                               "Name":  "ManagedIdentity",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String[]",
+                               "Name":  "AccessTokens",
+                               "Option":  "Write"
+                           }
+                       ]
+    },
+    {
+        "ClassName":  "MSFT_TeamsApplicationInstance",
+        "Parameters":  [
+                           {
+                               "CIMType":  "String",
+                               "Name":  "DisplayName",
+                               "Option":  "Key"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "UserPrincipalName",
+                               "Option":  "Key"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "ResourceAccountType",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "string",
+                               "Name":  "Ensure",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "MSFT_Credential",
+                               "Name":  "Credential",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "ApplicationId",
                                "Option":  "Write"
                            },
                            {
