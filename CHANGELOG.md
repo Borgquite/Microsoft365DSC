@@ -23,6 +23,9 @@
     FIXES [#5913](https://github.com/microsoft/Microsoft365DSC/issues/5913)
 * IntuneSecurityBaselineMicrosoftEdge
   * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
+* SPOTheme
+  * Updated export of `Palette` property to match schema.
+    FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)
 * M365DSCUtil
   * Added the new function `Join-M365DSCConfiguration` to merge multiple
     configuration files.
