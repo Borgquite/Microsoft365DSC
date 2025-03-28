@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* AADUser
+  * Added the property `OtherMails` to the managed properties.
+    FIXES [#4763](https://github.com/microsoft/Microsoft365DSC/issues/4763)
 * EXOArcConfig
   * [BREAKING CHANGE] Removed the `Identity` parameter since it does not 
     have any functionality and is not exported by default.
