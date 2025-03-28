@@ -9,13 +9,16 @@
   * Added the property `OtherMails` to the managed properties.
     FIXES [#4763](https://github.com/microsoft/Microsoft365DSC/issues/4763)
 * EXOArcConfig
-  * [BREAKING CHANGE] Removed the `Identity` parameter since it does not 
+  * [BREAKING CHANGE] Removed the `Identity` parameter since it does not
     have any functionality and is not exported by default.
 * EXOMailboxSettings
   * Add AuditEnabled
 * EXOMailTips
   * [BREAKING CHANGE] Removed resource. Use `EXOOrganizationConfig` instead.
     Fixes [#5647](https://github.com/microsoft/Microsoft365DSC/issues/5647)
+* EXOManagementRoleEntry
+  * Added the ability to add and remove entries by adding the Ensure property
+    to the resource.
 * EXOSharedMailbox
   * Add AuditEnabled property
 * IntuneAccountProtectionLocalUserGroupMembershipPolicy
