@@ -11,21 +11,13 @@
 * AADGroup
   * Fixed `isAssignableToRole` to support for null values returned by graph.
     FIXES [#5959](https://github.com/microsoft/Microsoft365DSC/issues/5959)
-* EXOArcConfig
-  * [BREAKING CHANGE] Removed the `Identity` parameter since it does not
-    have any functionality and is not exported by default.
 * EXOMailboxSettings
   * Add AuditEnabled
-* EXOMailTips
-  * [BREAKING CHANGE] Removed resource. Use `EXOOrganizationConfig` instead.
-    Fixes [#5647](https://github.com/microsoft/Microsoft365DSC/issues/5647)
 * EXOManagementRoleEntry
   * Added the ability to add and remove entries by adding the Ensure property
     to the resource.
 * EXOSharedMailbox
   * Add AuditEnabled property
-* IntuneAccountProtectionLocalUserGroupMembershipPolicy
-  * [BREAKING CHANGE] Remove deprecated value `add_replace` from `Action` parameter.
 * IntuneDeviceConfigurationCustomPolicyiOS
   * Initial release, adds support for iOS 'Custom' Device Configuration policies.
 * IntuneDeviceEnrollmentStatusPageWindows10
@@ -33,8 +25,6 @@
     FIXES [#5913](https://github.com/microsoft/Microsoft365DSC/issues/5913)
 * IntuneDeviceFeaturesConfigurationPolicyIOS
   * Initial release
-* IntuneSecurityBaselineMicrosoftEdge
-  * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
 * PPPowerAppsEnvironment
   * Added support for the EnvironmentType property and fixed the
     values for EnvironmentSKU.
@@ -52,6 +42,23 @@
     FIXES [#4824](https://github.com/microsoft/Microsoft365DSC/issues/4824)
 * MISC
   * Fix CSV-report so variable-names are passed correctly in the report
+
+## BREAKING CHANGES
+
+* EXOArcConfig
+  * [BREAKING CHANGE] Removed the `Identity` parameter since it does not
+    have any functionality and is not exported by default.
+* EXOMailTips
+  * [BREAKING CHANGE] Removed resource. Use `EXOOrganizationConfig` instead.
+    Fixes [#5647](https://github.com/microsoft/Microsoft365DSC/issues/5647)
+* IntuneAccountProtectionLocalUserGroupMembershipPolicy
+  * [BREAKING CHANGE] Remove deprecated value `add_replace` from `Action` parameter.
+* IntuneSecurityBaselineMicrosoftEdge
+  * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
+* Whitepaper
+  * Parallel to this release the code for the whitepaper also implements a
+    Breaking Change. Make sure you are using the v3.1 code if you use
+    this version of Microsoft365DSC or later.
 
 # 1.25.326.1
 
