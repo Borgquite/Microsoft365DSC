@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* EXOSharedMailbox
+  * Add AuditEnabled property
+
 # 1.25.305.1
 
 * AADApplication
@@ -228,8 +233,6 @@
   * FIXES [#5741] Missing -All variable which prevented enumeration of more than 100 Groups
 * EXORetentionPolicyTag
   * Initial release.
-* EXOSharedMailbox
-  * Add AuditEnabled property
 * EXOSmtpDaneInbound
   * Updated authentication properties to align with MOF definition.
     FIXES [#5709](https://github.com/microsoft/Microsoft365DSC/issues/5709)
