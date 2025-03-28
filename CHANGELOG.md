@@ -5,6 +5,8 @@
 * EXOMailTips
   * [BREAKING CHANGE] Removed resource. Use `EXOOrganizationConfig` instead.
     Fixes [#5647](https://github.com/microsoft/Microsoft365DSC/issues/5647)
+* IntuneAccountProtectionLocalUserGroupMembershipPolicy
+  * [BREAKING CHANGE] Remove deprecated value `add_replace` from `Action` parameter.
 * IntuneSecurityBaselineMicrosoftEdge
   * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
 
