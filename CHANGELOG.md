@@ -5,6 +5,8 @@
 * EXOMailTips
   * [BREAKING CHANGE] Removed resource. Use `EXOOrganizationConfig` instead.
     Fixes [#5647](https://github.com/microsoft/Microsoft365DSC/issues/5647)
+* IntuneSecurityBaselineMicrosoftEdge
+  * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
 
 # 1.25.326.1
 
@@ -884,7 +886,8 @@
     FIXES [#5384](https://github.com/microsoft/Microsoft365DSC/issues/5384)
 * IntuneEndpointDetectionAndResponsePolicyWindows10
   * Remove changed property name from export.
-    FIXES [#5300](https://github.com/microsoft/Microsoft365DSC/issues/5300)* IntuneSecurityBaselineMicrosoftEdge
+  FIXES [#5300](https://github.com/microsoft/Microsoft365DSC/issues/5300)
+* IntuneSecurityBaselineMicrosoftEdge
   * Deprecate property `authschemes` and replace with `AuthSchemes_AuthSchemes`
 * M365DSCDRGUtil
   * Restrict CIM instance access to properties that appear multiple times.
