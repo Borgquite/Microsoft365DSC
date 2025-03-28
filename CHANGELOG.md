@@ -25,6 +25,8 @@
 * IntuneDeviceEnrollmentStatusPageWindows10
   * Use `SelectedMobileAppNames` as the primary source for the apps.
     FIXES [#5913](https://github.com/microsoft/Microsoft365DSC/issues/5913)
+* IntuneDeviceFeaturesConfigurationPolicyIOS
+  * Initial release
 * IntuneSecurityBaselineMicrosoftEdge
   * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
 * PPPowerAppsEnvironment
