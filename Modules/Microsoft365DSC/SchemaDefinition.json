@@ -18159,6 +18159,11 @@
                                "Option":  "Write"
                            },
                            {
+                               "CIMType":  "String",
+                               "Name":  "Ensure",
+                               "Option":  "Write"
+                           },
+                           {
                                "CIMType":  "MSFT_Credential",
                                "Name":  "Credential",
                                "Option":  "Write"
