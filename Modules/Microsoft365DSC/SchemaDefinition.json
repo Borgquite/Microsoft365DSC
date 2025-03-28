@@ -22494,6 +22494,11 @@
                                "Option":  "Write"
                            },
                            {
+                               "CIMType":  "boolean",
+                               "Name":  "AuditEnabled",
+                               "Option":  "Write"
+                           },
+                           {
                                "CIMType":  "string",
                                "Name":  "Ensure",
                                "Option":  "Write"
