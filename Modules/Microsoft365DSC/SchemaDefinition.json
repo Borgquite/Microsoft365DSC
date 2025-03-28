@@ -57650,6 +57650,11 @@
                            },
                            {
                                "CIMType":  "String",
+                               "Name":  "EnvironmentType",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
                                "Name":  "EnvironmentSKU",
                                "Option":  "Required"
                            },
