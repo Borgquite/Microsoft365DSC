@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* EXOArcConfig
+  * [BREAKING CHANGE] Removed the `Identity` parameter since it does not 
+    have any functionality and is not exported by default.
 * EXOMailTips
   * [BREAKING CHANGE] Removed resource. Use `EXOOrganizationConfig` instead.
     Fixes [#5647](https://github.com/microsoft/Microsoft365DSC/issues/5647)
