@@ -34,6 +34,8 @@
   * Added the new function `Join-M365DSCConfiguration` to merge multiple
     configuration files.
     FIXES [#2359](https://github.com/microsoft/Microsoft365DSC/issues/2359)
+* MISC
+  * Fix CSV-report so variable-names are passed correctly in the report
 
 # 1.25.326.1
 
