@@ -110,7 +110,7 @@ function Get-TargetResource
 
     try
     {
-        if (-not $Script:exportedInstance)
+        if (-not $Script:exportedInstance -or $Script:exportedInstance.DisplayName -ne $DisplayName)
         {
             Write-Verbose -Message 'Getting configuration of AzureAD Group'
             $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
@@ -280,7 +280,7 @@ function Get-TargetResource
                 MembershipRuleProcessingState = $Group.MembershipRuleProcessingState
                 SecurityEnabled               = $Group.SecurityEnabled
                 MailEnabled                   = $Group.MailEnabled
-                IsAssignableToRole            = $Group.IsAssignableToRole
+                IsAssignableToRole            = $false -or $Group.IsAssignableToRole
                 AssignedToRole                = $AssignedToRoleValues
                 MailNickname                  = $Group.MailNickname
                 Visibility                    = $Group.Visibility
