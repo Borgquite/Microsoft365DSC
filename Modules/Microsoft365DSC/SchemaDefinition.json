@@ -9818,6 +9818,11 @@
                                "Option":  "Write"
                            },
                            {
+                               "CIMType":  "String[]",
+                               "Name":  "OtherMails",
+                               "Option":  "Write"
+                           },
+                           {
                                "CIMType":  "Boolean",
                                "Name":  "PasswordNeverExpires",
                                "Option":  "Write"
@@ -12697,11 +12702,6 @@
                                "CIMType":  "String",
                                "Name":  "IsSingleInstance",
                                "Option":  "Key"
-                           },
-                           {
-                               "CIMType":  "String",
-                               "Name":  "Identity",
-                               "Option":  "Write"
                            },
                            {
                                "CIMType":  "String[]",
@@ -17439,6 +17439,11 @@
                                "Option":  "Write"
                            },
                            {
+                               "CIMType":  "boolean",
+                               "Name":  "AuditEnabled",
+                               "Option":  "Write"
+                           },
+                           {
                                "CIMType":  "string",
                                "Name":  "Ensure",
                                "Option":  "Write"
@@ -17666,81 +17671,6 @@
                            {
                                "CIMType":  "String",
                                "Name":  "Ensure",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "MSFT_Credential",
-                               "Name":  "Credential",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "String",
-                               "Name":  "ApplicationId",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "String",
-                               "Name":  "TenantId",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "String",
-                               "Name":  "CertificateThumbprint",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "MSFT_Credential",
-                               "Name":  "CertificatePassword",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "String",
-                               "Name":  "CertificatePath",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "Boolean",
-                               "Name":  "ManagedIdentity",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "String[]",
-                               "Name":  "AccessTokens",
-                               "Option":  "Write"
-                           }
-                       ]
-    },
-    {
-        "ClassName":  "MSFT_EXOMailTips",
-        "Parameters":  [
-                           {
-                               "CIMType":  "String",
-                               "Name":  "IsSingleInstance",
-                               "Option":  "Key"
-                           },
-                           {
-                               "CIMType":  "Boolean",
-                               "Name":  "MailTipsAllTipsEnabled",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "Boolean",
-                               "Name":  "MailTipsGroupMetricsEnabled",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "UInt32",
-                               "Name":  "MailTipsLargeAudienceThreshold",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "Boolean",
-                               "Name":  "MailTipsMailboxSourcedTipsEnabled",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "Boolean",
-                               "Name":  "MailTipsExternalRecipientsTipsEnabled",
                                "Option":  "Write"
                            },
                            {
@@ -22566,6 +22496,11 @@
                            {
                                "CIMType":  "string[]",
                                "Name":  "EmailAddresses",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "boolean",
+                               "Name":  "AuditEnabled",
                                "Option":  "Write"
                            },
                            {
@@ -30556,6 +30491,91 @@
                            {
                                "CIMType":  "string",
                                "Name":  "Ensure",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "MSFT_Credential",
+                               "Name":  "Credential",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "ApplicationId",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "TenantId",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "MSFT_Credential",
+                               "Name":  "ApplicationSecret",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "CertificateThumbprint",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "Boolean",
+                               "Name":  "ManagedIdentity",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String[]",
+                               "Name":  "AccessTokens",
+                               "Option":  "Write"
+                           }
+                       ]
+    },
+    {
+        "ClassName":  "MSFT_IntuneDeviceConfigurationCustomPolicyiOS",
+        "Parameters":  [
+                           {
+                               "CIMType":  "String",
+                               "Name":  "Id",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "DisplayName",
+                               "Option":  "Key"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "Description",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "PayloadName",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "PayloadFileName",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "Payload",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "string[]",
+                               "Name":  "RoleScopeTagIds",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "String",
+                               "Name":  "Ensure",
+                               "Option":  "Write"
+                           },
+                           {
+                               "CIMType":  "MSFT_DeviceManagementConfigurationPolicyAssignments[]",
+                               "Name":  "Assignments",
                                "Option":  "Write"
                            },
                            {
@@ -47796,11 +47816,6 @@
                            {
                                "CIMType":  "String",
                                "Name":  "MicrosoftEdge_HTTPAuthentication_AuthSchemes",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "String",
-                               "Name":  "authschemes",
                                "Option":  "Write"
                            },
                            {
