@@ -4,6 +4,8 @@
 
 * AADRoleEligibilityScheduleRequest
   * Updated startdatetime and enddatetime properties to be of type DATETIME.
+* IntuneDeviceConfigurationCustomPolicyiOS
+  * Initial release, adds support for iOS 'Custom' Device Configuration policies.
 
 # 1.25.226.1
 
@@ -19,8 +21,6 @@
 * IntuneDeviceCompliancePolicyWindows10
   * Fixes the handling of the `DeviceCompliancePolicyScript` property.
     FIXES [#5510](https://github.com/microsoft/Microsoft365DSC/issues/5510)
-* IntuneCustomConfigurationIOS
-  * Initial release
 * O365OrgSettings
   * Added support for the AllowPlannerCopilot setting.
 * PPTenantSettings
@@ -119,8 +119,6 @@
     have an associated mailbox.
 * IntuneDeviceManagementEnrollmentAndroidGooglePlay
   * Marked the Id property as mandatory in the resource.
-* IntuneDeviceConfigurationCustomPolicyiOS
-  * Initial release, adds support for iOS 'Custom' Device Configuration policies.
 * M365DSCRuleEvaluation
   * Added support for specifying a Filter property.
 * M365DSCUtil
@@ -140,10 +138,9 @@
   * Adds support for Scheduled Actions and other missing properties
     FIXES [#5593] (https://github.com/microsoft/Microsoft365DSC/issues/5592)
 * TeamsAppPermissionPolicy
-  * Updated correct Typecasting for AppPresetMeeting and PinnedMessagebarApps before adding them to the policy
-    FIXES [[#5752](https://github.com/microsoft/Microsoft365DSC/issues/5752)
   * Updated correct Typecasting for AppPresetMeeting and PinnedMessagebarApps
     before adding them to the policy
+    FIXES [[#5752](https://github.com/microsoft/Microsoft365DSC/issues/5752)
 * TeamsAppSetupPolicy
   * FIXES [[#5752](https://github.com/microsoft/Microsoft365DSC/issues/5752)
 * TeamsM365App
@@ -154,7 +151,6 @@
   * FIXES [#5793](https://github.com/microsoft/Microsoft365DSC/issues/5793) issue where PrincipalType isn't correctly captured in AzureGov
 * DEPENDENCIES
   * Updated ReverseDSC to version 2.0.0.27
-
 
 # 1.25.212.2
 
