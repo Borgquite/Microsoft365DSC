@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* AADConditionalAccessPolicy
+  * Fixed DisableResilienceDefaultsIsEnabled to allow for nullable boolean
+    FIXES [#5940](https://github.com/microsoft/Microsoft365DSC/issues/5940)
 * AADUser
   * Added the property `OtherMails` to the managed properties.
     FIXES [#4763](https://github.com/microsoft/Microsoft365DSC/issues/4763)
