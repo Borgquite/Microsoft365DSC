@@ -2,6 +2,13 @@
 
 # UNRELEASED
 
+* M365DSCUtil
+  * Added the new function `Test-CodePage`, which outputs a warning message
+    if the current ANSI code page is not UTF-8.
+    FIXES [#5202](https://github.com/microsoft/Microsoft365DSC/issues/5202)
+    FIXES [#5669](https://github.com/microsoft/Microsoft365DSC/issues/5669)
+    FIXES [#4824](https://github.com/microsoft/Microsoft365DSC/issues/4824)
+
 * AADApplication
   * If both the current and desired values have the Ensure property set
     to absent, ignoring the drift detection and return true from
@@ -44,12 +51,6 @@
     FIXES [#5623](https://github.com/microsoft/Microsoft365DSC/issues/5623)
   * Escape strings in primary key of resource name for export content.
     FIXES [#5865](https://github.com/microsoft/Microsoft365DSC/issues/5865)
-* M365DSCUtil
-  * Added the new function `Test-CodePage`, which outputs a warning message
-    if the current ANSI code page is not UTF-8.
-    FIXES [#5202](https://github.com/microsoft/Microsoft365DSC/issues/5202)
-    FIXES [#5669](https://github.com/microsoft/Microsoft365DSC/issues/5669)
-    FIXES [#4824](https://github.com/microsoft/Microsoft365DSC/issues/4824)
 * DEPENDENCIES
   * Updated MSCloudLoginAssistant to version 1.1.40.
 
