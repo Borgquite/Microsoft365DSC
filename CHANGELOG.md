@@ -140,7 +140,6 @@
 * TeamsAppPermissionPolicy
   * Updated correct Typecasting for AppPresetMeeting and PinnedMessagebarApps
     before adding them to the policy
-    FIXES [[#5752](https://github.com/microsoft/Microsoft365DSC/issues/5752)
 * TeamsAppSetupPolicy
   * FIXES [[#5752](https://github.com/microsoft/Microsoft365DSC/issues/5752)
 * TeamsM365App
