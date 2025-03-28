@@ -5240,9 +5240,9 @@ function Sync-M365DSCParameter
 
 <#
 .SYNOPSIS
-    Joins two M365DSC configurations into a single configuration.
+    Joins two or more M365DSC configurations into a single configuration.
 .DESCRIPTION
-    This function is used to join two M365DSC configurations into a single configuration.
+    This function is used to join two or more M365DSC configurations into a single configuration.
     The function reads the configuration from the specified paths and combines them into a single configuration.
     Please note that the function won't be updating the authentication parameters if they differ between the configurations. Make sure that the authentication parameters are the same over all configurations.
 .PARAMETER ConfigurationFile
