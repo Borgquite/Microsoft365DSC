@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* EXOMailboxSettings
+  * Add AuditEnabled
+
 # 1.25.305.1
 
 * AADApplication
@@ -76,8 +81,6 @@
     policies from calling the cmdlet.
 * AADPasswordRuleSettings
   * Updated schema to only accept values 'Enforced' and 'Audit' for parameter BannedPasswordCheckOnPremisesMode
-* EXOMailboxSettings
-  * Add AuditEnabled
 * IntuneDeviceCompliancePolicyWindows10
   * Fixes the handling of the `DeviceCompliancePolicyScript` property.
     FIXES [#5510](https://github.com/microsoft/Microsoft365DSC/issues/5510)
