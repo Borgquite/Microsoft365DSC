@@ -27,6 +27,9 @@
     FIXES [#5913](https://github.com/microsoft/Microsoft365DSC/issues/5913)
 * IntuneSecurityBaselineMicrosoftEdge
   * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
+* PPPowerAppsEnvironment
+  * Added support for the EnvironmentType property and fixed the
+    values for EnvironmentSKU.
 * SPOTheme
   * Updated export of `Palette` property to match schema.
     FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)
