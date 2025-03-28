@@ -97,6 +97,14 @@ function Get-TargetResource
         $ApplicationTemplateId,
 
         [Parameter()]
+        [System.String[]]
+        $PublicClientRedirectUris,
+
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance]
+        $Spa,
+
+        [Parameter()]
         [ValidateSet('Present', 'Absent')]
         [System.String]
         $Ensure = 'Present',
@@ -131,7 +139,7 @@ function Get-TargetResource
     )
     try
     {
-        if (-not $Script:exportedInstance)
+        if (-not $Script:exportedInstance -or $Script:exportedInstance.DisplayName -ne $DisplayName)
         {
             $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
                 -InboundParameters $PSBoundParameters
@@ -205,7 +213,7 @@ function Get-TargetResource
         }
         if ($complexAuthenticationBehaviors.values.Where({ $null -ne $_ }).Count -eq 0)
         {
-            $complexAuthenticationBehaviors = $null
+            $complexAuthenticationBehaviors = [Array]@()
         }
 
         $complexOptionalClaims = @{}
@@ -366,6 +374,14 @@ function Get-TargetResource
         {
             $isPublicClient = $true
         }
+
+
+        $PublicClientRedirectUrisValue = $null
+        if ($null -ne $AADApp.PublicClient -and $AADApp.PublicClient.RedirectUris.Length -gt 0)
+        {
+            $PublicClientRedirectUrisValue = $AADApp.PublicClient.RedirectUris
+        }
+
         $AvailableToOtherTenantsValue = $false
         if ($AADApp.SignInAudience -ne 'AzureADMyOrg')
         {
@@ -475,38 +491,48 @@ function Get-TargetResource
             $IdentifierUrisValue = $AADApp.IdentifierUris
         }
 
+        $spaValue = $null
+        if ($null -ne $AADApp.Spa -and $AADApp.Spa.RedirectUris.Length -gt 0)
+        {
+            $spaValue = @{
+                RedirectUris = $AADApp.Spa.RedirectUris
+            }
+        }
+
         $result = @{
-            DisplayName             = $AADApp.DisplayName
-            AvailableToOtherTenants = $AvailableToOtherTenantsValue
-            Description             = $AADApp.Description
-            GroupMembershipClaims   = $AADApp.GroupMembershipClaims
-            Homepage                = $AADApp.web.HomepageUrl
-            IdentifierUris          = $IdentifierUrisValue
-            IsFallbackPublicClient  = $IsFallbackPublicClientValue
-            KnownClientApplications = $AADApp.Api.KnownClientApplications
-            LogoutURL               = $AADApp.web.LogoutURL
-            PublicClient            = $isPublicClient
-            ReplyURLs               = $AADApp.web.RedirectUris
-            Owners                  = $OwnersValues
-            ObjectId                = $AADApp.Id
-            AppId                   = $AADApp.AppId
-            OptionalClaims          = $complexOptionalClaims
-            Api                     = $complexApi
-            AuthenticationBehaviors = $complexAuthenticationBehaviors
-            KeyCredentials          = $complexKeyCredentials
-            PasswordCredentials     = $complexPasswordCredentials
-            AppRoles                = $complexAppRoles
-            Permissions             = $permissionsObj
-            OnPremisesPublishing    = $onPremisesPublishingValue
-            ApplicationTemplateId   = $AADApp.AdditionalProperties.applicationTemplateId
-            Ensure                  = 'Present'
-            Credential              = $Credential
-            ApplicationId           = $ApplicationId
-            TenantId                = $TenantId
-            ApplicationSecret       = $ApplicationSecret
-            CertificateThumbprint   = $CertificateThumbprint
-            ManagedIdentity         = $ManagedIdentity.IsPresent
-            AccessTokens            = $AccessTokens
+            DisplayName              = $AADApp.DisplayName
+            AvailableToOtherTenants  = $AvailableToOtherTenantsValue
+            Description              = $AADApp.Description
+            GroupMembershipClaims    = $AADApp.GroupMembershipClaims
+            Homepage                 = $AADApp.web.HomepageUrl
+            IdentifierUris           = $IdentifierUrisValue
+            IsFallbackPublicClient   = $IsFallbackPublicClientValue
+            KnownClientApplications  = $AADApp.Api.KnownClientApplications
+            LogoutURL                = $AADApp.web.LogoutURL
+            PublicClient             = $isPublicClient
+            ReplyURLs                = $AADApp.web.RedirectUris
+            Owners                   = $OwnersValues
+            ObjectId                 = $AADApp.Id
+            AppId                    = $AADApp.AppId
+            OptionalClaims           = $complexOptionalClaims
+            Api                      = $complexApi
+            AuthenticationBehaviors  = $complexAuthenticationBehaviors
+            KeyCredentials           = $complexKeyCredentials
+            PasswordCredentials      = $complexPasswordCredentials
+            AppRoles                 = $complexAppRoles
+            Permissions              = $permissionsObj
+            OnPremisesPublishing     = $onPremisesPublishingValue
+            ApplicationTemplateId    = $AADApp.AdditionalProperties.applicationTemplateId
+            Spa                      = $SpaValue
+            PublicClientRedirectUris = $PublicClientRedirectUrisValue
+            Ensure                   = 'Present'
+            Credential               = $Credential
+            ApplicationId            = $ApplicationId
+            TenantId                 = $TenantId
+            ApplicationSecret        = $ApplicationSecret
+            CertificateThumbprint    = $CertificateThumbprint
+            ManagedIdentity          = $ManagedIdentity.IsPresent
+            AccessTokens             = $AccessTokens
         }
         Write-Verbose -Message "Get-TargetResource Result: `n $(Convert-M365DscHashtableToString -Hashtable $result)"
         return $result
@@ -626,6 +652,14 @@ function Set-TargetResource
         [Parameter()]
         [System.String]
         $ApplicationTemplateId,
+
+        [Parameter()]
+        [System.String[]]
+        $PublicClientRedirectUris,
+
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance]
+        $Spa,
 
         [Parameter()]
         [ValidateSet('Present', 'Absent')]
@@ -748,6 +782,16 @@ function Set-TargetResource
     $currentParameters.Remove('AvailableToOtherTenants') | Out-Null
     $currentParameters.Remove('PublicClient') | Out-Null
     $currentParameters.Remove('Verbose') | Out-Null
+
+    if ($PublicClientRedirectUris.Length -gt 0)
+    {
+        Write-Verbose -Message "PublicClientRedirectUris were specified"
+        $PublicClientValue = @{
+            RedirectUris = $PublicClientRedirectUris
+        }
+        $currentParameters.Add('PublicClient', $PublicClientValue)
+    }
+    $currentParameters.Remove('PublicClientRedirectUris') | Out-Null
 
     #region API
     $apiValue = @{}
@@ -1370,6 +1414,14 @@ function Test-TargetResource
         $ApplicationTemplateId,
 
         [Parameter()]
+        [System.String[]]
+        $PublicClientRedirectUris,
+
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance]
+        $Spa,
+
+        [Parameter()]
         [ValidateSet('Present', 'Absent')]
         [System.String]
         $Ensure = 'Present',
@@ -1626,7 +1678,7 @@ function Export-TargetResource
                         }
                     }
 
-                    if ($null -ne $Results.AuthenticationBehaviors)
+                    if ($null -ne $Results.AuthenticationBehaviors -and $Results.AuthenticationBehaviors.Length -gt 0)
                     {
                         $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
                             -ComplexObject $Results.AuthenticationBehaviors `
@@ -1638,6 +1690,21 @@ function Export-TargetResource
                         else
                         {
                             $Results.Remove('AuthenticationBehaviors') | Out-Null
+                        }
+                    }
+
+                    if ($null -ne $Results.Spa -and $Results.Spa.Length -gt 0)
+                    {
+                        $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                            -ComplexObject $Results.Spa `
+                            -CIMInstanceName 'AADApplicationSpa'
+                        if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                        {
+                            $Results.Spa = $complexTypeStringResult
+                        }
+                        else
+                        {
+                            $Results.Remove('Spa') | Out-Null
                         }
                     }
 
@@ -1772,7 +1839,7 @@ function Export-TargetResource
                         -ModulePath $PSScriptRoot `
                         -Results $Results `
                         -Credential $Credential `
-                        -NoEscape @('Api', 'Permissions', 'OptionalClaims', 'OnPremisesPublishing', 'AuthenticationBehaviors', 'KeyCredentials', 'PasswordCredentials', 'AppRoles')
+                        -NoEscape @('Api', 'Permissions', 'OptionalClaims', 'OnPremisesPublishing', 'AuthenticationBehaviors', 'KeyCredentials', 'PasswordCredentials', 'AppRoles', 'Spa')
 
                     $dscContent.Append($currentDSCBlock) | Out-Null
                     Save-M365DSCPartialExport -Content $currentDSCBlock `
@@ -1788,6 +1855,12 @@ function Export-TargetResource
                     Write-Host "`r`n        $($Global:M365DSCEmojiYellowCircle)" -NoNewline
                     Write-Host " Multiple app instances wth name {$($AADApp.DisplayName)} were found. We will skip exporting these instances."
                 }
+                New-M365DSCLogEntry -Message 'Error during Export:' `
+                    -Exception $_ `
+                    -Source $($MyInvocation.MyCommand.Source) `
+                    -TenantId $TenantId `
+                    -Credential $Credential
+                Write-Host $Global:M365DSCEmojiRedX
                 $i++
             }
         }
