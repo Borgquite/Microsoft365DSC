@@ -8,6 +8,9 @@
 * AADUser
   * Added the property `OtherMails` to the managed properties.
     FIXES [#4763](https://github.com/microsoft/Microsoft365DSC/issues/4763)
+* AADGroup
+  * Fixed `isAssignableToRole` to support for null values returned by graph.
+    FIXES [#5959](https://github.com/microsoft/Microsoft365DSC/issues/5959)
 * EXOMailboxSettings
   * Add AuditEnabled
 * EXOSharedMailbox
