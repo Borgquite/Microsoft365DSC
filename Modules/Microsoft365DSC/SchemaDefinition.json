@@ -47725,11 +47725,6 @@
                            },
                            {
                                "CIMType":  "String",
-                               "Name":  "authschemes",
-                               "Option":  "Write"
-                           },
-                           {
-                               "CIMType":  "String",
                                "Name":  "AuthSchemes_AuthSchemes",
                                "Option":  "Write"
                            },
