@@ -12699,11 +12699,6 @@
                                "Option":  "Key"
                            },
                            {
-                               "CIMType":  "String",
-                               "Name":  "Identity",
-                               "Option":  "Write"
-                           },
-                           {
                                "CIMType":  "String[]",
                                "Name":  "ArcTrustedSealers",
                                "Option":  "Write"
