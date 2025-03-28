@@ -122,6 +122,7 @@ function Start-M365DSCConfigurationExtract
         if ($null -ne $Workloads)
         {
             Write-Verbose -Message 'Retrieving the resources to export by workloads'
+            $Workloads = $Workloads | Select-Object -Unique
             $Components = Get-M365DSCResourcesByWorkloads -Workloads $Workloads `
                 -Mode $Mode
         }
@@ -204,6 +205,7 @@ function Start-M365DSCConfigurationExtract
 
         # If some resources are not supported based on the Authentication parameters
         # received, write a warning.
+        $Components = $Components | Select-Object -Unique
         if ($Components.Length -eq 0)
         {
             Write-Verbose -Message 'Retrieving all resources'
@@ -280,18 +282,7 @@ function Start-M365DSCConfigurationExtract
                 [PSCredential]$AppSecretAsPSCredential = New-Object System.Management.Automation.PSCredential ('ApplicationSecret', $secStringPassword)
             }
 
-            if ($TenantId -like "*.onmicrosoft.com")
-            {
-                $organization = $TenantId
-            }
-            else
-            {
-                $organization = Get-M365DSCTenantDomain -ApplicationId $ApplicationId `
-                    -TenantId $TenantId `
-                    -CertificateThumbprint $CertificateThumbprint `
-                    -ApplicationSecret $AppSecretAsPSCredential `
-                    -CertificatePath $CertificatePath
-            }
+            $organization = $TenantId
         }
         elseif ($AuthMethods -Contains 'Credentials' -or `
                 $AuthMethods -Contains 'CredentialsWithApplicationId')
@@ -584,6 +575,11 @@ function Start-M365DSCConfigurationExtract
 
             try
             {
+                $existingEndpoints = (Get-MSCloudLoginConnectionProfile -Workload $Workload.Name).Endpoints
+                if ($null -ne $existingEndpoints)
+                {
+                    $ConnectionParams.Add('Endpoints', $existingEndpoints)
+                }
                 Connect-M365Tenant @ConnectionParams | Out-Null
                 Write-Host $Global:M365DSCEmojiGreenCheckmark
             }

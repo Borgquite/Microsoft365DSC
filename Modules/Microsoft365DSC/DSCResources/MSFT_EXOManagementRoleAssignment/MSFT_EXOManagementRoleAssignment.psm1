@@ -93,7 +93,7 @@ function Get-TargetResource
 
     try
     {
-        if (-not $Script:exportedInstance)
+        if (-not $Script:exportedInstance -or $Script:exportedInstance.Name -ne $Name)
         {
             Write-Verbose -Message "Getting Management Role Assignment for $Name"
             $ConnectionMode = New-M365DSCConnection -Workload 'ExchangeOnline' `
@@ -363,7 +363,7 @@ function Set-TargetResource
         $testResults = Test-TargetResource @PSBoundParameters
         if (-not $testResults)
         {
-            Write-Verbose -Message "Test-TargetResource returned $false. Waiting for a total of $(($count * 10).ToString()) out of 120)"
+            Write-Verbose -Message "Test-TargetResource returned $false. Waiting for a total of $(($count * 10).ToString()) out of 120"
             Start-Sleep -Seconds 10
         }
         $retries--
