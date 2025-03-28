@@ -887,8 +887,6 @@
 * IntuneEndpointDetectionAndResponsePolicyWindows10
   * Remove changed property name from export.
   FIXES [#5300](https://github.com/microsoft/Microsoft365DSC/issues/5300)
-* IntuneSecurityBaselineMicrosoftEdge
-  * Deprecate property `authschemes` and replace with `AuthSchemes_AuthSchemes`
 * M365DSCDRGUtil
   * Restrict CIM instance access to properties that appear multiple times.
   * Switch log type for not found Intune assignments to `Warning`.
