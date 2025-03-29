@@ -23,6 +23,8 @@
   * Add AuditEnabled property
 * IntuneAccountProtectionLocalUserGroupMembershipPolicy
   * [BREAKING CHANGE] Remove deprecated value `add_replace` from `Action` parameter.
+* IntuneAppConfigurationPolicy
+  * Changed export logic of CustomSettings to use centralized function.
 * IntuneDeviceConfigurationCustomPolicyiOS
   * Initial release, adds support for iOS 'Custom' Device Configuration policies.
 * IntuneDeviceEnrollmentStatusPageWindows10
