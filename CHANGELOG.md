@@ -8,14 +8,11 @@
 * AADUser
   * Added the property `OtherMails` to the managed properties.
     FIXES [#4763](https://github.com/microsoft/Microsoft365DSC/issues/4763)
-* EXOArcConfig
-  * [BREAKING CHANGE] Removed the `Identity` parameter since it does not
-    have any functionality and is not exported by default.
+* AADGroup
+  * Fixed `isAssignableToRole` to support for null values returned by graph.
+    FIXES [#5959](https://github.com/microsoft/Microsoft365DSC/issues/5959)
 * EXOMailboxSettings
   * Add AuditEnabled
-* EXOMailTips
-  * [BREAKING CHANGE] Removed resource. Use `EXOOrganizationConfig` instead.
-    Fixes [#5647](https://github.com/microsoft/Microsoft365DSC/issues/5647)
 * EXOManagementRoleEntry
   * Added the ability to add and remove entries by adding the Ensure property
     to the resource.
@@ -30,8 +27,8 @@
 * IntuneDeviceEnrollmentStatusPageWindows10
   * Use `SelectedMobileAppNames` as the primary source for the apps.
     FIXES [#5913](https://github.com/microsoft/Microsoft365DSC/issues/5913)
-* IntuneSecurityBaselineMicrosoftEdge
-  * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
+* IntuneDeviceFeaturesConfigurationPolicyIOS
+  * Initial release
 * PPPowerAppsEnvironment
   * Added support for the EnvironmentType property and fixed the
     values for EnvironmentSKU.
@@ -42,8 +39,30 @@
   * Added the new function `Join-M365DSCConfiguration` to merge multiple
     configuration files.
     FIXES [#2359](https://github.com/microsoft/Microsoft365DSC/issues/2359)
+  * Added the new function `Test-CodePage`, which outputs a warning message
+    if the current ANSI code page is not UTF-8.
+    FIXES [#5202](https://github.com/microsoft/Microsoft365DSC/issues/5202)
+    FIXES [#5669](https://github.com/microsoft/Microsoft365DSC/issues/5669)
+    FIXES [#4824](https://github.com/microsoft/Microsoft365DSC/issues/4824)
 * MISC
   * Fix CSV-report so variable-names are passed correctly in the report
+
+## BREAKING CHANGES
+
+* EXOArcConfig
+  * [BREAKING CHANGE] Removed the `Identity` parameter since it does not
+    have any functionality and is not exported by default.
+* EXOMailTips
+  * [BREAKING CHANGE] Removed resource. Use `EXOOrganizationConfig` instead.
+    Fixes [#5647](https://github.com/microsoft/Microsoft365DSC/issues/5647)
+* IntuneAccountProtectionLocalUserGroupMembershipPolicy
+  * [BREAKING CHANGE] Remove deprecated value `add_replace` from `Action` parameter.
+* IntuneSecurityBaselineMicrosoftEdge
+  * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
+* Whitepaper
+  * Parallel to this release the code for the whitepaper also implements a
+    Breaking Change. Make sure you are using the v3.1 code if you use
+    this version of Microsoft365DSC or later.
 
 # 1.25.326.1
 
