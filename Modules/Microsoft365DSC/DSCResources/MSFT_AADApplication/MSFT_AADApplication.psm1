@@ -1860,7 +1860,7 @@ function Export-TargetResource
                     -Source $($MyInvocation.MyCommand.Source) `
                     -TenantId $TenantId `
                     -Credential $Credential
-                Write-Host $Global:M365DSCEmojiRedX
+                Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
                 $i++
             }
         }
