@@ -31,6 +31,8 @@
 * SPOTheme
   * Updated export of `Palette` property to match schema.
     FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)
+* M365DSCTelemetryEngine
+  * Allow setting the LCM configuration from outside.
 * M365DSCUtil
   * Added the new function `Join-M365DSCConfiguration` to merge multiple
     configuration files.
@@ -40,6 +42,7 @@
     FIXES [#5202](https://github.com/microsoft/Microsoft365DSC/issues/5202)
     FIXES [#5669](https://github.com/microsoft/Microsoft365DSC/issues/5669)
     FIXES [#4824](https://github.com/microsoft/Microsoft365DSC/issues/4824)
+  * Add PowerShell 5 to 7 compatibility layer.
 * MISC
   * Fix CSV-report so variable-names are passed correctly in the report
 
@@ -210,10 +213,6 @@
     FIXES [#5623](https://github.com/microsoft/Microsoft365DSC/issues/5623)
   * Escape strings in primary key of resource name for export content.
     FIXES [#5865](https://github.com/microsoft/Microsoft365DSC/issues/5865)
-* M365DSCTelemetryEngine
-  * Allow setting the LCM configuration from outside.
-* M365DSCUtil
-  * Add PowerShell 5 to 7 compatibility layer.
 * DEPENDENCIES
   * Updated MSCloudLoginAssistant to version 1.1.41.
 
