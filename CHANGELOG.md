@@ -28,6 +28,9 @@
 * PPPowerAppsEnvironment
   * Added support for the EnvironmentType property and fixed the
     values for EnvironmentSKU.
+* SPOApp
+  * Overwrite existing files during app export.
+    FIXES [#5953](https://github.com/microsoft/Microsoft365DSC/issues/5953)
 * SPOTheme
   * Updated export of `Palette` property to match schema.
     FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)
