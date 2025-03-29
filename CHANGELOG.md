@@ -45,6 +45,9 @@
 
 ## BREAKING CHANGES
 
+* AADPasswordRuleSettings
+  * [BREAKING CHANGE] Replace `Enforced` with `Enforce` as a possibility of
+    `BannedPasswordCheckOnPremisesMode` to align with updated Graph value.
 * EXOArcConfig
   * [BREAKING CHANGE] Removed the `Identity` parameter since it does not
     have any functionality and is not exported by default.
