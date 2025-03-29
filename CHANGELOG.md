@@ -2,9 +2,101 @@
 
 # UNRELEASED
 
+* AADConditionalAccessPolicy
+  * Fixed DisableResilienceDefaultsIsEnabled to allow for nullable boolean
+    FIXES [#5940](https://github.com/microsoft/Microsoft365DSC/issues/5940)
+* AADUser
+  * Added the property `OtherMails` to the managed properties.
+    FIXES [#4763](https://github.com/microsoft/Microsoft365DSC/issues/4763)
+* AADGroup
+  * Fixed `isAssignableToRole` to support for null values returned by graph.
+    FIXES [#5959](https://github.com/microsoft/Microsoft365DSC/issues/5959)
+* EXOMailboxSettings
+  * Add AuditEnabled
+* EXOManagementRoleEntry
+  * Added the ability to add and remove entries by adding the Ensure property
+    to the resource.
+* EXOSharedMailbox
+  * Add AuditEnabled property
+* IntuneDeviceConfigurationCustomPolicyiOS
+  * Initial release, adds support for iOS 'Custom' Device Configuration policies.
+* IntuneDeviceEnrollmentStatusPageWindows10
+  * Use `SelectedMobileAppNames` as the primary source for the apps.
+    FIXES [#5913](https://github.com/microsoft/Microsoft365DSC/issues/5913)
+* IntuneDeviceFeaturesConfigurationPolicyIOS
+  * Initial release
+* PPPowerAppsEnvironment
+  * Added support for the EnvironmentType property and fixed the
+    values for EnvironmentSKU.
+* SPOTheme
+  * Updated export of `Palette` property to match schema.
+    FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)
+* M365DSCUtil
+  * Added the new function `Join-M365DSCConfiguration` to merge multiple
+    configuration files.
+    FIXES [#2359](https://github.com/microsoft/Microsoft365DSC/issues/2359)
+  * Added the new function `Test-CodePage`, which outputs a warning message
+    if the current ANSI code page is not UTF-8.
+    FIXES [#5202](https://github.com/microsoft/Microsoft365DSC/issues/5202)
+    FIXES [#5669](https://github.com/microsoft/Microsoft365DSC/issues/5669)
+    FIXES [#4824](https://github.com/microsoft/Microsoft365DSC/issues/4824)
 * MISC
+  * Fix CSV-report so variable-names are passed correctly in the report
   * Replace `Write-Host` with custom function to support logs in non-interactive
     environments using the verbose stream.
+
+## BREAKING CHANGES
+
+* EXOArcConfig
+  * [BREAKING CHANGE] Removed the `Identity` parameter since it does not
+    have any functionality and is not exported by default.
+* EXOMailTips
+  * [BREAKING CHANGE] Removed resource. Use `EXOOrganizationConfig` instead.
+    Fixes [#5647](https://github.com/microsoft/Microsoft365DSC/issues/5647)
+* IntuneAccountProtectionLocalUserGroupMembershipPolicy
+  * [BREAKING CHANGE] Remove deprecated value `add_replace` from `Action` parameter.
+* IntuneSecurityBaselineMicrosoftEdge
+  * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
+* Whitepaper
+  * Parallel to this release the code for the whitepaper also implements a
+    Breaking Change. Make sure you are using the v3.1 code if you use
+    this version of Microsoft365DSC or later.
+
+# 1.25.326.1
+
+* AADApplication
+  * Added support for SPA and Public Client Url properties.
+* AADServicePrincipal
+  * In the translation logic between GUID and display name of the AppId property,
+    change the way we are retrieving the application instance to be using a filter
+    instead of a direct call to the -ApplicationId parameter.
+
+# 1.25.319.1
+
+* AADServicePrincipal
+  * Streamlined logic to translate AppId from a display name.
+* IntuneDeviceConfigurationPolicyAndroidDeviceOwner
+  * Fixed an issue where empty complex objects result in a broken export.
+    FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)
+* SCSensitivityLabel
+  * Fix an issue where the Priority property was always getting updated for an
+    existing label, even if it didn't get updated.
+* SHSpaceGroup
+  * Initial release.
+* SHSpaceUser
+  * Initial release.
+* TeamsApplicationInstance
+  * Initial release.
+* M365DSCDRGUtil
+  * Made a change in the Intune assignment evaluation logic not to validate that
+    the provided group is a valid Entra Id group based on GroupId. The logic
+    to validate this will be left to the Set-TargetResource.
+* M365DSCUtil
+  * Added note about long paths being recommended when installing the Dev branch.
+    FIXES [#3158](https://github.com/microsoft/Microsoft365DSC/issues/3158)
+* DEPENDENCIES
+  * Updated MicrosoftTeams to version 6.9.0.
+  * Updated MSCloudLoginAssistant to version 1.1.42.
 
 # 1.25.312.1
 
@@ -848,7 +940,8 @@
     FIXES [#5384](https://github.com/microsoft/Microsoft365DSC/issues/5384)
 * IntuneEndpointDetectionAndResponsePolicyWindows10
   * Remove changed property name from export.
-    FIXES [#5300](https://github.com/microsoft/Microsoft365DSC/issues/5300)* IntuneSecurityBaselineMicrosoftEdge
+  FIXES [#5300](https://github.com/microsoft/Microsoft365DSC/issues/5300)
+* IntuneSecurityBaselineMicrosoftEdge
   * Deprecate property `authschemes` and replace with `AuthSchemes_AuthSchemes`
 * M365DSCDRGUtil
   * Restrict CIM instance access to properties that appear multiple times.
