@@ -303,7 +303,7 @@ function Get-TargetResource
 
     try
     {
-        if (-not $Script:exportedInstance)
+        if (-not $Script:exportedInstance -or $Script:exportedInstance.Name -ne $Name)
         {
             Write-Verbose -Message "Getting configuration of Sensitivity Label for $Name"
 
@@ -1202,6 +1202,12 @@ function Set-TargetResource
         $SetParams.Remove('ManagedIdentity') | Out-Null
         $SetParams.Remove('ApplicationSecret') | Out-Null
         $SetParams.Remove('AccessTokens') | Out-Null
+
+        # Only update the priority if the value is different
+        if ($SetParams.Priority -eq $label.Priority)
+        {
+            $SetParams.Remove('Priority') | Out-Null
+        }
 
         try
         {
