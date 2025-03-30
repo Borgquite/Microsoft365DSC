@@ -24,6 +24,7 @@ Internal, Hidden
 function Format-EXOParams
 {
     [CmdletBinding()]
+    [OutputType([System.Collections.Hashtable])]
     param
     (
         [Parameter()]
@@ -36,15 +37,7 @@ function Format-EXOParams
         $Operation
     )
 
-    $EXOParams = $InputEXOParams
-    $EXOParams.Remove('Credential') | Out-Null
-    $EXOParams.Remove('Ensure') | Out-Null
-    $EXOParams.Remove('Verbose') | Out-Null
-    $EXOParams.Remove('ApplicationId') | Out-Null
-    $EXOParams.Remove('TenantId') | Out-Null
-    $EXOParams.Remove('CertificateThumbprint') | Out-Null
-    $EXOParams.Remove('CertificatePath') | Out-Null
-    $EXOParams.Remove('CertificatePassword') | Out-Null
+    $EXOParams = Remove-M365DSCAuthenticationParameter -BoundParameters $InputEXOParams
     if ('New' -eq $Operation)
     {
         $EXOParams += @{
@@ -270,11 +263,9 @@ function New-EXOSafeAttachmentRule
 
     try
     {
-        $VerbosePreference = 'Continue'
         $BuiltParams = (Format-EXOParams -InputEXOParams $SafeAttachmentRuleParams -Operation 'New' )
-        Write-Verbose -Message "Creating New SafeAttachmentRule $($BuiltParams.Name) with values: $(Convert-M365DscHashtableToString -Hashtable $BuiltParams)"
+        Write-Verbose -Message "Creating New SafeAttachmentRule $($BuiltParams.Name) with values: $(Convert-M365DscHashtableToString -Hashtable $BuiltParams)" -Verbose
         New-SafeAttachmentRule @BuiltParams -Confirm:$false
-        $VerbosePreference = 'SilentlyContinue'
     }
     catch
     {
@@ -300,11 +291,9 @@ function New-EXOSafeLinksRule
 
     try
     {
-        $VerbosePreference = 'Continue'
         $BuiltParams = (Format-EXOParams -InputEXOParams $SafeLinksRuleParams -Operation 'New' )
-        Write-Verbose -Message "Creating New SafeLinksRule $($BuiltParams.Name) with values: $(Convert-M365DscHashtableToString -Hashtable $BuiltParams)"
+        Write-Verbose -Message "Creating New SafeLinksRule $($BuiltParams.Name) with values: $(Convert-M365DscHashtableToString -Hashtable $BuiltParams)" -Verbose
         New-SafeLinksRule @BuiltParams -Confirm:$false
-        $VerbosePreference = 'SilentlyContinue'
     }
     catch
     {
@@ -366,18 +355,15 @@ function Set-EXOSafeAttachmentRule
 
     try
     {
-        $VerbosePreference = 'Continue'
         $BuiltParams = (Format-EXOParams -InputEXOParams $SafeAttachmentRuleParams -Operation 'Set' )
         if ($BuiltParams.keys -gt 1)
         {
-            Write-Verbose -Message "Setting SafeAttachmentRule $($BuiltParams.Identity) with values: $(Convert-M365DscHashtableToString -Hashtable $BuiltParams)"
+            Write-Verbose -Message "Setting SafeAttachmentRule $($BuiltParams.Identity) with values: $(Convert-M365DscHashtableToString -Hashtable $BuiltParams)" -Verbose
             Set-SafeAttachmentRule @BuiltParams -Confirm:$false
-            $VerbosePreference = 'SilentlyContinue'
         }
         else
         {
-            Write-Verbose -Message "No more values to Set on SafeAttachmentRule $($BuiltParams.Identity) using supplied values: $(Convert-M365DscHashtableToString -Hashtable $BuiltParams)"
-            $VerbosePreference = 'SilentlyContinue'
+            Write-Verbose -Message "No more values to Set on SafeAttachmentRule $($BuiltParams.Identity) using supplied values: $(Convert-M365DscHashtableToString -Hashtable $BuiltParams)" -Verbose
         }
     }
     catch
@@ -404,18 +390,15 @@ function Set-EXOSafeLinksRule
 
     try
     {
-        $VerbosePreference = 'Continue'
         $BuiltParams = (Format-EXOParams -InputEXOParams $SafeLinksRuleParams -Operation 'Set' )
         if ($BuiltParams.keys -gt 1)
         {
-            Write-Verbose -Message "Setting SafeLinksRule $($BuiltParams.Identity) with values: $(Convert-M365DscHashtableToString -Hashtable $BuiltParams)"
+            Write-Verbose -Message "Setting SafeLinksRule $($BuiltParams.Identity) with values: $(Convert-M365DscHashtableToString -Hashtable $BuiltParams)" -Verbose
             Set-SafeLinksRule @BuiltParams -Confirm:$false
-            $VerbosePreference = 'SilentlyContinue'
         }
         else
         {
-            Write-Verbose -Message "No more values to Set on SafeLinksRule $($BuiltParams.Identity) using supplied values: $(Convert-M365DscHashtableToString -Hashtable $BuiltParams)"
-            $VerbosePreference = 'SilentlyContinue'
+            Write-Verbose -Message "No more values to Set on SafeLinksRule $($BuiltParams.Identity) using supplied values: $(Convert-M365DscHashtableToString -Hashtable $BuiltParams)" -Verbose
         }
     }
     catch
@@ -501,7 +484,7 @@ function Compare-PSCustomObjectArrays
         if ($currentEntry.GetType().Name -eq 'PSCustomObject')
         {
             $fixedEntry = @{}
-            $currentEntry.psobject.properties | Foreach { $fixedEntry[$_.Name] = $_.Value }
+            $currentEntry.psobject.properties | ForEach-Object { $fixedEntry[$_.Name] = $_.Value }
         }
         else
         {
@@ -629,7 +612,6 @@ function Test-M365DSCParameterState
         $IncludedDrifts
     )
 
-    $VerbosePreference = 'SilentlyContinue'
     #region Telemetry
     $data = [System.Collections.Generic.Dictionary[[String], [String]]]::new()
     $data.Add('Resource', "$Source")
@@ -1372,6 +1354,7 @@ function Export-M365DSCConfiguration
         [Switch]
         $Validate
     )
+
     $currentStartDateTime = [System.DateTime]::Now
     $Global:M365DSCExportInProgress = $true
     $Global:MaximumFunctionCount = 32767
@@ -1785,6 +1768,7 @@ Internal
 function Get-M365DSCTenantDomain
 {
     [CmdletBinding(DefaultParameterSetName = 'AppId')]
+    [OutputType([System.String])]
     param
     (
         [Parameter(ParameterSetName = 'AppId', Mandatory = $true)]
@@ -1835,7 +1819,7 @@ function Get-M365DSCTenantDomain
                     -TenantId $TenantId `
                     -Credential $Credential
 
-                return ''
+                return [System.String]::Empty
             }
 
             throw $_
@@ -1877,16 +1861,17 @@ function Get-M365DSCOrganization
         $organization = $Credential.UserName.Split('@')[1]
         return $organization
     }
+
     if (-not [System.String]::IsNullOrEmpty($TenantId))
     {
-        if ($TenantId.contains('.'))
+        if ($TenantId.Contains('.'))
         {
             $organization = $TenantId
             return $organization
         }
         else
         {
-            Throw 'Tenant ID must be name of tenant not a GUID. Ex contoso.onmicrosoft.com'
+            Throw 'Tenant ID must be name of the tenant, e.g. contoso.onmicrosoft.com'
         }
 
     }
@@ -1972,7 +1957,7 @@ function New-M365DSCConnection
     {
         try
         {
-            $cmdlet = Get-Command 'Connect-MicrosoftTeams' -ErrorAction Stop
+            $null = Get-Command 'Connect-MicrosoftTeams' -ErrorAction Stop
         }
         catch
         {
@@ -2528,14 +2513,12 @@ function Get-SPOAdministrationUrl
         $Credential
     )
 
+    $UseMFASwitch = @{}
     if ($UseMFA)
     {
-        $UseMFASwitch = @{UseMFA = $true }
+        $UseMFASwitch.Add('UseMFA', $true)
     }
-    else
-    {
-        $UseMFASwitch = @{ }
-    }
+
     Write-Verbose -Message 'Connection to Azure AD is required to automatically determine SharePoint Online admin URL...'
     $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
         -InboundParameters $PSBoundParameters
@@ -2576,14 +2559,12 @@ function Get-M365TenantName
         $Credential
     )
 
+    $UseMFASwitch = @{}
     if ($UseMFA)
     {
-        $UseMFASwitch = @{UseMFA = $true }
+        $UseMFASwitch.Add('UseMFA', $true)
     }
-    else
-    {
-        $UseMFASwitch = @{ }
-    }
+
     Write-Verbose -Message 'Connection to Azure AD is required to automatically determine SharePoint Online admin URL...'
     $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
         -InboundParameters $PSBoundParameters
@@ -2645,77 +2626,6 @@ function Split-ArrayByParts
         }
     }
     return , $outArray
-}
-
-<#
-.Description
-This function runs provided code and makes sure throtteling is not causing any issues
-
-.Functionality
-Internal
-#>
-function Invoke-M365DSCCommand
-{
-    [CmdletBinding()]
-    param
-    (
-        [Parameter(Mandatory = $true)]
-        [ScriptBlock]
-        $ScriptBlock,
-
-        [Parameter()]
-        [System.String]
-        $InvokationPath,
-
-        [Parameter()]
-        [Object[]]
-        $Arguments,
-
-        [Parameter()]
-        [System.UInt32]
-        $Backoff = 2
-    )
-
-    $InformationPreference = 'SilentlyContinue'
-    $WarningPreference = 'SilentlyContinue'
-    $ErrorActionPreference = 'Stop'
-    try
-    {
-        if (-not [System.String]::IsNullOrEmpty($InvokationPath))
-        {
-            $baseScript = "Import-Module '$InvokationPath\*.psm1' -Force;"
-        }
-
-        $invokeArgs = @{
-            ScriptBlock = [ScriptBlock]::Create($baseScript + $ScriptBlock.ToString())
-        }
-        if ($null -ne $Arguments)
-        {
-            $invokeArgs.Add('ArgumentList', $Arguments)
-        }
-        return Invoke-Command @invokeArgs
-    }
-    catch
-    {
-        if ($_.Exception -like '*M365DSC - *')
-        {
-            Write-Warning $_.Exception
-        }
-        else
-        {
-            if ($Backoff -le 128)
-            {
-                $NewBackoff = $Backoff * 2
-                Write-Warning "    * Throttling detected. Waiting for {$NewBackoff seconds}"
-                Start-Sleep -Seconds $NewBackoff
-                return Invoke-M365DSCCommand -ScriptBlock $ScriptBlock -Backoff $NewBackoff -Arguments $Arguments -InvokationPath $InvokationPath
-            }
-            else
-            {
-                Write-Warning $_
-            }
-        }
-    }
 }
 
 <#
@@ -3082,9 +2992,6 @@ function Assert-M365DSCBlueprint
         $ExcludedResources
     )
 
-    $InformationPreference = 'SilentlyContinue'
-    $WarningPreference = 'SilentlyContinue'
-
     #Ensure the proper dependencies are installed in the current environment.
     Confirm-M365DSCDependencies
 
@@ -3214,7 +3121,6 @@ function Test-M365DSCDependenciesForNewVersions
     [CmdletBinding()]
     param ()
 
-    $InformationPreference = 'Continue'
     $currentPath = Join-Path -Path $PSScriptRoot -ChildPath '..\' -Resolve
     $manifest = Import-PowerShellDataFile "$currentPath/Dependencies/Manifest.psd1"
     $dependencies = $manifest.Dependencies
@@ -3876,10 +3782,6 @@ function Get-M365DSCExportContentForResource
         $OrganizationName = ''
     }
 
-    # Ensure the string properties are properly formatted;
-    $Results = Format-M365DSCString -Properties $Results `
-        -ResourceName $ResourceName
-
     $primaryKey = ''
     $ModuleFullName = "MSFT_" + $ResourceName
     $moduleInfo = Get-Command -Module $ModuleFullName -ErrorAction SilentlyContinue
@@ -3979,6 +3881,7 @@ function Get-M365DSCExportContentForResource
         {
             $primaryKey = $primaryKey.Replace('`', '``').Replace('$', '`$').Replace('"', '`"')
         }
+        $primaryKey = Update-M365DSCSpecialCharacters -String $primaryKey
         $instanceName += "-$primaryKey"
     }
 
@@ -4784,8 +4687,6 @@ function Test-M365DSCModuleValidity
         return
     }
 
-    $InformationPreference = 'Continue'
-
     # validate only one installation of the module is present (and it's the latest version available)
     $latestVersion = (Find-Module -Name 'Microsoft365DSC' -Includes 'DSCResource').Version
     $localVersion = (Get-Module -Name 'Microsoft365DSC').Version
@@ -5310,7 +5211,7 @@ function Join-M365DSCConfiguration
 
     $combinedArray = @($baseConfiguration) + @($additionalConfigurations)
     $combinedConfiguration = ConvertFrom-DSCObject -DSCResources $combinedArray
-    
+
     # Indent all lines by 8 spaces to match the indentation of the configuration file
     $combinedConfiguration = $combinedConfiguration -replace '(?m)^', '        '
     $combinedConfiguration = $combinedConfiguration.TrimEnd()
@@ -5350,7 +5251,6 @@ Export-ModuleMember -Function @(
     'Get-TeamByName',
     'Import-M365DSCDependencies',
     'Install-M365DSCDevBranch',
-    'Invoke-M365DSCCommand',
     'Join-M365DSCConfiguration',
     'New-EXOSafeAttachmentRule',
     'New-EXOSafeLinksRule',

@@ -851,7 +851,7 @@ function Export-TargetResource
         [System.String[]]
         $AccessTokens
     )
-    $InformationPreference = 'Continue'
+
     $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftTeams' -InboundParameters $PSBoundParameters
     $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' -InboundParameters $PSBoundParameters
 

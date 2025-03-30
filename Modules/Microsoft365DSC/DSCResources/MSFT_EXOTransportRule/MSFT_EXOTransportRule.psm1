@@ -2663,7 +2663,6 @@ function Export-TargetResource
         [System.String[]]
         $AccessTokens
     )
-    $InformationPreference = 'Continue'
     $ConnectionMode = New-M365DSCConnection -Workload 'ExchangeOnline' `
         -InboundParameters $PSBoundParameters `
         -SkipModuleReload $true

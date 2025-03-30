@@ -115,9 +115,6 @@ function Start-M365DSCConfigurationExtract
         $Global:M365DSCExportResourceInstancesCount = 0
 
         $M365DSCExportStartTime = [System.DateTime]::Now
-        $InformationPreference = 'Continue'
-        $VerbosePreference = 'SilentlyContinue'
-        $WarningPreference = 'SilentlyContinue'
 
         if ($null -ne $Workloads)
         {
@@ -671,7 +668,7 @@ function Start-M365DSCConfigurationExtract
                 $resourceName = $resource.Name.Split('.')[0] -replace 'MSFT_', ''
                 if ($FilterExists -and $null -ne $Filters -and $Filters.Keys.Contains($resourceName))
                 {
-                    $resourceFilter = $Filters.($resource.Name.Split('.')[0] -replace 'MSFT_', '')
+                    $resourceFilter = $Filters.$resourceName
                     if ($FilterExists)
                     {
                         $parameters.Add('Filter', $resourceFilter)
