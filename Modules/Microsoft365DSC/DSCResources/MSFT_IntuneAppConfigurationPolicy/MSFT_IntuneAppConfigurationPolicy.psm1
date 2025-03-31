@@ -698,7 +698,25 @@ function Export-TargetResource
 
             if ($Results.CustomSettings.Count -gt 0)
             {
-                $Results.CustomSettings = Get-M365DSCIntuneAppConfigurationPolicyCustomSettingsAsString -Settings $Results.CustomSettings
+                $complexTypeMapping = @(
+                    @{
+                        Name            = 'CustomSettings'
+                        CimInstanceName = 'IntuneAppConfigurationPolicyCustomSetting'
+                    }
+                )
+
+                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                    -ComplexObject $Results.CustomSettings `
+                    -CIMInstanceName IntuneAppConfigurationPolicyCustomSetting `
+                    -ComplexTypeMapping $complexTypeMapping
+                if ($complexTypeStringResult)
+                {
+                    $Results.CustomSettings = $complexTypeStringResult
+                }
+                else
+                {
+                    $Results.Remove('CustomSettings') | Out-Null
+                }
             }
 
             if ($Results.Apps)
