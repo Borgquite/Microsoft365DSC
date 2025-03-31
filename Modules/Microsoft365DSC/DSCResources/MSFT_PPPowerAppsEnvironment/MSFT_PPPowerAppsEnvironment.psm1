@@ -270,26 +270,6 @@ function Set-TargetResource
                 Write-Error "Developer environments must always include Dataverse provisioning parameters."
                 throw $_
             }
-
-            if ($ProvisionDatabase)
-            {
-                if ($CurrencyName -ne $null -and
-                    $LanguageName -ne $null)
-                {
-                    $newParameters.properties['linkedEnvironmentMetadata'] = @{
-                        baseLanguage = $LanguageName
-                        currency     = @{
-                            code = $CurrencyName
-                        }
-                    }
-                }
-                $newParameters.properties["databaseType"] = "CommonDataService"
-            }
-            if ($EnvironmentSku -eq "Developer" -and !$ProvisionDatabase)
-            {
-                Write-Error "Developer environments must always include Dataverse provisioning parameters."
-                throw $_
-            }
             Invoke-M365DSCPowerPlatformRESTWebRequest -Uri $uri -Method 'POST' -Body $newParameters
         }
         catch
