@@ -42,6 +42,8 @@
     FIXES [#4824](https://github.com/microsoft/Microsoft365DSC/issues/4824)
 * MISC
   * Fix CSV-report so variable-names are passed correctly in the report
+  * Replace `Write-Host` with custom function to support logs in non-interactive
+    environments using the verbose stream.
 
 ## BREAKING CHANGES
 
