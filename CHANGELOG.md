@@ -18,6 +18,10 @@
     to the resource.
 * EXOSharedMailbox
   * Add AuditEnabled property
+* IntuneAccountProtectionLocalUserGroupMembershipPolicy
+  * [BREAKING CHANGE] Remove deprecated value `add_replace` from `Action` parameter.
+* IntuneAppConfigurationPolicy
+  * Changed export logic of CustomSettings to use centralized function.
 * IntuneDeviceConfigurationCustomPolicyiOS
   * Initial release, adds support for iOS 'Custom' Device Configuration policies.
 * IntuneDeviceEnrollmentStatusPageWindows10
@@ -45,6 +49,8 @@
   * Add PowerShell 5 to 7 compatibility layer.
 * MISC
   * Fix CSV-report so variable-names are passed correctly in the report
+  * Replace `Write-Host` with custom function to support logs in non-interactive
+    environments using the verbose stream.
 
 ## BREAKING CHANGES
 
