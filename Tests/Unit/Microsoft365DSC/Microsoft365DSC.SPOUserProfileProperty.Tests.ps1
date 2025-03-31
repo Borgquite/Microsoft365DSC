@@ -41,9 +41,6 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 return 'contoso.com'
             }
 
-            Mock -CommandName Invoke-M365DSCCommand -MockWith {
-            }
-
             Mock -CommandName Start-Job -MockWith {
             }
 

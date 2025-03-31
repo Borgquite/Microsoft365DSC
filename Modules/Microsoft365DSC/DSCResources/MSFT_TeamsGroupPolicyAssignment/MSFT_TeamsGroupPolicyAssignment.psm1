@@ -380,7 +380,7 @@ function Export-TargetResource
         [System.String[]]
         $AccessTokens
     )
-    $InformationPreference = 'Continue'
+
     $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftTeams' -InboundParameters $PSBoundParameters
 
     #Ensure the proper dependencies are installed in the current environment.

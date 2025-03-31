@@ -200,6 +200,12 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 Mock -CommandName Get-AcceptedDomain -MockWith {
                     return @($acceptedDomain1, $acceptedDomain2)
                 }
+                Mock -CommandName Get-AcceptedDomain -ParameterFilter { $Identity -eq $acceptedDomain1.Identity } -MockWith {
+                    return $acceptedDomain1
+                }
+                Mock -CommandName Get-AcceptedDomain -ParameterFilter { $Identity -eq $acceptedDomain2.Identity } -MockWith {
+                    return $acceptedDomain2
+                }
                 $result = Export-TargetResource @testParams
                 $result | Should -Not -BeNullOrEmpty
             }

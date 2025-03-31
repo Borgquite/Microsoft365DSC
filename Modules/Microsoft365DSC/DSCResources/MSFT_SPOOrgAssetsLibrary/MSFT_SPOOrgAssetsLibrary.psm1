@@ -303,7 +303,7 @@ function Set-TargetResource
         }
         catch
         {
-            Write-Information -Message "Exception: $($_.Exception)"
+            Write-Warning -Message "Exception: $($_.Exception)"
             if ($_ -notlike '*This library is already an organization assets library.*')
             {
                 throw $_
