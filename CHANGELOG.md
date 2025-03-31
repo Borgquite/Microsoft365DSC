@@ -18,6 +18,10 @@
     to the resource.
 * EXOSharedMailbox
   * Add AuditEnabled property
+* IntuneAccountProtectionLocalUserGroupMembershipPolicy
+  * [BREAKING CHANGE] Remove deprecated value `add_replace` from `Action` parameter.
+* IntuneAppConfigurationPolicy
+  * Changed export logic of CustomSettings to use centralized function.
 * IntuneDeviceConfigurationCustomPolicyiOS
   * Initial release, adds support for iOS 'Custom' Device Configuration policies.
 * IntuneDeviceEnrollmentStatusPageWindows10
@@ -29,9 +33,14 @@
   * Added support for the EnvironmentType property and fixed the
     values for EnvironmentSKU.
   * Add support for creating Environment with Dataverse db
+* SPOApp
+  * Overwrite existing files during app export.
+    FIXES [#5953](https://github.com/microsoft/Microsoft365DSC/issues/5953)
 * SPOTheme
   * Updated export of `Palette` property to match schema.
     FIXES [#5863](https://github.com/microsoft/Microsoft365DSC/issues/5863)
+* M365DSCTelemetryEngine
+  * Allow setting the LCM configuration from outside.
 * M365DSCUtil
   * Added the new function `Join-M365DSCConfiguration` to merge multiple
     configuration files.
@@ -41,11 +50,17 @@
     FIXES [#5202](https://github.com/microsoft/Microsoft365DSC/issues/5202)
     FIXES [#5669](https://github.com/microsoft/Microsoft365DSC/issues/5669)
     FIXES [#4824](https://github.com/microsoft/Microsoft365DSC/issues/4824)
+  * Add PowerShell 5 to 7 compatibility layer.
 * MISC
   * Fix CSV-report so variable-names are passed correctly in the report
+  * Replace `Write-Host` with custom function to support logs in non-interactive
+    environments using the verbose stream.
 
 ## BREAKING CHANGES
 
+* AADPasswordRuleSettings
+  * [BREAKING CHANGE] Replace `Enforced` with `Enforce` as a possibility of
+    `BannedPasswordCheckOnPremisesMode` to align with updated Graph value.
 * EXOArcConfig
   * [BREAKING CHANGE] Removed the `Identity` parameter since it does not
     have any functionality and is not exported by default.
