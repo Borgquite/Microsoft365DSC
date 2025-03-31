@@ -29,6 +29,9 @@
     FIXES [#5913](https://github.com/microsoft/Microsoft365DSC/issues/5913)
 * IntuneDeviceFeaturesConfigurationPolicyIOS
   * Initial release
+* IntuneWifiConfigurationPolicyMacOS
+  * Fixes a naming issue with the primary key when calling the update assignment
+    cmdlet.
 * PPPowerAppsEnvironment
   * Added support for the EnvironmentType property and fixed the
     values for EnvironmentSKU.
