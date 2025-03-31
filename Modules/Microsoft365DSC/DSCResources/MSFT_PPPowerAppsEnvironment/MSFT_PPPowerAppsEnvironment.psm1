@@ -12,6 +12,10 @@ function Get-TargetResource
         [ValidateSet('canada', 'unitedstates', 'europe', 'asia', 'australia', 'india', 'japan', 'unitedkingdom', 'unitedstatesfirstrelease', 'southamerica', 'france', 'usgov', 'unitedarabemirates', 'germany', 'switzerland', 'norway', 'korea', 'southafrica')]
         $Location,
 
+        [Parameter()]
+        [System.String]
+        $EnvironmentType,
+
         [Parameter(Mandatory = $true)]
         [System.String]
         [ValidateSet("Production","Standard","Trial","Sandbox","SubscriptionBasedTrial","Teams","Developer","Basic","Default")]
@@ -103,15 +107,16 @@ function Get-TargetResource
         }
 
         Write-Verbose -Message "Found PowerApps Environment {$DisplayName}"
-        $environmentType = $environment.properties.environmentType
-        if ($environmentType -eq 'Notspecified')
+        $environmentSKU = $environment.properties.EnvironmentSKU
+        if ($environmentSKU -eq 'Notspecified')
         {
-            $environmentType = 'Teams'
+            $environmentSKU = 'Teams'
         }
         return @{
             DisplayName           = $DisplayName
             Location              = $environment.location
-            EnvironmentSKU        = $environmentType
+            EnvironmentType       = $environment.properties.EnvironmentType
+            EnvironmentSKU        = $environmentSKU
             ProvisionDatabase     = $ProvisionDatabaseparam
             LanguageName          = $LanguageNameparam
             Ensure                = 'Present'
@@ -146,6 +151,10 @@ function Set-TargetResource
         [System.String]
         [ValidateSet('canada', 'unitedstates', 'europe', 'asia', 'australia', 'india', 'japan', 'unitedkingdom', 'unitedstatesfirstrelease', 'southamerica', 'france', 'usgov', 'unitedarabemirates', 'germany', 'switzerland', 'norway', 'korea', 'southafrica')]
         $Location,
+
+        [Parameter()]
+        [System.String]
+        $EnvironmentType,
 
         [Parameter(Mandatory = $true)]
         [System.String]
@@ -235,10 +244,31 @@ function Set-TargetResource
             $newParameters = @{
                 location   = $Location
                 properties = @{
-                    displayName    = $DisplayName
-                    description    = ''
-                    environmentSku = $EnvironmentSku
+                    displayName     = $DisplayName
+                    description     = ''
+                    environmentSku  = $EnvironmentSku
+                    environmentType = $EnvironmentType
                 }
+            }
+
+            if ($ProvisionDatabase)
+            {
+                if ($CurrencyName -ne $null -and
+                    $LanguageName -ne $null)
+                {
+                    $newParameters.properties['linkedEnvironmentMetadata'] = @{
+                        baseLanguage = $LanguageName
+                        currency     = @{
+                            code = $CurrencyName
+                        }
+                    }
+                }
+                $newParameters.properties["databaseType"] = "CommonDataService"
+            }
+            if ($EnvironmentSku -eq "Developer" -and !$ProvisionDatabase)
+            {
+                Write-Error "Developer environments must always include Dataverse provisioning parameters."
+                throw $_
             }
 
             if ($ProvisionDatabase)
@@ -295,6 +325,10 @@ function Test-TargetResource
         [System.String]
         [ValidateSet('canada', 'unitedstates', 'europe', 'asia', 'australia', 'india', 'japan', 'unitedkingdom', 'unitedstatesfirstrelease', 'southamerica', 'france', 'usgov', 'unitedarabemirates', 'germany', 'switzerland', 'norway', 'korea', 'southafrica')]
         $Location,
+
+        [Parameter()]
+        [System.String]
+        $EnvironmentType,
 
         [Parameter(Mandatory = $true)]
         [System.String]
