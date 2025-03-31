@@ -371,7 +371,7 @@ function Set-TargetResource
 
         if ($policy.id)
         {
-            Update-MgBetaDeviceManagementConfigurationPolicyAssignment -DeviceConfigurationPolicyId $policy.id `
+            Update-MgBetaDeviceManagementConfigurationPolicyAssignment -DeviceManagementConfigurationPolicyId $policy.id `
                 -Targets $assignmentsHash `
                 -Repository 'deviceManagement/deviceConfigurations'
         }
