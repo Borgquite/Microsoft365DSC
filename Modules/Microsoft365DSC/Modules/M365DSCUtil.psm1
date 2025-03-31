@@ -5331,6 +5331,84 @@ function Join-M365DSCConfiguration
 }
 
 <#
+.DESCRIPTION
+    Invokes a script-based DSC resource from a Windows PowerShell 5.1 session into a PowerShell Core session.
+
+.PARAMETER Name
+    The name of the resource to invoke.
+
+.PARAMETER Path
+    The path to the module containing the resource.
+
+.PARAMETER FunctionName
+    The name of the function to invoke.
+
+.PARAMETER Parameters
+    The parameters to pass to the function.
+
+.EXAMPLE
+    Invoke-PowerShellCoreResource -Name Resource -Path 'C:\Program Files\...\DSCResources\MSFT_Resource\MSFT_Resource.psm1' -FunctionName Test -Parameters @{ Name = 'Value' }
+
+.FUNCTIONALITY
+    Internal
+
+.OUTPUTS
+    Result of the invoked function.
+#>
+function Invoke-PowerShellCoreResource
+{
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Name,
+
+        [Parameter(Mandatory = $true)]
+        [string]$Path,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('Get', 'Set', 'Test', 'Export')]
+        [string]$FunctionName,
+
+        [Parameter(Mandatory = $true)]
+        [hashtable]$Parameters
+    )
+
+    if (-not $script:PSCoreSessionInitialized)
+    {
+        Initialize-PowerShellCoreSession
+    }
+
+    $output = Invoke-Command -Session $PSCoreSession -ScriptBlock {
+        Import-Module -Name $using:Path
+        & $using:FunctionName-TargetResource @using:Parameters
+    }
+
+    return $output
+}
+
+<#
+.DESCRIPTION
+    Initializes a PowerShell Core session for use with Invoke-PowerShellCoreResource.
+
+.FUNCTIONALITY
+    Private
+
+.EXAMPLE
+    Initialize-PowerShellCoreSession
+#>
+function Initialize-PowerShellCoreSession
+{
+    $script:PSCoreSession = New-PSSession -ComputerName localhost -ConfigurationName PowerShell.7 -EnableNetworkAccess
+    $lcmConfig = Get-DscLocalConfigurationManager
+    Invoke-Command -Session $script:PSCoreSession -ScriptBlock {
+        Import-Module -Name PSDesiredStateConfiguration -MinimumVersion 2.0.7 -ErrorAction SilentlyContinue
+        Import-Module -Name Microsoft365DSC
+        Set-M365DSCLCMConfiguration -LCMConfig $using:lcmConfig
+    }
+    $script:PSCoreSessionInitialized = $true
+}
+
+<#
 .Description
 This function writes messages to the console or verbose output.
 
@@ -5459,6 +5537,7 @@ Export-ModuleMember -Function @(
     'Update-M365DSCExportAuthenticationResults',
     'Update-M365DSCModule',
     'Write-M365DSCLogEvent',
-    'Write-M365DSCHost',
-    'Sync-M365DSCParameter'
+    'Sync-M365DSCParameter',
+    'Invoke-PowerShellCoreResource',
+    'Write-M365DSCHost'
 )
