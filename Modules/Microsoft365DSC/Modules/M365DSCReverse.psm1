@@ -850,7 +850,7 @@ function Start-M365DSCConfigurationExtract
                     {
                         $filePath = Join-Path $env:Temp $fileToCopy.Name -Resolve
                         $destPath = Join-Path $OutputDSCPath $fileToCopy.Name
-                        Copy-Item -Path $filePath -Destination $destPath
+                        Copy-Item -Path $filePath -Destination $destPath -Force
                     }
                 }
             }
