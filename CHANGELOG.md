@@ -8,8 +8,14 @@
 * AADUser
   * Added the property `OtherMails` to the managed properties.
     FIXES [#4763](https://github.com/microsoft/Microsoft365DSC/issues/4763)
+* AADGroup
+  * Fixed `isAssignableToRole` to support for null values returned by graph.
+    FIXES [#5959](https://github.com/microsoft/Microsoft365DSC/issues/5959)
 * EXOMailboxSettings
   * Add AuditEnabled
+* EXOManagementRoleEntry
+  * Added the ability to add and remove entries by adding the Ensure property
+    to the resource.
 * EXOSharedMailbox
   * Add AuditEnabled property
 * IntuneDeviceConfigurationCustomPolicyiOS
@@ -29,6 +35,11 @@
   * Added the new function `Join-M365DSCConfiguration` to merge multiple
     configuration files.
     FIXES [#2359](https://github.com/microsoft/Microsoft365DSC/issues/2359)
+  * Added the new function `Test-CodePage`, which outputs a warning message
+    if the current ANSI code page is not UTF-8.
+    FIXES [#5202](https://github.com/microsoft/Microsoft365DSC/issues/5202)
+    FIXES [#5669](https://github.com/microsoft/Microsoft365DSC/issues/5669)
+    FIXES [#4824](https://github.com/microsoft/Microsoft365DSC/issues/4824)
 * MISC
   * Fix CSV-report so variable-names are passed correctly in the report
 
