@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* AADAdministrativeUnit
+  * Fix issue where AdministrativeUnit calls fail with ODATA error on dynamic membership.
+    FIXES [#5815](https://github.com/microsoft/Microsoft365DSC/issues/5815)
+  * Fix issue where a role is not detected to be deactivated before adding to an Administrative Unit
 * AADConditionalAccessPolicy
   * Fixed DisableResilienceDefaultsIsEnabled to allow for nullable boolean
     FIXES [#5940](https://github.com/microsoft/Microsoft365DSC/issues/5940)
