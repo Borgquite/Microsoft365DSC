@@ -91,6 +91,11 @@ function Get-TargetResource
             if ($environmentInfo.properties.displayName -eq $DisplayName)
             {
                 $environment = $environmentInfo
+                if($null -ne $environmentInfo.properties.linkedEnvironmentMetadata)
+                {
+                    $ProvisionDatabaseparam = $true
+                    $LanguageNameparam = $environmentInfo.properties.linkedEnvironmentMetadata.baseLanguage
+                }
                 break
             }
         }
@@ -112,6 +117,8 @@ function Get-TargetResource
             Location              = $environment.location
             EnvironmentType       = $environment.properties.EnvironmentType
             EnvironmentSKU        = $environmentSKU
+            ProvisionDatabase     = $ProvisionDatabaseparam
+            LanguageName          = $LanguageNameparam
             Ensure                = 'Present'
             Credential            = $Credential
             ApplicationId         = $ApplicationId
@@ -243,6 +250,26 @@ function Set-TargetResource
                     environmentType = $EnvironmentType
                 }
             }
+
+            if ($ProvisionDatabase)
+            {
+                if ($CurrencyName -ne $null -and
+                    $LanguageName -ne $null)
+                {
+                    $newParameters.properties['linkedEnvironmentMetadata'] = @{
+                        baseLanguage = $LanguageName
+                        currency     = @{
+                            code = $CurrencyName
+                        }
+                    }
+                }
+                $newParameters.properties["databaseType"] = "CommonDataService"
+            }
+            if ($EnvironmentSku -eq "Developer" -and !$ProvisionDatabase)
+            {
+                Write-Error "Developer environments must always include Dataverse provisioning parameters."
+                throw $_
+            }
             Invoke-M365DSCPowerPlatformRESTWebRequest -Uri $uri -Method 'POST' -Body $newParameters
         }
         catch
@@ -347,8 +374,6 @@ function Test-TargetResource
 
     $ValuesToCheck = $PSBoundParameters
     $ValuesToCheck.Remove('Credential') | Out-Null
-    $ValuesToCheck.Remove('ProvisionDatabase') | Out-Null
-    $ValuesToCheck.Remove('LanguageName') | Out-Null
     $ValuesToCheck.Remove('CurrencyName') | Out-Null
 
     $TestResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `

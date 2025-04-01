@@ -39,6 +39,7 @@
 * PPPowerAppsEnvironment
   * Added support for the EnvironmentType property and fixed the
     values for EnvironmentSKU.
+  * Add support for creating Environment with Dataverse db
 * SPOApp
   * Overwrite existing files during app export.
     FIXES [#5953](https://github.com/microsoft/Microsoft365DSC/issues/5953)
