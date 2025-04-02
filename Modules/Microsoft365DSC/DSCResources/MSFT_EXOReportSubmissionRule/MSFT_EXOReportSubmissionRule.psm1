@@ -396,7 +396,7 @@ function Export-TargetResource
         if ($ReportSubmissionRule.Length -eq 0)
         {
             Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
-            return
+            return ''
         }
         else
         {
