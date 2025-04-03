@@ -655,7 +655,7 @@ function Start-M365DSCConfigurationExtract
                 Write-M365DSCHost -Message $resourceName -ForegroundColor Green -DeferWrite
                 Write-M365DSCHost -Message '] using {' -DeferWrite
                 Write-M365DSCHost -Message $mostSecureAuthMethod -ForegroundColor Cyan -DeferWrite
-                Write-M365DSCHost -Message '}...' -CommitWrite
+                Write-M365DSCHost -Message '}...' -DeferWrite
                 $exportString = [System.Text.StringBuilder]::New()
                 if ($GenerateInfo)
                 {

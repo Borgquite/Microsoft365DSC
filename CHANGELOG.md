@@ -78,6 +78,8 @@
   * [BREAKING CHANGE] Remove deprecated value `add_replace` from `Action` parameter.
 * IntuneSecurityBaselineMicrosoftEdge
   * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
+* MISC
+  * [BREAKING CHANGE] Removed the command `Import-M365DSCDependencies`.
 * Whitepaper
   * Parallel to this release the code for the whitepaper also implements a
     Breaking Change. Make sure you are using the v3.1 code if you use

@@ -1624,46 +1624,6 @@ function Test-CodePage
 
 <#
 .Description
-This function re-imports all M365DSC dependencies, if not properly done before
-
-.Example
-Import-M365DSCDependencies
-
-.Functionality
-Public
-#>
-function Import-M365DSCDependencies
-{
-    [CmdletBinding()]
-    param
-    (
-        [parameter()]
-        [switch]$Global
-    )
-
-    $currentPath = Join-Path -Path $PSScriptRoot -ChildPath '..\' -Resolve
-    $manifest = Import-PowerShellDataFile "$currentPath/Dependencies/Manifest.psd1"
-    $dependencies = $manifest.Dependencies
-
-    foreach ($dependency in $dependencies)
-    {
-        if ($dependency.PowerShellCore -and -not $Script:IsPowerShellCore)
-        {
-            Write-Verbose -Message "Skipping module {$($dependency.ModuleName)} as it is not compatible with Windows PowerShell."
-            continue
-        }
-        elseif ($dependency.PowerShellCore -eq $false -and $Script:IsPowerShellCore)
-        {
-            Write-Verbose -Message "Skipping module {$($dependency.ModuleName)} as it is not compatible with PowerShell Core."
-            continue
-        }
-
-        Import-Module $dependency.ModuleName -RequiredVersion $dependency.RequiredVersion -Force -Global:$Global
-    }
-}
-
-<#
-.Description
 This function removes all versions of dependencies that are not specified in the manifest from the current PowerShell session.
 
 .Example
@@ -5414,7 +5374,6 @@ Export-ModuleMember -Function @(
     'Get-SPOAdministrationUrl',
     'Get-SPOUserProfilePropertyInstance',
     'Get-TeamByName',
-    'Import-M365DSCDependencies',
     'Install-M365DSCDevBranch',
     'Join-M365DSCConfiguration',
     'New-EXOSafeAttachmentRule',
