@@ -20,6 +20,9 @@
 * EXOManagementRoleEntry
   * Added the ability to add and remove entries by adding the Ensure property
     to the resource.
+* EXORoleGroup
+  * Changed the logic to retrieve members email identifier in the Get-TargetResource
+    function.
 * EXOSharedMailbox
   * Add AuditEnabled property
 * IntuneAccountProtectionLocalUserGroupMembershipPolicy

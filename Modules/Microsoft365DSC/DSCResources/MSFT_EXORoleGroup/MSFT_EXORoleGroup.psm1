@@ -97,14 +97,21 @@ function Get-TargetResource
         }
 
         # Get RoleGroup Members DN if RoleGroup exists. This is required especially when adding Members like "Exchange Administrator" or "Global Administrator" that have different Names across Tenants
-        $roleGroupMembers = Get-RoleGroupMember -Identity $Name | Select-Object DisplayName, RecipientTypeDetails, PrimarySmtpAddress
+        $roleGroupMembers = Get-RoleGroupMember -Identity $Name | Select-Object DisplayName, RecipientTypeDetails, PrimarySmtpAddress, WindowsLiveId
 
         $roleGroupMembersValue = @()
         foreach ($member in $roleGroupMembers)
         {
-            if ($member.RecipientTypeDetails -eq 'UserMailbox' -and -not [System.String]::IsNullOrEmpty($member.PrimarySmtpAddress))
+            if ($member.RecipientTypeDetails -eq 'UserMailbox' -or $member.RecipientTypeDetails -eq 'User')
             {
-                $roleGroupMembersValue += $member.PrimarySmtpAddress
+                if (-not [System.String]::IsNullOrEmpty($member.PrimarySmtpAddress))
+                {
+                    $roleGroupMembersValue += $member.PrimarySmtpAddress
+                }
+                elseif (-not [System.String]::IsNullOrEmpty($member.WindowsLiveID))
+                {
+                    $roleGroupMembersValue += $member.WindowsLiveID
+                }
             }
             else
             {
@@ -366,10 +373,31 @@ function Test-TargetResource
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
 
-    Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
-    Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $PSBoundParameters)"
-
     $ValuesToCheck = $PSBoundParameters
+
+    # If the group is passed in a display name (no @) then we resolve it manually
+    $newMembersValue = @()
+    foreach ($member in $Members)
+    {
+        if ($member.Contains('@'))
+        {
+            Write-Verbose -Message "The current member {$member} is provided as a group display name."
+            $group = Get-Group -Identity $member -ErrorAction 'SilentlyContinue'
+
+            if ($null -ne $group)
+            {
+                $newMembersValue += $group.DisplayName
+            }
+        }
+        else
+        {
+            $newMembersValue += $member
+        }
+    }
+    $ValuesToCheck.Members = $newMembersValue
+
+    Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
+    Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $ValuesToCheck)"
 
     $TestResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `
         -Source $($MyInvocation.MyCommand.Source) `
