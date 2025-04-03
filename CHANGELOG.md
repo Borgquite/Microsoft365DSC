@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# UNRELEASED
+# 1.25.402.1
 
 * AADAdministrativeUnit
   * Fix issue where AdministrativeUnit calls fail with ODATA error on dynamic membership.
