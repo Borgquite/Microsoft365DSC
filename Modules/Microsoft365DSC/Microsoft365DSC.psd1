@@ -177,7 +177,7 @@
 * IntuneAppConfigurationPolicy
   * Changed export logic of CustomSettings to use centralized function.
 * IntuneDeviceConfigurationCustomPolicyiOS
-  * Initial release, adds support for iOS 'Custom' Device Configuration policies.
+  * Initial release, adds support for iOS `Custom` Device Configuration policies.
 * IntuneDeviceEnrollmentStatusPageWindows10
   * Use `SelectedMobileAppNames` as the primary source for the apps.
     FIXES [#5913](https://github.com/microsoft/Microsoft365DSC/issues/5913)
