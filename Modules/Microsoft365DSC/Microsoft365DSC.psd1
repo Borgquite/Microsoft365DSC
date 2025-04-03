@@ -162,8 +162,17 @@
 * AADGroup
   * Fixed `isAssignableToRole` to support for null values returned by graph.
     FIXES [#5959](https://github.com/microsoft/Microsoft365DSC/issues/5959)
+* AADPasswordRuleSettings
+  * [BREAKING CHANGE] Replace `Enforced` with `Enforce` as a possibility of
+    `BannedPasswordCheckOnPremisesMode` to align with updated Graph value.
+* EXOArcConfig
+  * [BREAKING CHANGE] Removed the `Identity` parameter since it does not
+    have any functionality and is not exported by default.
 * EXOMailboxSettings
-  * Add AuditEnabled
+  * Add the AuditEnabled property.
+* EXOMailTips
+  * [BREAKING CHANGE] Removed resource. Use `EXOOrganizationConfig` instead.
+    Fixes [#5647](https://github.com/microsoft/Microsoft365DSC/issues/5647)
 * EXOManagementRoleEntry
   * Added the ability to add and remove entries by adding the Ensure property
     to the resource.
@@ -183,6 +192,8 @@
     FIXES [#5913](https://github.com/microsoft/Microsoft365DSC/issues/5913)
 * IntuneDeviceFeaturesConfigurationPolicyIOS
   * Initial release
+* IntuneSecurityBaselineMicrosoftEdge
+  * [BREAKING CHANGE] Remove deprecated parameter `authschemes`.
 * IntuneWifiConfigurationPolicyMacOS
   * Fixes a naming issue with the primary key when calling the update assignment
     cmdlet.
@@ -213,7 +224,12 @@
 * MISC
   * Fix CSV-report so variable-names are passed correctly in the report
   * Replace `Write-Host` with custom function to support logs in non-interactive
-    environments using the verbose stream.'
+    environments using the verbose stream.
+  * [BREAKING CHANGE] Removed the command `Import-M365DSCDependencies`.
+* Whitepaper
+  * Parallel to this release the code for the whitepaper also implements a
+    Breaking Change. Make sure you are using the v3.1 code if you use
+    this version of Microsoft365DSC or later.'
 
       # Flag to indicate whether the module requires explicit user acceptance for install/update
       # RequireLicenseAcceptance = $false
