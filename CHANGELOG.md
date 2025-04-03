@@ -61,6 +61,8 @@
     FIXES [#5669](https://github.com/microsoft/Microsoft365DSC/issues/5669)
     FIXES [#4824](https://github.com/microsoft/Microsoft365DSC/issues/4824)
   * Add PowerShell 5 to 7 compatibility layer.
+* DEPENDENCIES
+  * Updated DSCParser to version 2.0.0.16.
 * MISC
   * Fix CSV-report so variable-names are passed correctly in the report
   * Replace `Write-Host` with custom function to support logs in non-interactive
