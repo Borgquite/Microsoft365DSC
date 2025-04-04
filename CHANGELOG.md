@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* IntuneDeviceControlPolicyWindows10
+  * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
+
 # 1.25.402.1
 
 * AADAdministrativeUnit
