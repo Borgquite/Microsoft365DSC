@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* IntuneSecurityBaselineHoloLens2Standard
+  * Initial release.
+
 # 1.25.402.1
 
 * AADAdministrativeUnit
