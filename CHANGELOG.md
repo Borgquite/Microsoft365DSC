@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* IntuneWifiConfigurationPolicyMacOS
+  * Fixed an issue where fetching the assignments of a policy that only exists by display name fails.
+    FIXES [#5971](https://github.com/microsoft/Microsoft365DSC/issues/5971)
+
 # 1.25.402.1
 
 * AADAdministrativeUnit
