@@ -203,16 +203,19 @@ This parameter accepts an array containing the names of various workloads you wi
 
 - **AAD** – Azure Active Directory
 - **ADO** – Azure DevOps
-- **DEFENDER** – Defender Portal
+- **AZURE** – Azure resources
+- **Commerce** – MS Commerce
+- **Defender** – Defender Portal
 - **EXO** – Exchange Online
-- **FABRIC** – Fabric
-- **O365** – Office 365 administration
+- **Fabric** – Fabric
 - **Intune** – Intune
+- **O365** – Office 365 administration
 - **OD** – OneDrive
 - **Planner** – Planner
 - **PP** – Power Platform
 - **SC** – Security and Compliance
-- **SENTINEL** – Sentinel
+- **Sentinel** – Sentinel
+- **SH** – Services Hub
 - **SPO** – SharePoint Online
 - **Teams** – Microsoft Teams
 
