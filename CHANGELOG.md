@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* IntuneDeviceManagementAndroidDeviceOwnerEnrollmentProfile
+  * Fix export and remove read-only properties.
+    FIXES [#5969](https://github.com/microsoft/Microsoft365DSC/issues/5969)
+
 # 1.25.402.1
 
 * AADAdministrativeUnit
