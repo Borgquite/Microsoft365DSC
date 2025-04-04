@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* IntuneAccountProtectionLocalAdministratorPasswordSolutionPolicy
+  * Add support for automatic account management and other new options.
+
 # 1.25.402.1
 
 * AADAdministrativeUnit
