@@ -8,6 +8,8 @@
   * Inlined function calls.
 * IntuneDeviceControlPolicyWindows10
   * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
+* IntuneSecurityBaselineHoloLens2Standard
+  * Initial release.
 * M365DSCPermissions
   * Removed commented out `Update-M365DSCResourcesSettingsJSON` definition.
 * M365DSCUtil
