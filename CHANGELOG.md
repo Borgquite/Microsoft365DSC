@@ -2,8 +2,19 @@
 
 # UNRELEASED
 
+* EXOSafeAttachmentRule
+  * Inlined function calls.
+* EXOSafeLinksRule
+  * Inlined function calls.
 * IntuneDeviceControlPolicyWindows10
   * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
+* M365DSCPermissions
+  * Removed commented out `Update-M365DSCResourcesSettingsJSON` definition.
+* M365DSCUtil
+  * Removed numerous EXO functions.
+  * Removed additional unnecessary functions.
+* MISC
+  * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
 
 # 1.25.402.1
 
