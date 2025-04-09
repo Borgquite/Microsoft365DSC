@@ -8,6 +8,8 @@
   * Inlined function calls.
 * IntuneSecurityBaselineHoloLens2Advanced
   * Initial release.
+* IntuneSecurityBaselineHoloLens2Standard
+  * Initial release.
 * M365DSCPermissions
   * Removed commented out `Update-M365DSCResourcesSettingsJSON` definition.
 * M365DSCUtil
