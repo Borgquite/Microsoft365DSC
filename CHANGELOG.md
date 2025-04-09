@@ -2,9 +2,20 @@
 
 # UNRELEASED
 
+* EXOSafeAttachmentRule
+  * Inlined function calls.
+* EXOSafeLinksRule
+  * Inlined function calls.
 * IntuneWifiConfigurationPolicyMacOS
   * Fixed an issue where fetching the assignments of a policy that only exists by display name fails.
     FIXES [#5971](https://github.com/microsoft/Microsoft365DSC/issues/5971)
+* M365DSCPermissions
+  * Removed commented out `Update-M365DSCResourcesSettingsJSON` definition.
+* M365DSCUtil
+  * Removed numerous EXO functions.
+  * Removed additional unnecessary functions.
+* MISC
+  * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
 
 # 1.25.402.1
 
