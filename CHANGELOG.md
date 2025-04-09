@@ -2,9 +2,22 @@
 
 # UNRELEASED
 
+* EXOSafeAttachmentRule
+  * Inlined function calls.
+* EXOSafeLinksRule
+  * Inlined function calls.
 * IntuneDeviceManagementAndroidDeviceOwnerEnrollmentProfile
   * Fix export and remove read-only properties.
     FIXES [#5969](https://github.com/microsoft/Microsoft365DSC/issues/5969)
+* IntuneSecurityBaselineHoloLens2Standard
+  * Initial release.
+* M365DSCPermissions
+  * Removed commented out `Update-M365DSCResourcesSettingsJSON` definition.
+* M365DSCUtil
+  * Removed numerous EXO functions.
+  * Removed additional unnecessary functions.
+* MISC
+  * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
 
 # 1.25.402.1
 
