@@ -6,6 +6,8 @@
   * Inlined function calls.
 * EXOSafeLinksRule
   * Inlined function calls.
+* IntuneSecurityBaselineHoloLens2Standard
+  * Initial release.
 * IntuneWifiConfigurationPolicyMacOS
   * Fixed an issue where fetching the assignments of a policy that only exists by display name fails.
     FIXES [#5971](https://github.com/microsoft/Microsoft365DSC/issues/5971)
