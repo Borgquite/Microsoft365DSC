@@ -63,26 +63,27 @@ function Get-M365DSCCompiledPermissionList
     }
 
     $results = @{
-        Read               = @(
+        AdministrativeRoles = @()
+        Read                = @(
             @{
-                API        = 'Graph'
-                Permission = @{
+                API         = 'Graph'
+                Permission  = @{
                     Name = 'Organization.Read.All'
                     Type = 'Application'
                 }
             }
         )
-        Update             = @(
+        Update              = @(
             @{
-                API        = 'Graph'
-                Permission = @{
+                API         = 'Graph'
+                Permission  = @{
                     Name = 'Organization.Read.All'
                     Type = 'Application'
                 }
             }
         )
-        RequiredRoles      = @()
-        RequiredRoleGroups = @()
+        RequiredRoles       = @()
+        RequiredRoleGroups  = @()
     }
 
     $total = $ResourceNameList.Count
@@ -110,6 +111,17 @@ function Get-M365DSCCompiledPermissionList
         {
             $fileContent = Get-Content $settingsFilePath -Raw
             $resourceSettings = ConvertFrom-Json -InputObject $fileContent
+
+            # Entra / Administrative roles
+            if ($resourceSettings.roles.Count -gt 0)
+            {
+                $readRoles = $resourceSettings.roles.read
+                $updateRoles = $resourceSettings.roles.update
+                $results.AdministrativeRoles = @{
+                    Read = ,$readRoles
+                    Update = ,$updateRoles
+                }
+            }
 
             if ($null -eq $resourceSettings.permissions)
             {
