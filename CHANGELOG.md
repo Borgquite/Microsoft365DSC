@@ -8,6 +8,8 @@
   * Inlined function calls.
 * IntuneAccountProtectionLocalAdministratorPasswordSolutionPolicy
   * Add support for automatic account management and other new options.
+* IntuneSecurityBaselineHoloLens2Standard
+  * Initial release.
 * M365DSCPermissions
   * Removed commented out `Update-M365DSCResourcesSettingsJSON` definition.
 * M365DSCUtil
