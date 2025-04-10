@@ -6,12 +6,15 @@
   * Inlined function calls.
 * EXOSafeLinksRule
   * Inlined function calls.
+* IntuneAccountProtectionLocalAdministratorPasswordSolutionPolicy
+  * Add support for automatic account management and other new options.
 * IntuneDeviceManagementAndroidDeviceOwnerEnrollmentProfile
   * Fix export and remove read-only properties.
     FIXES [#5969](https://github.com/microsoft/Microsoft365DSC/issues/5969)
 * IntuneSecurityBaselineHoloLens2Standard
   * Initial release.
 * M365DSCPermissions
+  * Add `AdministrativeRoles` property to export of `Get-M365DSCCompiledPermissionList`.
   * Removed commented out `Update-M365DSCResourcesSettingsJSON` definition.
 * M365DSCUtil
   * Removed numerous EXO functions.
