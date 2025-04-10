@@ -6,6 +6,8 @@
   * Inlined function calls.
 * EXOSafeLinksRule
   * Inlined function calls.
+* IntuneAccountProtectionLocalAdministratorPasswordSolutionPolicy
+  * Add support for automatic account management and other new options.
 * IntuneSecurityBaselineHoloLens2Standard
   * Initial release.
 * M365DSCPermissions
