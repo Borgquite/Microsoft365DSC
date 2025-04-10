@@ -6,11 +6,14 @@
   * Inlined function calls.
 * EXOSafeLinksRule
   * Inlined function calls.
+* IntuneAccountProtectionLocalAdministratorPasswordSolutionPolicy
+  * Add support for automatic account management and other new options.
 * IntuneSecurityBaselineHoloLens2Advanced
   * Initial release.
 * IntuneSecurityBaselineHoloLens2Standard
   * Initial release.
 * M365DSCPermissions
+  * Add `AdministrativeRoles` property to export of `Get-M365DSCCompiledPermissionList`.
   * Removed commented out `Update-M365DSCResourcesSettingsJSON` definition.
 * M365DSCUtil
   * Removed numerous EXO functions.

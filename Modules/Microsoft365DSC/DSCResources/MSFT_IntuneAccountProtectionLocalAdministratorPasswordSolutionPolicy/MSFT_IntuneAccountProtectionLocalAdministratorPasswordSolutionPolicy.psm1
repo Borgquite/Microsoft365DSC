@@ -54,8 +54,13 @@ function Get-TargetResource
 
         [Parameter()]
         [System.Int32]
-        [ValidateRange(1, 5)]
+        [ValidateRange(1, 8)]
         $PasswordComplexity,
+
+        [Parameter()]
+        [ValidateRange(3, 10)]
+        [System.Int32]
+        $PassphraseLength,
 
         [Parameter()]
         [System.Int32]
@@ -64,13 +69,37 @@ function Get-TargetResource
 
         [Parameter()]
         [System.Int32]
-        [ValidateSet(1, 3, 5)]
+        [ValidateSet(1, 3, 5, 11)]
         $PostAuthenticationActions,
 
         [Parameter()]
         [System.Int32]
         [ValidateRange(0, 24)]
         $PostAuthenticationResetDelay,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $AutomaticAccountManagementEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AutomaticAccountManagementTarget,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $AutomaticAccountManagementRandomizeName,
+
+        [Parameter()]
+        [System.String]
+        $AutomaticAccountManagementNameOrPrefix,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $AutomaticAccountManagementEnableAccount,
 
         [Parameter()]
         [Microsoft.Management.Infrastructure.CimInstance[]]
@@ -288,8 +317,13 @@ function Set-TargetResource
 
         [Parameter()]
         [System.Int32]
-        [ValidateRange(1, 5)]
+        [ValidateRange(1, 8)]
         $PasswordComplexity,
+
+        [Parameter()]
+        [ValidateRange(3, 10)]
+        [System.Int32]
+        $PassphraseLength,
 
         [Parameter()]
         [System.Int32]
@@ -298,13 +332,37 @@ function Set-TargetResource
 
         [Parameter()]
         [System.Int32]
-        [ValidateSet(1, 3, 5)]
+        [ValidateSet(1, 3, 5, 11)]
         $PostAuthenticationActions,
 
         [Parameter()]
         [System.Int32]
         [ValidateRange(0, 24)]
         $PostAuthenticationResetDelay,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $AutomaticAccountManagementEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AutomaticAccountManagementTarget,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $AutomaticAccountManagementRandomizeName,
+
+        [Parameter()]
+        [System.String]
+        $AutomaticAccountManagementNameOrPrefix,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $AutomaticAccountManagementEnableAccount,
 
         [Parameter()]
         [Microsoft.Management.Infrastructure.CimInstance[]]
@@ -484,8 +542,13 @@ function Test-TargetResource
 
         [Parameter()]
         [System.Int32]
-        [ValidateRange(1, 5)]
+        [ValidateRange(1, 8)]
         $PasswordComplexity,
+
+        [Parameter()]
+        [ValidateRange(3, 10)]
+        [System.Int32]
+        $PassphraseLength,
 
         [Parameter()]
         [System.Int32]
@@ -494,13 +557,37 @@ function Test-TargetResource
 
         [Parameter()]
         [System.Int32]
-        [ValidateSet(1, 3, 5)]
+        [ValidateSet(1, 3, 5, 11)]
         $PostAuthenticationActions,
 
         [Parameter()]
         [System.Int32]
         [ValidateRange(0, 24)]
         $PostAuthenticationResetDelay,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $AutomaticAccountManagementEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AutomaticAccountManagementTarget,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $AutomaticAccountManagementRandomizeName,
+
+        [Parameter()]
+        [System.String]
+        $AutomaticAccountManagementNameOrPrefix,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $AutomaticAccountManagementEnableAccount,
 
         [Parameter()]
         [Microsoft.Management.Infrastructure.CimInstance[]]
