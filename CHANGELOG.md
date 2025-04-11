@@ -5,8 +5,6 @@
 * MISC
   * Updated the new Write-M365DSChost function to only print
     messages when they are not null.
-* DEPENDENCIES
-  * Updated Microsoft.Graph to version 2.27.0.
 
 # 1.25.402.1
 
