@@ -4916,7 +4916,11 @@ function Write-M365DSCHost
             Write-Host -Object $Script:M365DSCHostMessages[-1].Message -ForegroundColor $Script:M365DSCHostMessages[-1].ForegroundColor -NoNewline
             $Script:M365DSCHostMessages = @()
         }
-        Write-Host -Object $Message -ForegroundColor $ForegroundColor
+
+        if (-not [System.String]::IsNullOrEmpty($Message))
+        {
+            Write-Host -Object $Message -ForegroundColor $ForegroundColor
+        }
     }
     else
     {
@@ -4927,7 +4931,10 @@ function Write-M365DSCHost
             $Script:M365DSCHostMessages = @()
         }
         $finalMessage = $outputMessage + $Message
-        Write-Verbose -Message $finalMessage -Verbose
+        if (-not [System.String]::IsNullOrEmpty($Message))
+        {
+            Write-Verbose -Message $finalMessage -Verbose
+        }
     }
 }
 
