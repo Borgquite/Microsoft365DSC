@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* AADApplication
+  * DEPRECATED: Parameter AvailableToOtherTenants.
+  * Added direct support for the SignInAudience parameter.
 * EXOSafeAttachmentRule
   * Inlined function calls.
 * EXOSafeLinksRule
