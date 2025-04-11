@@ -22,6 +22,8 @@
   * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
   * Updated the new Write-M365DSChost function to only print
     messages when they are not null.
+* SCInsiderRiskEntityList
+  * Update export to use common function.
 
 # 1.25.402.1
 
