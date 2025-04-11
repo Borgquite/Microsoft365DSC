@@ -16,6 +16,7 @@
 * M365DSCUtil
   * Removed numerous EXO functions.
   * Removed additional unnecessary functions.
+  * Removed undefined variable from if statement.
 * MISC
   * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
 
