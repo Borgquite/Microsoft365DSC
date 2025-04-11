@@ -18,6 +18,9 @@
   * Removed additional unnecessary functions.
 * MISC
   * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
+* PlannerTask
+  * Update export to use common functions.
+    FIXES [#6004](https://github.com/microsoft/Microsoft365DSC/issues/6004)
 
 # 1.25.402.1
 
