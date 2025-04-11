@@ -18,6 +18,8 @@
   * Removed additional unnecessary functions.
 * MISC
   * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
+  * Updated the new Write-M365DSChost function to only print
+    messages when they are not null.
 
 # 1.25.402.1
 
