@@ -13,10 +13,11 @@
 * M365DSCPermissions
   * Add `AdministrativeRoles` property to export of `Get-M365DSCCompiledPermissionList`.
   * Removed commented out `Update-M365DSCResourcesSettingsJSON` definition.
+* M365DSCDRGUtil
+  * Removed undefined variable from if statement.
 * M365DSCUtil
   * Removed numerous EXO functions.
   * Removed additional unnecessary functions.
-  * Removed undefined variable from if statement.
 * MISC
   * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
 
