@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* ADOPermissionGroupSettings
+  * Update export to use common function.
 * EXOSafeAttachmentRule
   * Inlined function calls.
 * EXOSafeLinksRule
