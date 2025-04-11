@@ -116,38 +116,32 @@ function Get-M365DSCCompiledPermissionList
             $resourceSettings = ConvertFrom-Json -InputObject $fileContent
 
             # Entra / Administrative roles
-            if ($resourceSettings.roles.Count -gt 0)
+            if ($null -ne $resourceSettings.roles.read -or $null -ne $resourceSettings.roles.update)
             {
                 $readRoles = $resourceSettings.roles.read
                 $updateRoles = $resourceSettings.roles.update
-                if ($null -ne $readRoles -and $readRoles.Count -gt 0)
+                foreach ($role in $readRoles)
                 {
-                    foreach ($role in $readRoles)
+                    if (-not $results.AdministrativeRoles.Read.Contains($role))
                     {
-                        if (-not $results.AdministrativeRoles.Read.Contains($role))
-                        {
-                            Write-Verbose -Message "    Found new Administrative Read role {$($role)}"
-                            $results.AdministrativeRoles.Read += $role
-                        }
-                        else
-                        {
-                            Write-Verbose -Message "    Administrative Read role {$($role)} was already added"
-                        }
+                        Write-Verbose -Message "    Found new Administrative Read role {$($role)}"
+                        $results.AdministrativeRoles.Read += $role
+                    }
+                    else
+                    {
+                        Write-Verbose -Message "    Administrative Read role {$($role)} was already added"
                     }
                 }
-                if ($null -ne $updateRoles -and $updateRoles.Count -gt 0)
+                foreach ($role in $updateRoles)
                 {
-                    foreach ($role in $updateRoles)
+                    if (-not $results.AdministrativeRoles.Update.Contains($role))
                     {
-                        if (-not $results.AdministrativeRoles.Update.Contains($role))
-                        {
-                            Write-Verbose -Message "    Found new Administrative Update role {$($role)}"
-                            $results.AdministrativeRoles.Update += $role
-                        }
-                        else
-                        {
-                            Write-Verbose -Message "    Administrative Update role {$($role)} was already added"
-                        }
+                        Write-Verbose -Message "    Found new Administrative Update role {$($role)}"
+                        $results.AdministrativeRoles.Update += $role
+                    }
+                    else
+                    {
+                        Write-Verbose -Message "    Administrative Update role {$($role)} was already added"
                     }
                 }
             }
