@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# UNRELEASED
+# 1.25.409.1
 
 * AADApplication
   * DEPRECATED: Parameter AvailableToOtherTenants.
