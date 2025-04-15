@@ -2,6 +2,14 @@
 
 # UNRELEASED
 
+* MISC
+  * Update export to use common function for multiple resources.
+
+# 1.25.409.1
+
+* AADApplication
+  * DEPRECATED: Parameter AvailableToOtherTenants.
+  * Added direct support for the SignInAudience parameter.
 * EXOSafeAttachmentRule
   * Inlined function calls.
 * EXOSafeLinksRule
@@ -20,7 +28,6 @@
   * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
   * Updated the new Write-M365DSChost function to only print
     messages when they are not null.
-  * Update export to use common function for multiple resources.
 
 # 1.25.402.1
 
