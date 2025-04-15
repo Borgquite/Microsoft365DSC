@@ -2,12 +2,22 @@
 
 # UNRELEASED
 
+* EXOTenantAllowBlockListItems
+  * Inlined function call.
+* MISC
+  * Removed `-Verbose` parameter from multiple commands where it's not necessary.
+  * Removed unused functions across several resources.
+  * Added export of module functions to several EXO resources.
+
+# 1.25.409.1
+
+* AADApplication
+  * DEPRECATED: Parameter AvailableToOtherTenants.
+  * Added direct support for the SignInAudience parameter.
 * EXOSafeAttachmentRule
   * Inlined function calls.
 * EXOSafeLinksRule
   * Inlined function calls.
-* EXOTenantAllowBlockListItems
-  * Inlined function call.
 * IntuneAccountProtectionLocalAdministratorPasswordSolutionPolicy
   * Add support for automatic account management and other new options.
 * IntuneSecurityBaselineHoloLens2Standard
@@ -22,9 +32,6 @@
   * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
   * Updated the new Write-M365DSChost function to only print
     messages when they are not null.
-  * Removed `-Verbose` parameter from multiple commands where it's not necessary.
-  * Removed unused functions across several resources.
-  * Added export of module functions to several EXO resources.
 
 # 1.25.402.1
 
