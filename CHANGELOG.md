@@ -2,6 +2,14 @@
 
 # UNRELEASED
 
+* M365DSCPermissions
+  * Add `AdministrativeRoles` and `RequiredRoles` property to export.
+
+# 1.25.409.1
+
+* AADApplication
+  * DEPRECATED: Parameter AvailableToOtherTenants.
+  * Added direct support for the SignInAudience parameter.
 * EXOSafeAttachmentRule
   * Inlined function calls.
 * EXOSafeLinksRule
@@ -18,6 +26,8 @@
   * Removed additional unnecessary functions.
 * MISC
   * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
+  * Updated the new Write-M365DSChost function to only print
+    messages when they are not null.
 
 # 1.25.402.1
 
