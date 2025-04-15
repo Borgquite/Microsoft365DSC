@@ -24,7 +24,9 @@
             "requiredroles": [
                 "Organization Configuration"
             ],
-            "requiredrolegroups": "Organization Management"
+            "requiredrolegroups": [
+                "Organization Management"
+            ]
         }
     }
 }
