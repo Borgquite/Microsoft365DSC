@@ -216,10 +216,6 @@ function Get-TargetResource
         {
             $complexAuthenticationBehaviors.Add('RequireClientServicePrincipal', $AADBetaApp.authenticationBehaviors.requireClientServicePrincipal.ToString())
         }
-        if ($complexAuthenticationBehaviors.values.Where({ $null -ne $_ }).Count -eq 0)
-        {
-            $complexAuthenticationBehaviors = [Array]@()
-        }
 
         $complexOptionalClaims = @{}
         $complexAccessToken = @()
@@ -373,7 +369,8 @@ function Get-TargetResource
             }
         }
 
-        $permissionsObj = Get-M365DSCAzureADAppPermissions -App $AADApp
+        #YK: Added Array typecasting
+        [Array]$permissionsObj = Get-M365DSCAzureADAppPermissions -App $AADApp
         $isPublicClient = $false
         if (-not [System.String]::IsNullOrEmpty($AADApp.PublicClient) -and $AADApp.PublicClient -eq $true)
         {
@@ -521,7 +518,6 @@ function Get-TargetResource
             AppId                    = $AADApp.AppId
             OptionalClaims           = $complexOptionalClaims
             Api                      = $complexApi
-            AuthenticationBehaviors  = $complexAuthenticationBehaviors
             KeyCredentials           = $complexKeyCredentials
             PasswordCredentials      = $complexPasswordCredentials
             AppRoles                 = $complexAppRoles
@@ -540,6 +536,12 @@ function Get-TargetResource
             ManagedIdentity          = $ManagedIdentity.IsPresent
             AccessTokens             = $AccessTokens
         }
+
+        if ($complexAuthenticationBehaviors.Count -gt 0)
+        {
+            $result.AuthenticationBehaviors = $complexAuthenticationBehaviors
+        }
+
         Write-Verbose -Message "Get-TargetResource Result: `n $(Convert-M365DscHashtableToString -Hashtable $result)"
         return $result
     }
