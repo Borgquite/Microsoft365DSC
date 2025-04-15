@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* IntuneDeviceControlPolicyWindows10
+  * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
 * IntuneSecurityBaselineHoloLens2Advanced
   * Initial release.
 
