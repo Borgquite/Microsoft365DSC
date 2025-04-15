@@ -300,8 +300,9 @@ function Get-M365DSCCompiledPermissionList
             $_.Remove('Permission')
         }
         $results = @{
-            Permissions = $resultsByType
             AdministrativeRoles = $results.AdministrativeRoles.$AccessType
+            Permissions = $resultsByType
+            RequiredRoles = $results.RequiredRoles
         }
     }
 
