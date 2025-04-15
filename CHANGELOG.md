@@ -2,9 +2,18 @@
 
 # UNRELEASED
 
+* IntuneDeviceControlPolicyWindows10
+  * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
+* IntuneSecurityBaselineHoloLens2Advanced
+  * Initial release.
 * M365DSCDRGUtil
   * Removed undefined variable from if statement.
 
+# 1.25.409.1
+
+* AADApplication
+  * DEPRECATED: Parameter AvailableToOtherTenants.
+  * Added direct support for the SignInAudience parameter.
 * EXOSafeAttachmentRule
   * Inlined function calls.
 * EXOSafeLinksRule
@@ -21,6 +30,8 @@
   * Removed additional unnecessary functions.
 * MISC
   * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
+  * Updated the new Write-M365DSChost function to only print
+    messages when they are not null.
 
 # 1.25.402.1
 
