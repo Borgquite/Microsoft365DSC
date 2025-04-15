@@ -2,9 +2,13 @@
 
 # UNRELEASED
 
+* IntuneDeviceControlPolicyWindows10
+  * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
 * IntuneDeviceManagementAndroidDeviceOwnerEnrollmentProfile
   * Fix export and remove read-only properties.
     FIXES [#5969](https://github.com/microsoft/Microsoft365DSC/issues/5969)
+* IntuneSecurityBaselineHoloLens2Advanced
+  * Initial release.
 
 # 1.25.409.1
 

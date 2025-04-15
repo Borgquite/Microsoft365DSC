@@ -22,149 +22,79 @@ function Get-TargetResource
         $Id,
 
         [Parameter()]
-        [ValidateSet('0', '1')]
+        [ValidateSet('0', '1', '2')]
         [System.String]
-        $DeviceInstall_Allow_Deny_Layered,
+        $DeletionPolicy,
 
         [Parameter()]
-        [ValidateSet('0', '1')]
+        [ValidateSet('false', 'true')]
         [System.String]
-        $DeviceInstall_IDs_Allow,
+        $EnableProfileManager,
 
         [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_IDs_Allow_List,
+        [ValidateRange(0, 2147483647)]
+        [System.Int32]
+        $ProfileInactivityThreshold,
 
         [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Instance_IDs_Allow,
+        [ValidateRange(0, 2147483647)]
+        [System.Int32]
+        $StorageCapacityStartDeletion,
 
         [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_Instance_IDs_Allow_List,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Classes_Allow,
-
-        [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_Classes_Allow_List,
+        [ValidateRange(0, 2147483647)]
+        [System.Int32]
+        $StorageCapacityStopDeletion,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $DeviceInstall_Unspecified_Deny,
+        $AllowMicrosoftAccountConnection,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $DeviceInstall_IDs_Deny,
+        $VideoPowerDownTimeOutAC_2,
 
         [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_IDs_Deny_List,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_IDs_Deny_Retroactive,
+        [ValidateRange(0, 4294967295)]
+        [System.Int32]
+        $EnterVideoACPowerDownTimeOut,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $DeviceInstall_Instance_IDs_Deny,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Instance_IDs_Deny_Retroactive,
-
-        [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_Instance_IDs_Deny_List,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Classes_Deny,
-
-        [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_Classes_Deny_List,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Classes_Deny_Retroactive,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Removable_Deny,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $WPDDevices_DenyRead_Access_2,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $WPDDevices_DenyRead_Access_1,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $WPDDevices_DenyWrite_Access_2,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $WPDDevices_DenyWrite_Access_1,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $AllowFullScanRemovableDriveScanning,
-
-        [Parameter()]
-        [ValidateSet('1', '2')]
-        [System.String]
-        $DefaultEnforcement,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceControlEnabled,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $AllowDirectMemoryAccess,
+        $AllowAutofill,
 
         [Parameter()]
         [ValidateSet('0', '1', '2')]
         [System.String]
-        $DeviceEnumerationPolicy,
+        $AllowCookies,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $RemovableDiskDenyWriteAccess,
+        $AllowDoNotTrack,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowUSBConnection,
+        $AllowPasswordManager,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowPopups,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowSearchSuggestionsinAddressBar,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowSmartScreen,
 
         [Parameter()]
         [ValidateSet('0', '1', '2')]
@@ -174,36 +104,302 @@ function Get-TargetResource
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowAdvertising,
+        $AllowUSBConnection,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowDiscoverableMode,
+        $DevicePasswordEnabled,
+
+        [Parameter()]
+        [ValidateRange(0, 730)]
+        [System.Int32]
+        $DevicePasswordExpiration,
+
+        [Parameter()]
+        [ValidateRange(4, 16)]
+        [System.Int32]
+        $MinDevicePasswordLength,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $AlphanumericDevicePasswordRequired,
+
+        [Parameter()]
+        [ValidateRange(0, 999)]
+        [System.Int32]
+        $MaxDevicePasswordFailedAttempts,
+
+        [Parameter()]
+        [ValidateSet('1', '2', '3', '4')]
+        [System.String]
+        $MinDevicePasswordComplexCharacters,
+
+        [Parameter()]
+        [ValidateRange(0, 999)]
+        [System.Int32]
+        $MaxInactivityTimeDeviceLock,
+
+        [Parameter()]
+        [ValidateRange(0, 50)]
+        [System.Int32]
+        $DevicePasswordHistory,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowPrepairing,
+        $AllowSimpleDevicePassword,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowPromptedProximalConnections,
+        $AllowManualMDMUnenrollment,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '65535')]
+        [System.String]
+        $AllowAllTrustedApps,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $AllowAppStoreAutoUpdate,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '65535')]
+        [System.String]
+        $AllowDeveloperUnlock,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $BlockThirdPartyCookies,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $ConfigureDoNotTrack,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $MicrosoftEdge_ContentSettings_DefaultPopupsSetting,
+
+        [Parameter()]
+        [ValidateSet('1', '2')]
+        [System.String]
+        $DefaultPopupsSetting_DefaultPopupsSetting,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AutofillAddressEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AutofillCreditCardEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $SearchSuggestEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $ExtensionInstallBlocklist,
+
+        [Parameter()]
+        [ValidateLength(0, 2048)]
+        [System.String[]]
+        $ExtensionInstallBlocklistDesc,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $MicrosoftEdge_PasswordManager_PrimaryPasswordSetting,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2', '3')]
+        [System.String]
+        $PrimaryPasswordSetting_PrimaryPasswordSetting,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $PasswordManagerEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $SmartScreenEnabled,
+
+        [Parameter()]
+        [ValidateRange(0, 60)]
+        [System.Int32]
+        $AADGroupMembershipCacheValidityInDays,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LetAppsAccessAccountInfo,
 
         [Parameter()]
         [ValidateLength(0, 87516)]
         [System.String[]]
-        $ServicesAllowedList,
+        $LetAppsAccessAccountInfo_ForceAllowTheseApps,
 
         [Parameter()]
-        [Microsoft.Management.Infrastructure.CimInstance[]]
-        $PolicyRule,
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LetAppsAccessBackgroundSpatialPerception,
+
+        [Parameter()]
+        [ValidateLength(0, 87516)]
+        [System.String[]]
+        $LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LetAppsAccessCamera,
+
+        [Parameter()]
+        [ValidateLength(0, 87516)]
+        [System.String[]]
+        $LetAppsAccessCamera_ForceAllowTheseApps,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LetAppsAccessMicrophone,
+
+        [Parameter()]
+        [ValidateLength(0, 87516)]
+        [System.String[]]
+        $LetAppsAccessMicrophone_ForceAllowTheseApps,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowSearchToUseLocation,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowAddProvisioningPackage,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowVPN,
+
+        [Parameter()]
+        [ValidateLength(0, 87516)]
+        [System.String]
+        $PageVisibilityList,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
         $AllowStorageCard,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '3')]
+        [System.String]
+        $AllowTelemetry,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowManualWiFiConfiguration,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $EnablePinRecovery,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $TPM12,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $Digits,
+
+        [Parameter()]
+        [ValidateRange(0, 730)]
+        [System.Int32]
+        $Expiration,
+
+        [Parameter()]
+        [ValidateRange(0, 50)]
+        [System.Int32]
+        $History,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LowercaseLetters,
+
+        [Parameter()]
+        [ValidateRange(4, 127)]
+        [System.Int32]
+        $MaximumPINLength,
+
+        [Parameter()]
+        [ValidateRange(4, 127)]
+        [System.Int32]
+        $MinimumPINLength,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $SpecialCharacters,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $UppercaseLetters,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $RequireSecurityDevice,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $UseCertificateForOnPremAuth,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $UseHelloCertificatesAsSmartCardCertificates,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $UsePassportForWork,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowUpdateService,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2', '3')]
+        [System.String]
+        $ManagePreviewBuilds,
+
+        [Parameter()]
+        [ValidateSet('true', 'false')]
+        [System.String]
+        $RequireNetworkInOOBE,
 
         [Parameter()]
         [Microsoft.Management.Infrastructure.CimInstance[]]
@@ -244,7 +440,7 @@ function Get-TargetResource
         $AccessTokens
     )
 
-    Write-Verbose -Message "Getting configuration of the Intune Device Control Policy for Windows10 with Id {$Id} and Name {$DisplayName}"
+    Write-Verbose -Message "Getting configuration for the Intune Security Baseline HoloLens2 Advanced with Id {$Id} and Name {$DisplayName}"
 
     try
     {
@@ -272,12 +468,12 @@ function Get-TargetResource
             #region resource generator code
             if (-not [System.String]::IsNullOrEmpty($Id))
             {
-                $getValue = Get-MgBetaDeviceManagementConfigurationPolicy -DeviceManagementConfigurationPolicyId $Id -ErrorAction SilentlyContinue
+                $getValue = Get-MgBetaDeviceManagementConfigurationPolicy -DeviceManagementConfigurationPolicyId $Id  -ErrorAction SilentlyContinue
             }
 
             if ($null -eq $getValue)
             {
-                Write-Verbose -Message "Could not find an Intune Device Control Policy for Windows10 with Id {$Id}"
+                Write-Verbose -Message "Could not find an Intune Security Baseline HoloLens2 Advanced with Id {$Id}"
 
                 if (-not [System.String]::IsNullOrEmpty($DisplayName))
                 {
@@ -285,17 +481,12 @@ function Get-TargetResource
                         -All `
                         -Filter "Name eq '$DisplayName'" `
                         -ErrorAction SilentlyContinue
-
-                    if ($getValue.Length -gt 1)
-                    {
-                        throw "Duplicate Intune Device Control Policy for Windows10 named $DisplayName exist in tenant"
-                    }
                 }
             }
             #endregion
             if ($null -eq $getValue)
             {
-                Write-Verbose -Message "Could not find an Intune Device Control Policy for Windows10 with Name {$DisplayName}."
+                Write-Verbose -Message "Could not find an Intune Security Baseline HoloLens2 Advanced with Name {$DisplayName}."
                 return $nullResult
             }
         }
@@ -304,41 +495,17 @@ function Get-TargetResource
             $getValue = $Script:exportedInstance
         }
         $Id = $getValue.Id
-        Write-Verbose -Message "An Intune Device Control Policy for Windows10 with Id {$Id} and Name {$DisplayName} was found"
+        Write-Verbose -Message "An Intune Security Baseline HoloLens2 Advanced with Id {$Id} and Name {$DisplayName} was found"
 
         # Retrieve policy specific settings
         [array]$settings = Get-MgBetaDeviceManagementConfigurationPolicySetting `
             -DeviceManagementConfigurationPolicyId $Id `
             -ExpandProperty 'settingDefinitions' `
+            -All `
             -ErrorAction Stop
 
         $policySettings = @{}
         $policySettings = Export-IntuneSettingCatalogPolicySettings -Settings $settings -ReturnHashtable $policySettings
-
-        #region resource generator code
-        $complexPolicyRule = @()
-        foreach ($currentPolicyRule in $policySettings.policyRule)
-        {
-            $complexEntry = @()
-            foreach ($currentEntry in $currentPolicyRule.entry)
-            {
-                $complexEntry += @{
-                    Type        = $currentEntry.Type
-                    Options     = $currentEntry.Options
-                    Sid         = $currentEntry.Sid
-                    AccessMask  = $currentEntry.AccessMask
-                    ComputerSid = $currentEntry.ComputerSid
-                }
-            }
-            $myPolicyRule = @{}
-            $myPolicyRule.Add('Entry', $complexEntry)
-            $myPolicyRule.Add('Name', $currentPolicyRule.name)
-            $myPolicyRule.Add('ExcludedIdList_GroupId', $currentPolicyRule.excludedIdList_GroupId)
-            $myPolicyRule.Add('IncludedIdList_GroupId', $currentPolicyRule.includedIdList_GroupId)
-            $complexPolicyRule += $myPolicyRule
-        }
-        $policySettings.Remove('PolicyRule') | Out-Null
-        #endregion
 
         $results = @{
             #region resource generator code
@@ -346,7 +513,6 @@ function Get-TargetResource
             DisplayName           = $getValue.Name
             RoleScopeTagIds       = $getValue.RoleScopeTagIds
             Id                    = $getValue.Id
-            PolicyRule            = $complexPolicyRule
             Ensure                = 'Present'
             Credential            = $Credential
             ApplicationId         = $ApplicationId
@@ -376,12 +542,6 @@ function Get-TargetResource
             -TenantId $TenantId `
             -Credential $Credential
 
-        # Necessary to rethrow caught exception regarding duplicate policies
-        if ($_.Exception.Message -like "Duplicate*")
-        {
-            throw $_
-        }
-
         return $nullResult
     }
 }
@@ -409,149 +569,79 @@ function Set-TargetResource
         $Id,
 
         [Parameter()]
-        [ValidateSet('0', '1')]
+        [ValidateSet('0', '1', '2')]
         [System.String]
-        $DeviceInstall_Allow_Deny_Layered,
+        $DeletionPolicy,
 
         [Parameter()]
-        [ValidateSet('0', '1')]
+        [ValidateSet('false', 'true')]
         [System.String]
-        $DeviceInstall_IDs_Allow,
+        $EnableProfileManager,
 
         [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_IDs_Allow_List,
+        [ValidateRange(0, 2147483647)]
+        [System.Int32]
+        $ProfileInactivityThreshold,
 
         [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Instance_IDs_Allow,
+        [ValidateRange(0, 2147483647)]
+        [System.Int32]
+        $StorageCapacityStartDeletion,
 
         [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_Instance_IDs_Allow_List,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Classes_Allow,
-
-        [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_Classes_Allow_List,
+        [ValidateRange(0, 2147483647)]
+        [System.Int32]
+        $StorageCapacityStopDeletion,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $DeviceInstall_Unspecified_Deny,
+        $AllowMicrosoftAccountConnection,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $DeviceInstall_IDs_Deny,
+        $VideoPowerDownTimeOutAC_2,
 
         [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_IDs_Deny_List,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_IDs_Deny_Retroactive,
+        [ValidateRange(0, 4294967295)]
+        [System.Int32]
+        $EnterVideoACPowerDownTimeOut,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $DeviceInstall_Instance_IDs_Deny,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Instance_IDs_Deny_Retroactive,
-
-        [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_Instance_IDs_Deny_List,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Classes_Deny,
-
-        [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_Classes_Deny_List,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Classes_Deny_Retroactive,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Removable_Deny,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $WPDDevices_DenyRead_Access_2,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $WPDDevices_DenyRead_Access_1,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $WPDDevices_DenyWrite_Access_2,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $WPDDevices_DenyWrite_Access_1,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $AllowFullScanRemovableDriveScanning,
-
-        [Parameter()]
-        [ValidateSet('1', '2')]
-        [System.String]
-        $DefaultEnforcement,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceControlEnabled,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $AllowDirectMemoryAccess,
+        $AllowAutofill,
 
         [Parameter()]
         [ValidateSet('0', '1', '2')]
         [System.String]
-        $DeviceEnumerationPolicy,
+        $AllowCookies,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $RemovableDiskDenyWriteAccess,
+        $AllowDoNotTrack,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowUSBConnection,
+        $AllowPasswordManager,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowPopups,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowSearchSuggestionsinAddressBar,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowSmartScreen,
 
         [Parameter()]
         [ValidateSet('0', '1', '2')]
@@ -561,36 +651,302 @@ function Set-TargetResource
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowAdvertising,
+        $AllowUSBConnection,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowDiscoverableMode,
+        $DevicePasswordEnabled,
+
+        [Parameter()]
+        [ValidateRange(0, 730)]
+        [System.Int32]
+        $DevicePasswordExpiration,
+
+        [Parameter()]
+        [ValidateRange(4, 16)]
+        [System.Int32]
+        $MinDevicePasswordLength,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $AlphanumericDevicePasswordRequired,
+
+        [Parameter()]
+        [ValidateRange(0, 999)]
+        [System.Int32]
+        $MaxDevicePasswordFailedAttempts,
+
+        [Parameter()]
+        [ValidateSet('1', '2', '3', '4')]
+        [System.String]
+        $MinDevicePasswordComplexCharacters,
+
+        [Parameter()]
+        [ValidateRange(0, 999)]
+        [System.Int32]
+        $MaxInactivityTimeDeviceLock,
+
+        [Parameter()]
+        [ValidateRange(0, 50)]
+        [System.Int32]
+        $DevicePasswordHistory,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowPrepairing,
+        $AllowSimpleDevicePassword,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowPromptedProximalConnections,
+        $AllowManualMDMUnenrollment,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '65535')]
+        [System.String]
+        $AllowAllTrustedApps,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $AllowAppStoreAutoUpdate,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '65535')]
+        [System.String]
+        $AllowDeveloperUnlock,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $BlockThirdPartyCookies,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $ConfigureDoNotTrack,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $MicrosoftEdge_ContentSettings_DefaultPopupsSetting,
+
+        [Parameter()]
+        [ValidateSet('1', '2')]
+        [System.String]
+        $DefaultPopupsSetting_DefaultPopupsSetting,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AutofillAddressEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AutofillCreditCardEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $SearchSuggestEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $ExtensionInstallBlocklist,
+
+        [Parameter()]
+        [ValidateLength(0, 2048)]
+        [System.String[]]
+        $ExtensionInstallBlocklistDesc,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $MicrosoftEdge_PasswordManager_PrimaryPasswordSetting,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2', '3')]
+        [System.String]
+        $PrimaryPasswordSetting_PrimaryPasswordSetting,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $PasswordManagerEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $SmartScreenEnabled,
+
+        [Parameter()]
+        [ValidateRange(0, 60)]
+        [System.Int32]
+        $AADGroupMembershipCacheValidityInDays,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LetAppsAccessAccountInfo,
 
         [Parameter()]
         [ValidateLength(0, 87516)]
         [System.String[]]
-        $ServicesAllowedList,
+        $LetAppsAccessAccountInfo_ForceAllowTheseApps,
 
         [Parameter()]
-        [Microsoft.Management.Infrastructure.CimInstance[]]
-        $PolicyRule,
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LetAppsAccessBackgroundSpatialPerception,
+
+        [Parameter()]
+        [ValidateLength(0, 87516)]
+        [System.String[]]
+        $LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LetAppsAccessCamera,
+
+        [Parameter()]
+        [ValidateLength(0, 87516)]
+        [System.String[]]
+        $LetAppsAccessCamera_ForceAllowTheseApps,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LetAppsAccessMicrophone,
+
+        [Parameter()]
+        [ValidateLength(0, 87516)]
+        [System.String[]]
+        $LetAppsAccessMicrophone_ForceAllowTheseApps,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowSearchToUseLocation,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowAddProvisioningPackage,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowVPN,
+
+        [Parameter()]
+        [ValidateLength(0, 87516)]
+        [System.String]
+        $PageVisibilityList,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
         $AllowStorageCard,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '3')]
+        [System.String]
+        $AllowTelemetry,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowManualWiFiConfiguration,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $EnablePinRecovery,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $TPM12,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $Digits,
+
+        [Parameter()]
+        [ValidateRange(0, 730)]
+        [System.Int32]
+        $Expiration,
+
+        [Parameter()]
+        [ValidateRange(0, 50)]
+        [System.Int32]
+        $History,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LowercaseLetters,
+
+        [Parameter()]
+        [ValidateRange(4, 127)]
+        [System.Int32]
+        $MaximumPINLength,
+
+        [Parameter()]
+        [ValidateRange(4, 127)]
+        [System.Int32]
+        $MinimumPINLength,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $SpecialCharacters,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $UppercaseLetters,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $RequireSecurityDevice,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $UseCertificateForOnPremAuth,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $UseHelloCertificatesAsSmartCardCertificates,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $UsePassportForWork,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowUpdateService,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2', '3')]
+        [System.String]
+        $ManagePreviewBuilds,
+
+        [Parameter()]
+        [ValidateSet('true', 'false')]
+        [System.String]
+        $RequireNetworkInOOBE,
 
         [Parameter()]
         [Microsoft.Management.Infrastructure.CimInstance[]]
@@ -630,6 +986,8 @@ function Set-TargetResource
         $AccessTokens
     )
 
+    Write-Verbose -Message "Setting configuration of the Intune Security Baseline HoloLens2 Advanced with Id {$Id} and Name {$DisplayName}"
+
     #Ensure the proper dependencies are installed in the current environment.
     Confirm-M365DSCDependencies
 
@@ -646,14 +1004,14 @@ function Set-TargetResource
 
     $BoundParameters = Remove-M365DSCAuthenticationParameter -BoundParameters $PSBoundParameters
 
-    $templateReferenceId = '0f2034c6-3cd6-4ee1-bd37-f3c0693e9548_1'
+    $templateReferenceId = '9d0f07ef-5eef-4fd3-b95d-f9efbba07d23_1'
     $platforms = 'windows10'
-    $technologies = 'mdm,microsoftSense'
+    $technologies = 'mdm'
 
     if ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Absent')
     {
-        Write-Verbose -Message "Creating an Intune Device Control Policy for Windows10 with Name {$DisplayName}"
-        $BoundParameters.Remove('Assignments') | Out-Null
+        Write-Verbose -Message "Creating an Intune Security Baseline HoloLens2 Advanced with Name {$DisplayName}"
+        $BoundParameters.Remove("Assignments") | Out-Null
 
         $settings = Get-IntuneSettingCatalogPolicySetting `
             -DSCParams ([System.Collections.Hashtable]$BoundParameters) `
@@ -683,8 +1041,8 @@ function Set-TargetResource
     }
     elseif ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Present')
     {
-        Write-Verbose -Message "Updating the Intune Device Control Policy for Windows10 with Id {$($currentInstance.Id)}"
-        $BoundParameters.Remove('Assignments') | Out-Null
+        Write-Verbose -Message "Updating the Intune Security Baseline HoloLens2 Advanced with Id {$($currentInstance.Id)}"
+        $BoundParameters.Remove("Assignments") | Out-Null
 
         $settings = Get-IntuneSettingCatalogPolicySetting `
             -DSCParams ([System.Collections.Hashtable]$BoundParameters) `
@@ -709,7 +1067,7 @@ function Set-TargetResource
     }
     elseif ($Ensure -eq 'Absent' -and $currentInstance.Ensure -eq 'Present')
     {
-        Write-Verbose -Message "Removing the Intune Device Control Policy for Windows10 with Id {$($currentInstance.Id)}"
+        Write-Verbose -Message "Removing the Intune Security Baseline HoloLens2 Advanced with Id {$($currentInstance.Id)}"
         #region resource generator code
         Remove-MgBetaDeviceManagementConfigurationPolicy -DeviceManagementConfigurationPolicyId $currentInstance.Id
         #endregion
@@ -740,149 +1098,79 @@ function Test-TargetResource
         $Id,
 
         [Parameter()]
-        [ValidateSet('0', '1')]
+        [ValidateSet('0', '1', '2')]
         [System.String]
-        $DeviceInstall_Allow_Deny_Layered,
+        $DeletionPolicy,
 
         [Parameter()]
-        [ValidateSet('0', '1')]
+        [ValidateSet('false', 'true')]
         [System.String]
-        $DeviceInstall_IDs_Allow,
+        $EnableProfileManager,
 
         [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_IDs_Allow_List,
+        [ValidateRange(0, 2147483647)]
+        [System.Int32]
+        $ProfileInactivityThreshold,
 
         [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Instance_IDs_Allow,
+        [ValidateRange(0, 2147483647)]
+        [System.Int32]
+        $StorageCapacityStartDeletion,
 
         [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_Instance_IDs_Allow_List,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Classes_Allow,
-
-        [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_Classes_Allow_List,
+        [ValidateRange(0, 2147483647)]
+        [System.Int32]
+        $StorageCapacityStopDeletion,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $DeviceInstall_Unspecified_Deny,
+        $AllowMicrosoftAccountConnection,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $DeviceInstall_IDs_Deny,
+        $VideoPowerDownTimeOutAC_2,
 
         [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_IDs_Deny_List,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_IDs_Deny_Retroactive,
+        [ValidateRange(0, 4294967295)]
+        [System.Int32]
+        $EnterVideoACPowerDownTimeOut,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $DeviceInstall_Instance_IDs_Deny,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Instance_IDs_Deny_Retroactive,
-
-        [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_Instance_IDs_Deny_List,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Classes_Deny,
-
-        [Parameter()]
-        [ValidateLength(0, 2048)]
-        [System.String[]]
-        $DeviceInstall_Classes_Deny_List,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Classes_Deny_Retroactive,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceInstall_Removable_Deny,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $WPDDevices_DenyRead_Access_2,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $WPDDevices_DenyRead_Access_1,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $WPDDevices_DenyWrite_Access_2,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $WPDDevices_DenyWrite_Access_1,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $AllowFullScanRemovableDriveScanning,
-
-        [Parameter()]
-        [ValidateSet('1', '2')]
-        [System.String]
-        $DefaultEnforcement,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $DeviceControlEnabled,
-
-        [Parameter()]
-        [ValidateSet('0', '1')]
-        [System.String]
-        $AllowDirectMemoryAccess,
+        $AllowAutofill,
 
         [Parameter()]
         [ValidateSet('0', '1', '2')]
         [System.String]
-        $DeviceEnumerationPolicy,
+        $AllowCookies,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $RemovableDiskDenyWriteAccess,
+        $AllowDoNotTrack,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowUSBConnection,
+        $AllowPasswordManager,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowPopups,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowSearchSuggestionsinAddressBar,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowSmartScreen,
 
         [Parameter()]
         [ValidateSet('0', '1', '2')]
@@ -892,36 +1180,302 @@ function Test-TargetResource
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowAdvertising,
+        $AllowUSBConnection,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowDiscoverableMode,
+        $DevicePasswordEnabled,
+
+        [Parameter()]
+        [ValidateRange(0, 730)]
+        [System.Int32]
+        $DevicePasswordExpiration,
+
+        [Parameter()]
+        [ValidateRange(4, 16)]
+        [System.Int32]
+        $MinDevicePasswordLength,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $AlphanumericDevicePasswordRequired,
+
+        [Parameter()]
+        [ValidateRange(0, 999)]
+        [System.Int32]
+        $MaxDevicePasswordFailedAttempts,
+
+        [Parameter()]
+        [ValidateSet('1', '2', '3', '4')]
+        [System.String]
+        $MinDevicePasswordComplexCharacters,
+
+        [Parameter()]
+        [ValidateRange(0, 999)]
+        [System.Int32]
+        $MaxInactivityTimeDeviceLock,
+
+        [Parameter()]
+        [ValidateRange(0, 50)]
+        [System.Int32]
+        $DevicePasswordHistory,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowPrepairing,
+        $AllowSimpleDevicePassword,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
-        $AllowPromptedProximalConnections,
+        $AllowManualMDMUnenrollment,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '65535')]
+        [System.String]
+        $AllowAllTrustedApps,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $AllowAppStoreAutoUpdate,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '65535')]
+        [System.String]
+        $AllowDeveloperUnlock,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $BlockThirdPartyCookies,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $ConfigureDoNotTrack,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $MicrosoftEdge_ContentSettings_DefaultPopupsSetting,
+
+        [Parameter()]
+        [ValidateSet('1', '2')]
+        [System.String]
+        $DefaultPopupsSetting_DefaultPopupsSetting,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AutofillAddressEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AutofillCreditCardEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $SearchSuggestEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $ExtensionInstallBlocklist,
+
+        [Parameter()]
+        [ValidateLength(0, 2048)]
+        [System.String[]]
+        $ExtensionInstallBlocklistDesc,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $MicrosoftEdge_PasswordManager_PrimaryPasswordSetting,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2', '3')]
+        [System.String]
+        $PrimaryPasswordSetting_PrimaryPasswordSetting,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $PasswordManagerEnabled,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $SmartScreenEnabled,
+
+        [Parameter()]
+        [ValidateRange(0, 60)]
+        [System.Int32]
+        $AADGroupMembershipCacheValidityInDays,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LetAppsAccessAccountInfo,
 
         [Parameter()]
         [ValidateLength(0, 87516)]
         [System.String[]]
-        $ServicesAllowedList,
+        $LetAppsAccessAccountInfo_ForceAllowTheseApps,
 
         [Parameter()]
-        [Microsoft.Management.Infrastructure.CimInstance[]]
-        $PolicyRule,
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LetAppsAccessBackgroundSpatialPerception,
+
+        [Parameter()]
+        [ValidateLength(0, 87516)]
+        [System.String[]]
+        $LetAppsAccessBackgroundSpatialPerception_ForceAllowTheseApps,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LetAppsAccessCamera,
+
+        [Parameter()]
+        [ValidateLength(0, 87516)]
+        [System.String[]]
+        $LetAppsAccessCamera_ForceAllowTheseApps,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LetAppsAccessMicrophone,
+
+        [Parameter()]
+        [ValidateLength(0, 87516)]
+        [System.String[]]
+        $LetAppsAccessMicrophone_ForceAllowTheseApps,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowSearchToUseLocation,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowAddProvisioningPackage,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowVPN,
+
+        [Parameter()]
+        [ValidateLength(0, 87516)]
+        [System.String]
+        $PageVisibilityList,
 
         [Parameter()]
         [ValidateSet('0', '1')]
         [System.String]
         $AllowStorageCard,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '3')]
+        [System.String]
+        $AllowTelemetry,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowManualWiFiConfiguration,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $EnablePinRecovery,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $TPM12,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $Digits,
+
+        [Parameter()]
+        [ValidateRange(0, 730)]
+        [System.Int32]
+        $Expiration,
+
+        [Parameter()]
+        [ValidateRange(0, 50)]
+        [System.Int32]
+        $History,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $LowercaseLetters,
+
+        [Parameter()]
+        [ValidateRange(4, 127)]
+        [System.Int32]
+        $MaximumPINLength,
+
+        [Parameter()]
+        [ValidateRange(4, 127)]
+        [System.Int32]
+        $MinimumPINLength,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $SpecialCharacters,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2')]
+        [System.String]
+        $UppercaseLetters,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $RequireSecurityDevice,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $UseCertificateForOnPremAuth,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $UseHelloCertificatesAsSmartCardCertificates,
+
+        [Parameter()]
+        [ValidateSet('false', 'true')]
+        [System.String]
+        $UsePassportForWork,
+
+        [Parameter()]
+        [ValidateSet('0', '1')]
+        [System.String]
+        $AllowUpdateService,
+
+        [Parameter()]
+        [ValidateSet('0', '1', '2', '3')]
+        [System.String]
+        $ManagePreviewBuilds,
+
+        [Parameter()]
+        [ValidateSet('true', 'false')]
+        [System.String]
+        $RequireNetworkInOOBE,
 
         [Parameter()]
         [Microsoft.Management.Infrastructure.CimInstance[]]
@@ -974,7 +1528,7 @@ function Test-TargetResource
     Add-M365DSCTelemetryEvent -Data $data
     #endregion
 
-    Write-Verbose -Message "Testing configuration of the Intune Device Control Policy for Windows10 with Id {$Id} and Name {$DisplayName}"
+    Write-Verbose -Message "Testing configuration of the Intune Security Baseline HoloLens2 Advanced with Id {$Id} and Name {$DisplayName}"
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
     [Hashtable]$ValuesToCheck = @{}
@@ -1089,14 +1643,14 @@ function Export-TargetResource
     try
     {
         #region resource generator code
-        $policyTemplateID = '0f2034c6-3cd6-4ee1-bd37-f3c0693e9548_1'
+        $policyTemplateID = "9d0f07ef-5eef-4fd3-b95d-f9efbba07d23_1"
         [array]$getValue = Get-MgBetaDeviceManagementConfigurationPolicy `
             -Filter $Filter `
             -All `
             -ErrorAction Stop | Where-Object `
             -FilterScript {
-            $_.TemplateReference.TemplateId -eq $policyTemplateID
-        }
+                $_.TemplateReference.TemplateId -eq $policyTemplateID
+            }
         #endregion
 
         $i = 1
@@ -1122,48 +1676,20 @@ function Export-TargetResource
             }
             Write-M365DSCHost -Message "    |---[$i/$($getValue.Count)] $displayedKey" -DeferWrite
             $params = @{
-                Id                    = $config.Id
-                DisplayName           = $config.Name
-                Ensure                = 'Present'
-                Credential            = $Credential
-                ApplicationId         = $ApplicationId
-                TenantId              = $TenantId
-                ApplicationSecret     = $ApplicationSecret
+                Id = $config.Id
+                DisplayName = $config.Name
+                Ensure = 'Present'
+                Credential = $Credential
+                ApplicationId = $ApplicationId
+                TenantId = $TenantId
+                ApplicationSecret = $ApplicationSecret
                 CertificateThumbprint = $CertificateThumbprint
-                ManagedIdentity       = $ManagedIdentity.IsPresent
-                AccessTokens          = $AccessTokens
+                ManagedIdentity = $ManagedIdentity.IsPresent
+                AccessTokens = $AccessTokens
             }
 
             $Script:exportedInstance = $config
             $Results = Get-TargetResource @Params
-            if ($null -ne $Results.PolicyRule)
-            {
-                $complexMapping = @(
-                    @{
-                        Name            = 'PolicyRule'
-                        CimInstanceName = 'MicrosoftGraphIntuneSettingsCatalogPolicyRule'
-                        IsRequired      = $False
-                    }
-                    @{
-                        Name            = 'Entry'
-                        CimInstanceName = 'MicrosoftGraphIntuneSettingsCatalogPolicyRuleEntry'
-                        IsRequired      = $False
-                    }
-                )
-                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
-                    -ComplexObject $Results.PolicyRule `
-                    -CIMInstanceName 'MicrosoftGraphIntuneSettingsCatalogPolicyRule' `
-                    -ComplexTypeMapping $complexMapping
-
-                if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
-                {
-                    $Results.PolicyRule = $complexTypeStringResult
-                }
-                else
-                {
-                    $Results.Remove('PolicyRule') | Out-Null
-                }
-            }
 
             if ($Results.Assignments)
             {
@@ -1183,7 +1709,7 @@ function Export-TargetResource
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
                 -Credential $Credential `
-                -NoEscape @('PolicyRule', 'Assignments')
+                -NoEscape @('Assignments')
 
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
