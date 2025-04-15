@@ -6,6 +6,8 @@
   * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
 * IntuneSecurityBaselineHoloLens2Advanced
   * Initial release.
+* M365DSCDRGUtil
+  * Removed undefined variable from if statement.
 
 # 1.25.409.1
 
