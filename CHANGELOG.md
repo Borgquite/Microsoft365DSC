@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* IntuneDeviceControlPolicyWindows10
+  * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
+
 # 1.25.409.1
 
 * AADApplication
