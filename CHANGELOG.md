@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* EXOResourceConfiguration
+  * Added required permissions to settings.json file.
 * EXOTenantAllowBlockListItems
   * Inlined function call.
 * IntuneDeviceControlPolicyWindows10
