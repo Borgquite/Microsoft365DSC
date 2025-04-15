@@ -4,6 +4,8 @@
 
 * EXOTenantAllowBlockListItems
   * Inlined function call.
+* IntuneDeviceControlPolicyWindows10
+  * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
 * MISC
   * Removed `-Verbose` parameter from multiple commands where it's not necessary.
   * Removed unused functions across several resources.
