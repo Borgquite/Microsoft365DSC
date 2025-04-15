@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* IntuneDeviceControlPolicyWindows10
+  * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
 * MISC
   * Update export to use common function for multiple resources.
 
