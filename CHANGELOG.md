@@ -2,6 +2,25 @@
 
 # UNRELEASED
 
+* AADApplication
+  * Fixed issue where the property AuthenticationBehaviors was incorrectly
+    exported as an array.
+  * Fixed issue where the property Permissions was not exported as an array
+* AADCrossTenantAccessPolicyConfigurationPartner
+  * Fix export issue where B2B settings are not exported when these are set
+    to default settings.
+* AADEntitlementManagementAccessPackageAssignmentPolicy
+  * Fixing export issue where AccessReviewSettings does not contain correct
+    info when access reviews are disabled.
+    FIXES [#5941](https://github.com/microsoft/Microsoft365DSC/issues/5941)
+* AADGroup
+  * Fixed issue where the property Permissions was not exported as an array
+* AADRoleAssignmentScheduleRequest
+  * Fix export issue where Recurrence settings are not exported when they
+    are not configured.
+* AADRoleEligibilityScheduleRequest
+  * Fix export issue where Recurrence settings are not exported when they
+    are not configured.
 * EXOTenantAllowBlockListItems
   * Inlined function call.
 * IntuneDeviceControlPolicyWindows10
