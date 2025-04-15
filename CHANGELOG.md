@@ -2,12 +2,18 @@
 
 # UNRELEASED
 
+* EXOTenantAllowBlockListItems
+  * Inlined function call.
 * IntuneDeviceControlPolicyWindows10
   * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
 * IntuneSecurityBaselineHoloLens2Advanced
   * Initial release.
 * M365DSCDRGUtil
   * Removed undefined variable from if statement.
+* MISC
+  * Removed `-Verbose` parameter from multiple commands where it's not necessary.
+  * Removed unused functions across several resources.
+  * Added export of module functions to several EXO resources.
 
 # 1.25.409.1
 
