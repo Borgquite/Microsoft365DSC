@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* IntuneDeviceControlPolicyWindows10
+  * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
+* IntuneSecurityBaselineHoloLens2Advanced
+  * Initial release.
 * PlannerTask
   * Update export to use common functions.
     FIXES [#6004](https://github.com/microsoft/Microsoft365DSC/issues/6004)
