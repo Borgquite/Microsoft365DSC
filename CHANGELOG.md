@@ -1,9 +1,9 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
 * M365DSCDRGUtil
   * Removed undefined variable from if statement.
-
-# UNRELEASED
 
 * EXOSafeAttachmentRule
   * Inlined function calls.
