@@ -2,6 +2,15 @@
 
 # UNRELEASED
 
+* PlannerTask
+  * Update export to use common functions.
+    FIXES [#6004](https://github.com/microsoft/Microsoft365DSC/issues/6004)
+
+# 1.25.409.1
+
+* AADApplication
+  * DEPRECATED: Parameter AvailableToOtherTenants.
+  * Added direct support for the SignInAudience parameter.
 * EXOSafeAttachmentRule
   * Inlined function calls.
 * EXOSafeLinksRule
@@ -20,9 +29,6 @@
   * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
   * Updated the new Write-M365DSCHost function to only print
     messages when they are not null.
-* PlannerTask
-  * Update export to use common functions.
-    FIXES [#6004](https://github.com/microsoft/Microsoft365DSC/issues/6004)
 
 # 1.25.402.1
 
