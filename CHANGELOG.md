@@ -9,6 +9,9 @@
 * AADCrossTenantAccessPolicyConfigurationPartner
   * Fix export issue where B2B settings are not exported when these are set
     to default settings.
+* AADEntitlementManagementAccessPackage
+  * Fix incorrect assignment where `$results.CatalogId` was assigned
+    `catalog.DisplayName` instead of `catalog.Id`
 * AADEntitlementManagementAccessPackageAssignmentPolicy
   * Fixing export issue where AccessReviewSettings does not contain correct
     info when access reviews are disabled.
@@ -55,9 +58,6 @@
 * AADApplication
   * DEPRECATED: Parameter AvailableToOtherTenants.
   * Added direct support for the SignInAudience parameter.
-* AADEntitlementManagementAccessPackage
-  * Fix incorrect assignment where `$results.CatalogId` was assigned
-    `catalog.DisplayName` instead of `catalog.Id`
 * EXOSafeAttachmentRule
   * Inlined function calls.
 * EXOSafeLinksRule
