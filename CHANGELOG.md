@@ -25,6 +25,7 @@
   * Removed `-Verbose` parameter from multiple commands where it's not necessary.
   * Removed unused functions across several resources.
   * Added export of module functions to several EXO resources.
+  * Update export to use common function for multiple resources.
   * Update `requiredrolegroups` property of settings.json file to array.
 
 # 1.25.409.1
