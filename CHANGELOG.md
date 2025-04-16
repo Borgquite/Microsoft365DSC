@@ -21,6 +21,8 @@
     FIXES [#6004](https://github.com/microsoft/Microsoft365DSC/issues/6004)
 * M365DSCDRGUtil
   * Removed undefined variable from if statement.
+* M365DSCPermissions
+  * Add `AdministrativeRoles` and `RequiredRoles` property to export.
 * MISC
   * Removed `-Verbose` parameter from multiple commands where it's not necessary.
   * Removed unused functions across several resources.
