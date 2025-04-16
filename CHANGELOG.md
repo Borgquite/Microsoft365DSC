@@ -27,6 +27,11 @@
 * EXOMobileDeviceMailboxPolicy
   * Fix export issue where two properties were exported as integer, where
     the schema expects a string.
+* EXOQuarantinePolicy
+  * Updated the schema to match the parameter value in the code. The schema
+    defined this property as a string, where the code expected and integer.
+    NOTE: This should not cause any issues, since the export already exported
+    this value as an integer.
 * EXOResourceConfiguration
   * Added required permissions to settings.json file.
 * EXOTenantAllowBlockListItems
