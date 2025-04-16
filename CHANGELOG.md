@@ -2,13 +2,27 @@
 
 # UNRELEASED
 
+* EXOTenantAllowBlockListItems
+  * Inlined function call.
 * IntuneDeviceControlPolicyWindows10
   * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
+* IntuneDeviceManagementAndroidDeviceOwnerEnrollmentProfile
+  * Fix export and remove read-only properties.
+    FIXES [#5969](https://github.com/microsoft/Microsoft365DSC/issues/5969)
 * IntuneSecurityBaselineHoloLens2Advanced
   * Initial release.
+ * IntuneWifiConfigurationPolicyMacOS
+  * Fixed an issue where fetching the assignments of a policy that only exists by display name fails.
+    FIXES [#5971](https://github.com/microsoft/Microsoft365DSC/issues/5971)
 * PlannerTask
   * Update export to use common functions.
     FIXES [#6004](https://github.com/microsoft/Microsoft365DSC/issues/6004)
+* M365DSCDRGUtil
+  * Removed undefined variable from if statement.
+* MISC
+  * Removed `-Verbose` parameter from multiple commands where it's not necessary.
+  * Removed unused functions across several resources.
+  * Added export of module functions to several EXO resources.
 
 # 1.25.409.1
 
