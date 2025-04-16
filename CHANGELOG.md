@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# UNRELEASED
+# 1.25.416.1
 
 * EXOResourceConfiguration
   * Added required permissions to settings.json file.
@@ -29,6 +29,8 @@
   * Added export of module functions to several EXO resources.
   * Update export to use common function for multiple resources.
   * Update `requiredrolegroups` property of settings.json file to array.
+  * Updated the Write-M365DSCHost function to make the Message parameter
+    optional to fix null errors.
 
 # 1.25.409.1
 
