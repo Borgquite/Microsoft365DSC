@@ -21,6 +21,9 @@
 * AADRoleEligibilityScheduleRequest
   * Fix export issue where Recurrence settings are not exported when they
     are not configured.
+* EXOMobileDeviceMailboxPolicy
+  * Fix export issue where two properties were exported as integer, where
+    the schema expects a string.
 * EXOTenantAllowBlockListItems
   * Inlined function call.
 * IntuneDeviceControlPolicyWindows10
