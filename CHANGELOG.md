@@ -8,6 +8,9 @@
   * Added support for `DefaultEnforcement` and `DeviceControlEnabled` properties.
 * IntuneSecurityBaselineHoloLens2Advanced
   * Initial release.
+ * IntuneWifiConfigurationPolicyMacOS
+  * Fixed an issue where fetching the assignments of a policy that only exists by display name fails.
+    FIXES [#5971](https://github.com/microsoft/Microsoft365DSC/issues/5971)
 * M365DSCDRGUtil
   * Removed undefined variable from if statement.
 * MISC
