@@ -351,12 +351,12 @@ function Get-TargetResource
                 MaxInactivityTimeLock                    = $MobileDeviceMailboxPolicy.MaxInactivityTimeLock
                 MaxPasswordFailedAttempts                = $MobileDeviceMailboxPolicy.MaxPasswordFailedAttempts
                 # The MinPasswordComplexCharacters property is an integer, but the DSC resource expects a string.
-                MinPasswordComplexCharacters             = $MobileDeviceMailboxPolicy.MinPasswordComplexCharacters.ToString()
+                MinPasswordComplexCharacters             = if ($null -ne $MobileDeviceMailboxPolicy.MinPasswordComplexCharacters) { $MobileDeviceMailboxPolicy.MinPasswordComplexCharacters.ToString() } else { $null }
                 MinPasswordLength                        = $MobileDeviceMailboxPolicy.MinPasswordLength
                 PasswordEnabled                          = $MobileDeviceMailboxPolicy.PasswordEnabled
                 PasswordExpiration                       = $MobileDeviceMailboxPolicy.PasswordExpiration
                 # The PasswordHistory property is an integer, but the DSC resource expects a string.
-                PasswordHistory                          = $MobileDeviceMailboxPolicy.PasswordHistory.ToString()
+                PasswordHistory                          = if ($null -ne $MobileDeviceMailboxPolicy.PasswordHistory) { $MobileDeviceMailboxPolicy.PasswordHistory.ToString() } else { $null }
                 PasswordRecoveryEnabled                  = $MobileDeviceMailboxPolicy.PasswordRecoveryEnabled
                 RequireDeviceEncryption                  = $MobileDeviceMailboxPolicy.RequireDeviceEncryption
                 RequireEncryptedSMIMEMessages            = $MobileDeviceMailboxPolicy.RequireSignedSMIMEMessages
