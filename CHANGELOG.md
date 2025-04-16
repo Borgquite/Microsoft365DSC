@@ -14,6 +14,9 @@
  * IntuneWifiConfigurationPolicyMacOS
   * Fixed an issue where fetching the assignments of a policy that only exists by display name fails.
     FIXES [#5971](https://github.com/microsoft/Microsoft365DSC/issues/5971)
+* PlannerTask
+  * Update export to use common functions.
+    FIXES [#6004](https://github.com/microsoft/Microsoft365DSC/issues/6004)
 * M365DSCDRGUtil
   * Removed undefined variable from if statement.
 * MISC
@@ -42,7 +45,7 @@
   * Removed additional unnecessary functions.
 * MISC
   * Removed clearing of M365DSC authentication parameters from numerous Intune resources.
-  * Updated the new Write-M365DSChost function to only print
+  * Updated the new Write-M365DSCHost function to only print
     messages when they are not null.
 
 # 1.25.402.1
