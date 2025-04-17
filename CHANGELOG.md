@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* MISC
+  * Improved export speed for multiple resources.
+
 # 1.25.416.1
 
 * EXOResourceConfiguration
