@@ -63,6 +63,9 @@ function Get-TargetResource
 
     try
     {
+        $ConnectionMode = New-M365DSCConnection -Workload 'PnP' `
+            -InboundParameters $PSBoundParameters
+
         if ($ConnectionMode -eq 'Credentials')
         {
             $tenantName = Get-M365TenantName -Credential $Credential
@@ -75,9 +78,6 @@ function Get-TargetResource
 
         if (-not $Script:exportedInstance -or $orgLibraryUrl -ne $LibraryUrl)
         {
-            $ConnectionMode = New-M365DSCConnection -Workload 'PnP' `
-                -InboundParameters $PSBoundParameters
-
             #Ensure the proper dependencies are installed in the current environment.
             Confirm-M365DSCDependencies
 

@@ -543,7 +543,7 @@ function Export-TargetResource
                     -CIMInstanceName 'AADIdentityGovernanceTask' `
                     -ComplexTypeMapping $complexMapping
 
-                if (-Not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
                 {
                     $Results.Tasks = $complexTypeStringResult
                 }
@@ -577,7 +577,7 @@ function Export-TargetResource
                     -CIMInstanceName 'MSFT_IdentityGovernanceWorkflowExecutionConditions' `
                     -ComplexTypeMapping $complexMapping
 
-                if (-Not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
                 {
                     $Results.ExecutionConditions = $complexTypeStringResult
                 }
