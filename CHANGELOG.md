@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* IntuneAppProtectionPolicyiOS
+  * Fixed empty array comparison.
+    FIXES [#5736](https://github.com/microsoft/Microsoft365DSC/issues/5736)
+
 # 1.25.416.1
 
 * EXOResourceConfiguration
