@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* AADApplication
+  * Fixed an issue where the `AdminConsentGranted` property had an incorrect value.
+    FIXES [#5027](https://github.com/microsoft/Microsoft365DSC/issues/5027)
+
 # 1.25.416.1
 
 * EXOResourceConfiguration
