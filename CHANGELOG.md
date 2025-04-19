@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* AADEntitlementManagementConnectedOrganization
+  * Fixed an issue where an empty display name would result in a parameter binding exception.
+    FIXES [#4981](https://github.com/microsoft/Microsoft365DSC/issues/4981)
+
 # 1.25.416.1
 
 * EXOResourceConfiguration
