@@ -5,6 +5,8 @@
 * AADEntitlementManagementConnectedOrganization
   * Fixed an issue where an empty display name would result in a parameter binding exception.
     FIXES [#4981](https://github.com/microsoft/Microsoft365DSC/issues/4981)
+* DEPENDENCIES
+  * Updated Microsoft.Graph to version 2.27.0.
 
 # 1.25.416.1
 
