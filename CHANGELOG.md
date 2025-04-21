@@ -1,5 +1,12 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* SPOSearchManagedProperty
+  * Fixed an issue where the connection url was not the admin url required by the resource.
+    FIXES [#5093](https://github.com/microsoft/Microsoft365DSC/issues/5093)
+    FIXES [#4538](https://github.com/microsoft/Microsoft365DSC/issues/4538)
+
 # 1.25.416.1
 
 * EXOResourceConfiguration
