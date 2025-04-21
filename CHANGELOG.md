@@ -5,6 +5,8 @@
 * EXOHostedContentFilterPolicy
   * Fixed an issue with setting the default value for `IntraOrgFilterState`.
     FIXES [#5031](https://github.com/microsoft/Microsoft365DSC/issues/5031)
+* DEPENDENCIES
+  * Updated Microsoft.Graph to version 2.27.0.
 
 # 1.25.416.1
 
