@@ -5,6 +5,8 @@
 * AADApplication
   * Fixed an issue where the `AdminConsentGranted` property had an incorrect value.
     FIXES [#5027](https://github.com/microsoft/Microsoft365DSC/issues/5027)
+* DEPENDENCIES
+  * Updated Microsoft.Graph to version 2.27.0.
 
 # 1.25.416.1
 
