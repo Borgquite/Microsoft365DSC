@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* DEPENDENCIES
+  * Updated Microsoft.Graph to version 2.27.0.
+
 # 1.25.416.1
 
 * EXOResourceConfiguration
