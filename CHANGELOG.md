@@ -9,13 +9,6 @@
 * AADCrossTenantAccessPolicyConfigurationPartner
   * Fix export issue where B2B settings are not exported when these are set
     to default settings.
-* AADEntitlementManagementAccessPackage
-  * Fix incorrect assignment where `$results.CatalogId` was assigned
-    `catalog.DisplayName` instead of `catalog.Id`
-* AADEntitlementManagementAccessPackageAssignmentPolicy
-  * Fixing export issue where AccessReviewSettings does not contain correct
-    info when access reviews are disabled.
-    FIXES [#5941](https://github.com/microsoft/Microsoft365DSC/issues/5941)
 * AADGroup
   * Fixed issue where the property Permissions was not exported as an array
 * AADRoleAssignmentScheduleRequest
@@ -32,6 +25,18 @@
     defined this property as a string, where the code expected and integer.
     NOTE: This should not cause any issues, since the export already exported
     this value as an integer.
+* DEPENDENCIES
+  * Updated Microsoft.Graph to version 2.27.0.
+
+# 1.25.416.1
+
+* AADEntitlementManagementAccessPackage
+  * Fix incorrect assignment where `$results.CatalogId` was assigned
+    `catalog.DisplayName` instead of `catalog.Id`
+* AADEntitlementManagementAccessPackageAssignmentPolicy
+  * Fixing export issue where AccessReviewSettings does not contain correct
+    info when access reviews are disabled.
+    FIXES [#5941](https://github.com/microsoft/Microsoft365DSC/issues/5941)
 * EXOResourceConfiguration
   * Added required permissions to settings.json file.
 * EXOTenantAllowBlockListItems
@@ -51,12 +56,16 @@
     FIXES [#6004](https://github.com/microsoft/Microsoft365DSC/issues/6004)
 * M365DSCDRGUtil
   * Removed undefined variable from if statement.
+* M365DSCPermissions
+  * Add `AdministrativeRoles` and `RequiredRoles` property to export.
 * MISC
   * Removed `-Verbose` parameter from multiple commands where it's not necessary.
   * Removed unused functions across several resources.
   * Added export of module functions to several EXO resources.
   * Update export to use common function for multiple resources.
   * Update `requiredrolegroups` property of settings.json file to array.
+  * Updated the Write-M365DSCHost function to make the Message parameter
+    optional to fix null errors.
 
 # 1.25.409.1
 
