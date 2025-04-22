@@ -35,6 +35,12 @@
 * EXORetentionPolicyTag
   * Fixes an issue where the AgeLimitForRetention  could be added twice in the results
     from Get-TargetResource.
+* SCSensitivityLabel
+  * Fixed issue where the Groups property in AutoLabelingSettings was not
+    exported as an array.
+* TeamsGroupPolicyAssignment
+  * Fix export issue where two properties were exported as integer, where
+    the schema expects a string.
 * DEPENDENCIES
   * Updated ExchangeOnlineManagement to version 3.2.0
   * Updated Microsoft.Graph to version 2.28.0
