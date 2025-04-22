@@ -25,6 +25,12 @@
     defined this property as a string, where the code expected and integer.
     NOTE: This should not cause any issues, since the export already exported
     this value as an integer.
+* SCSensitivityLabel
+  * Fixed issue where the Groups property in AutoLabelingSettings was not
+    exported as an array.
+* TeamsGroupPolicyAssignment
+  * Fix export issue where two properties were exported as integer, where
+    the schema expects a string.
 * DEPENDENCIES
   * Updated Microsoft.Graph to version 2.27.0.
 

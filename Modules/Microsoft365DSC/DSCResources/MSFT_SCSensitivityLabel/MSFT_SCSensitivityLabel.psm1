@@ -554,7 +554,7 @@ function Get-TargetResource
 
             $autoApplyType = ''
             $policyTip = ''
-            $groups = foreach ($group in $currConditions.$($operator))
+            [array]$groups = foreach ($group in $currConditions.$($operator))
             {
                 $grpObject = @{
                     Name     = ''
