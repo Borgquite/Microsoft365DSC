@@ -91,7 +91,7 @@ function Get-TargetResource
 
             $getValue = $null
 
-            if (-not [System.String]::IsNullOrEmpty($id))
+            if (-not [System.String]::IsNullOrEmpty($Id))
             {
                 $getValue = Get-MgBetaEntitlementManagementConnectedOrganization -ConnectedOrganizationId $Id `
                     -ErrorAction SilentlyContinue
@@ -104,7 +104,7 @@ function Get-TargetResource
                     Write-Verbose -Message "Entitlement Management Connected Organization with id {$Id} was not found."
                 }
 
-                if (-Not [string]::IsNullOrEmpty($DisplayName))
+                if (-not [string]::IsNullOrEmpty($DisplayName))
                 {
                     $getValue = Get-MgBetaEntitlementManagementConnectedOrganization `
                         -Filter "displayName eq '$DisplayName'" `
@@ -793,7 +793,7 @@ function Export-TargetResource
             Write-M365DSCHost -Message "    |---[$i/$($getValue.Count)] $displayedKey" -DeferWrite
             $params = @{
                 id                    = $config.id
-                DisplayName           = $config.displayName
+                DisplayName           = $displayedKey
                 Ensure                = 'Present'
                 Credential            = $Credential
                 ApplicationId         = $ApplicationId
