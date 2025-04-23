@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* EXOHostedContentFilterPolicy
+  * Fixed an issue with setting the default value for `IntraOrgFilterState`.
+    FIXES [#5031](https://github.com/microsoft/Microsoft365DSC/issues/5031)
 * MISC
   * Improved export speed for multiple resources.
 * DEPENDENCIES
