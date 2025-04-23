@@ -2,11 +2,15 @@
 
 # UNRELEASED
 
+* EXOHostedContentFilterPolicy
+  * Fixed an issue with setting the default value for `IntraOrgFilterState`.
+    FIXES [#5031](https://github.com/microsoft/Microsoft365DSC/issues/5031)
 * IntuneAppProtectionPolicyiOS
   * Fixed empty array comparison.
     FIXES [#5736](https://github.com/microsoft/Microsoft365DSC/issues/5736)
 * DEPENDENCIES
   * Updated Microsoft.Graph to version 2.27.0.
+  * Updated MSCoudLoginAssistant to version 1.1.43.
 
 # 1.25.416.1
 
