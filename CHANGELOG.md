@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* AADEntitlementManagementConnectedOrganization
+  * Fixed an issue where an empty display name would result in a parameter binding exception.
+    FIXES [#4981](https://github.com/microsoft/Microsoft365DSC/issues/4981)
 * EXOHostedContentFilterPolicy
   * Fixed an issue with setting the default value for `IntraOrgFilterState`.
     FIXES [#5031](https://github.com/microsoft/Microsoft365DSC/issues/5031)
