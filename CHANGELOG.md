@@ -7,6 +7,10 @@
     FIXES [#5031](https://github.com/microsoft/Microsoft365DSC/issues/5031)
 * IntuneWifiConfigurationPolicyAndroidEnterpriseWorkProfile
   * Fixes the data type for extraction and creation.
+* SPOSearchManagedProperty
+  * Fixed an issue where the connection url was not the admin url required by the resource.
+    FIXES [#5093](https://github.com/microsoft/Microsoft365DSC/issues/5093)
+    FIXES [#4538](https://github.com/microsoft/Microsoft365DSC/issues/4538)
 * DEPENDENCIES
   * Updated Microsoft.Graph to version 2.27.0.
   * Updated MSCoudLoginAssistant to version 1.1.43.
