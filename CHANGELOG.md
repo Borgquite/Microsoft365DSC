@@ -2,12 +2,15 @@
 
 # UNRELEASED
 
+* EXOHostedContentFilterPolicy
+  * Fixed an issue with setting the default value for `IntraOrgFilterState`.
+    FIXES [#5031](https://github.com/microsoft/Microsoft365DSC/issues/5031)
 * IntuneDeviceEnrollmentLimitRestriction
   * Added support for `Assignments`, `Priority` and `RoleScopeTagIds` properties.
     FIXES [#3915](https://github.com/microsoft/Microsoft365DSC/issues/3915)
-    FIXES [#6041](https://github.com/microsoft/Microsoft365DSC/issues/6041)
 * DEPENDENCIES
   * Updated Microsoft.Graph to version 2.27.0.
+  * Updated MSCoudLoginAssistant to version 1.1.43.
 
 # 1.25.416.1
 
