@@ -8,6 +8,9 @@
 * EXOHostedContentFilterPolicy
   * Fixed an issue with setting the default value for `IntraOrgFilterState`.
     FIXES [#5031](https://github.com/microsoft/Microsoft365DSC/issues/5031)
+* IntuneAppProtectionPolicyiOS
+  * Fixed empty array comparison.
+    FIXES [#5736](https://github.com/microsoft/Microsoft365DSC/issues/5736)
 * IntuneWifiConfigurationPolicyAndroidEnterpriseWorkProfile
   * Fixes the data type for extraction and creation.
 * SPOSearchManagedProperty
