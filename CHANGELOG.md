@@ -2,6 +2,11 @@
 
 # UNRELEASED
 
+* MISC
+  * Improved export speed for multiple resources.
+
+# 1.25.423.1
+
 * AADEntitlementManagementConnectedOrganization
   * Fixed an issue where an empty display name would result in a parameter binding exception.
     FIXES [#4981](https://github.com/microsoft/Microsoft365DSC/issues/4981)
@@ -11,6 +16,9 @@
 * IntuneAppProtectionPolicyiOS
   * Fixed empty array comparison.
     FIXES [#5736](https://github.com/microsoft/Microsoft365DSC/issues/5736)
+* IntuneDeviceEnrollmentLimitRestriction
+  * Added support for `Assignments`, `Priority` and `RoleScopeTagIds` properties.
+    FIXES [#3915](https://github.com/microsoft/Microsoft365DSC/issues/3915)
 * IntuneWifiConfigurationPolicyAndroidEnterpriseWorkProfile
   * Fixes the data type for extraction and creation.
 * SPOSearchManagedProperty
@@ -22,7 +30,6 @@
   * Updated MSCoudLoginAssistant to version 1.1.43.
 * MISC
   * Fixes case sensitivity comparison when updating device configuration policies.
-  * Improved export speed for multiple resources.
 
 # 1.25.416.1
 
