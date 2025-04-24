@@ -6,7 +6,8 @@
   * Fixed an issue where not specified properties would lead to an exception.
 * IntuneWifiConfigurationPolicyAndroidForWork
   * Fixed an issue where the wrong odata type was used for export and creation.
-    FIXES [#3978](https://github.com/microsoft/Microsoft365DSC/issues/3978)
+* IntuneWifiConfigurationPolicyAndroidEnterpriseDeviceOwner
+  * Fixed the filter query by name during Get where the wrong odata type was specified.
 
 # 1.25.423.1
 
