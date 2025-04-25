@@ -191,7 +191,6 @@ function Set-TargetResource
                 isEnabled = $SelfServiceSignUpEnabled
             }
         }
-
         Update-MgBetaPolicyAuthenticationFlowPolicy -BodyParameter $Params | Out-Null
     }
     catch
