@@ -4,6 +4,8 @@
 
 * DEPENDENCIES
   * Updated Microsoft.Graph to version 2.27.0.
+* AADAuthenticationFlowPolicy
+  * Fixes way argument is passed to `Update-MgBetaPolicyAuthenticationFlowPolicy` to now send as bodyparameter instead of `-SelfServiceSignUp $true/$false`
 
 # 1.25.416.1
 
