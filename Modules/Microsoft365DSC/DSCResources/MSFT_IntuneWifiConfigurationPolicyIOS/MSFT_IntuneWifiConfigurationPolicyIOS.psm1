@@ -325,8 +325,8 @@ function Set-TargetResource
         $AccessTokens
     )
 
-    if ($ProxySetting -ne 'automatic' -and $ProxyAutomaticConfigurationUrl -ne '') {
-        throw 'ProxyAutomaticConfigurationUrl must be empty if ProxySetting is not "automatic"'
+    if ($ProxySettings -ne 'automatic' -and $ProxyAutomaticConfigurationUrl -ne '') {
+        throw 'ProxyAutomaticConfigurationUrl must be empty if ProxySettings is not "automatic"'
     }
 
     if ($WiFiSecurityType -eq 'wpaPersonal' -and [string]::IsNullOrEmpty($PreSharedKey)) {
@@ -576,8 +576,8 @@ function Test-TargetResource
 
     Write-Verbose -Message "Testing configuration of the Intune Wifi Configuration Policy for iOS with Id {$Id} and DisplayName {$DisplayName}"
 
-    if ($ProxySetting -ne 'automatic' -and $ProxyAutomaticConfigurationUrl -ne '') {
-        throw 'ProxyAutomaticConfigurationUrl must be empty if ProxySetting is not "automatic".'
+    if ($ProxySettings -ne 'automatic' -and $ProxyAutomaticConfigurationUrl -ne '') {
+        throw 'ProxyAutomaticConfigurationUrl must be empty if ProxySettings is not "automatic".'
     }
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
