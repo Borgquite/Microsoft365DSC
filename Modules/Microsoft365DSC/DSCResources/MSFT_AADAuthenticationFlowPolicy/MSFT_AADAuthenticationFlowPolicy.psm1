@@ -186,7 +186,13 @@ function Set-TargetResource
 
     try
     {
-        Update-MgBetaPolicyAuthenticationFlowPolicy -SelfServiceSignUp $SelfServiceSignUpEnabled | Out-Null
+        $Params = @{
+            selfServiceSignUp = @{
+                isEnabled = $SelfServiceSignUpEnabled
+            }
+        }
+
+        Update-MgBetaPolicyAuthenticationFlowPolicy -BodyParameter $Params | Out-Null
     }
     catch
     {
