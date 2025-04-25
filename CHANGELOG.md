@@ -3,8 +3,15 @@
 # UNRELEASED
 
 * IntuneWifiConfigurationPolicyIOS
-  * Fix Test-TargetResource and available properties
+  * Fixed Test-TargetResource and available properties.
     FIXES [#3973](https://github.com/microsoft/Microsoft365DSC/issues/3973)
+* IntuneWifiConfigurationPolicyMacOS
+  * Added additional properties to the export.
+* IntuneWifiConfigurationPolicyWindows10
+  * Added additional properties to the export.
+    FIXES [#3963](https://github.com/microsoft/Microsoft365DSC/issues/3963)
+* M365DSCDRGUtil
+  * Fixed an issue where basic arrays would not be compared correctly.
 
 # 1.25.423.1
 

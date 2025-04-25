@@ -349,16 +349,15 @@ function Set-TargetResource
     #endregion
 
     $currentInstance = Get-TargetResource @PSBoundParameters
+    $BoundParameters = Remove-M365DSCAuthenticationParameter -BoundParameters $PSBoundParameters
 
     if ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Absent')
     {
         Write-Verbose -Message "Creating an Intune Wifi Configuration Policy for iOS with DisplayName {$DisplayName}"
-
-        $CreateParameters = Remove-M365DSCAuthenticationParameter -BoundParameters $PSBoundParameters
+        $CreateParameters = ([Hashtable]$BoundParameters).Clone()
         $CreateParameters.Remove('Id') | Out-Null
         $CreateParameters.Remove('Assignments') | Out-Null
         $CreateParameters.Remove('ForcePreSharedKeyUpdate') | Out-Null
-        $CreateParameters = Rename-M365DSCCimInstanceParameter -Properties $CreateParameters
 
         $AdditionalProperties = Get-M365DSCAdditionalProperties -Properties ($CreateParameters)
         foreach ($key in $AdditionalProperties.keys)
@@ -402,8 +401,7 @@ function Set-TargetResource
     {
         Write-Verbose -Message "Updating the Intune Wifi Configuration Policy for iOS with Id {$Id} and DisplayName {$DisplayName}"
 
-        $UpdateParameters = Remove-M365DSCAuthenticationParameter -BoundParameters $PSBoundParameters
-        $UpdateParameters = Rename-M365DSCCimInstanceParameter -Properties $UpdateParameters
+        $UpdateParameters = ([Hashtable]$BoundParameters).Clone()
         $UpdateParameters.Remove('Id') | Out-Null
         $UpdateParameters.Remove('Assignments') | Out-Null
         $UpdateParameters.Remove('ForcePreSharedKeyUpdate') | Out-Null
@@ -445,7 +443,7 @@ function Set-TargetResource
     }
     elseif ($Ensure -eq 'Absent' -and $currentInstance.Ensure -eq 'Present')
     {
-        Write-Verbose -Message "Removing {$DisplayName}"
+        Write-Verbose -Message "Removing the Intune Wifi Configuration Policy for iOS with Id {$($currentInstance.Id)} and DisplayName {$DisplayName}"
         #region resource generator code
         Remove-MgBetaDeviceManagementDeviceConfiguration -DeviceConfigurationId $currentInstance.Id
         #endregion
@@ -586,37 +584,19 @@ function Test-TargetResource
     $ValuesToCheck = ([Hashtable]$PSBoundParameters).Clone()
     $testResult = $true
 
+    #Compare Cim instances
     foreach ($key in $PSBoundParameters.Keys)
     {
-        if ($PSBoundParameters[$key].GetType().Name -like '*CimInstance*')
+        $source = $PSBoundParameters.$key
+        $target = $CurrentValues.$key
+        if ($null -ne $source -and $source.GetType().Name -like '*CimInstance*')
         {
-            $CIMArraySource = @()
-            $CIMArrayTarget = @()
-            $CIMArraySource += $PSBoundParameters[$key]
-            $CIMArrayTarget += $CurrentValues.$key
-            if ($CIMArraySource.Count -ne $CIMArrayTarget.Count)
-            {
-                Write-Verbose -Message "Configuration drift:Number of items does not match: Source=$($CIMArraySource.Count) Target=$($CIMArrayTarget.Count)"
-                $testResult = $false
-                break
-            }
-            $i = 0
-            foreach ($item in $CIMArraySource )
-            {
-                $testResult = Compare-M365DSCComplexObject `
-                    -Source (Get-M365DSCDRGComplexTypeToHashtable -ComplexObject $CIMArraySource[$i]) `
-                    -Target ($CIMArrayTarget[$i])
+            $testResult = Compare-M365DSCComplexObject `
+                -Source ($source) `
+                -Target ($target)
 
-                $i++
-                if (-not $testResult)
-                {
-                    $testResult = $false
-                    break
-                }
-            }
             if (-not $testResult)
             {
-                $testResult = $false
                 break
             }
 
@@ -624,21 +604,10 @@ function Test-TargetResource
         }
     }
     $ValuesToCheck.Remove('Id') | Out-Null
-    $ValuesToCheck.Remove('ForcePreSharedKeyUpdate') | Out-Null
     $ValuesToCheck.Remove('PreSharedKey') | Out-Null
 
     Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
     Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $ValuesToCheck)"
-
-    #Convert any DateTime to String
-    foreach ($key in $ValuesToCheck.Keys)
-    {
-        if (($null -ne $CurrentValues[$key]) `
-                -and ($CurrentValues[$key].GetType().Name -eq 'DateTime'))
-        {
-            $CurrentValues[$key] = $CurrentValues[$key].toString()
-        }
-    }
 
     if ($testResult)
     {
