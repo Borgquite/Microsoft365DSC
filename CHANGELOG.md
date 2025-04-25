@@ -4,6 +4,8 @@
 
 * DEPENDENCIES
   * Updated Microsoft.Graph to version 2.27.0.
+* AADServicePrincipal
+  * Adds `-All` to `Get-MgServicePrincipalAppRoleAssignedTo` call to return more than 100 records
 
 # 1.25.416.1
 
