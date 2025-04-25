@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* IntuneWifiConfigurationPolicyIOS
+  * Fix Test-TargetResource and available properties
+    FIXES [#3973](https://github.com/microsoft/Microsoft365DSC/issues/3973)
+
 # 1.25.423.1
 
 * AADEntitlementManagementConnectedOrganization
