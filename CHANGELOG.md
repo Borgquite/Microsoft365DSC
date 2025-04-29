@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* EXODistributionGroup
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORetentionPolicy
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
 * EXOTransportRule
   * Fixed an issue where not specified properties would lead to an exception.
 * IntuneWifiConfigurationPolicyAndroidForWork
