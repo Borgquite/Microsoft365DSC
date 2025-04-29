@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* EXODistributionGroup
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORetentionPolicy
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
 * IntuneWifiConfigurationPolicyIOS
   * Fixed Test-TargetResource and available properties.
     FIXES [#3973](https://github.com/microsoft/Microsoft365DSC/issues/3973)
