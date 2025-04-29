@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* EXODistributionGroup
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORetentionPolicy
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
 * MISC
   * Improved export speed for multiple resources.
 
