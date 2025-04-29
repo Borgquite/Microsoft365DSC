@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* EXODistributionGroup
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORetentionPolicy
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
 * M365DSCReverse
   * Removed the parameter `MaxProcesses` from the internal `Start-M365DSCConfigurationExtract` function.
 * M365DSCUtil
