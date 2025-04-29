@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* EXODistributionGroup
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORetentionPolicy
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
 * PlannerTask
   * Allow setting of up to 25 categories.
     FIXES [#6052](https://github.com/microsoft/Microsoft365DSC/issues/6052)
