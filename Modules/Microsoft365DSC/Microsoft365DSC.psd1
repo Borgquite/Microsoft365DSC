@@ -152,9 +152,9 @@
       ReleaseNotes = '* AADServicePrincipal
   * Fixes the evaluation of Enterprise app when AppId is passed in GUID form.
 * EXODistributionGroup
-  * Changed Get-TargetResource not to throw an error when the instance doesn`t exist.
+  * Changed Get-TargetResource not to throw an error when the instance doesnt exist.
 * EXORetentionPolicy
-  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+  * Changed Get-TargetResource not to throw an error when the instance doesnt exist.
 * EXORoleGroup
   * Changed logic to always evaluate using the email address for both users
     and groups in the Test-TargetResource method.
