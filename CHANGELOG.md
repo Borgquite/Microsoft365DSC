@@ -2,15 +2,27 @@
 
 # UNRELEASED
 
-* EXODistributionGroup
-  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
-* EXORetentionPolicy
-  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
 * M365DSCReverse
   * Removed the parameter `MaxProcesses` from the internal `Start-M365DSCConfigurationExtract` function.
 * M365DSCUtil
   * Removed the parameter `MaxProcesses` from the public `Export-M365DSCConfiguration` function.
     FIXES [#5982](https://github.com/microsoft/Microsoft365DSC/issues/5982)
+
+# 1.25.430.1
+
+* AADServicePrincipal
+  * Fixes the evaluation of Enterprise app when AppId is passed in GUID form.
+* EXODistributionGroup
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORetentionPolicy
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORoleGroup
+  * Changed logic to always evaluate using the email address for both users
+    and groups in the Test-TargetResource method.
+* M365DSCRuleEvaluation
+  * Unload the modules after each exports to help with memory assignment.
+* TeamsOnlineVoicemailUserSettings
+  * Remove connection to graph to retrieve all users in the export flow.
 
 # 1.25.423.1
 
