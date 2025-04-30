@@ -2,13 +2,25 @@
 
 # UNRELEASED
 
+* PlannerTask
+  * Allow setting of up to 25 categories.
+    FIXES [#6052](https://github.com/microsoft/Microsoft365DSC/issues/6052)
+
+# 1.25.430.1
+
+* AADServicePrincipal
+  * Fixes the evaluation of Enterprise app when AppId is passed in GUID form.
 * EXODistributionGroup
   * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
 * EXORetentionPolicy
   * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
-* PlannerTask
-  * Allow setting of up to 25 categories.
-    FIXES [#6052](https://github.com/microsoft/Microsoft365DSC/issues/6052)
+* EXORoleGroup
+  * Changed logic to always evaluate using the email address for both users
+    and groups in the Test-TargetResource method.
+* M365DSCRuleEvaluation
+  * Unload the modules after each exports to help with memory assignment.
+* TeamsOnlineVoicemailUserSettings
+  * Remove connection to graph to retrieve all users in the export flow.
 
 # 1.25.423.1
 
