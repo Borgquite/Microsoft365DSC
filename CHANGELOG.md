@@ -19,6 +19,9 @@
 * EXOHostedContentFilterPolicy
   * Fixed an issue with setting the default value for `IntraOrgFilterState`.
     FIXES [#5031](https://github.com/microsoft/Microsoft365DSC/issues/5031)
+* EXORoleGroup
+  * Changed logic to always evaluate using the email address for both users
+    and groups in the Test-TargetResource method.
 * IntuneAppProtectionPolicyiOS
   * Fixed empty array comparison.
     FIXES [#5736](https://github.com/microsoft/Microsoft365DSC/issues/5736)
