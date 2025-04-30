@@ -110,6 +110,10 @@ function Get-TargetResource
             {
                 $roleGroupMembersValue += $member.WindowsLiveID
             }
+            elseif (-not [System.String]::IsNullOrEmpty($member.WindowsEmailAddress))
+            {
+                $roleGroupMembersValue += $member.WindowsEmailAddress
+            }
             else
             {
                 $roleGroupMembersValue += $member.DisplayName
