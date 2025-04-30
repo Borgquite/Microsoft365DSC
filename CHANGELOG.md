@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# UNRELEASED
+# 1.25.430.1
 
 * AADServicePrincipal
   * Fixes the evaluation of Enterprise app when AppId is passed in GUID form.
