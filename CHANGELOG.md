@@ -2,10 +2,6 @@
 
 # UNRELEASED
 
-* EXODistributionGroup
-  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
-* EXORetentionPolicy
-  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
 * IntuneWifiConfigurationPolicyIOS
   * Fixed Test-TargetResource and available properties.
     FIXES [#3973](https://github.com/microsoft/Microsoft365DSC/issues/3973)
@@ -16,6 +12,22 @@
     FIXES [#3963](https://github.com/microsoft/Microsoft365DSC/issues/3963)
 * M365DSCDRGUtil
   * Fixed an issue where basic arrays would not be compared correctly.
+
+# 1.25.430.1
+
+* AADServicePrincipal
+  * Fixes the evaluation of Enterprise app when AppId is passed in GUID form.
+* EXODistributionGroup
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORetentionPolicy
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORoleGroup
+  * Changed logic to always evaluate using the email address for both users
+    and groups in the Test-TargetResource method.
+* M365DSCRuleEvaluation
+  * Unload the modules after each exports to help with memory assignment.
+* TeamsOnlineVoicemailUserSettings
+  * Remove connection to graph to retrieve all users in the export flow.
 
 # 1.25.423.1
 
