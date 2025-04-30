@@ -8,6 +8,11 @@
   * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
 * EXORetentionPolicy
   * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORoleGroup
+  * Changed logic to always evaluate using the email address for both users
+    and groups in the Test-TargetResource method.
+* M365DSCRuleEvaluation
+  * Unload the modules after each exports to help with memory assignment.
 * TeamsOnlineVoicemailUserSettings
   * Remove connection to graph to retrieve all users in the export flow.
 
