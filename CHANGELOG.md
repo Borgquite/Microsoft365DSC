@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* AADAppManagementPolicy
+  * Initial release.
 * MISC
   * Improved export speed for multiple resources.
 
