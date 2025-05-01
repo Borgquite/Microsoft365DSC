@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* AADAppManagementPolicy
+  * Initial release.
 * M365DSCReverse
   * Removed the parameter `MaxProcesses` from the internal `Start-M365DSCConfigurationExtract` function.
 * M365DSCUtil
