@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* AADAppManagementPolicy
+  * Initial release.
 * IntuneWifiConfigurationPolicyIOS
   * Fixed Test-TargetResource and available properties.
     FIXES [#3973](https://github.com/microsoft/Microsoft365DSC/issues/3973)
