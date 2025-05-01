@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* AADAppManagementPolicy
+  * Initial release.
 * EXOTransportRule
   * Fixed an issue where not specified properties would lead to an exception.
 * IntuneWifiConfigurationPolicyAndroidForWork
