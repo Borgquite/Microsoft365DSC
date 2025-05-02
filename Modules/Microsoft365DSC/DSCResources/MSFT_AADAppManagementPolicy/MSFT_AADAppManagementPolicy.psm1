@@ -235,33 +235,33 @@ function Set-TargetResource
         keyCredentials      = @()
     }
 
-    foreach ($passwordCred in $currentInstance.Restrictions.PasswordCredentials)
-        {
-            $newItem = @{
-                restrictForAppsCreatedAfterDateTime = [System.DateTime]::Parse($passwordCred.RestrictForAppsCreatedAfterDateTime)
-                restrictionType                     = $passwordCred.RestrictionType
-                state                               = $passwordCred.State
-            }
-            if ($null -ne $passwordCred.MaxLifetime)
-            {
-                $newItem.Add('maxLifetime', $passwordCred.MaxLifetime.ToString())
-            }
-            $restrictionsValue.passwordCredentials += $newItem
+    foreach ($passwordCred in $Restrictions.PasswordCredentials)
+    {
+        $newItem = @{
+            restrictForAppsCreatedAfterDateTime = [System.DateTime]::Parse($passwordCred.RestrictForAppsCreatedAfterDateTime)
+            restrictionType                     = $passwordCred.RestrictionType
+            state                               = $passwordCred.State
         }
+        if ($null -ne $passwordCred.MaxLifetime)
+        {
+            $newItem.Add('maxLifetime', $passwordCred.MaxLifetime.ToString())
+        }
+        $restrictionsValue.passwordCredentials += $newItem
+    }
 
-        foreach ($keyCred in $currentInstance.Restrictions.KeyCredentials)
-        {
-            $newItem = @{
-                restrictForAppsCreatedAfterDateTime = [System.DateTime]::Parse($keyCred.RestrictForAppsCreatedAfterDateTime)
-                restrictionType                     = $keyCred.RestrictionType
-                state                               = $keyCred.State
-            }
-            if ($null -ne $keyCred.MaxLifetime)
-            {
-                $newItem.Add('maxLifetime', $keyCred.MaxLifetime.ToString())
-            }
-            $restrictionsValue.keyCredentials += $newItem
+    foreach ($keyCred in $Restrictions.KeyCredentials)
+    {
+        $newItem = @{
+            restrictForAppsCreatedAfterDateTime = [System.DateTime]::Parse($keyCred.RestrictForAppsCreatedAfterDateTime)
+            restrictionType                     = $keyCred.RestrictionType
+            state                               = $keyCred.State
         }
+        if ($null -ne $keyCred.MaxLifetime)
+        {
+            $newItem.Add('maxLifetime', $keyCred.MaxLifetime.ToString())
+        }
+        $restrictionsValue.keyCredentials += $newItem
+    }
 
     $setParameters.Restrictions = $restrictionsValue
 

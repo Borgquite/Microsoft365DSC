@@ -188,12 +188,25 @@ function Set-TargetResource
     [CmdletBinding()]
     param
     (
-        ##TODO - Replace the PrimaryKey
         [Parameter(Mandatory = $true)]
         [System.String]
-        $PrimaryKey,
+        $DisplayName,
 
-        ##TODO - Add the list of Parameters
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.Boolean]
+        $IsEnabled,
+
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance]
+        $ApplicationRestrictions,
+
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance]
+        $ServicePrincipalRestrictions,
 
         [Parameter()]
         [ValidateSet('Present', 'Absent')]
@@ -240,25 +253,78 @@ function Set-TargetResource
     $currentInstance = Get-TargetResource @PSBoundParameters
 
     $setParameters = Remove-M365DSCAuthenticationParameter -BoundParameters $PSBoundParameters
+    $appRestrictionsValue = @{
+        passwordCredentials = @()
+        keyCredentials      = @()
+    }
 
-    # CREATE
-    if ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Absent')
+    foreach ($passwordCred in $ApplicationRestrictions.PasswordCredentials)
     {
-        ##TODO - Replace by the New cmdlet for the resource
-        New-Cmdlet @SetParameters
+        $newItem = @{
+            restrictForAppsCreatedAfterDateTime = [System.DateTime]::Parse($passwordCred.RestrictForAppsCreatedAfterDateTime)
+            restrictionType                     = $passwordCred.RestrictionType
+            state                               = $passwordCred.State
+        }
+        if ($null -ne $passwordCred.MaxLifetime)
+        {
+            $newItem.Add('maxLifetime', $passwordCred.MaxLifetime.ToString())
+        }
+        $appRestrictionsValue.passwordCredentials += $newItem
     }
-    # UPDATE
-    elseif ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Present')
+
+    foreach ($keyCred in $ApplicationRestrictions.KeyCredentials)
     {
-        ##TODO - Replace by the Update/Set cmdlet for the resource
-        Set-cmdlet @SetParameters
+        $newItem = @{
+            restrictForAppsCreatedAfterDateTime = [System.DateTime]::Parse($keyCred.RestrictForAppsCreatedAfterDateTime)
+            restrictionType                     = $keyCred.RestrictionType
+            state                               = $keyCred.State
+        }
+        if ($null -ne $keyCred.MaxLifetime)
+        {
+            $newItem.Add('maxLifetime', $keyCred.MaxLifetime.ToString())
+        }
+        $appRestrictionsValue.keyCredentials += $newItem
     }
-    # REMOVE
-    elseif ($Ensure -eq 'Absent' -and $currentInstance.Ensure -eq 'Present')
+
+    $setParameters.ApplicationRestrictions = $appRestrictionsValue
+
+    $spnRestrictionsValue = @{
+        passwordCredentials = @()
+        keyCredentials      = @()
+    }
+
+    foreach ($passwordCred in $ServicePrincipalRestrictions.PasswordCredentials)
     {
-        ##TODO - Replace by the Remove cmdlet for the resource
-        Remove-cmdlet @SetParameters
+        $newItem = @{
+            restrictForAppsCreatedAfterDateTime = [System.DateTime]::Parse($passwordCred.RestrictForAppsCreatedAfterDateTime)
+            restrictionType                     = $passwordCred.RestrictionType
+            state                               = $passwordCred.State
+        }
+        if ($null -ne $passwordCred.MaxLifetime)
+        {
+            $newItem.Add('maxLifetime', $passwordCred.MaxLifetime.ToString())
+        }
+        $spnRestrictionsValue.passwordCredentials += $newItem
     }
+
+    foreach ($keyCred in $ServicePrincipalRestrictions.KeyCredentials)
+    {
+        $newItem = @{
+            restrictForAppsCreatedAfterDateTime = [System.DateTime]::Parse($keyCred.RestrictForAppsCreatedAfterDateTime)
+            restrictionType                     = $keyCred.RestrictionType
+            state                               = $keyCred.State
+        }
+        if ($null -ne $keyCred.MaxLifetime)
+        {
+            $newItem.Add('maxLifetime', $keyCred.MaxLifetime.ToString())
+        }
+        $spnRestrictionsValue.keyCredentials += $newItem
+    }
+
+    $setParameters.ServicePrincipalRestrictions = $spnRestrictionsValue
+
+    Write-Verbose -Message "Updating the Default App Management Policy"
+    Update-MgBetaPolicyDefaultAppManagementPolicy @setParameters
 }
 
 function Test-TargetResource
@@ -267,12 +333,25 @@ function Test-TargetResource
     [OutputType([System.Boolean])]
     param
     (
-        ##TODO - Replace the PrimaryKey
         [Parameter(Mandatory = $true)]
         [System.String]
-        $PrimaryKey,
+        $DisplayName,
 
-        ##TODO - Add the list of Parameters
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.Boolean]
+        $IsEnabled,
+
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance]
+        $ApplicationRestrictions,
+
+        [Parameter()]
+        [Microsoft.Management.Infrastructure.CimInstance]
+        $ServicePrincipalRestrictions,
 
         [Parameter()]
         [ValidateSet('Present', 'Absent')]
@@ -456,7 +535,7 @@ function Export-TargetResource
                 $complexMapping = @(
                     @{
                         Name            = 'ApplicationRestrictions'
-                        CimInstanceName = 'AADTenantAppManagementPolicyApplicationRestrictions'
+                        CimInstanceName = 'AADTenantAppManagementPolicyRestrictions'
                         IsRequired      = $False
                     }
                     @{
@@ -466,29 +545,63 @@ function Export-TargetResource
                     }
                     @{
                         Name            = 'KeyCredentials'
-                        CimInstanceName = 'AADAppManagementPolicyRestrictionsCredential'
+                        CimInstanceName = 'AADTenantAppManagementPolicyRestrictionsCredential'
                         IsRequired      = $False
                     }
                 )
                 $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
                     -ComplexObject $Results.ApplicationRestrictions `
-                    -CIMInstanceName 'AADTenantAppManagementPolicyApplicationRestrictions' `
+                    -CIMInstanceName 'AADTenantAppManagementPolicyRestrictions' `
                     -ComplexTypeMapping $complexMapping
 
                 if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
                 {
-                    $Results.Restrictions = $complexTypeStringResult
+                    $Results.ApplicationRestrictions = $complexTypeStringResult
                 }
                 else
                 {
-                    $Results.Remove('Restrictions') | Out-Null
+                    $Results.Remove('ApplicationRestrictions') | Out-Null
+                }
+            }
+            if ($null -ne $Results.ServicePrincipalRestrictions)
+            {
+                $complexMapping = @(
+                    @{
+                        Name            = 'ServicePrincipalRestrictions'
+                        CimInstanceName = 'AADTenantAppManagementPolicyRestrictions'
+                        IsRequired      = $False
+                    }
+                    @{
+                        Name            = 'PasswordCredentials'
+                        CimInstanceName = 'AADTenantAppManagementPolicyRestrictionsCredential'
+                        IsRequired      = $False
+                    }
+                    @{
+                        Name            = 'KeyCredentials'
+                        CimInstanceName = 'AADTenantAppManagementPolicyRestrictionsCredential'
+                        IsRequired      = $False
+                    }
+                )
+                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                    -ComplexObject $Results.ServicePrincipalRestrictions `
+                    -CIMInstanceName 'AADTenantAppManagementPolicyRestrictions' `
+                    -ComplexTypeMapping $complexMapping
+
+                if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                {
+                    $Results.ServicePrincipalRestrictions = $complexTypeStringResult
+                }
+                else
+                {
+                    $Results.Remove('ServicePrincipalRestrictions') | Out-Null
                 }
             }
             $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
                 -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
-                -Credential $Credential
+                -Credential $Credential `
+                -NoEscape @('ApplicationRestrictions', 'ServicePrincipalRestrictions', 'KeyCredentials', 'PasswordCredentials')
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName

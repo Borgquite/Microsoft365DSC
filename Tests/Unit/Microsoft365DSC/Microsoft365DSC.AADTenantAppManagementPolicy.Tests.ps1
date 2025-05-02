@@ -35,7 +35,44 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 return "Credentials"
             }
 
-            ##TODO - Mock any Remove/Set/New cmdlets
+            Mock -Command Update-MgBetaPolicyDefaultAppManagementPolicy -MockWith {
+
+            }
+
+            Mock -Command Get-MgBetaPolicyDefaultAppManagementPolicy -MockWith {
+                return @{
+                    DisplayName = "MyPolicy"
+                    IsEnabled = $true
+                    Description = "MyDescription"
+                    Id          = "12345-12345-12345-12345-12345"
+                    ApplicationRestrictions = @{
+                        passwordCredentials = @(
+                            @{
+                                restrictForAppsCreatedAfterDateTime = [DateTime]::Parse("1/1/0001 12:00:00 AM")
+                                restrictionType = "passwordAddition"
+                                state = "enabled"
+                            },
+                            @{
+                                maxLifetime = "P90DT0H0M0S"
+                                restrictForAppsCreatedAfterDateTime = [DateTime]::Parse("1/1/0001 12:00:00 AM")
+                                restrictionType = "passwordLifetime"
+                                state = "enabled"
+                            },
+                            @{
+                                restrictForAppsCreatedAfterDateTime = [DateTime]::Parse("1/1/0001 12:00:00 AM")
+                                restrictionType = "symmetricKeyAddition"
+                                state = "enabled"
+                            },
+                            @{
+                                maxLifetime = "P90DT0H0M0S"
+                                restrictForAppsCreatedAfterDateTime = [DateTime]::Parse("1/1/0001 12:00:00 AM")
+                                restrictionType = "symmetricKeyLifetime"
+                                state = "enabled"
+                            }
+                        )
+                    }
+                }
+            }
 
             # Mock Write-M365DSCHost to hide output during the tests
             Mock -CommandName Write-M365DSCHost -MockWith {
@@ -44,75 +81,16 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
             $Script:ExportMode = $false
         }
         # Test contexts
-        Context -Name "The instance should exist but it DOES NOT" -Fixture {
-            BeforeAll {
-                $testParams = @{
-                    ##TODO - Add Parameters
-                    Ensure              = 'Present'
-                    Credential          = $Credential;
-                }
 
-                ##TODO - Mock the Get-Cmdlet to return $null
-                Mock -CommandName Get-Cmdlet -MockWith {
-                    return $null
-                }
-            }
-            It 'Should return Values from the Get method' {
-                (Get-TargetResource @testParams).Ensure | Should -Be 'Absent'
-            }
-            It 'Should return false from the Test method' {
-                Test-TargetResource @testParams | Should -Be $false
-            }
-
-            It 'Should create a new instance from the Set method' {
-                ##TODO - Replace the New-Cmdlet by the appropriate one
-                Set-TargetResource @testParams
-                Should -Invoke -CommandName New-Cmdlet -Exactly 1
-            }
-        }
-
-        Context -Name "The instance exists but it SHOULD NOT" -Fixture {
-            BeforeAll {
-                $testParams = @{
-                    ##TODO - Add Parameters
-                    Ensure              = 'Absent'
-                    Credential          = $Credential;
-                }
-
-                ##TODO - Mock the Get-Cmdlet to return an instance
-                Mock -CommandName Get-Cmdlet -MockWith {
-                    return @{
-
-                    }
-                }
-            }
-            It 'Should return Values from the Get method' {
-                (Get-TargetResource @testParams).Ensure | Should -Be 'Present'
-            }
-            It 'Should return false from the Test method' {
-                Test-TargetResource @testParams | Should -Be $false
-            }
-
-            It 'Should remove the instance from the Set method' {
-                Set-TargetResource @testParams
-                ##TODO - Replace the Remove-Cmdlet by the appropriate one
-                Should -Invoke -CommandName Remove-Cmdlet -Exactly 1
-            }
-        }
 
         Context -Name "The instance exists and values are already in the desired state" -Fixture {
             BeforeAll {
                 $testParams = @{
-                    ##TODO - Add Parameters
+                    DisplayName         = "MyPolicy"
+                    Description         = "MyDescription"
+                    IsEnabled           = $true
                     Ensure              = 'Present'
                     Credential          = $Credential;
-                }
-
-                ##TODO - Mock the Get-Cmdlet to return the desired values
-                Mock -CommandName Get-Cmdlet -MockWith {
-                    return @{
-
-                    }
                 }
             }
 
@@ -124,16 +102,37 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
         Context -Name "The instance exists and values are NOT in the desired state" -Fixture {
             BeforeAll {
                 $testParams = @{
-                    ##TODO - Add Parameters
+                    DisplayName         = "MyPolicy"
+                    Description         = "MyDescription"
+                    IsEnabled           = $true
+                    ApplicationRestrictions          = (New-CimInstance -ClassName MSFT_AADAppManagementPolicyRestrictions -Property @{
+                        passwordCredentials = [CimInstance[]]@(
+                            (New-CimInstance -ClassName MSFT_AADAppManagementPolicyRestrictionsCredential -Property @{
+                                restrictForAppsCreatedAfterDateTime = "1/1/0001 5:00:00 AM"
+                                restrictionType = "passwordAddition"
+                                state = "enabled"
+                            } -ClientOnly);
+                            (New-CimInstance -ClassName MSFT_AADAppManagementPolicyRestrictionsCredential -Property @{
+                                maxLifetime = "P90DT0H0M0S"
+                                restrictForAppsCreatedAfterDateTime = "1/1/0001 5:00:00 AM"
+                                restrictionType = "passwordLifetime"
+                                state = "enabled"
+                            } -ClientOnly);
+                            (New-CimInstance -ClassName MSFT_AADAppManagementPolicyRestrictionsCredential -Property @{
+                                restrictForAppsCreatedAfterDateTime = "1/1/0001 5:00:00 AM"
+                                restrictionType = "symmetricKeyAddition"
+                                state = "enabled"
+                            } -ClientOnly);
+                            (New-CimInstance -ClassName MSFT_AADAppManagementPolicyRestrictionsCredential -Property @{
+                                maxLifetime = "P90DT0H0M0S"
+                                restrictForAppsCreatedAfterDateTime = "1/1/0001 5:00:00 AM"
+                                restrictionType = "symmetricKeyLifetime"
+                                state = "enabled"
+                            } -ClientOnly);
+                        )
+                    } -ClientOnly);
                     Ensure              = 'Present'
                     Credential          = $Credential;
-                }
-
-                ##TODO - Mock the Get-Cmdlet to return a drift
-                Mock -CommandName Get-Cmdlet -MockWith {
-                    return @{
-
-                    }
                 }
             }
 
@@ -147,8 +146,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
             It 'Should call the Set method' {
                 Set-TargetResource @testParams
-                ##TODO - Replace the Update-Cmdlet by the appropriate one
-                Should -Invoke -CommandName Update-Cmdlet -Exactly 1
+                Should -Invoke -CommandName Update-MgBetaPolicyDefaultAppManagementPolicy -Exactly 1
             }
         }
 
@@ -158,13 +156,6 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 $Global:PartialExportFileName = "$(New-Guid).partial.ps1"
                 $testParams = @{
                     Credential  = $Credential;
-                }
-
-                ##TODO - Mock the Get-Cmdlet to return an instance
-                Mock -CommandName Get-Cmdlet -MockWith {
-                    return @{
-
-                    }
                 }
             }
             It 'Should Reverse Engineer resource from the Export method' {
