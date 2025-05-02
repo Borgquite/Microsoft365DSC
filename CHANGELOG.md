@@ -6,6 +6,8 @@
   * Initial release.
 * AADB2CAuthenticationMethodsPolicy
   * Initial release.
+* AADMultiTenantOrganizationIdentitySyncPolicyTemplate
+  * Initial release.
 * AADTenantAppManagementPolicy
   * Initial release.
 * EXORetentionPolicyTag
