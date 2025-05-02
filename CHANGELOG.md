@@ -6,6 +6,8 @@
   * Initial release.
 * AADB2CAuthenticationMethodsPolicy
   * Initial release.
+* AADTenantAppManagementPolicy
+  * Initial release.
 * EXORetentionPolicyTag
   * Fixes the evaluation of the AgeLimitForRetention property.
 
