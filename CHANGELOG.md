@@ -12,6 +12,8 @@
   * Initial release.
 * EXORetentionPolicyTag
   * Fixes the evaluation of the AgeLimitForRetention property.
+* TeamsAppSetupPolicy
+  * Fixes evaluation of empty values in Test-TargetResource.
 
 # 1.25.430.1
 
