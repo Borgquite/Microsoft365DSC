@@ -4,12 +4,22 @@
 
 * AADAppManagementPolicy
   * Initial release.
+* AADB2CAuthenticationMethodsPolicy
+  * Initial release.
+* AADMultiTenantOrganizationIdentitySyncPolicyTemplate
+  * Initial release.
+* AADTenantAppManagementPolicy
+  * Initial release.
+* EXORetentionPolicyTag
+  * Fixes the evaluation of the AgeLimitForRetention property.
 * EXOTransportRule
   * Fixed an issue where not specified properties would lead to an exception.
 * IntuneWifiConfigurationPolicyAndroidForWork
   * Fixed an issue where the wrong odata type was used for export and creation.
 * IntuneWifiConfigurationPolicyAndroidEnterpriseDeviceOwner
   * Fixed the filter query by name during Get where the wrong odata type was specified.
+* TeamsAppSetupPolicy
+  * Fixes evaluation of empty values in Test-TargetResource.
 
 # 1.25.430.1
 
