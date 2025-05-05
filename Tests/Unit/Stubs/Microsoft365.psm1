@@ -36490,7 +36490,6 @@ function Update-MgBetaRoleManagementDirectoryRoleDefinition
     )
 }
 #endregion
-#region Microsoft.Graph.Beta.Identity.SignIns
 
 #region Microsoft.Graph.Authentication
 function Get-MgBetaIdentityUserFlowAttribute
@@ -68435,7 +68434,7 @@ function Update-MgBetaRoleManagementDirectoryRoleDefinition
 }
 #endregion
 #region Microsoft.Graph.Beta.Identity.SignIns
-function Get-MgBetaIdentityConditionalAccess
+function Get-MgBetaPolicyDefaultAppManagementPolicy
 {
     [CmdletBinding()]
     param(
@@ -68452,16 +68451,12 @@ function Get-MgBetaIdentityConditionalAccess
         $ProxyCredential,
 
         [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $ProxyUseDefaultCredentials,
-
-        [Parameter()]
         [System.String[]]
         $ExpandProperty,
 
         [Parameter()]
-        [System.String[]]
-        $Property,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [PSObject]
@@ -68469,7 +68464,498 @@ function Get-MgBetaIdentityConditionalAccess
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
         $Break
+    )
+}
+function Update-MgBetaPolicyDefaultAppManagementPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [PSObject]
+        $ApplicationRestrictions,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.DateTime]
+        $DeletedDateTime,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $ServicePrincipalRestrictions,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsEnabled,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+
+function Get-MgBetaIdentityApiConnector
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [System.String]
+        $IdentityApiConnectorId,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaIdentityB2XUserFlow
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaIdentityB2XUserFlowApiConnectorConfiguration
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Get-MgBetaIdentityB2XUserFlowIdentityProvider
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.String]
+        $IdentityProviderId,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaIdentityB2XUserFlowUserAttributeAssignment
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [System.String]
+        $IdentityUserFlowAttributeAssignmentId,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
     )
 }
 function Get-MgBetaIdentityConditionalAccessAuthenticationContextClassReference
@@ -68537,12 +69023,20 @@ function Get-MgBetaIdentityConditionalAccessAuthenticationContextClassReference
         $AuthenticationContextClassReferenceId,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
         [System.String[]]
         $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -68614,12 +69108,20 @@ function Get-MgBetaIdentityConditionalAccessNamedLocation
         $Search,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
         [System.String[]]
         $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -68691,12 +69193,105 @@ function Get-MgBetaIdentityConditionalAccessPolicy
         $Search,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
         [System.String[]]
         $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaIdentityCustomAuthenticationExtension
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.String]
+        $CustomAuthenticationExtensionId,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -68768,12 +69363,190 @@ function Get-MgBetaIdentityProvider
         $Search,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
         [System.String[]]
         $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaIdentityUserFlow
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.String]
+        $IdentityUserFlowId,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaIdentityUserFlowAttribute
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $IdentityUserFlowAttributeId,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -68845,6 +69618,10 @@ function Get-MgBetaOauth2PermissionGrant
         $Search,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
@@ -68853,8 +69630,406 @@ function Get-MgBetaOauth2PermissionGrant
         $ExpandProperty,
 
         [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
         [PSObject]
         $HttpPipelineAppend
+    )
+}
+function Get-MgBetaOrganizationCertificateBasedAuthConfiguration
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $CertificateBasedAuthConfigurationId,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String]
+        $OrganizationId,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaPolicyAccessReviewPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Get-MgBetaPolicyActivityBasedTimeoutPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.String]
+        $ActivityBasedTimeoutPolicyId,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaPolicyAdminConsentRequestPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Get-MgBetaPolicyAppManagementPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $AppManagementPolicyId,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaPolicyAuthenticationFlowPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
     )
 }
 function Get-MgBetaPolicyAuthenticationMethodPolicy
@@ -68874,20 +70049,28 @@ function Get-MgBetaPolicyAuthenticationMethodPolicy
         $ProxyCredential,
 
         [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $ProxyUseDefaultCredentials,
-
-        [Parameter()]
         [System.String[]]
         $ExpandProperty,
 
         [Parameter()]
-        [System.String[]]
-        $Property,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [PSObject]
         $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -68959,12 +70142,20 @@ function Get-MgBetaPolicyAuthenticationMethodPolicyAuthenticationMethodConfigura
         $Search,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
         [System.String[]]
         $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -69036,12 +70227,20 @@ function Get-MgBetaPolicyAuthenticationStrengthPolicy
         $Search,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
         [System.String[]]
         $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -69113,12 +70312,105 @@ function Get-MgBetaPolicyAuthorizationPolicy
         $Search,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
         [System.String[]]
         $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaPolicyClaimMappingPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $ClaimsMappingPolicyId,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -69142,20 +70434,28 @@ function Get-MgBetaPolicyCrossTenantAccessPolicy
         $ProxyCredential,
 
         [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $ProxyUseDefaultCredentials,
-
-        [Parameter()]
         [System.String[]]
         $ExpandProperty,
 
         [Parameter()]
-        [System.String[]]
-        $Property,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [PSObject]
         $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -69179,20 +70479,28 @@ function Get-MgBetaPolicyCrossTenantAccessPolicyDefault
         $ProxyCredential,
 
         [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $ProxyUseDefaultCredentials,
-
-        [Parameter()]
         [System.String[]]
         $ExpandProperty,
 
         [Parameter()]
-        [System.String[]]
-        $Property,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [PSObject]
         $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -69264,12 +70572,280 @@ function Get-MgBetaPolicyCrossTenantAccessPolicyPartner
         $Search,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
         [System.String[]]
         $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaPolicyDeviceRegistrationPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Get-MgBetaPolicyExternalIdentityPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Get-MgBetaPolicyFeatureRolloutPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.String]
+        $FeatureRolloutPolicyId,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaPolicyHomeRealmDiscoveryPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $HomeRealmDiscoveryPolicyId,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Int32]
+        $PageSize,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Int32]
+        $Skip,
+
+        [Parameter()]
+        [System.Int32]
+        $Top,
+
+        [Parameter()]
+        [System.String]
+        $CountVariable,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.String[]]
+        $Sort,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $All,
+
+        [Parameter()]
+        [System.String]
+        $Filter,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $Search,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -69293,20 +70869,28 @@ function Get-MgBetaPolicyIdentitySecurityDefaultEnforcementPolicy
         $ProxyCredential,
 
         [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $ProxyUseDefaultCredentials,
-
-        [Parameter()]
         [System.String[]]
         $ExpandProperty,
 
         [Parameter()]
-        [System.String[]]
-        $Property,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [PSObject]
         $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -69378,12 +70962,20 @@ function Get-MgBetaPolicyRoleManagementPolicy
         $Search,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
         [System.String[]]
         $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -69455,12 +71047,20 @@ function Get-MgBetaPolicyRoleManagementPolicyAssignment
         $Search,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
         [System.String[]]
         $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -69536,12 +71136,20 @@ function Get-MgBetaPolicyRoleManagementPolicyRule
         $Search,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
         [System.String[]]
         $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -69613,12 +71221,381 @@ function Get-MgBetaPolicyTokenLifetimePolicy
         $Search,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
         [System.String[]]
         $ExpandProperty,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Invoke-MgBetaUploadIdentityApiConnectorClientCertificate
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $Password,
+
+        [Parameter()]
+        [System.String]
+        $IdentityApiConnectorId,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.String]
+        $Pkcs12Value,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function New-MgBetaIdentityApiConnector
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AuthenticationConfiguration,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.String]
+        $TargetUrl,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function New-MgBetaIdentityB2XUserFlow
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $ApiConnectorConfiguration,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $UserAttributeAssignments,
+
+        [Parameter()]
+        [PSObject]
+        $IdentityProviders,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [PSObject]
+        $UserFlowIdentityProviders,
+
+        [Parameter()]
+        [System.String]
+        $UserFlowType,
+
+        [Parameter()]
+        [System.Single]
+        $UserFlowTypeVersion,
+
+        [Parameter()]
+        [PSObject]
+        $Languages,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function New-MgBetaIdentityB2XUserFlowIdentityProviderByRef
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String]
+        $OdataId,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function New-MgBetaIdentityB2XUserFlowUserAttributeAssignment
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $UserAttributeValues,
+
+        [Parameter()]
+        [PSObject]
+        $UserAttribute,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $RequiresVerification,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsOptional,
+
+        [Parameter()]
+        [System.String]
+        $UserInputType,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -69631,76 +71608,84 @@ function New-MgBetaIdentityConditionalAccessAuthenticationContextClassReference
     param(
         [Parameter()]
         [System.String]
-        $Id,
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
 
         [Parameter()]
         [PSObject]
         $HttpPipelinePrepend,
-
-        [Parameter()]
-        [PSObject]
-        $BodyParameter,
-
-        [Parameter()]
-        [System.Uri]
-        $Proxy,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $IsAvailable,
 
         [Parameter()]
-        [System.String]
-        $DisplayName,
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
 
         [Parameter()]
         [System.String]
-        $Description,
+        $Id,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
 
         [Parameter()]
-        [PSObject]
-        $HttpPipelineAppend,
-
-        [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $ProxyUseDefaultCredentials,
-
-        [Parameter()]
         [System.Management.Automation.PSCredential]
         $ProxyCredential,
 
         [Parameter()]
-        [System.Collections.Hashtable]
-        $AdditionalProperties,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
-        $Break
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
     )
 }
-function New-MgBetaIdentityConditionalAccessPolicy
+function New-MgBetaIdentityCustomAuthenticationExtension
 {
     [CmdletBinding()]
     param(
         [Parameter()]
-        [System.String]
-        $Description,
+        [System.Collections.Hashtable]
+        $EndpointConfiguration,
 
         [Parameter()]
-        [System.DateTime]
-        $CreatedDateTime,
+        [System.String]
+        $Description,
 
         [Parameter()]
         [System.String]
         $DisplayName,
 
         [Parameter()]
-        [System.DateTime]
-        $ModifiedDateTime,
+        [System.Collections.Hashtable]
+        $AuthenticationConfiguration,
 
         [Parameter()]
         [System.Collections.Hashtable]
@@ -69712,19 +71697,15 @@ function New-MgBetaIdentityConditionalAccessPolicy
 
         [Parameter()]
         [PSObject]
-        $SessionControls,
+        $ClientConfiguration,
 
         [Parameter()]
         [PSObject]
         $HttpPipelinePrepend,
 
         [Parameter()]
-        [System.String]
-        $State,
-
-        [Parameter()]
-        [PSObject]
-        $Conditions,
+        [System.Collections.Hashtable]
+        $BehaviorOnError,
 
         [Parameter()]
         [System.Uri]
@@ -69739,10 +71720,6 @@ function New-MgBetaIdentityConditionalAccessPolicy
         $Id,
 
         [Parameter()]
-        [PSObject]
-        $GrantControls,
-
-        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
 
@@ -69751,8 +71728,16 @@ function New-MgBetaIdentityConditionalAccessPolicy
         $ProxyCredential,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -69772,8 +71757,8 @@ function New-MgBetaIdentityProvider
         $HttpPipelinePrepend,
 
         [Parameter()]
-        [System.String]
-        $DisplayName,
+        [PSObject]
+        $BodyParameter,
 
         [Parameter()]
         [System.Uri]
@@ -69784,16 +71769,28 @@ function New-MgBetaIdentityProvider
         $ProxyCredential,
 
         [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $ProxyUseDefaultCredentials,
 
         [Parameter()]
-        [PSObject]
-        $BodyParameter,
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [System.Collections.Hashtable]
@@ -69801,7 +71798,287 @@ function New-MgBetaIdentityProvider
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function New-MgBetaIdentityUserFlow
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String]
+        $UserFlowType,
+
+        [Parameter()]
+        [System.Single]
+        $UserFlowTypeVersion,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function New-MgBetaIdentityUserFlowAttribute
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $DataType,
+
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.String]
+        $UserFlowAttributeType,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function New-MgBetaPolicyActivityBasedTimeoutPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Definition,
+
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsOrganizationDefault,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.DateTime]
+        $DeletedDateTime,
+
+        [Parameter()]
+        [PSObject]
+        $AppliesTo,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function New-MgBetaPolicyAppManagementPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [PSObject]
+        $Restrictions,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [PSObject]
+        $AppliesTo,
+
+        [Parameter()]
+        [System.DateTime]
+        $DeletedDateTime,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsEnabled,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -69833,6 +72110,10 @@ function New-MgBetaPolicyAuthenticationMethodPolicyAuthenticationMethodConfigura
         $ProxyCredential,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
 
@@ -69843,6 +72124,10 @@ function New-MgBetaPolicyAuthenticationMethodPolicyAuthenticationMethodConfigura
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [System.String]
@@ -69930,8 +72215,93 @@ function New-MgBetaPolicyAuthenticationStrengthPolicy
         $ProxyCredential,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function New-MgBetaPolicyClaimMappingPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Definition,
+
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsOrganizationDefault,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.DateTime]
+        $DeletedDateTime,
+
+        [Parameter()]
+        [PSObject]
+        $AppliesTo,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -70015,8 +72385,170 @@ function New-MgBetaPolicyCrossTenantAccessPolicyPartner
         $ProxyCredential,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function New-MgBetaPolicyFeatureRolloutPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsAppliedToOrganization,
+
+        [Parameter()]
+        [System.String]
+        $Feature,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [PSObject]
+        $AppliesTo,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsEnabled,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function New-MgBetaPolicyHomeRealmDiscoveryPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Definition,
+
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsOrganizationDefault,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.DateTime]
+        $DeletedDateTime,
+
+        [Parameter()]
+        [PSObject]
+        $AppliesTo,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -70084,18 +72616,30 @@ function New-MgBetaPolicyTokenLifetimePolicy
         $AppliesTo,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
         $HttpPipelineAppend
     )
 }
-function Remove-MgBetaIdentityConditionalAccess
+function Remove-MgBetaIdentityApiConnector
 {
     [CmdletBinding()]
     param(
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
         [Parameter()]
         [PSObject]
         $HttpPipelinePrepend,
@@ -70117,20 +72661,150 @@ function Remove-MgBetaIdentityConditionalAccess
         $IfMatch,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $ProxyUseDefaultCredentials,
 
         [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String]
+        $IdentityApiConnectorId,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
-        $Break,
+        $Break
+    )
+}
+function Remove-MgBetaIdentityB2XUserFlow
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
 
         [Parameter()]
         [PSObject]
-        $HttpPipelineAppend
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $IfMatch,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Remove-MgBetaIdentityB2XUserFlowUserAttributeAssignment
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $IdentityUserFlowAttributeAssignmentId,
+
+        [Parameter()]
+        [System.String]
+        $IfMatch,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
     )
 }
 function Remove-MgBetaIdentityConditionalAccessAuthenticationContextClassReference
@@ -70139,6 +72813,10 @@ function Remove-MgBetaIdentityConditionalAccessAuthenticationContextClassReferen
     param(
         [Parameter()]
         [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
         $HttpPipelinePrepend,
 
         [Parameter()]
@@ -70158,28 +72836,32 @@ function Remove-MgBetaIdentityConditionalAccessAuthenticationContextClassReferen
         $IfMatch,
 
         [Parameter()]
-        [PSObject]
-        $InputObject,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
 
         [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $ProxyUseDefaultCredentials,
 
         [Parameter()]
-        [System.String]
-        $AuthenticationContextClassReferenceId,
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
-        [PSObject]
-        $HttpPipelineAppend
+        [System.String]
+        $AuthenticationContextClassReferenceId
     )
 }
 function Remove-MgBetaIdentityConditionalAccessNamedLocation
@@ -70188,6 +72870,10 @@ function Remove-MgBetaIdentityConditionalAccessNamedLocation
     param(
         [Parameter()]
         [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
         $HttpPipelinePrepend,
 
         [Parameter()]
@@ -70207,16 +72893,24 @@ function Remove-MgBetaIdentityConditionalAccessNamedLocation
         $IfMatch,
 
         [Parameter()]
-        [PSObject]
-        $InputObject,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [System.String]
         $NamedLocationId,
 
         [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -70224,11 +72918,7 @@ function Remove-MgBetaIdentityConditionalAccessNamedLocation
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
-        $Break,
-
-        [Parameter()]
-        [PSObject]
-        $HttpPipelineAppend
+        $Break
     )
 }
 function Remove-MgBetaIdentityConditionalAccessPolicy
@@ -70237,6 +72927,10 @@ function Remove-MgBetaIdentityConditionalAccessPolicy
     param(
         [Parameter()]
         [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
         $HttpPipelinePrepend,
 
         [Parameter()]
@@ -70256,12 +72950,16 @@ function Remove-MgBetaIdentityConditionalAccessPolicy
         $IfMatch,
 
         [Parameter()]
-        [PSObject]
-        $InputObject,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -70272,12 +72970,69 @@ function Remove-MgBetaIdentityConditionalAccessPolicy
         $ConditionalAccessPolicyId,
 
         [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
-        $Break,
+        $Break
+    )
+}
+function Remove-MgBetaIdentityCustomAuthenticationExtension
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $IfMatch,
+
+        [Parameter()]
+        [System.String]
+        $CustomAuthenticationExtensionId,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
 
         [Parameter()]
         [PSObject]
-        $HttpPipelineAppend
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
     )
 }
 function Remove-MgBetaIdentityProvider
@@ -70305,8 +73060,8 @@ function Remove-MgBetaIdentityProvider
         $IfMatch,
 
         [Parameter()]
-        [PSObject]
-        $InputObject,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -70321,8 +73076,441 @@ function Remove-MgBetaIdentityProvider
         $ProxyUseDefaultCredentials,
 
         [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
         [System.String]
         $IdentityProviderBaseId,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Remove-MgBetaIdentityUserFlow
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $IfMatch,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String]
+        $IdentityUserFlowId,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Remove-MgBetaIdentityUserFlowAttribute
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $IfMatch,
+
+        [Parameter()]
+        [System.String]
+        $IdentityUserFlowAttributeId,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Remove-MgBetaPolicyActivityBasedTimeoutPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $IfMatch,
+
+        [Parameter()]
+        [System.String]
+        $ActivityBasedTimeoutPolicyId,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Update-MgBetaPolicyAppManagementPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $AppManagementPolicyId,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [PSObject]
+        $Restrictions,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [PSObject]
+        $AppliesTo,
+
+        [Parameter()]
+        [System.DateTime]
+        $DeletedDateTime,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsEnabled,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Update-MgBetaPolicyB2CAuthenticationMethodPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsEmailPasswordAuthenticationEnabled,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsPhoneOneTimePasswordAuthenticationEnabled,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsUserNameAuthenticationEnabled,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Get-MgBetaPolicyB2CAuthenticationMethodPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+
+
+function Remove-MgBetaPolicyAppManagementPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $IfMatch,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String]
+        $AppManagementPolicyId,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -70354,12 +73542,20 @@ function Remove-MgBetaPolicyAuthenticationMethodPolicy
         $IfMatch,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -70376,6 +73572,10 @@ function Remove-MgBetaPolicyAuthenticationMethodPolicyAuthenticationMethodConfig
     param(
         [Parameter()]
         [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
         $HttpPipelinePrepend,
 
         [Parameter()]
@@ -70393,59 +73593,14 @@ function Remove-MgBetaPolicyAuthenticationMethodPolicyAuthenticationMethodConfig
         [Parameter()]
         [System.String]
         $IfMatch,
-
-        [Parameter()]
-        [PSObject]
-        $InputObject,
-
-        [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $Confirm,
-
-        [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $ProxyUseDefaultCredentials,
 
         [Parameter()]
         [System.String]
         $AuthenticationMethodConfigurationId,
 
         [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $Break,
-
-        [Parameter()]
-        [PSObject]
-        $HttpPipelineAppend
-    )
-}
-function Remove-MgBetaPolicyAuthenticationStrengthPolicy
-{
-    [CmdletBinding()]
-    param(
-        [Parameter()]
-        [PSObject]
-        $HttpPipelinePrepend,
-
-        [Parameter()]
-        [System.Management.Automation.PSCredential]
-        $ProxyCredential,
-
-        [Parameter()]
-        [System.Uri]
-        $Proxy,
-
-        [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $PassThru,
-
-        [Parameter()]
         [System.String]
-        $IfMatch,
-
-        [Parameter()]
-        [PSObject]
-        $InputObject,
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -70460,8 +73615,122 @@ function Remove-MgBetaPolicyAuthenticationStrengthPolicy
         $ProxyUseDefaultCredentials,
 
         [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Remove-MgBetaPolicyAuthenticationStrengthPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $IfMatch,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
         [System.String]
         $AuthenticationStrengthPolicyId,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Remove-MgBetaPolicyClaimMappingPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $IfMatch,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.String]
+        $ClaimsMappingPolicyId,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -70493,12 +73762,20 @@ function Remove-MgBetaPolicyCrossTenantAccessPolicy
         $IfMatch,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -70519,6 +73796,10 @@ function Remove-MgBetaPolicyCrossTenantAccessPolicyPartner
 
         [Parameter()]
         [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
         $HttpPipelinePrepend,
 
         [Parameter()]
@@ -70538,24 +73819,142 @@ function Remove-MgBetaPolicyCrossTenantAccessPolicyPartner
         $IfMatch,
 
         [Parameter()]
-        [PSObject]
-        $InputObject,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
 
         [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $ProxyUseDefaultCredentials,
 
         [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
-        $Break,
+        $Break
+    )
+}
+function Remove-MgBetaPolicyFeatureRolloutPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $InputObject,
 
         [Parameter()]
         [PSObject]
-        $HttpPipelineAppend
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $IfMatch,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String]
+        $FeatureRolloutPolicyId,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Remove-MgBetaPolicyHomeRealmDiscoveryPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $IfMatch,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String]
+        $HomeRealmDiscoveryPolicyId,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
     )
 }
 function Remove-MgBetaPolicyTokenLifetimePolicy
@@ -70564,6 +73963,10 @@ function Remove-MgBetaPolicyTokenLifetimePolicy
     param(
         [Parameter()]
         [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [PSObject]
         $HttpPipelinePrepend,
 
         [Parameter()]
@@ -70583,12 +73986,16 @@ function Remove-MgBetaPolicyTokenLifetimePolicy
         $IfMatch,
 
         [Parameter()]
-        [PSObject]
-        $InputObject,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -70599,21 +74006,167 @@ function Remove-MgBetaPolicyTokenLifetimePolicy
         $TokenLifetimePolicyId,
 
         [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Set-MgBetaIdentityB2XUserFlowPostAttributeCollectionByRef
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.String]
+        $OdataType,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.String]
+        $OdataId,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
         $HttpPipelineAppend
     )
 }
-function Update-MgBetaIdentityConditionalAccess
+function Set-MgBetaIdentityB2XUserFlowPostFederationSignupByRef
 {
     [CmdletBinding()]
     param(
         [Parameter()]
         [PSObject]
-        $Templates,
+        $InputObject,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.String]
+        $OdataType,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String]
+        $OdataId,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Update-MgBetaIdentityApiConnector
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AuthenticationConfiguration,
+
+        [Parameter()]
+        [System.String]
+        $IdentityApiConnectorId,
 
         [Parameter()]
         [System.Collections.Hashtable]
@@ -70625,27 +74178,19 @@ function Update-MgBetaIdentityConditionalAccess
 
         [Parameter()]
         [PSObject]
-        $AuthenticationStrengths,
-
-        [Parameter()]
-        [PSObject]
         $HttpPipelinePrepend,
 
         [Parameter()]
-        [PSObject]
-        $NamedLocations,
+        [System.String]
+        $TargetUrl,
 
         [Parameter()]
         [PSObject]
-        $AuthenticationContextClassReferences,
+        $InputObject,
 
         [Parameter()]
         [System.Uri]
         $Proxy,
-
-        [Parameter()]
-        [PSObject]
-        $AuthenticationStrength,
 
         [Parameter()]
         [PSObject]
@@ -70660,16 +74205,198 @@ function Update-MgBetaIdentityConditionalAccess
         $Confirm,
 
         [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
         [PSObject]
-        $Policies,
+        $HttpPipelineAppend
+    )
+}
+function Update-MgBetaIdentityB2XUserFlow
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $ApiConnectorConfiguration,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $UserAttributeAssignments,
+
+        [Parameter()]
+        [PSObject]
+        $IdentityProviders,
+
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [PSObject]
+        $UserFlowIdentityProviders,
+
+        [Parameter()]
+        [System.String]
+        $UserFlowType,
+
+        [Parameter()]
+        [System.Single]
+        $UserFlowTypeVersion,
+
+        [Parameter()]
+        [PSObject]
+        $Languages,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
 
         [Parameter()]
         [System.Management.Automation.PSCredential]
         $ProxyCredential,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Update-MgBetaIdentityB2XUserFlowUserAttributeAssignment
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $UserAttributeValues,
+
+        [Parameter()]
+        [PSObject]
+        $UserAttribute,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $RequiresVerification,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.String]
+        $IdentityUserFlowAttributeAssignmentId,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsOptional,
+
+        [Parameter()]
+        [System.String]
+        $UserInputType,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -70733,33 +74460,41 @@ function Update-MgBetaIdentityConditionalAccessAuthenticationContextClassReferen
         $AuthenticationContextClassReferenceId,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
         $HttpPipelineAppend
     )
 }
-function Update-MgBetaIdentityConditionalAccessPolicy
+function Update-MgBetaIdentityCustomAuthenticationExtension
 {
     [CmdletBinding()]
     param(
         [Parameter()]
-        [System.String]
-        $Description,
+        [System.Collections.Hashtable]
+        $EndpointConfiguration,
 
         [Parameter()]
-        [System.DateTime]
-        $CreatedDateTime,
+        [System.String]
+        $Description,
 
         [Parameter()]
         [System.String]
         $DisplayName,
 
         [Parameter()]
-        [System.DateTime]
-        $ModifiedDateTime,
+        [System.Collections.Hashtable]
+        $AuthenticationConfiguration,
 
         [Parameter()]
         [PSObject]
@@ -70775,7 +74510,7 @@ function Update-MgBetaIdentityConditionalAccessPolicy
 
         [Parameter()]
         [PSObject]
-        $SessionControls,
+        $ClientConfiguration,
 
         [Parameter()]
         [PSObject]
@@ -70783,15 +74518,11 @@ function Update-MgBetaIdentityConditionalAccessPolicy
 
         [Parameter()]
         [System.String]
-        $State,
+        $CustomAuthenticationExtensionId,
 
         [Parameter()]
-        [PSObject]
-        $Conditions,
-
-        [Parameter()]
-        [System.String]
-        $ConditionalAccessPolicyId,
+        [System.Collections.Hashtable]
+        $BehaviorOnError,
 
         [Parameter()]
         [System.Uri]
@@ -70806,10 +74537,6 @@ function Update-MgBetaIdentityConditionalAccessPolicy
         $Id,
 
         [Parameter()]
-        [PSObject]
-        $GrantControls,
-
-        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Confirm,
 
@@ -70818,8 +74545,16 @@ function Update-MgBetaIdentityConditionalAccessPolicy
         $ProxyCredential,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -70832,7 +74567,19 @@ function Update-MgBetaIdentityProvider
     param(
         [Parameter()]
         [System.String]
-        $Id,
+        $IdentityProviderBaseId,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
 
         [Parameter()]
         [PSObject]
@@ -70840,11 +74587,23 @@ function Update-MgBetaIdentityProvider
 
         [Parameter()]
         [PSObject]
-        $BodyParameter,
+        $InputObject,
 
         [Parameter()]
         [System.Uri]
         $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
 
         [Parameter()]
         [System.Management.Automation.PSCredential]
@@ -70852,7 +74611,243 @@ function Update-MgBetaIdentityProvider
 
         [Parameter()]
         [System.String]
-        $IdentityProviderBaseId,
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Update-MgBetaIdentityUserFlow
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.String]
+        $IdentityUserFlowId,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.String]
+        $UserFlowType,
+
+        [Parameter()]
+        [System.Single]
+        $UserFlowTypeVersion,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Update-MgBetaIdentityUserFlowAttribute
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $DataType,
+
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.String]
+        $IdentityUserFlowAttributeId,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.String]
+        $UserFlowAttributeType,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Update-MgBetaPolicyAccessReviewPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsGroupOwnerManagementEnabled,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Update-MgBetaPolicyActivityBasedTimeoutPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Definition,
+
+        [Parameter()]
+        [System.String]
+        $Description,
 
         [Parameter()]
         [System.String]
@@ -70863,16 +74858,85 @@ function Update-MgBetaIdentityProvider
         $InputObject,
 
         [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $Confirm,
-
-        [Parameter()]
-        [PSObject]
-        $HttpPipelineAppend,
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsOrganizationDefault,
+
+        [Parameter()]
+        [System.String]
+        $ActivityBasedTimeoutPolicyId,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.DateTime]
+        $DeletedDateTime,
+
+        [Parameter()]
+        [PSObject]
+        $AppliesTo,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Update-MgBetaPolicyAuthenticationFlowPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [PSObject]
+        $SelfServiceSignUp,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
 
         [Parameter()]
         [System.Collections.Hashtable]
@@ -70880,13 +74944,57 @@ function Update-MgBetaIdentityProvider
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
-        $Break
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
     )
 }
 function Update-MgBetaPolicyAuthenticationMethodPolicy
 {
     [CmdletBinding()]
     param(
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
         [Parameter()]
         [System.String]
         $Description,
@@ -70902,10 +75010,6 @@ function Update-MgBetaPolicyAuthenticationMethodPolicy
         [Parameter()]
         [System.String]
         $PolicyMigrationState,
-
-        [Parameter()]
-        [PSObject]
-        $SystemCredentialPreferences,
 
         [Parameter()]
         [System.String]
@@ -70932,6 +75036,10 @@ function Update-MgBetaPolicyAuthenticationMethodPolicy
         $HttpPipelinePrepend,
 
         [Parameter()]
+        [PSObject]
+        $MicrosoftAuthenticatorPlatformSettings,
+
+        [Parameter()]
         [System.Uri]
         $Proxy,
 
@@ -70956,6 +75064,14 @@ function Update-MgBetaPolicyAuthenticationMethodPolicy
         $ProxyCredential,
 
         [Parameter()]
+        [PSObject]
+        $SystemCredentialPreferences,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
@@ -70973,60 +75089,68 @@ function Update-MgBetaPolicyAuthenticationMethodPolicyAuthenticationMethodConfig
     [CmdletBinding()]
     param(
         [Parameter()]
-        [System.String]
-        $Id,
-
-        [Parameter()]
-        [PSObject]
-        $HttpPipelinePrepend,
-
-        [Parameter()]
-        [PSObject]
-        $BodyParameter,
-
-        [Parameter()]
-        [System.Uri]
-        $Proxy,
-
-        [Parameter()]
-        [System.Management.Automation.PSCredential]
-        $ProxyCredential,
-
-        [Parameter()]
-        [PSObject]
-        $InputObject,
-
-        [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $Confirm,
-
-        [Parameter()]
-        [PSObject]
-        $HttpPipelineAppend,
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $ProxyUseDefaultCredentials,
 
         [Parameter()]
-        [System.String]
-        $AuthenticationMethodConfigurationId,
+        [PSObject]
+        $ExcludeTargets,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
 
         [Parameter()]
         [System.String]
         $State,
 
         [Parameter()]
-        [System.Collections.Hashtable]
-        $AdditionalProperties,
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.String]
+        $AuthenticationMethodConfigurationId,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
         [PSObject]
-        $ExcludeTargets
+        $HttpPipelineAppend
     )
 }
 function Update-MgBetaPolicyAuthenticationStrengthPolicy
@@ -71106,8 +75230,16 @@ function Update-MgBetaPolicyAuthenticationStrengthPolicy
         $ProxyCredential,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -71118,6 +75250,10 @@ function Update-MgBetaPolicyAuthenticationStrengthPolicyAllowedCombination
 {
     [CmdletBinding()]
     param(
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
         [Parameter()]
         [PSObject]
         $HttpPipelinePrepend,
@@ -71131,8 +75267,8 @@ function Update-MgBetaPolicyAuthenticationStrengthPolicyAllowedCombination
         $ProxyCredential,
 
         [Parameter()]
-        [PSObject]
-        $InputObject,
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
@@ -71145,6 +75281,10 @@ function Update-MgBetaPolicyAuthenticationStrengthPolicyAllowedCombination
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -71204,6 +75344,10 @@ function Update-MgBetaPolicyAuthorizationPolicy
         $ProxyUseDefaultCredentials,
 
         [Parameter()]
+        [PSObject]
+        $DefaultUserRolePermissions,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $AllowUserConsentForRiskyApps,
 
@@ -71226,6 +75370,10 @@ function Update-MgBetaPolicyAuthorizationPolicy
         [Parameter()]
         [System.String]
         $AllowInvitesFrom,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
 
         [Parameter()]
         [System.Uri]
@@ -71264,8 +75412,8 @@ function Update-MgBetaPolicyAuthorizationPolicy
         $Break,
 
         [Parameter()]
-        [PSObject]
-        $DefaultUserRolePermissions,
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -71274,6 +75422,91 @@ function Update-MgBetaPolicyAuthorizationPolicy
         [Parameter()]
         [System.String[]]
         $EnabledPreviewFeatures
+    )
+}
+function Update-MgBetaPolicyClaimMappingPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String[]]
+        $Definition,
+
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $ClaimsMappingPolicyId,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsOrganizationDefault,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.DateTime]
+        $DeletedDateTime,
+
+        [Parameter()]
+        [PSObject]
+        $AppliesTo,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
     )
 }
 function Update-MgBetaPolicyCrossTenantAccessPolicy
@@ -71341,8 +75574,16 @@ function Update-MgBetaPolicyCrossTenantAccessPolicy
         $AllowedCloudEndpoints,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -71426,8 +75667,16 @@ function Update-MgBetaPolicyCrossTenantAccessPolicyDefault
         $ProxyCredential,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -71519,8 +75768,259 @@ function Update-MgBetaPolicyCrossTenantAccessPolicyPartner
         $ProxyCredential,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Update-MgBetaPolicyExternalIdentityPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $AllowExternalIdentitiesToLeave,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $AllowDeletedIdentitiesDataRemoval,
+
+        [Parameter()]
+        [System.DateTime]
+        $DeletedDateTime,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Update-MgBetaPolicyFeatureRolloutPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.String]
+        $FeatureRolloutPolicyId,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsAppliedToOrganization,
+
+        [Parameter()]
+        [System.String]
+        $Feature,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [PSObject]
+        $AppliesTo,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsEnabled,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
+    )
+}
+function Update-MgBetaPolicyHomeRealmDiscoveryPolicy
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $HomeRealmDiscoveryPolicyId,
+
+        [Parameter()]
+        [System.String[]]
+        $Definition,
+
+        [Parameter()]
+        [System.String]
+        $Description,
+
+        [Parameter()]
+        [System.String]
+        $DisplayName,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsOrganizationDefault,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.DateTime]
+        $DeletedDateTime,
+
+        [Parameter()]
+        [PSObject]
+        $AppliesTo,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -71532,52 +76032,12 @@ function Update-MgBetaPolicyIdentitySecurityDefaultEnforcementPolicy
     [CmdletBinding()]
     param(
         [Parameter()]
-        [System.DateTime]
-        $DeletedDateTime,
-
-        [Parameter()]
         [System.String]
         $Description,
 
         [Parameter()]
-        [PSObject]
-        $HttpPipelinePrepend,
-
-        [Parameter()]
-        [PSObject]
-        $BodyParameter,
-
-        [Parameter()]
-        [System.Uri]
-        $Proxy,
-
-        [Parameter()]
-        [System.Management.Automation.PSCredential]
-        $ProxyCredential,
-
-        [Parameter()]
         [System.String]
         $DisplayName,
-
-        [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $Confirm,
-
-        [Parameter()]
-        [PSObject]
-        $HttpPipelineAppend,
-
-        [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $ProxyUseDefaultCredentials,
-
-        [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $IsEnabled,
-
-        [Parameter()]
-        [System.String]
-        $Id,
 
         [Parameter()]
         [System.Collections.Hashtable]
@@ -71585,7 +76045,55 @@ function Update-MgBetaPolicyIdentitySecurityDefaultEnforcementPolicy
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
-        $Break
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.DateTime]
+        $DeletedDateTime,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $IsEnabled,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
     )
 }
 function Update-MgBetaPolicyRoleManagementPolicy
@@ -71665,12 +76173,20 @@ function Update-MgBetaPolicyRoleManagementPolicy
         $ProxyCredential,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [PSObject]
         $Rules,
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
 
         [Parameter()]
         [PSObject]
@@ -71682,50 +76198,6 @@ function Update-MgBetaPolicyRoleManagementPolicyRule
     [CmdletBinding()]
     param(
         [Parameter()]
-        [System.String]
-        $Id,
-
-        [Parameter()]
-        [PSObject]
-        $HttpPipelinePrepend,
-
-        [Parameter()]
-        [PSObject]
-        $BodyParameter,
-
-        [Parameter()]
-        [System.Uri]
-        $Proxy,
-
-        [Parameter()]
-        [System.String]
-        $UnifiedRoleManagementPolicyRuleId,
-
-        [Parameter()]
-        [System.String]
-        $UnifiedRoleManagementPolicyId,
-
-        [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $Confirm,
-
-        [Parameter()]
-        [PSObject]
-        $HttpPipelineAppend,
-
-        [Parameter()]
-        [System.Management.Automation.SwitchParameter]
-        $ProxyUseDefaultCredentials,
-
-        [Parameter()]
-        [System.Management.Automation.PSCredential]
-        $ProxyCredential,
-
-        [Parameter()]
-        [PSObject]
-        $InputObject,
-
-        [Parameter()]
         [PSObject]
         $Target,
 
@@ -71735,7 +76207,59 @@ function Update-MgBetaPolicyRoleManagementPolicyRule
 
         [Parameter()]
         [System.Management.Automation.SwitchParameter]
-        $Break
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.String]
+        $UnifiedRoleManagementPolicyRuleId,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.String]
+        $UnifiedRoleManagementPolicyId,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend
     )
 }
 function Update-MgBetaPolicyTokenLifetimePolicy
@@ -71807,12 +76331,81 @@ function Update-MgBetaPolicyTokenLifetimePolicy
         $AppliesTo,
 
         [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
         [System.Management.Automation.SwitchParameter]
         $Break,
 
         [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
         [PSObject]
         $HttpPipelineAppend
+    )
+}
+function Remove-MgBetaIdentityB2XUserFlowIdentityProviderByRef
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $B2XIdentityUserFlowId,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $PassThru,
+
+        [Parameter()]
+        [System.String]
+        $IfMatch,
+
+        [Parameter()]
+        [PSObject]
+        $InputObject,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String]
+        $IdentityProviderBaseId,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable
     )
 }
 #endregion
@@ -101791,6 +106384,113 @@ function Update-MgBetaPolicyHomeRealmDiscoveryPolicy
 #endregion
 
 #region Microsoft.Graph.Authentication
+function Get-MgBetaPolicyCrossTenantAccessPolicyTemplateMultiTenantOrganizationIdentitySynchronization
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String[]]
+        $ExpandProperty,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [System.String[]]
+        $Property,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+function Update-MgBetaPolicyCrossTenantAccessPolicyTemplateMultiTenantOrganizationIdentitySynchronization
+{
+    [CmdletBinding()]
+    param(
+        [Parameter()]
+        [System.String]
+        $Id,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelinePrepend,
+
+        [Parameter()]
+        [PSObject]
+        $BodyParameter,
+
+        [Parameter()]
+        [System.Uri]
+        $Proxy,
+
+        [Parameter()]
+        [System.Management.Automation.PSCredential]
+        $ProxyCredential,
+
+        [Parameter()]
+        [System.String]
+        $TemplateApplicationLevel,
+
+        [Parameter()]
+        [System.String]
+        $ResponseHeadersVariable,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Confirm,
+
+        [Parameter()]
+        [PSObject]
+        $HttpPipelineAppend,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $ProxyUseDefaultCredentials,
+
+        [Parameter()]
+        [System.Collections.IDictionary]
+        $Headers,
+
+        [Parameter()]
+        [PSObject]
+        $UserSyncInbound,
+
+        [Parameter()]
+        [System.Collections.Hashtable]
+        $AdditionalProperties,
+
+        [Parameter()]
+        [System.Management.Automation.SwitchParameter]
+        $Break
+    )
+}
+
 function Get-MgBetaDeviceManagementAndroidDeviceOwnerEnrollmentProfile
 {
     [CmdletBinding()]

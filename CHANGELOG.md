@@ -5,6 +5,18 @@
 * AADApplication
   * Fixed an issue where the `AdminConsentGranted` property had an incorrect value.
     FIXES [#5027](https://github.com/microsoft/Microsoft365DSC/issues/5027)
+* AADAppManagementPolicy
+  * Initial release.
+* AADB2CAuthenticationMethodsPolicy
+  * Initial release.
+* AADMultiTenantOrganizationIdentitySyncPolicyTemplate
+  * Initial release.
+* AADTenantAppManagementPolicy
+  * Initial release.
+* EXORetentionPolicyTag
+  * Fixes the evaluation of the AgeLimitForRetention property.
+* TeamsAppSetupPolicy
+  * Fixes evaluation of empty values in Test-TargetResource.
 
 # 1.25.430.1
 
