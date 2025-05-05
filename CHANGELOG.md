@@ -4,9 +4,19 @@
 
 * AADAppManagementPolicy
   * Initial release.
-* PlannerTask
+* AADB2CAuthenticationMethodsPolicy
+  * Initial release.
+* AADMultiTenantOrganizationIdentitySyncPolicyTemplate
+  * Initial release.
+* AADTenantAppManagementPolicy
+  * Initial release.
+* EXORetentionPolicyTag
+  * Fixes the evaluation of the AgeLimitForRetention property.
+ * PlannerTask
   * Allow setting of up to 25 categories.
     FIXES [#6052](https://github.com/microsoft/Microsoft365DSC/issues/6052)
+* TeamsAppSetupPolicy
+  * Fixes evaluation of empty values in Test-TargetResource.
 
 # 1.25.430.1
 
