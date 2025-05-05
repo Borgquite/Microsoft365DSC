@@ -4,6 +4,14 @@
 
 * AADAppManagementPolicy
   * Initial release.
+* AADB2CAuthenticationMethodsPolicy
+  * Initial release.
+* AADMultiTenantOrganizationIdentitySyncPolicyTemplate
+  * Initial release.
+* AADTenantAppManagementPolicy
+  * Initial release.
+* EXORetentionPolicyTag
+  * Fixes the evaluation of the AgeLimitForRetention property.
 * IntuneWifiConfigurationPolicyIOS
   * Fixed Test-TargetResource and available properties.
     FIXES [#3973](https://github.com/microsoft/Microsoft365DSC/issues/3973)
@@ -12,8 +20,10 @@
 * IntuneWifiConfigurationPolicyWindows10
   * Added additional properties to the export.
     FIXES [#3963](https://github.com/microsoft/Microsoft365DSC/issues/3963)
-* M365DSCDRGUtil
+ * M365DSCDRGUtil
   * Fixed an issue where basic arrays would not be compared correctly.
+* TeamsAppSetupPolicy
+  * Fixes evaluation of empty values in Test-TargetResource.
 
 # 1.25.430.1
 
