@@ -4,6 +4,16 @@
 
 * AADAppManagementPolicy
   * Initial release.
+* AADB2CAuthenticationMethodsPolicy
+  * Initial release.
+* AADMultiTenantOrganizationIdentitySyncPolicyTemplate
+  * Initial release.
+* AADTenantAppManagementPolicy
+  * Initial release.
+* EXORetentionPolicyTag
+  * Fixes the evaluation of the AgeLimitForRetention property.
+* TeamsAppSetupPolicy
+  * Fixes evaluation of empty values in Test-TargetResource.
 * M365DSCReverse
   * Removed the parameter `MaxProcesses` from the internal `Start-M365DSCConfigurationExtract` function.
 * M365DSCUtil
