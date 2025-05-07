@@ -10,6 +10,8 @@
   * Initial release.
 * AADTenantAppManagementPolicy
   * Initial release.
+* AADTokenIssuancePolicy
+  * Initial release.
 * EXORetentionPolicyTag
   * Fixes the evaluation of the AgeLimitForRetention property.
 * TeamsAppSetupPolicy
