@@ -14,6 +14,8 @@
   * Initial release.
 * EXORetentionPolicyTag
   * Fixes the evaluation of the AgeLimitForRetention property.
+* IntuneWifiConfigurationPolicyAndroidEnterpriseDeviceOwner
+  * Fixes the template type in the Get-Targetresource.
 * TeamsAppSetupPolicy
   * Fixes evaluation of empty values in Test-TargetResource.
 * M365DSCReverse
