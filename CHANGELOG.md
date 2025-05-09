@@ -19,6 +19,14 @@
   * Fixes the evaluation of the AgeLimitForRetention property.
 * IntuneWifiConfigurationPolicyAndroidEnterpriseDeviceOwner
   * Fixes the template type in the Get-Targetresource.
+* IntuneWifiConfigurationPolicyIOS
+  * Fixed Test-TargetResource and available properties.
+    FIXES [#3973](https://github.com/microsoft/Microsoft365DSC/issues/3973)
+* IntuneWifiConfigurationPolicyMacOS
+  * Added additional properties to the export.
+* IntuneWifiConfigurationPolicyWindows10
+  * Added additional properties to the export.
+    FIXES [#3963](https://github.com/microsoft/Microsoft365DSC/issues/3963)
 * TeamsAppSetupPolicy
   * Fixes evaluation of empty values in Test-TargetResource.
 * M365DSCReverse
@@ -26,6 +34,7 @@
 * M365DSCUtil
   * Removed the parameter `MaxProcesses` from the public `Export-M365DSCConfiguration` function.
     FIXES [#5982](https://github.com/microsoft/Microsoft365DSC/issues/5982)
+  * Fixed an issue where basic arrays would not be compared correctly.
 
 # 1.25.430.1
 
