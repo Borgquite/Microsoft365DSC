@@ -897,7 +897,7 @@ function Compare-M365DSCComplexObject
                     {
                         $compareResult = Compare-Object `
                             -ReferenceObject ($referenceObject) `
-                            -DifferenceObject ($differenceObject)
+                            -DifferenceObject ($differenceObject) -PassThru
                     }
 
                     if ($null -ne $compareResult -and $compareResult.Length -gt 0)
@@ -2330,9 +2330,19 @@ function Get-IntuneSettingCatalogPolicySettingDSCValue
 
     $key = Get-SettingsCatalogSettingName -SettingDefinition $SettingDefinition -AllSettingDefinitions $AllSettingDefinitions
 
-    if (-not $DSCParams.ContainsKey($key))
+    if ($DSCParams.Keys -notcontains $key)
     {
         return $null
+    }
+
+    # Fixes potential case sensitivity issue.
+    foreach ($hashKey in $DSCParams.Keys)
+    {
+        if ($hashKey -eq $key)
+        {
+            $key = $hashKey
+            break
+        }
     }
 
     $isArray = $false
@@ -2684,7 +2694,6 @@ function Update-IntuneDeviceConfigurationPolicy
         [Array]
         $Settings
     )
-
     try
     {
         $Uri = (Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + "beta/deviceManagement/configurationPolicies/$DeviceConfigurationPolicyId"
@@ -2698,7 +2707,7 @@ function Update-IntuneDeviceConfigurationPolicy
             'settings'          = $Settings
         }
         $body = $policy | ConvertTo-Json -Depth 20
-        # Write-Verbose -Message $body -Verbose
+        Write-Verbose -Message "Updating policy with:`r`n$body"
         Invoke-MgGraphRequest -Method PUT -Uri $Uri -Body $body -ErrorAction Stop
     }
     catch

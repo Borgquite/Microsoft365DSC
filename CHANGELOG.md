@@ -2,10 +2,86 @@
 
 # UNRELEASED
 
-* DEPENDENCIES
-  * Updated Microsoft.Graph to version 2.27.0.
+* AADAppManagementPolicy
+  * Initial release.
 * AADAuthenticationFlowPolicy
   * Fixes way argument is passed to `Update-MgBetaPolicyAuthenticationFlowPolicy` to now send as bodyparameter instead of `-SelfServiceSignUp $true/$false`
+* AADB2CAuthenticationMethodsPolicy
+  * Initial release.
+* AADMultiTenantOrganizationIdentitySyncPolicyTemplate
+  * Initial release.
+* AADTenantAppManagementPolicy
+  * Initial release.
+* AADTokenIssuancePolicy
+  * Initial release.
+* EXORecipientPermission
+  * Ensures the right entry is retrieved from the Get-TargetResource
+    method when multiple instances start with the same word pattern.
+* EXORetentionPolicyTag
+  * Fixes the evaluation of the AgeLimitForRetention property.
+* IntuneWifiConfigurationPolicyAndroidEnterpriseDeviceOwner
+  * Fixes the template type in the Get-Targetresource.
+* IntuneWifiConfigurationPolicyIOS
+  * Fixed Test-TargetResource and available properties.
+    FIXES [#3973](https://github.com/microsoft/Microsoft365DSC/issues/3973)
+* IntuneWifiConfigurationPolicyMacOS
+  * Added additional properties to the export.
+* IntuneWifiConfigurationPolicyWindows10
+  * Added additional properties to the export.
+    FIXES [#3963](https://github.com/microsoft/Microsoft365DSC/issues/3963)
+ * PlannerTask
+  * Allow setting of up to 25 categories.
+    FIXES [#6052](https://github.com/microsoft/Microsoft365DSC/issues/6052)
+* TeamsAppSetupPolicy
+  * Fixes evaluation of empty values in Test-TargetResource.
+* M365DSCReverse
+  * Removed the parameter `MaxProcesses` from the internal `Start-M365DSCConfigurationExtract` function.
+* M365DSCUtil
+  * Removed the parameter `MaxProcesses` from the public `Export-M365DSCConfiguration` function.
+    FIXES [#5982](https://github.com/microsoft/Microsoft365DSC/issues/5982)
+  * Fixed an issue where basic arrays would not be compared correctly.
+
+# 1.25.430.1
+
+* AADServicePrincipal
+  * Fixes the evaluation of Enterprise app when AppId is passed in GUID form.
+* EXODistributionGroup
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORetentionPolicy
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORoleGroup
+  * Changed logic to always evaluate using the email address for both users
+    and groups in the Test-TargetResource method.
+* M365DSCRuleEvaluation
+  * Unload the modules after each exports to help with memory assignment.
+* TeamsOnlineVoicemailUserSettings
+  * Remove connection to graph to retrieve all users in the export flow.
+
+# 1.25.423.1
+
+* AADEntitlementManagementConnectedOrganization
+  * Fixed an issue where an empty display name would result in a parameter binding exception.
+    FIXES [#4981](https://github.com/microsoft/Microsoft365DSC/issues/4981)
+* EXOHostedContentFilterPolicy
+  * Fixed an issue with setting the default value for `IntraOrgFilterState`.
+    FIXES [#5031](https://github.com/microsoft/Microsoft365DSC/issues/5031)
+* IntuneAppProtectionPolicyiOS
+  * Fixed empty array comparison.
+    FIXES [#5736](https://github.com/microsoft/Microsoft365DSC/issues/5736)
+* IntuneDeviceEnrollmentLimitRestriction
+  * Added support for `Assignments`, `Priority` and `RoleScopeTagIds` properties.
+    FIXES [#3915](https://github.com/microsoft/Microsoft365DSC/issues/3915)
+* IntuneWifiConfigurationPolicyAndroidEnterpriseWorkProfile
+  * Fixes the data type for extraction and creation.
+* SPOSearchManagedProperty
+  * Fixed an issue where the connection url was not the admin url required by the resource.
+    FIXES [#5093](https://github.com/microsoft/Microsoft365DSC/issues/5093)
+    FIXES [#4538](https://github.com/microsoft/Microsoft365DSC/issues/4538)
+* DEPENDENCIES
+  * Updated Microsoft.Graph to version 2.27.0.
+  * Updated MSCoudLoginAssistant to version 1.1.43.
+* MISC
+  * Fixes case sensitivity comparison when updating device configuration policies.
 
 # 1.25.416.1
 
