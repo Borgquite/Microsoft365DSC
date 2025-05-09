@@ -27,6 +27,9 @@
 * IntuneWifiConfigurationPolicyWindows10
   * Added additional properties to the export.
     FIXES [#3963](https://github.com/microsoft/Microsoft365DSC/issues/3963)
+ * PlannerTask
+  * Allow setting of up to 25 categories.
+    FIXES [#6052](https://github.com/microsoft/Microsoft365DSC/issues/6052)
 * TeamsAppSetupPolicy
   * Fixes evaluation of empty values in Test-TargetResource.
 * M365DSCReverse
