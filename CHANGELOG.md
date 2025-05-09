@@ -12,6 +12,9 @@
   * Initial release.
 * AADTokenIssuancePolicy
   * Initial release.
+* EXORecipientPermission
+  * Ensures the right entry is retrieved from the Get-TargetResource
+    method when multiple instances start with the same word pattern.
 * EXORetentionPolicyTag
   * Fixes the evaluation of the AgeLimitForRetention property.
 * IntuneWifiConfigurationPolicyAndroidEnterpriseDeviceOwner
