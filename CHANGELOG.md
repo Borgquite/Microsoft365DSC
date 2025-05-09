@@ -4,6 +4,8 @@
 
 * AADAppManagementPolicy
   * Initial release.
+* AADAuthenticationFlowPolicy
+  * Fixes way argument is passed to `Update-MgBetaPolicyAuthenticationFlowPolicy` to now send as bodyparameter instead of `-SelfServiceSignUp $true/$false`
 * AADB2CAuthenticationMethodsPolicy
   * Initial release.
 * AADMultiTenantOrganizationIdentitySyncPolicyTemplate
