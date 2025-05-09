@@ -6,6 +6,9 @@
   * Initial release.
 * AADB2CAuthenticationMethodsPolicy
   * Initial release.
+* AADCrossTenantAccessPolicyConfigurationDefault
+  * Updated Set-TargetResource to call the REST APIs directly, fixing
+    an issue with the cmdlet parameter casing.
 * AADMultiTenantOrganizationIdentitySyncPolicyTemplate
   * Initial release.
 * AADTenantAppManagementPolicy
@@ -35,6 +38,9 @@
   * Removed the parameter `MaxProcesses` from the public `Export-M365DSCConfiguration` function.
     FIXES [#5982](https://github.com/microsoft/Microsoft365DSC/issues/5982)
   * Fixed an issue where basic arrays would not be compared correctly.
+* DEPENDENCIES
+  * Updated ExchangeOnlineManagement to version 3.7.2
+  * Updated MicrosoftTeams to version 7.0.0
 
 # 1.25.430.1
 
