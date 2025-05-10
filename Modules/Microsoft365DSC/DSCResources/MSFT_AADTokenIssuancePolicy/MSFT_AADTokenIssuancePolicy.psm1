@@ -6,7 +6,7 @@ function Get-TargetResource
     (
         [Parameter(Mandatory = $true)]
         [System.String]
-        $IsSingleInstance,
+        $DisplayName,
 
         [Parameter()]
         [System.String]
@@ -14,15 +14,20 @@ function Get-TargetResource
 
         [Parameter()]
         [System.String]
-        $DisplayName,
-
-        [Parameter()]
-        [System.String]
         $Description,
 
         [Parameter()]
         [System.Boolean]
-        $SelfServiceSignUpEnabled,
+        $IsOrganizationDefault,
+
+        [Parameter()]
+        [System.String[]]
+        $Definition,
+
+        [Parameter()]
+        [ValidateSet('Present', 'Absent')]
+        [System.String]
+        $Ensure = 'Present',
 
         [Parameter()]
         [System.Management.Automation.PSCredential]
@@ -37,10 +42,6 @@ function Get-TargetResource
         $TenantId,
 
         [Parameter()]
-        [System.Management.Automation.PSCredential]
-        $ApplicationSecret,
-
-        [Parameter()]
         [System.String]
         $CertificateThumbprint,
 
@@ -53,15 +54,14 @@ function Get-TargetResource
         $AccessTokens
     )
 
-    Write-Verbose -Message 'Getting configuration of Authentication Flow Policy'
-    $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
-        -InboundParameters $PSBoundParameters
+    New-M365DSCConnection -Workload 'MicrosoftGraph' `
+        -InboundParameters $PSBoundParameters | Out-Null
 
     #Ensure the proper dependencies are installed in the current environment.
     Confirm-M365DSCDependencies
 
     #region Telemetry
-    $ResourceName = $MyInvocation.MyCommand.ModuleName -replace 'MSFT_', ''
+    $ResourceName = $MyInvocation.MyCommand.ModuleName.Replace('MSFT_', '')
     $CommandName = $MyInvocation.MyCommand
     $data = Format-M365DSCTelemetryParameters -ResourceName $ResourceName `
         -CommandName $CommandName `
@@ -69,48 +69,63 @@ function Get-TargetResource
     Add-M365DSCTelemetryEvent -Data $data
     #endregion
 
-    $nullReturn = @{
-        IsSingleInstance = 'Yes'
-    }
-
+    $nullResult = $PSBoundParameters
+    $nullResult.Ensure = 'Absent'
     try
     {
-        $flowPolicy = Get-MgBetaPolicyAuthenticationFlowPolicy -ErrorAction 'SilentlyContinue'
-
-        if ($null -eq $flowPolicy)
+        if ($null -ne $Script:exportedInstances -and $Script:ExportMode)
         {
-            throw 'Could not retrieve Authentication Flow Policy'
+            $instance = $Script:exportedInstances | Where-Object -FilterScript {$_.Id -eq $Id}
         }
         else
         {
-            Write-Verbose -Message 'Found existing Authentication Flow Policy'
-            $result = @{
-                IsSingleInstance         = 'Yes'
-                Id                       = $flowPolicy.Id
-                DisplayName              = $flowPolicy.DisplayName
-                Description              = $flowPolicy.Description
-                SelfServiceSignUpEnabled = [Boolean]$flowPolicy.SelfServiceSignUp.IsEnabled
-                Credential               = $Credential
-                ApplicationId            = $ApplicationId
-                TenantId                 = $TenantId
-                ApplicationSecret        = $ApplicationSecret
-                CertificateThumbprint    = $CertificateThumbprint
-                Managedidentity          = $ManagedIdentity.IsPresent
-                AccessTokens             = $AccessTokens
+            if (-not [System.String]::IsNullOrEmpty($Id))
+            {
+                $instance = Get-MgBetaPolicyTokenIssuancePolicy -TokenIssuancePolicyId $Id -ErrorAction SilentlyContinue
             }
-            Write-Verbose -Message "Get-TargetResource Result: `n $(Convert-M365DscHashtableToString -Hashtable $result)"
-            return $result
+            else
+            {
+                $instance = Get-MgBetaPolicyTokenIssuancePolicy -Filter "displayName eq '$DisplayName'" -ErrorAction SilentlyContinue
+            }
         }
+        if ($null -eq $instance)
+        {
+            return $nullResult
+        }
+
+        $DefinitionValue = @()
+        foreach ($definitionEntry in $instance.Definition)
+        {
+            $jsonEntry = ConvertFrom-Json $definitionEntry
+            $DefinitionValue += ConvertTo-Json $jsonEntry -Depth 10 -Compress
+        }
+
+        $results = @{
+            DisplayName           = $instance.DisplayName
+            Description           = $instance.Description
+            Id                    = $instance.Id
+            IsOrganizationDefault = $instance.IsOrganizationDefault
+            Definition            = $DefinitionValue
+            Ensure                = 'Present'
+            Credential            = $Credential
+            ApplicationId         = $ApplicationId
+            TenantId              = $TenantId
+            CertificateThumbprint = $CertificateThumbprint
+            ManagedIdentity       = $ManagedIdentity.IsPresent
+            AccessTokens          = $AccessTokens
+        }
+        return [System.Collections.Hashtable] $results
     }
     catch
     {
+        Write-Verbose -Message $_
         New-M365DSCLogEntry -Message 'Error retrieving data:' `
             -Exception $_ `
             -Source $($MyInvocation.MyCommand.Source) `
             -TenantId $TenantId `
             -Credential $Credential
 
-        return $nullReturn
+        return $nullResult
     }
 }
 
@@ -121,7 +136,7 @@ function Set-TargetResource
     (
         [Parameter(Mandatory = $true)]
         [System.String]
-        $IsSingleInstance,
+        $DisplayName,
 
         [Parameter()]
         [System.String]
@@ -129,15 +144,20 @@ function Set-TargetResource
 
         [Parameter()]
         [System.String]
-        $DisplayName,
-
-        [Parameter()]
-        [System.String]
         $Description,
 
         [Parameter()]
         [System.Boolean]
-        $SelfServiceSignUpEnabled,
+        $IsOrganizationDefault,
+
+        [Parameter()]
+        [System.String[]]
+        $Definition,
+
+        [Parameter()]
+        [ValidateSet('Present', 'Absent')]
+        [System.String]
+        $Ensure = 'Present',
 
         [Parameter()]
         [System.Management.Automation.PSCredential]
@@ -152,10 +172,6 @@ function Set-TargetResource
         $TenantId,
 
         [Parameter()]
-        [System.Management.Automation.PSCredential]
-        $ApplicationSecret,
-
-        [Parameter()]
         [System.String]
         $CertificateThumbprint,
 
@@ -168,15 +184,11 @@ function Set-TargetResource
         $AccessTokens
     )
 
-    Write-Verbose -Message 'Setting configuration of Authentication flow policy.'
-    $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
-        -InboundParameters $PSBoundParameters
-
     #Ensure the proper dependencies are installed in the current environment.
     Confirm-M365DSCDependencies
 
     #region Telemetry
-    $ResourceName = $MyInvocation.MyCommand.ModuleName -replace 'MSFT_', ''
+    $ResourceName = $MyInvocation.MyCommand.ModuleName.Replace('MSFT_', '')
     $CommandName = $MyInvocation.MyCommand
     $data = Format-M365DSCTelemetryParameters -ResourceName $ResourceName `
         -CommandName $CommandName `
@@ -184,18 +196,28 @@ function Set-TargetResource
     Add-M365DSCTelemetryEvent -Data $data
     #endregion
 
-    try
+    $currentInstance = Get-TargetResource @PSBoundParameters
+
+    $setParameters = Remove-M365DSCAuthenticationParameter -BoundParameters $PSBoundParameters
+
+    # CREATE
+    if ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Absent')
     {
-        $Params = @{
-            selfServiceSignUp = @{
-                isEnabled = $SelfServiceSignUpEnabled
-            }
-        }
-        Update-MgBetaPolicyAuthenticationFlowPolicy -BodyParameter $Params | Out-Null
+        Write-Verbose -Message "Creating new token issuance policy {$DisplayName} with:`r`n$(ConvertTo-Json $SetParameters -Depth 10)"
+        New-MgBetaPolicyTokenIssuancePolicy @SetParameters
     }
-    catch
+    # UPDATE
+    elseif ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Present')
     {
-        Write-Verbose -Message 'Cannot update the authentication flow policy.'
+        Write-Verbose -Message "Updating token issuance policy {$DisplayName} with:`r`n$(ConvertTo-Json $SetParameters -Depth 10)"
+        $setParameters.Remove('Id') | Out-Null
+        Update-MgBetaPolicyTokenIssuancePolicy @SetParameters -TokenIssuancePolicyId $currentInstance.Id
+    }
+    # REMOVE
+    elseif ($Ensure -eq 'Absent' -and $currentInstance.Ensure -eq 'Present')
+    {
+        Write-Verbose -Message "Removing token issuance policy {$DisplayName}"
+        Remove-MgBetaPolicyTokenIssuancePolicy -TokenIssuancePolicyId $currentInstance.Id
     }
 }
 
@@ -207,7 +229,7 @@ function Test-TargetResource
     (
         [Parameter(Mandatory = $true)]
         [System.String]
-        $IsSingleInstance,
+        $DisplayName,
 
         [Parameter()]
         [System.String]
@@ -215,15 +237,20 @@ function Test-TargetResource
 
         [Parameter()]
         [System.String]
-        $DisplayName,
-
-        [Parameter()]
-        [System.String]
         $Description,
 
         [Parameter()]
         [System.Boolean]
-        $SelfServiceSignUpEnabled,
+        $IsOrganizationDefault,
+
+        [Parameter()]
+        [System.String[]]
+        $Definition,
+
+        [Parameter()]
+        [ValidateSet('Present', 'Absent')]
+        [System.String]
+        $Ensure = 'Present',
 
         [Parameter()]
         [System.Management.Automation.PSCredential]
@@ -236,10 +263,6 @@ function Test-TargetResource
         [Parameter()]
         [System.String]
         $TenantId,
-
-        [Parameter()]
-        [System.Management.Automation.PSCredential]
-        $ApplicationSecret,
 
         [Parameter()]
         [System.String]
@@ -258,7 +281,7 @@ function Test-TargetResource
     Confirm-M365DSCDependencies
 
     #region Telemetry
-    $ResourceName = $MyInvocation.MyCommand.ModuleName -replace 'MSFT_', ''
+    $ResourceName = $MyInvocation.MyCommand.ModuleName.Replace('MSFT_', '')
     $CommandName = $MyInvocation.MyCommand
     $data = Format-M365DSCTelemetryParameters -ResourceName $ResourceName `
         -CommandName $CommandName `
@@ -266,23 +289,20 @@ function Test-TargetResource
     Add-M365DSCTelemetryEvent -Data $data
     #endregion
 
-    Write-Verbose -Message 'Testing configuration of Authentication Flow Policy'
-
     $CurrentValues = Get-TargetResource @PSBoundParameters
+    $ValuesToCheck = ([Hashtable]$PSBoundParameters).Clone()
 
     Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
-    Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $PSBoundParameters)"
+    Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $ValuesToCheck)"
 
-    $ValuesToCheck = $PSBoundParameters
-
-    $TestResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `
+    $testResult = Test-M365DSCParameterState -CurrentValues $CurrentValues `
         -Source $($MyInvocation.MyCommand.Source) `
         -DesiredValues $PSBoundParameters `
         -ValuesToCheck $ValuesToCheck.Keys
 
-    Write-Verbose -Message "Test-TargetResource returned $TestResult"
+    Write-Verbose -Message "Test-TargetResource returned $testResult"
 
-    return $TestResult
+    return $testResult
 }
 
 function Export-TargetResource
@@ -319,6 +339,7 @@ function Export-TargetResource
         [System.String[]]
         $AccessTokens
     )
+
     $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
         -InboundParameters $PSBoundParameters
 
@@ -326,7 +347,7 @@ function Export-TargetResource
     Confirm-M365DSCDependencies
 
     #region Telemetry
-    $ResourceName = $MyInvocation.MyCommand.ModuleName -replace 'MSFT_', ''
+    $ResourceName = $MyInvocation.MyCommand.ModuleName.Replace('MSFT_', '')
     $CommandName = $MyInvocation.MyCommand
     $data = Format-M365DSCTelemetryParameters -ResourceName $ResourceName `
         -CommandName $CommandName `
@@ -334,44 +355,53 @@ function Export-TargetResource
     Add-M365DSCTelemetryEvent -Data $data
     #endregion
 
-    $dscContent = ''
     try
     {
-        if ($null -ne $Global:M365DSCExportResourceInstancesCount)
-        {
-            $Global:M365DSCExportResourceInstancesCount++
-        }
+        $Script:ExportMode = $true
+        [array] $Script:exportedInstances = Get-MgBetaPolicyTokenIssuancePolicy -All -ErrorAction Stop
 
-        $Params = @{
-            IsSingleInstance      = 'Yes'
-            Credential            = $Credential
-            ApplicationId         = $ApplicationId
-            ApplicationSecret     = $ApplicationSecret
-            TenantId              = $TenantId
-            CertificateThumbprint = $CertificateThumbprint
-            ManagedIdentity       = $ManagedIdentity.IsPresent
-            AccessTokens          = $AccessTokens
-        }
-
-        $Results = Get-TargetResource @Params
-        if ($Results -is [System.Collections.Hashtable] -and $Results.Count -gt 1)
+        $i = 1
+        $dscContent = ''
+        if ($Script:exportedInstances.Length -eq 0)
         {
-            $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName -ConnectionMode $ConnectionMode `
+            Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark
+        }
+        else
+        {
+            Write-M365DSCHost -Message "`r`n" -DeferWrite
+        }
+        foreach ($config in $Script:exportedInstances)
+        {
+            if ($null -ne $Global:M365DSCExportResourceInstancesCount)
+            {
+                $Global:M365DSCExportResourceInstancesCount++
+            }
+
+            $displayedKey = $config.DisplayName
+            Write-M365DSCHost -Message "    |---[$i/$($Script:exportedInstances.Count)] $displayedKey" -DeferWrite
+            $params = @{
+                DisplayName           = $config.DisplayName
+                Id                    = $config.Id
+                Credential            = $Credential
+                ApplicationId         = $ApplicationId
+                TenantId              = $TenantId
+                CertificateThumbprint = $CertificateThumbprint
+                ManagedIdentity       = $ManagedIdentity.IsPresent
+                AccessTokens          = $AccessTokens
+            }
+
+            $Results = Get-TargetResource @Params
+            $currentDSCBlock = Get-M365DSCExportContentForResource -ResourceName $ResourceName `
+                -ConnectionMode $ConnectionMode `
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
                 -Credential $Credential
             $dscContent += $currentDSCBlock
-
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
-
+            $i++
             Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
         }
-        else
-        {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
-        }
-
         return $dscContent
     }
     catch
