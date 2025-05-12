@@ -2,6 +2,10 @@
 
 # UNRELEASED
 
+* EXOTransportRule
+  * Fixed an issue where not specified properties would lead to an exception.
+* IntuneWifiConfigurationPolicyAndroidForWork
+  * Fixed an issue where the wrong odata type was used for export and creation.
 * TeamsFederationConfiguration
   * DEPRECATED the AllowPublicUsers property.
 * DEPENDENCIES
