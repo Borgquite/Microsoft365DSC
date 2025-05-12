@@ -10,6 +10,8 @@
   * DEPRECATED the AllowPublicUsers property.
 * DEPENDENCIES
   * Updates DSCParser to version 2.0.0.17.
+* MISC
+  * Improved export speed for multiple resources.
 
 # 1.25.509.1
 
