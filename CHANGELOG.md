@@ -6,6 +6,10 @@
   * Fixed an issue where not specified properties would lead to an exception.
 * IntuneWifiConfigurationPolicyAndroidForWork
   * Fixed an issue where the wrong odata type was used for export and creation.
+* TeamsFederationConfiguration
+  * DEPRECATED the AllowPublicUsers property.
+* DEPENDENCIES
+  * Updates DSCParser to version 2.0.0.17.
 
 # 1.25.509.1
 
