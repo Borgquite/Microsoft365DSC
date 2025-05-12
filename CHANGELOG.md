@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* DEPENDENCIES
+  * Updates DSCParser to version 2.0.0.17.
+
 # 1.25.509.1
 
 * AADAppManagementPolicy
