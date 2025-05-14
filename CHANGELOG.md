@@ -4,6 +4,85 @@
 * AADServicePrincipal
   * Adds `-All` to `Get-MgServicePrincipalAppRoleAssignedTo` call to return more than 100 records
 
+* AADApplication
+  * Fixed an issue where the `AdminConsentGranted` property had an incorrect value.
+    FIXES [#5027](https://github.com/microsoft/Microsoft365DSC/issues/5027)
+* EXOTransportRule
+  * Fixed an issue where not specified properties would lead to an exception.
+* IntuneASRRulesPolicyWindows10
+  * Added filter on additional template ID for both the Export and Get methods.
+* IntuneWifiConfigurationPolicyAndroidForWork
+  * Fixed an issue where the wrong odata type was used for export and creation.
+* TeamsFederationConfiguration
+  * DEPRECATED the AllowPublicUsers property.
+* DEPENDENCIES
+  * Updates DSCParser to version 2.0.0.17.
+* MISC
+  * Improved export speed for multiple resources.
+
+# 1.25.509.1
+
+* AADAppManagementPolicy
+  * Initial release.
+* AADAuthenticationFlowPolicy
+  * Fixes way argument is passed to `Update-MgBetaPolicyAuthenticationFlowPolicy` to now send as bodyparameter instead of `-SelfServiceSignUp $true/$false`
+* AADB2CAuthenticationMethodsPolicy
+  * Initial release.
+* AADCrossTenantAccessPolicyConfigurationDefault
+  * Updated Set-TargetResource to call the REST APIs directly, fixing
+    an issue with the cmdlet parameter casing.
+* AADMultiTenantOrganizationIdentitySyncPolicyTemplate
+  * Initial release.
+* AADTenantAppManagementPolicy
+  * Initial release.
+* AADTokenIssuancePolicy
+  * Initial release.
+* EXORecipientPermission
+  * Ensures the right entry is retrieved from the Get-TargetResource
+    method when multiple instances start with the same word pattern.
+* EXORetentionPolicyTag
+  * Fixes the evaluation of the AgeLimitForRetention property.
+* IntuneWifiConfigurationPolicyAndroidEnterpriseDeviceOwner
+  * Fixes the template type in the Get-Targetresource.
+* IntuneWifiConfigurationPolicyIOS
+  * Fixed Test-TargetResource and available properties.
+    FIXES [#3973](https://github.com/microsoft/Microsoft365DSC/issues/3973)
+* IntuneWifiConfigurationPolicyMacOS
+  * Added additional properties to the export.
+* IntuneWifiConfigurationPolicyWindows10
+  * Added additional properties to the export.
+    FIXES [#3963](https://github.com/microsoft/Microsoft365DSC/issues/3963)
+ * PlannerTask
+  * Allow setting of up to 25 categories.
+    FIXES [#6052](https://github.com/microsoft/Microsoft365DSC/issues/6052)
+* TeamsAppSetupPolicy
+  * Fixes evaluation of empty values in Test-TargetResource.
+* M365DSCReverse
+  * Removed the parameter `MaxProcesses` from the internal `Start-M365DSCConfigurationExtract` function.
+* M365DSCUtil
+  * Removed the parameter `MaxProcesses` from the public `Export-M365DSCConfiguration` function.
+    FIXES [#5982](https://github.com/microsoft/Microsoft365DSC/issues/5982)
+  * Fixed an issue where basic arrays would not be compared correctly.
+* DEPENDENCIES
+  * Updated ExchangeOnlineManagement to version 3.7.2
+  * Updated MicrosoftTeams to version 7.0.0
+
+# 1.25.430.1
+
+* AADServicePrincipal
+  * Fixes the evaluation of Enterprise app when AppId is passed in GUID form.
+* EXODistributionGroup
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORetentionPolicy
+  * Changed Get-TargetResource not to throw an error when the instance doesn't exist.
+* EXORoleGroup
+  * Changed logic to always evaluate using the email address for both users
+    and groups in the Test-TargetResource method.
+* M365DSCRuleEvaluation
+  * Unload the modules after each exports to help with memory assignment.
+* TeamsOnlineVoicemailUserSettings
+  * Remove connection to graph to retrieve all users in the export flow.
+
 # 1.25.423.1
 
 * AADEntitlementManagementConnectedOrganization
