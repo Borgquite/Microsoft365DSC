@@ -1,8 +1,6 @@
 # Change log for Microsoft365DSC
 
 # UNRELEASED
-* AADServicePrincipal
-  * Adds `-All` to `Get-MgServicePrincipalAppRoleAssignedTo` call to return more than 100 records
 
 * AADApplication
   * Fixed an issue where the `AdminConsentGranted` property had an incorrect value.
@@ -15,6 +13,8 @@
   * Fixed an issue where the wrong odata type was used for export and creation.
 * TeamsFederationConfiguration
   * DEPRECATED the AllowPublicUsers property.
+* AADServicePrincipal
+  * Adds `-All` to `Get-MgServicePrincipalAppRoleAssignedTo` call to return more than 100 records
 * DEPENDENCIES
   * Updates DSCParser to version 2.0.0.17.
 * MISC
