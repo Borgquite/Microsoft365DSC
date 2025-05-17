@@ -1272,8 +1272,11 @@ function Export-M365DSCConfiguration
     # Make sure we are not connected to Microsoft Graph on another tenant
     try
     {
-        Disconnect-MgGraph -ErrorAction Stop | Out-Null
-        Reset-MSCloudLoginConnectionProfileContext -Workload 'MicrosoftGraph'
+        if ($null -ne (Get-MgContext))
+        {
+            Disconnect-MgGraph -ErrorAction Stop | Out-Null
+            Reset-MSCloudLoginConnectionProfileContext -Workload 'MicrosoftGraph'
+        }
     }
     catch
     {
@@ -2556,14 +2559,18 @@ function Get-AllSPOPackages
         {
             try
             {
-                [Array]$spfxFiles = Find-PnPFile -List 'AppCatalog' -Match '*.sppkg' -ErrorAction Stop
-                [Array]$appFiles = Find-PnPFile -List 'AppCatalog' -Match '*.app' -ErrorAction Stop
+                [Array]$spfxFiles = @(Find-PnPFile -List 'AppCatalog' -Match '*.sppkg' -ErrorAction Stop)
+                [Array]$appFiles = @(Find-PnPFile -List 'AppCatalog' -Match '*.app' -ErrorAction Stop)
 
                 $allFiles = $spfxFiles + $appFiles
 
                 foreach ($file in $allFiles)
                 {
-                    $filesToDownload += @{Name = $file.Name; Site = $tenantAppCatalogUrl; Title = $file.Title }
+                    $filesToDownload += @{
+                        Name = $file.Name
+                        Site = $tenantAppCatalogUrl
+                        Title = $file.Title
+                    }
                 }
             }
             catch
@@ -2575,12 +2582,14 @@ function Get-AllSPOPackages
                 -Credential $Credential
             }
         }
+
         return $filesToDownload
     }
     catch
     {
         Write-Verbose -Message $_
     }
+
     return $null
 }
 

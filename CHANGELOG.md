@@ -1,5 +1,12 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* SPOApp
+  * Fixed an issue where the export would fail.
+    FIXES [#5810](https://github.com/microsoft/Microsoft365DSC/issues/5810)
+    FIXES [#4557](https://github.com/microsoft/Microsoft365DSC/issues/4557)
+
 # 1.25.515.1
 
 * AADApplication
