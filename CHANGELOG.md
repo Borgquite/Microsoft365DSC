@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* IntuneDeviceConfigurationSCEPCertificatePolicyWindows10
+  * Allow the combination of `sha1,sha2` as a value for `HashAlgorithm`.
+
 # 1.25.515.1
 
 * AADApplication
