@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* IntuneASRRulesPolicyWindows10
+  * Removed newly added template ID, it belongs to `IntuneApplicationControlPolicyWindows10`.
+
 # 1.25.515.1
 
 * AADApplication
