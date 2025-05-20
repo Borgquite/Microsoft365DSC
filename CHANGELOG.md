@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* MISC
+  * Updated required permissions for Intune script resources.
+
 # 1.25.515.1
 
 * AADApplication
