@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* IntuneMobileAppsWindowsOfficeSuiteApp
+  * Fixed an issue where the `ExcludedApps` property would be in an invalid format.
+
 # 1.25.515.1
 
 * AADApplication
