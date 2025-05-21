@@ -8,6 +8,8 @@
   * Removed newly added template ID, it belongs to `IntuneApplicationControlPolicyWindows10`.
 * IntuneMobileAppsWindowsOfficeSuiteApp
   * Fixed an issue where the `ExcludedApps` property would be in an invalid format.
+* TeamsMeetingPolicy
+  * Added support for the new CaptchaVerificationForMeetingJoin property.
 
 # 1.25.514.1
 
