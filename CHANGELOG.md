@@ -2,12 +2,14 @@
 
 # UNRELEASED
 
+* AADServicePrincipal
+  * Fixed the assignment of AppRoleAssignedTo when creatign a new Service Principal.
 * SPOApp
   * Fixed an issue where the export would fail.
     FIXES [#5810](https://github.com/microsoft/Microsoft365DSC/issues/5810)
     FIXES [#4557](https://github.com/microsoft/Microsoft365DSC/issues/4557)
 
-# 1.25.515.1
+# 1.25.514.1
 
 * AADApplication
   * Fixed an issue where the `AdminConsentGranted` property had an incorrect value.
