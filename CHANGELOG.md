@@ -6,8 +6,14 @@
   * Fixed the assignment of AppRoleAssignedTo when creatign a new Service Principal.
 * IntuneASRRulesPolicyWindows10
   * Removed newly added template ID, it belongs to `IntuneApplicationControlPolicyWindows10`.
+* IntuneDeviceConfigurationSCEPCertificatePolicyWindows10
+  * Allow the combination of `sha1,sha2` as a value for `HashAlgorithm`.
 * IntuneMobileAppsWindowsOfficeSuiteApp
   * Fixed an issue where the `ExcludedApps` property would be in an invalid format.
+* TeamsMeetingPolicy
+  * Added support for the new CaptchaVerificationForMeetingJoin property.
+* MISC
+  * Updated required permissions for Intune script resources.
 
 # 1.25.514.1
 
