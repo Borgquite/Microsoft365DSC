@@ -4,6 +4,8 @@
 
 * AADServicePrincipal
   * Fixed the assignment of AppRoleAssignedTo when creatign a new Service Principal.
+* IntuneASRRulesPolicyWindows10
+  * Removed newly added template ID, it belongs to `IntuneApplicationControlPolicyWindows10`.
 * IntuneMobileAppsWindowsOfficeSuiteApp
   * Fixed an issue where the `ExcludedApps` property would be in an invalid format.
 
