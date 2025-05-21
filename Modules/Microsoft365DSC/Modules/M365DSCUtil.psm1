@@ -909,7 +909,38 @@ function Test-M365DSCParameterState
         $EventMessage = [System.Text.StringBuilder]::New()
         $EventMessage.Append("<M365DSCEvent>`r`n") | Out-Null
         Write-Verbose -Message "Found Tenant Name: $TenantName"
-        $EventMessage.Append("    <ConfigurationDrift Source=`"$Source`" TenantId=`"$TenantName`">`r`n") | Out-Null
+
+        $LCMState = $null
+        try
+        {
+            $LCMInfo = Get-DscLocalConfigurationManager -ErrorAction Stop
+
+            if ($LCMInfo.LCMStateDetail -eq 'LCM is performing a consistency check.' -or `
+                    $LCMInfo.LCMStateDetail -eq 'LCM exécute une vérification de cohérence.' -or `
+                    $LCMInfo.LCMStateDetail -eq 'LCM führt gerade eine Konsistenzüberprüfung durch.')
+            {
+                $LCMState = 'ConsistencyCheck'
+            }
+            elseif ($LCMInfo.LCMStateDetail -eq 'LCM is testing node against the configuration.')
+            {
+                $LCMState = 'ManualTestDSCConfiguration'
+            }
+            elseif ($LCMInfo.LCMStateDetail -eq 'LCM is applying a new configuration.' -or `
+                    $LCMInfo.LCMStateDetail -eq 'LCM applique une nouvelle configuration.')
+            {
+                $LCMState = 'Initial'
+            }
+        }
+        catch
+        {
+            Write-Verbose -Message $_.Exception
+        }
+        $EventMessage.Append("    <ConfigurationDrift Source=`"$Source`" TenantId=`"$TenantName`"") | Out-Null
+        if (-not [System.String]::IsNullOrEmpty($LCMState))
+        {
+            $EventMessage.Append(" LCMState=`"" + $LCMState + "`"") | Out-Null
+        }
+        $EventMessage.Append(">`r`n") | Out-Null
         $EventMessage.Append("        <ParametersNotInDesiredState>`r`n") | Out-Null
 
         $driftedData = [System.Collections.Generic.Dictionary[[String], [String]]]::new()
