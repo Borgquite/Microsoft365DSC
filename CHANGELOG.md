@@ -4,6 +4,7 @@
 
 * AADServicePrincipal
   * Fixed the assignment of AppRoleAssignedTo when creatign a new Service Principal.
+  * Adds `-All` to `Get-MgServicePrincipalAppRoleAssignedTo` call to return more than 100 records
 * IntuneASRRulesPolicyWindows10
   * Removed newly added template ID, it belongs to `IntuneApplicationControlPolicyWindows10`.
 * IntuneDeviceConfigurationSCEPCertificatePolicyWindows10
