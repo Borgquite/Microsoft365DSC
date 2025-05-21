@@ -14,7 +14,10 @@
   * Fixed an issue where the export would fail.
     FIXES [#5810](https://github.com/microsoft/Microsoft365DSC/issues/5810)
     FIXES [#4557](https://github.com/microsoft/Microsoft365DSC/issues/4557)
-
+* TeamsMeetingPolicy
+  * Added support for the new CaptchaVerificationForMeetingJoin property.
+* MISC
+  * Updated required permissions for Intune script resources.
 
 # 1.25.514.1
 
