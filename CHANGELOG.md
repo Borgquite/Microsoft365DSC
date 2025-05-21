@@ -2,10 +2,12 @@
 
 # UNRELEASED
 
+* AADServicePrincipal
+  * Fixed the assignment of AppRoleAssignedTo when creatign a new Service Principal.
 * MISC
   * Updated required permissions for Intune script resources.
 
-# 1.25.515.1
+# 1.25.514.1
 
 * AADApplication
   * Fixed an issue where the `AdminConsentGranted` property had an incorrect value.
