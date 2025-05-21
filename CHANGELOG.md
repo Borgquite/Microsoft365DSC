@@ -10,6 +10,8 @@
   * Allow the combination of `sha1,sha2` as a value for `HashAlgorithm`.
 * IntuneMobileAppsWindowsOfficeSuiteApp
   * Fixed an issue where the `ExcludedApps` property would be in an invalid format.
+* MISC
+  * Updated required permissions for Intune script resources.
 
 # 1.25.514.1
 
