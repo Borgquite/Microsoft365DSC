@@ -540,6 +540,10 @@ function Set-TargetResource
                 $licensesToRemove += $skuInfo.SkuId
             }
         }
+        else
+        {
+            Write-Warning -Message "Specified Sku {$($assignedLicense.SkuId)} could not be found on the tenant."
+        }
     }
 
     $currentParameters.Remove('AssignedLicenses') | Out-Null
@@ -610,7 +614,7 @@ function Set-TargetResource
             {
                 try
                 {
-                    Write-Verbose -Message 'Setting Group Licenses'
+                    Write-Verbose -Message "Setting Group Licenses with:`r`nLicensesToAdd: $(ConvertTo-Json $licensesToAdd)`r`nLicensesToRemove: $(ConvertTo-Json $licensesToRemove)"
                     Set-MgGroupLicense -GroupId $currentGroup.Id `
                         -AddLicenses $licensesToAdd `
                         -RemoveLicenses $licensesToRemove `

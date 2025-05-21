@@ -897,7 +897,7 @@ function Compare-M365DSCComplexObject
                     {
                         $compareResult = Compare-Object `
                             -ReferenceObject ($referenceObject) `
-                            -DifferenceObject ($differenceObject)
+                            -DifferenceObject ($differenceObject) -PassThru
                     }
 
                     if ($null -ne $compareResult -and $compareResult.Length -gt 0)
@@ -2694,7 +2694,7 @@ function Update-IntuneDeviceConfigurationPolicy
         [Array]
         $Settings
     )
-    $VerbosePreference = 'continue'
+
     try
     {
         $Uri = (Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + "beta/deviceManagement/configurationPolicies/$DeviceConfigurationPolicyId"
@@ -2707,6 +2707,7 @@ function Update-IntuneDeviceConfigurationPolicy
             'technologies'      = $Technologies
             'settings'          = $Settings
         }
+
         $body = $policy | ConvertTo-Json -Depth 20
         Write-Verbose -Message "Updating policy with:`r`n$body"
         Invoke-MgGraphRequest -Method PUT -Uri $Uri -Body $body -ErrorAction Stop

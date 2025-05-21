@@ -1020,9 +1020,6 @@ Specifies the workload for which an export should be created for all resources.
 .Parameter Mode
 Specifies the mode of the export: Lite, Default or Full.
 
-.Parameter MaxProcesses
-Specifies the maximum number of processes that should run simultanious.
-
 .Parameter GenerateInfo
 Specifies if each exported resource should get a link to the Wiki article of the resource.
 
@@ -1105,10 +1102,6 @@ function Export-M365DSCConfiguration
         [ValidateSet('Lite', 'Default', 'Full')]
         [System.String]
         $Mode = 'Default',
-
-        [Parameter(ParameterSetName = 'Export')]
-        [ValidateRange(1, 100)]
-        $MaxProcesses,
 
         [Parameter(ParameterSetName = 'Export')]
         [System.Boolean]
@@ -1274,19 +1267,16 @@ function Export-M365DSCConfiguration
     $data.Add('FileName', $null -ne [System.String]::IsNullOrEmpty($FileName))
     $data.Add('Components', $Components)
     $data.Add('Workloads', $Workloads)
-    $data.Add('MaxProcesses', $MaxProcesses)
     #endregion
-
-    if ($null -eq $MaxProcesses)
-    {
-        $MaxProcesses = 16
-    }
 
     # Make sure we are not connected to Microsoft Graph on another tenant
     try
     {
-        Disconnect-MgGraph -ErrorAction Stop | Out-Null
-        Reset-MSCloudLoginConnectionProfileContext -Workload 'MicrosoftGraph'
+        if ($null -ne (Get-MgContext))
+        {
+            Disconnect-MgGraph -ErrorAction Stop | Out-Null
+            Reset-MSCloudLoginConnectionProfileContext -Workload 'MicrosoftGraph'
+        }
     }
     catch
     {
@@ -1308,7 +1298,6 @@ function Export-M365DSCConfiguration
             -Workloads $Workloads `
             -Mode $Mode `
             -Path $Path -FileName $FileName `
-            -MaxProcesses $MaxProcesses `
             -ConfigurationName $ConfigurationName `
             -ApplicationId $ApplicationId `
             -ApplicationSecret $ApplicationSecret `
@@ -1328,7 +1317,6 @@ function Export-M365DSCConfiguration
         Start-M365DSCConfigurationExtract -Credential $Credential `
             -Components $Components `
             -Path $Path -FileName $FileName `
-            -MaxProcesses $MaxProcesses `
             -ConfigurationName $ConfigurationName `
             -ApplicationId $ApplicationId `
             -ApplicationSecret $ApplicationSecret `
@@ -1348,7 +1336,6 @@ function Export-M365DSCConfiguration
         Start-M365DSCConfigurationExtract -Credential $Credential `
             -Mode $Mode `
             -Path $Path -FileName $FileName `
-            -MaxProcesses $MaxProcesses `
             -ConfigurationName $ConfigurationName `
             -ApplicationId $ApplicationId `
             -ApplicationSecret $ApplicationSecret `
@@ -2572,14 +2559,18 @@ function Get-AllSPOPackages
         {
             try
             {
-                [Array]$spfxFiles = Find-PnPFile -List 'AppCatalog' -Match '*.sppkg' -ErrorAction Stop
-                [Array]$appFiles = Find-PnPFile -List 'AppCatalog' -Match '*.app' -ErrorAction Stop
+                [Array]$spfxFiles = @(Find-PnPFile -List 'AppCatalog' -Match '*.sppkg' -ErrorAction Stop)
+                [Array]$appFiles = @(Find-PnPFile -List 'AppCatalog' -Match '*.app' -ErrorAction Stop)
 
                 $allFiles = $spfxFiles + $appFiles
 
                 foreach ($file in $allFiles)
                 {
-                    $filesToDownload += @{Name = $file.Name; Site = $tenantAppCatalogUrl; Title = $file.Title }
+                    $filesToDownload += @{
+                        Name = $file.Name
+                        Site = $tenantAppCatalogUrl
+                        Title = $file.Title
+                    }
                 }
             }
             catch
@@ -2591,12 +2582,14 @@ function Get-AllSPOPackages
                 -Credential $Credential
             }
         }
+
         return $filesToDownload
     }
     catch
     {
         Write-Verbose -Message $_
     }
+
     return $null
 }
 
@@ -2675,6 +2668,9 @@ Specifies the name of parameters that should not be assessed as part of the repo
 .Parameter ExcludedResources
 Specifies the name of resources that should not be assessed as part of the report.
 
+.Parameter DriftOnly
+Specifies if the report should only show properties drifts and not missing instances.
+
 .Example
 Assert-M365DSCBlueprint -BluePrintUrl 'C:\DS\blueprint.m365' -OutputReportPath 'C:\DSC\BlueprintReport.html'
 
@@ -2739,7 +2735,11 @@ function Assert-M365DSCBlueprint
 
         [Parameter()]
         [System.String[]]
-        $ExcludedResources
+        $ExcludedResources,
+
+        [Parameter()]
+        [System.Boolean]
+        $DriftOnly = $true
     )
 
     #Ensure the proper dependencies are installed in the current environment.
@@ -2843,7 +2843,7 @@ function Assert-M365DSCBlueprint
         New-M365DSCDeltaReport -Source $ExportPath `
             -Destination $LocalBluePrintPath `
             -OutputPath $OutputReportPath `
-            -DriftOnly:$true `
+            -DriftOnly $DriftOnly `
             -IsBlueprintAssessment:$true `
             -HeaderFilePath $HeaderFilePath `
             -Type $Type `
