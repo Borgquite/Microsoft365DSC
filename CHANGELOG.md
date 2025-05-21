@@ -2,10 +2,12 @@
 
 # UNRELEASED
 
+* AADServicePrincipal
+  * Fixed the assignment of AppRoleAssignedTo when creatign a new Service Principal.
 * IntuneMobileAppsWindowsOfficeSuiteApp
   * Fixed an issue where the `ExcludedApps` property would be in an invalid format.
 
-# 1.25.515.1
+# 1.25.514.1
 
 * AADApplication
   * Fixed an issue where the `AdminConsentGranted` property had an incorrect value.
