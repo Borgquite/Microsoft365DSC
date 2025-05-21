@@ -1,6 +1,15 @@
 # Change log for Microsoft365DSC
 
-# 1.25.515.1
+# UNRELEASED
+
+* AADServicePrincipal
+  * Fixed the assignment of AppRoleAssignedTo when creatign a new Service Principal.
+* IntuneASRRulesPolicyWindows10
+  * Removed newly added template ID, it belongs to `IntuneApplicationControlPolicyWindows10`.
+* IntuneMobileAppsWindowsOfficeSuiteApp
+  * Fixed an issue where the `ExcludedApps` property would be in an invalid format.
+
+# 1.25.514.1
 
 * AADApplication
   * Fixed an issue where the `AdminConsentGranted` property had an incorrect value.
