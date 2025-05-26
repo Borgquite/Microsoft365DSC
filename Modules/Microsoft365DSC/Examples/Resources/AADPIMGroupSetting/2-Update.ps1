@@ -68,7 +68,7 @@ Configuration Example
             RoleDefinitionId                                          = "owner";
             ApplicationId                 = $ApplicationId
             TenantId                      = $TenantId
-            CertificateThumbprint         = $Thumbprint
+            CertificateThumbprint         = $CertificateThumbprint
             Ensure                                                    = "Present";
         }
     }
