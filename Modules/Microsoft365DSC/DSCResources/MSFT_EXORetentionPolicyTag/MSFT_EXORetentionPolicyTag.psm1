@@ -118,7 +118,7 @@ function Get-TargetResource
         }
         if (-not [System.String]::IsNullOrEmpty($instance.AgeLimitForRetention))
         {
-            $results.Add('AgeLimitForRetention', [UInt32]::Parse($instance.AgeLimitForRetention.Split('.')[0]))
+            $results.Add('AgeLimitForRetention', $instance.AgeLimitForRetention.Split('.')[0])
         }
         return [System.Collections.Hashtable] $results
     }
