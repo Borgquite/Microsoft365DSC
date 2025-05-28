@@ -13,7 +13,7 @@ function Get-TargetResource
         $Comment,
 
         [Parameter()]
-        [System.UInt32]
+        [System.String]
         $AgeLimitForRetention,
 
         [Parameter()]
@@ -149,7 +149,7 @@ function Set-TargetResource
         $Comment,
 
         [Parameter()]
-        [System.UInt32]
+        [System.String]
         $AgeLimitForRetention,
 
         [Parameter()]
