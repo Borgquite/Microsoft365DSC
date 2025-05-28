@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# UNRELEASED
+# 1.25.528.1
 
 * EXORetentionPolicyTag
   * Fixes an issue where the AgeLimitForRetention  could be added twice in the results
