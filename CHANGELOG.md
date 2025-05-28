@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# UNRELEASED
+# 1.25.528.1
 
 * EXORetentionPolicyTag
   * Fixes an issue where the AgeLimitForRetention  could be added twice in the results
@@ -36,8 +36,6 @@
 * AADApplication
   * Fixed an issue where the `AdminConsentGranted` property had an incorrect value.
     FIXES [#5027](https://github.com/microsoft/Microsoft365DSC/issues/5027)
-* EXORetentionPolicyTag
-  * BREAKING - Changed the AgeLimitForRetention property type to UInt32.
 * EXOTransportRule
   * Fixed an issue where not specified properties would lead to an exception.
 * IntuneASRRulesPolicyWindows10
