@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* AADAdministrativeUnit
+  * Allow DisplayName to include apostrophes.
+
 # 1.25.528.1
 
 * EXORetentionPolicyTag
