@@ -1,5 +1,9 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+* TeamsVdiPolicy
+  * Added support for `VDI2Optimization` property.
+
 # 1.25.528.1
 
 * EXORetentionPolicyTag
