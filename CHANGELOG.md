@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* MISC
+  * Added `RoleScopeTagIds` property across the Intune resources.
+
 # 1.25.528.1
 
 * EXORetentionPolicyTag
