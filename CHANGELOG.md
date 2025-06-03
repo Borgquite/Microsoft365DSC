@@ -44,6 +44,8 @@
 * TeamsGroupPolicyAssignment
   * Fix export issue where two properties were exported as integer, where
     the schema expects a string.
+* TeamsVdiPolicy
+  * Added support for `VDI2Optimization` property.
 * VivaEngagementRoleMember
   * Initial release.
 
