@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* AADAdministrativeUnit
+  * Allow DisplayName to include apostrophes.
 * AADApplication
   * Fixed issue where the property AuthenticationBehaviors was incorrectly
     exported as an array.
