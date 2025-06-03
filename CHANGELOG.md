@@ -8,6 +8,8 @@
   * Added support for `VDI2Optimization` property.
 * VivaEngagementRoleMember
   * Initial release.
+* MISC
+  * Added `RoleScopeTagIds` property across the Intune resources.
 
 # 1.25.528.1
 
