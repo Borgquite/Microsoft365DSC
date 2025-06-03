@@ -35,6 +35,8 @@
     defined this property as a string, where the code expected and integer.
     NOTE: This should not cause any issues, since the export already exported
     this value as an integer.
+* SCDLPComplianceRule
+  * Fixed apostrophes in the export method.
 * SCSensitivityLabel
   * Fixed issue where the Groups property in AutoLabelingSettings was not
     exported as an array.
