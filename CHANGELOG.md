@@ -11,6 +11,10 @@
 * AADCrossTenantAccessPolicyConfigurationPartner
   * Fix export issue where B2B settings are not exported when these are set
     to default settings.
+* AADEntitlementManagementAccessPackageAssignmentPolicy
+  * Fixing export issue where AccessReviewSettings does not contain correct
+    info when access reviews are disabled.
+    FIXES [#5941](https://github.com/microsoft/Microsoft365DSC/issues/5941)
 * AADGroup
   * Fixed issue where the property Permissions was not exported as an array
 * AADRoleAssignmentScheduleRequest
@@ -177,13 +181,6 @@
 
 # 1.25.416.1
 
-* AADEntitlementManagementAccessPackage
-  * Fix incorrect assignment where `$results.CatalogId` was assigned
-    `catalog.DisplayName` instead of `catalog.Id`
-* AADEntitlementManagementAccessPackageAssignmentPolicy
-  * Fixing export issue where AccessReviewSettings does not contain correct
-    info when access reviews are disabled.
-    FIXES [#5941](https://github.com/microsoft/Microsoft365DSC/issues/5941)
 * EXOResourceConfiguration
   * Added required permissions to settings.json file.
 * EXOTenantAllowBlockListItems
@@ -219,6 +216,9 @@
 * AADApplication
   * DEPRECATED: Parameter AvailableToOtherTenants.
   * Added direct support for the SignInAudience parameter.
+* AADEntitlementManagementAccessPackage
+  * Fix incorrect assignment where `$results.CatalogId` was assigned
+    `catalog.DisplayName` instead of `catalog.Id`
 * EXOSafeAttachmentRule
   * Inlined function calls.
 * EXOSafeLinksRule
