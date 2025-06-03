@@ -39,6 +39,8 @@
   * Fixed issue where the export of AdvancedSettings had a key but no value,
     which caused errors during deployment. Now ignoring setting if no value
     is set.
+* SPORetentionLabelsSettings
+  * Correcting permissions in settings.json
 * TeamsGroupPolicyAssignment
   * Fix export issue where two properties were exported as integer, where
     the schema expects a string.
