@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# 1.25.528.1
+# UNRELEASED
 
 * AADApplication
   * Fixed issue where the property AuthenticationBehaviors was incorrectly
@@ -27,9 +27,6 @@
     defined this property as a string, where the code expected and integer.
     NOTE: This should not cause any issues, since the export already exported
     this value as an integer.
-* EXORetentionPolicyTag
-  * Fixes an issue where the AgeLimitForRetention  could be added twice in the results
-    from Get-TargetResource.
 * SCSensitivityLabel
   * Fixed issue where the Groups property in AutoLabelingSettings was not
     exported as an array.
@@ -39,6 +36,12 @@
 * TeamsGroupPolicyAssignment
   * Fix export issue where two properties were exported as integer, where
     the schema expects a string.
+
+# 1.25.528.1
+
+* EXORetentionPolicyTag
+  * Fixes an issue where the AgeLimitForRetention  could be added twice in the results
+    from Get-TargetResource.
 * DEPENDENCIES
   * Updated ExchangeOnlineManagement to version 3.2.0
   * Updated Microsoft.Graph to version 2.28.0
