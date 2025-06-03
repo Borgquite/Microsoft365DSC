@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* TeamsVdiPolicy
+  * Added support for `VDI2Optimization` property.
 * VivaEngagementRoleMember
   * Initial release.
 
