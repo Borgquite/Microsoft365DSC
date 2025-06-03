@@ -7,6 +7,8 @@
     exported as an array.
   * Fixed issue where the AuthenticationBehaviors wasn't processed properly
     and added example how to enforce an empty configuration.
+  * Deprecated AuthenticationBehavior\RequireClientServicePrincipal property.
+    Trying to set this property will throw an error.
   * Fixed issue where the property Permissions was not exported as an array
 * AADCrossTenantAccessPolicyConfigurationPartner
   * Fix export issue where B2B settings are not exported when these are set
