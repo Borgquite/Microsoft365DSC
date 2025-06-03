@@ -44,6 +44,8 @@
 * TeamsGroupPolicyAssignment
   * Fix export issue where two properties were exported as integer, where
     the schema expects a string.
+* VivaEngagementRoleMember
+  * Initial release.
 
 # 1.25.528.1
 
