@@ -1748,7 +1748,7 @@ function ConvertTo-SCDLPSensitiveInformationString
     {
 
         $StringContent = "MSFT_SCDLPSensitiveInformation`r`n            {`r`n"
-        $StringContent += "                name = '$($SensitiveInformationHash.name.Replace("'", "''"))'`r`n"
+        $StringContent += "                name = '$($SensitiveInformationHash.name)'`r`n"
 
         if ($null -ne $SensitiveInformationHash.id)
         {
