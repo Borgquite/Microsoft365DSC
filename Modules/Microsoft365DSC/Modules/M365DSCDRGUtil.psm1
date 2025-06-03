@@ -1016,7 +1016,7 @@ function ConvertFrom-IntunePolicyAssignment
 
     if ($null -eq $Script:IntuneAssignmentFilters)
     {
-        $Script:IntuneAssignmentFilters = Get-MgBetaDeviceManagementAssignmentFilter -All | ForEach-Object {
+        $Script:IntuneAssignmentFilters = Get-MgBetaDeviceManagementAssignmentFilter -All -ErrorAction SilentlyContinue | ForEach-Object {
             @{
                 FilterId = $_.Id
                 DisplayName = $_.DisplayName
@@ -1118,7 +1118,7 @@ function ConvertTo-IntunePolicyAssignment
 
     if ($null -eq $Script:IntuneAssignmentFilters)
     {
-        $Script:IntuneAssignmentFilters = Get-MgBetaDeviceManagementAssignmentFilter -All | ForEach-Object {
+        $Script:IntuneAssignmentFilters = Get-MgBetaDeviceManagementAssignmentFilter -All -ErrorAction SilentlyContinue | ForEach-Object {
             @{
                 FilterId = $_.Id
                 DisplayName = $_.DisplayName
@@ -1227,7 +1227,7 @@ function ConvertFrom-IntuneMobileAppAssignment
 
     if ($null -eq $Script:IntuneAssignmentFilters)
     {
-        $Script:IntuneAssignmentFilters = Get-MgBetaDeviceManagementAssignmentFilter -All | ForEach-Object {
+        $Script:IntuneAssignmentFilters = Get-MgBetaDeviceManagementAssignmentFilter -All -ErrorAction SilentlyContinue | ForEach-Object {
             @{
                 FilterId = $_.Id
                 DisplayName = $_.DisplayName
@@ -1320,7 +1320,7 @@ function ConvertTo-IntuneMobileAppAssignment
 
     if ($null -eq $Script:IntuneAssignmentFilters)
     {
-        $Script:IntuneAssignmentFilters = Get-MgBetaDeviceManagementAssignmentFilter -All | ForEach-Object {
+        $Script:IntuneAssignmentFilters = Get-MgBetaDeviceManagementAssignmentFilter -All -ErrorAction SilentlyContinue | ForEach-Object {
             @{
                 FilterId = $_.Id
                 DisplayName = $_.DisplayName
