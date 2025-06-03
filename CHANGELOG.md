@@ -5,6 +5,8 @@
 * AADApplication
   * Fixed issue where the property AuthenticationBehaviors was incorrectly
     exported as an array.
+  * Fixed issue where the AuthenticationBehaviors wasn't processed properly
+    and added example how to enforce an empty configuration.
   * Fixed issue where the property Permissions was not exported as an array
 * AADCrossTenantAccessPolicyConfigurationPartner
   * Fix export issue where B2B settings are not exported when these are set
@@ -38,6 +40,9 @@
 * SCSensitivityLabel
   * Fixed issue where the Groups property in AutoLabelingSettings was not
     exported as an array.
+  * Fixed issue where the export of AdvancedSettings had a key but no value,
+    which caused errors during deployment. Now ignoring setting if no value
+    is set.
 * TeamsGroupPolicyAssignment
   * Fix export issue where two properties were exported as integer, where
     the schema expects a string.

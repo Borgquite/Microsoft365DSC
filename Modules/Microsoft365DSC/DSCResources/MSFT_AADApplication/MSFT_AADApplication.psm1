@@ -149,7 +149,7 @@ function Get-TargetResource
             $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
                 -InboundParameters $PSBoundParameters
 
-            Write-Verbose -Message 'Getting configuration of Azure AD Application'
+            Write-Verbose -Message "Getting configuration of Azure AD Application '$DisplayName'"
 
             #Ensure the proper dependencies are installed in the current environment.
             Confirm-M365DSCDependencies
@@ -203,18 +203,18 @@ function Get-TargetResource
         $AADBetaApp = Get-MgBetaApplication -Property 'id,displayName,appId,authenticationBehaviors,additionalProperties' -ApplicationId $AADApp.Id -ErrorAction SilentlyContinue
         $AADAppKeyCredentials = Get-MgBetaApplication -Property 'keyCredentials' -ApplicationId $AADApp.Id -ErrorAction SilentlyContinue
 
-        $complexAuthenticationBehaviors = @{}
+        $complexAuthenticationBehaviors = @{
+            BlockAzureADGraphAccess    = 'Null'
+            RemoveUnverifiedEmailClaim = 'Null'
+            #RequireClientServicePrincipal = 'Null' #DEPRECATED
+        }
         if ($null -ne $AADBetaApp.authenticationBehaviors.blockAzureADGraphAccess)
         {
-            $complexAuthenticationBehaviors.Add('BlockAzureADGraphAccess', $AADBetaApp.authenticationBehaviors.blockAzureADGraphAccess.ToString())
+            $complexAuthenticationBehaviors.BlockAzureADGraphAccess = $AADBetaApp.authenticationBehaviors.blockAzureADGraphAccess.ToString()
         }
         if ($null -ne $AADBetaApp.authenticationBehaviors.removeUnverifiedEmailClaim)
         {
-            $complexAuthenticationBehaviors.Add('RemoveUnverifiedEmailClaim', $AADBetaApp.authenticationBehaviors.removeUnverifiedEmailClaim.ToString())
-        }
-        if ($null -ne $AADBetaApp.authenticationBehaviors.requireClientServicePrincipal)
-        {
-            $complexAuthenticationBehaviors.Add('RequireClientServicePrincipal', $AADBetaApp.authenticationBehaviors.requireClientServicePrincipal.ToString())
+            $complexAuthenticationBehaviors.RemoveUnverifiedEmailClaim = $AADBetaApp.authenticationBehaviors.removeUnverifiedEmailClaim.ToString()
         }
 
         $complexOptionalClaims = @{}
@@ -261,7 +261,6 @@ function Get-TargetResource
         {
             $complexOptionalClaims = $null
         }
-
 
         $complexApi = @{}
         $complexPreAuthorizedApplications = @()
@@ -504,6 +503,7 @@ function Get-TargetResource
         $result = @{
             DisplayName              = $AADApp.DisplayName
             AvailableToOtherTenants  = $AvailableToOtherTenantsValue
+            AuthenticationBehaviors  = $complexAuthenticationBehaviors
             Description              = $AADApp.Description
             GroupMembershipClaims    = $AADApp.GroupMembershipClaims
             Homepage                 = $AADApp.web.HomepageUrl
@@ -535,11 +535,6 @@ function Get-TargetResource
             CertificateThumbprint    = $CertificateThumbprint
             ManagedIdentity          = $ManagedIdentity.IsPresent
             AccessTokens             = $AccessTokens
-        }
-
-        if ($complexAuthenticationBehaviors.Count -gt 0)
-        {
-            $result.AuthenticationBehaviors = $complexAuthenticationBehaviors
         }
 
         Write-Verbose -Message "Get-TargetResource Result: `n $(Convert-M365DscHashtableToString -Hashtable $result)"
@@ -708,7 +703,7 @@ function Set-TargetResource
         $AccessTokens
     )
 
-    Write-Verbose -Message 'Setting configuration of Azure AD Application'
+    Write-Verbose -Message "Setting configuration of Azure AD Application '$DisplayName'"
 
     #Ensure the proper dependencies are installed in the current environment.
     Confirm-M365DSCDependencies
@@ -735,9 +730,8 @@ function Set-TargetResource
     }
 
     $currentAADApp = Get-TargetResource @PSBoundParameters
-    $currentParameters = $PSBoundParameters
+    $currentParameters = ([Hashtable]$PSBoundParameters).Clone()
     $currentParameters.Remove('ApplicationId') | Out-Null
-    $tenantIdValue = $TenantId
     $currentParameters.Remove('TenantId') | Out-Null
     $currentParameters.Remove('CertificateThumbprint') | Out-Null
     $currentParameters.Remove('ApplicationSecret') | Out-Null
@@ -952,6 +946,7 @@ function Set-TargetResource
             $tries++
         } until ($null -eq $appEntity -or $tries -le 12)
     }
+
     if ($Ensure -eq 'Present' -and $currentAADApp.Ensure -eq 'Absent' -and -not $skipToUpdate)
     {
         $currentParameters.Remove('ObjectId') | Out-Null
@@ -1232,11 +1227,11 @@ function Set-TargetResource
         $IAuthenticationBehaviors = @{
             blockAzureADGraphAccess       = $AuthenticationBehaviors.blockAzureADGraphAccess
             removeUnverifiedEmailClaim    = $AuthenticationBehaviors.removeUnverifiedEmailClaim
-            requireClientServicePrincipal = $AuthenticationBehaviors.requireClientServicePrincipal
         }
 
-        $uri = (Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + "beta/applications/$($currentAADApp.Id)/authenticationBehaviors"
-        Invoke-MgGraphRequest -Uri $uri -Method 'PATCH' -Body $IAuthenticationBehaviors
+        Update-MgBetaApplication -ApplicationId $currentAADApp.Id -BodyParameter @{
+            authenticationBehaviors = $IAuthenticationBehaviors
+        }
     }
 
     if ($needToUpdateKeyCredentials -and $KeyCredentials)
@@ -1480,7 +1475,7 @@ function Test-TargetResource
     Add-M365DSCTelemetryEvent -Data $data
     #endregion
 
-    Write-Verbose -Message 'Testing configuration of AzureAD Application'
+    Write-Verbose -Message "Testing configuration of AzureAD Application '$DisplayName'"
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
     $ValuesToCheck = ([Hashtable]$PSBoundParameters).clone()
@@ -1898,7 +1893,8 @@ function Get-M365DSCAzureADAppPermissions
 {
     [CmdletBinding()]
     [OutputType([PSCustomObject])]
-    param(
+    param
+    (
         [Parameter(Mandatory = $true)]
         $App
     )
