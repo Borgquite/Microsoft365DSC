@@ -4,6 +4,10 @@
 
 * AADAdministrativeUnit
   * Allow DisplayName to include apostrophes.
+* TeamsVdiPolicy
+  * Added support for `VDI2Optimization` property.
+* VivaEngagementRoleMember
+  * Initial release.
 
 # 1.25.528.1
 
