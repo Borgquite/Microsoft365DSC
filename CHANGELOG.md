@@ -2,6 +2,12 @@
 
 # UNRELEASED
 
+* AADAdministrativeUnit
+  * Allow DisplayName to include apostrophes.
+* TeamsVdiPolicy
+  * Added support for `VDI2Optimization` property.
+* VivaEngagementRoleMember
+  * Initial release.
 * MISC
   * Added `RoleScopeTagIds` property across the Intune resources.
 
