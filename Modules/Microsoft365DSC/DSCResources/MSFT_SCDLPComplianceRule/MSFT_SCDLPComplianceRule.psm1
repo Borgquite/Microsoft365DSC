@@ -935,7 +935,7 @@ function Set-TargetResource
     }
     elseif (('Present' -eq $Ensure) -and ('Present' -eq $CurrentRule.Ensure))
     {
-        Write-Verbose "Rule {$($CurrentRule.Name)} already exists and needs to. Updating Rule."
+        Write-Verbose "Rule {$($CurrentRule.Name)} already exists and needs to get updated. Updating Rule."
         $UpdateParams = $PSBoundParameters
 
         if ($null -ne $UpdateParams.ContentContainsSensitiveInformation)
