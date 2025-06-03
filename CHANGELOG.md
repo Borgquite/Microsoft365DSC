@@ -1,8 +1,11 @@
 # Change log for Microsoft365DSC
 
 # UNRELEASED
+
 * TeamsVdiPolicy
   * Added support for `VDI2Optimization` property.
+* VivaEngagementRoleMember
+  * Initial release.
 
 # 1.25.528.1
 
