@@ -43,25 +43,25 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
             Mock -CommandName Invoke-MgGraphRequest -MockWith {
             }
 
-            Mock -CommandName Update-MgBetaAdministrativeUnit -MockWith {
+            Mock -CommandName Update-MgDirectoryAdministrativeUnit -MockWith {
             }
 
-            Mock -CommandName New-MgBetaAdministrativeUnit -MockWith {
+            Mock -CommandName New-MgDirectoryAdministrativeUnit -MockWith {
             }
 
-            Mock -CommandName New-MgBetaAdministrativeUnitMemberByRef -MockWith {
+            Mock -CommandName New-MgDirectoryAdministrativeUnitMemberByRef -MockWith {
             }
 
-            Mock -CommandName New-MgBetaAdministrativeUnitScopedRoleMember -MockWith {
+            Mock -CommandName New-MgDirectoryAdministrativeUnitScopedRoleMember -MockWith {
             }
 
-            Mock -CommandName Remove-MgBetaAdministrativeUnit -MockWith {
+            Mock -CommandName Remove-MgDirectoryAdministrativeUnit -MockWith {
             }
 
-            Mock -CommandName Remove-MgBetaAdministrativeUnitMemberDirectoryObjectByRef -MockWith {
+            Mock -CommandName Remove-MgDirectoryAdministrativeUnitMemberDirectoryObjectByRef -MockWith {
             }
 
-            Mock -CommandName Remove-MgBetaAdministrativeUnitScopedRoleMember -MockWith {
+            Mock -CommandName Remove-MgDirectoryAdministrativeUnitScopedRoleMember -MockWith {
             }
             Mock -CommandName New-M365DSCConnection -MockWith {
                 return 'Credentials'
@@ -97,13 +97,13 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return $null
                 }
-                Mock -CommandName Get-MgBetaAdministrativeUnitMember -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnitMember -MockWith {
                     return $null
                 }
-                Mock -CommandName Get-MgBetaAdministrativeUnitScopedRoleMember -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnitScopedRoleMember -MockWith {
                     return $null
                 }
             }
@@ -115,7 +115,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
             }
             It 'Should Create the AU from the Set method' {
                 Set-TargetResource @testParams
-                Should -Invoke -CommandName New-MgBetaAdministrativeUnit -Exactly 1
+                Should -Invoke -CommandName New-MgDirectoryAdministrativeUnit -Exactly 1
             }
         }
 
@@ -135,17 +135,17 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     Credential  = $Credential
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return @{
                         Description = 'FakeStringValue2'
                         DisplayName = 'FakeStringValue2'
                         Id          = 'FakeStringValue2'
                     }
                 }
-                Mock -CommandName Get-MgBetaAdministrativeUnitMember -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnitMember -MockWith {
                     return $null
                 }
-                Mock -CommandName Get-MgBetaAdministrativeUnitScopedRoleMember -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnitScopedRoleMember -MockWith {
                     return $null
                 }
             }
@@ -160,7 +160,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
             It 'Should Remove the AU from the Set method' {
                 Set-TargetResource @testParams
-                Should -Invoke -CommandName Remove-MgBetaAdministrativeUnit -Exactly 1
+                Should -Invoke -CommandName Remove-MgDirectoryAdministrativeUnit -Exactly 1
             }
         }
 
@@ -172,17 +172,17 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     Credential  = $Credential
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return @{
                         Description = 'FakeStringValue2'
                         DisplayName = 'FakeStringValue2'
                         Id          = 'FakeStringValue2'
                     }
                 }
-                Mock -CommandName Get-MgBetaAdministrativeUnitMember -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnitMember -MockWith {
                     return $null
                 }
-                Mock -CommandName Get-MgBetaAdministrativeUnitScopedRoleMember -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnitScopedRoleMember -MockWith {
                     return $null
                 }
             }
@@ -230,7 +230,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
                 # Note: It is in fact possible to update the AU MembershipRule with any invalid value, but in the AAD-portal, updates are not possible unless the rule is valid.
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return @{
                         Description          = 'DSCAU'
                         DisplayName          = 'DSCAU'
@@ -251,13 +251,13 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnitMember -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnitMember -MockWith {
                     return @(@{
                             Id = '1234567890'
                         })
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnitScopedRoleMember -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnitScopedRoleMember -MockWith {
                     return @(@{
                             RoleId         = '12345-67890'
                             RoleMemberInfo = @{
@@ -267,7 +267,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                         })
                 }
 
-                Mock -CommandName Get-MgBetaDirectoryRole -MockWith {
+                Mock -CommandName Get-MgDirectoryRole -MockWith {
                     return @{
                         Id          = '12345-67890'
                         DisplayName = 'User Administrator'
@@ -296,7 +296,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
                 # Note: It is in fact possible to update the AU MembershipRule with any invalid value, but in the AAD-portal, updates are not possible unless the rule is valid.
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return @{
                         Description          = 'DSCAU Old Description'
                         DisplayName          = 'DSCAU'
@@ -305,13 +305,13 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnitMember -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnitMember -MockWith {
                     return @(@{
                             Id = '1234567890'
                         })
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnitScopedRoleMember -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnitScopedRoleMember -MockWith {
                     return @(@{
                             RoleId         = '12345-67890'
                             RoleMemberInfo = @{
@@ -338,7 +338,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgBetaDirectoryRole -MockWith {
+                Mock -CommandName Get-MgDirectoryRole -MockWith {
                     return @{
                         Id          = '12345-67890'
                         DisplayName = 'User Administrator'
@@ -357,8 +357,8 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
             It 'Should call the Set method without removing existing Members or ScopedRoleMembers' {
                 Set-TargetResource @testParams
-                Should -Not -Invoke -CommandName Remove-MgBetaAdministrativeUnitMemberDirectoryObjectByRef
-                Should -Not -Invoke -CommandName Remove-MgBetaAdministrativeUnitScopedRoleMember
+                Should -Not -Invoke -CommandName Remove-MgDirectoryAdministrativeUnitMemberDirectoryObjectByRef
+                Should -Not -Invoke -CommandName Remove-MgDirectoryAdministrativeUnitScopedRoleMember
             }
 
         }
@@ -380,7 +380,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     Credential        = $Credential
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return [pscustomobject]@{
                         Description = 'DSCAU2'
                         DisplayName = 'DSCAU2'
@@ -408,7 +408,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
             It 'Should call the Set method' {
                 Set-TargetResource @testParams
-                Should -Invoke -CommandName New-MgBetaAdministrativeUnitMemberByRef -Exactly 1
+                Should -Invoke -CommandName New-MgDirectoryAdministrativeUnitMemberByRef -Exactly 1
             }
         }
 
@@ -430,7 +430,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     Credential        = $Credential
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return [pscustomobject]@{
                         Description = 'DSCAU2'
                         DisplayName = 'DSCAU2'
@@ -457,7 +457,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
             It 'Should call the Set method' {
                 Set-TargetResource @testParams
-                Should -Invoke -CommandName New-MgBetaAdministrativeUnitMemberByRef -Exactly 1
+                Should -Invoke -CommandName New-MgDirectoryAdministrativeUnitMemberByRef -Exactly 1
             }
         }
 
@@ -479,7 +479,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     Credential        = $Credential
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return [pscustomobject]@{
                         Description = 'DSCAU2'
                         DisplayName = 'DSCAU2'
@@ -506,7 +506,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
             It 'Should call the Set method' {
                 Set-TargetResource @testParams
-                Should -Invoke -CommandName New-MgBetaAdministrativeUnitMemberByRef -Exactly 1
+                Should -Invoke -CommandName New-MgDirectoryAdministrativeUnitMemberByRef -Exactly 1
             }
         }
 
@@ -532,7 +532,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     Credential        = $Credential
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return [pscustomobject]@{
                         Description = 'DSCAU'
                         DisplayName = 'DSCAU'
@@ -549,7 +549,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgBetaDirectoryRole -MockWith {
+                Mock -CommandName Get-MgDirectoryRole -MockWith {
                     return [pscustomobject]@{
                         Id          = '12345-67890'
                         DisplayName = 'User Administrator'
@@ -565,7 +565,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
             }
             It 'Should call the Set method' {
                 Set-TargetResource @testParams
-                Should -Invoke -CommandName New-MgBetaAdministrativeUnitScopedRoleMember -Exactly 1
+                Should -Invoke -CommandName New-MgDirectoryAdministrativeUnitScopedRoleMember -Exactly 1
             }
         }
 
@@ -589,7 +589,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     Credential        = $Credential
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return [pscustomobject]@{
                         Description = 'DSCAU'
                         DisplayName = 'DSCAU'
@@ -606,7 +606,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgBetaDirectoryRole -MockWith {
+                Mock -CommandName Get-MgDirectoryRole -MockWith {
                     return [pscustomobject]@{
                         Id          = '12345-67890'
                         DisplayName = 'User Administrator'
@@ -622,7 +622,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
             }
             It 'Should call the Set method' {
                 Set-TargetResource @testParams
-                Should -Invoke -CommandName New-MgBetaAdministrativeUnitScopedRoleMember -Exactly 1
+                Should -Invoke -CommandName New-MgDirectoryAdministrativeUnitScopedRoleMember -Exactly 1
             }
         }
 
@@ -645,7 +645,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     Credential        = $Credential
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return [pscustomobject]@{
                         Description = 'DSCAU Old Description'
                         DisplayName = 'DSCAU'
@@ -661,7 +661,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgBetaDirectoryRole -MockWith {
+                Mock -CommandName Get-MgDirectoryRole -MockWith {
                     return [pscustomobject]@{
                         Id          = '12345-67890'
                         DisplayName = 'User Administrator'
@@ -700,7 +700,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     Credential        = $Credential
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return [pscustomobject]@{
                         Description = 'DSCAU'
                         DisplayName = 'DSCAU'
@@ -724,7 +724,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgBetaDirectoryRole -MockWith {
+                Mock -CommandName Get-MgDirectoryRole -MockWith {
                     return [pscustomobject]@{
                         Id          = '12345-67890'
                         DisplayName = 'User Administrator'
@@ -740,7 +740,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
             }
             It 'Should call the Set method' {
                 Set-TargetResource @testParams
-                Should -Invoke -CommandName New-MgBetaAdministrativeUnitScopedRoleMember -Exactly 1
+                Should -Invoke -CommandName New-MgDirectoryAdministrativeUnitScopedRoleMember -Exactly 1
             }
         }
 
@@ -752,7 +752,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     Credential = $Credential
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnit -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnit -MockWith {
                     return @{
                         Description = 'ExportDSCAU'
                         DisplayName = 'ExportDSCAU'
@@ -761,7 +761,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnitMember -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnitMember -MockWith {
                     return [pscustomobject]@{
                         Id = '1234567890'
                     }
@@ -775,7 +775,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgBetaAdministrativeUnitScopedRoleMember -MockWith {
+                Mock -CommandName Get-MgDirectoryAdministrativeUnitScopedRoleMember -MockWith {
                     return @([pscustomobject]@{
                             RoleId         = '12345-67890'
                             RoleMemberInfo = @{
@@ -809,14 +809,14 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgBetaDirectoryRole -ParameterFilter { $DirectoryRoleId -eq '12345-67890' } -MockWith {
+                Mock -CommandName Get-MgDirectoryRole -ParameterFilter { $DirectoryRoleId -eq '12345-67890' } -MockWith {
                     return [pscustomobject]@{
                         Id          = '12345-67890'
                         DisplayName = 'DSC User Administrator'
                     }
                 }
 
-                Mock -CommandName Get-MgBetaDirectoryRole -ParameterFilter { $DirectoryRoleId -eq '09876-54321' } -MockWith {
+                Mock -CommandName Get-MgDirectoryRole -ParameterFilter { $DirectoryRoleId -eq '09876-54321' } -MockWith {
                     return [pscustomobject]@{
                         Id          = '09876-54321'
                         DisplayName = 'DSC Groups Administrator'

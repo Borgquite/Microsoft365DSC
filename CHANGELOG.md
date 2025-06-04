@@ -4,6 +4,8 @@
 
 * AADAdministrativeUnit
   * Allow DisplayName to include apostrophes.
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Units.
+    FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
 * AADApplication
   * Fixed issue where the property AuthenticationBehaviors was incorrectly
     exported as an array.
@@ -27,6 +29,9 @@
 * AADRoleEligibilityScheduleRequest
   * Fix export issue where Recurrence settings are not exported when they
     are not configured.
+* EXOManagementRoleAssignment
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Units.
+    FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
 * EXOMobileDeviceMailboxPolicy
   * Fix export issue where two properties were exported as integer, where
     the schema expects a string.
@@ -52,6 +57,8 @@
   * Added support for `VDI2Optimization` property.
 * VivaEngagementRoleMember
   * Initial release.
+* DEPENDENCIES
+  * Added dependency on Microsoft.Graph.Identity.DirectoryManagement.
 * MISC
   * Added `RoleScopeTagIds` property across the Intune resources.
 
