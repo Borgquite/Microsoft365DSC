@@ -517,7 +517,7 @@ function Get-M365DSCPrincipalIdFromName
     $result = $null
     if ($PrincipalType -eq 'User')
     {
-        $userInfo = Get-MgUser -Filter "UserPrincipalName eq '$PrincipalName'"
+        $userInfo = Get-MgUser -Filter "UserPrincipalName eq '$($PrincipalName -replace "'", "''")'"
         if ($null -ne $userInfo)
         {
             $result = $userInfo.Id

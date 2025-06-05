@@ -78,7 +78,7 @@ function Get-TargetResource
             }
             if ($null -eq $instance)
             {
-                $instance = Get-MgBetaExternalConnection -Filter "Name eq '$Name'"
+                $instance = Get-MgBetaExternalConnection -Filter "Name eq '$($Name -replace "'", "''")'"
             }
         }
         else
