@@ -107,7 +107,7 @@ function Get-TargetResource
                 if (-not [string]::IsNullOrEmpty($DisplayName))
                 {
                     $getValue = Get-MgBetaEntitlementManagementConnectedOrganization `
-                        -Filter "DisplayName eq '$($DisplayName -replace '"', "''")'" `
+                        -Filter "DisplayName eq '$($DisplayName -replace "'", "''")'" `
                         -ErrorAction SilentlyContinue
                 }
             }

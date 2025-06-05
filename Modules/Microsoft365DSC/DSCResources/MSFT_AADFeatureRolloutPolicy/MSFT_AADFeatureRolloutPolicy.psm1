@@ -99,7 +99,7 @@ function Get-TargetResource
                 if (-not [System.String]::IsNullOrEmpty($DisplayName))
                 {
                     $getValue = Get-MgBetaPolicyFeatureRolloutPolicy `
-                        -Filter "DisplayName eq '$($DisplayName -replace '"', "''")'" `
+                        -Filter "DisplayName eq '$($DisplayName -replace "'", "''")'" `
                         -ErrorAction SilentlyContinue
                 }
             }

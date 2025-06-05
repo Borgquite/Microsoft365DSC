@@ -86,7 +86,7 @@ function Get-TargetResource
 
         if ($null -eq $UserFlowAttribute -and -not [System.String]::IsNullOrEmpty($DisplayName))
         {
-            $UserFlowAttribute = Get-MgBetaIdentityUserFlowAttribute -Filter "DisplayName eq '$($DisplayName -replace '"', "''")'"
+            $UserFlowAttribute = Get-MgBetaIdentityUserFlowAttribute -Filter "DisplayName eq '$($DisplayName -replace "'", "''")'"
         }
         }
         else

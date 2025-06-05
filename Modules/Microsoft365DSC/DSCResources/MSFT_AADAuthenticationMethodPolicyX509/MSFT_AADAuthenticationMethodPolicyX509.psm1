@@ -391,7 +391,7 @@ function Set-TargetResource
                 {
                     if ($entry.id -notmatch '^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$|all_users')
                     {
-                        $Filter = "DisplayName eq '$($entry.id -replace '"', "''")'"
+                        $Filter = "DisplayName eq '$($entry.id -replace "'", "''")'"
                         Write-Verbose -Message "Retrieving {$key} Group with DisplayName {$($entry.id)}"
                         $GroupInstance = Get-MgGroup -Filter $Filter -ErrorAction SilentlyContinue
                         if ($null -ne $GroupInstance)

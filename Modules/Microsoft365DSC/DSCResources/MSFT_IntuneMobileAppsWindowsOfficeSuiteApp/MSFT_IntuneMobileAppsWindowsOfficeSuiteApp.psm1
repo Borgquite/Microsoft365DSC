@@ -177,7 +177,7 @@ function Get-TargetResource
             {
                 $instance = Get-MgBetaDeviceAppManagementMobileApp `
                     -All `
-                    -Filter "(isof('microsoft.graph.officeSuiteApp') and DisplayName eq '$($DisplayName -replace '"', "''")')" `
+                    -Filter "(isof('microsoft.graph.officeSuiteApp') and DisplayName eq '$($DisplayName -replace "'", "''")')" `
                     -ErrorAction SilentlyContinue
             }
 
@@ -488,7 +488,7 @@ function Set-TargetResource
             }
             else
             {
-                $currentCategory = Get-MgBetaDeviceAppManagementMobileAppCategory -Filter "DisplayName eq '$($category.DisplayName -replace '"', "''")'"
+                $currentCategory = Get-MgBetaDeviceAppManagementMobileAppCategory -Filter "DisplayName eq '$($category.DisplayName -replace "'", "''")'"
             }
 
             if ($null -eq $currentCategory)
@@ -559,7 +559,7 @@ function Set-TargetResource
                 }
                 else
                 {
-                    $currentCategory = Get-MgBetaDeviceAppManagementMobileAppCategory -Filter "DisplayName eq '$($category.DisplayName -replace '"', "''")'"
+                    $currentCategory = Get-MgBetaDeviceAppManagementMobileAppCategory -Filter "DisplayName eq '$($category.DisplayName -replace "'", "''")'"
                 }
 
                 if ($null -eq $currentCategory)

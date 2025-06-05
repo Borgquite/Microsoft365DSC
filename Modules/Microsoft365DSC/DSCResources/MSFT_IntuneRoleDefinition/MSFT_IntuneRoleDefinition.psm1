@@ -103,7 +103,7 @@ function Get-TargetResource
             if ($null -eq $getValue)
             {
                 Write-Verbose -Message "No Intune Role Definition with Id {$Id} was found"
-                $Filter = "DisplayName eq '$($DisplayName -replace '"', "''")'"
+                $Filter = "DisplayName eq '$($DisplayName -replace "'", "''")'"
                 $getValue = Get-MgBetaDeviceManagementRoleDefinition -All -Filter $Filter -ErrorAction SilentlyContinue
                 if ($null -ne $getValue)
                 {

@@ -136,7 +136,7 @@ function Get-TargetResource
                 {
                     $getValue = Get-MgBetaDeviceManagementWindowsAutopilotDeploymentProfile `
                         -All `
-                        -Filter "DisplayName eq '$($DisplayName -replace '"', "''")'" `
+                        -Filter "DisplayName eq '$($DisplayName -replace "'", "''")'" `
                         -ErrorAction SilentlyContinue
                 }
             }

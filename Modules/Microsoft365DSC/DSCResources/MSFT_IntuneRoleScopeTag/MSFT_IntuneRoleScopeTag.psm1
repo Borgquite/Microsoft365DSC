@@ -95,7 +95,7 @@ function Get-TargetResource
                 {
                     $getValue = Get-MgBetaDeviceManagementRoleScopeTag `
                         -All `
-                        -Filter "DisplayName eq '$($DisplayName -replace '"', "''")'" `
+                        -Filter "DisplayName eq '$($DisplayName -replace "'", "''")'" `
                         -ErrorAction SilentlyContinue
                 }
             }

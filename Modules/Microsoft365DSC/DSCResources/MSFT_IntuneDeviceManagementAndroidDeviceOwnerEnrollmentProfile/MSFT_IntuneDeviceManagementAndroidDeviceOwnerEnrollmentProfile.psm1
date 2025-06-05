@@ -130,7 +130,7 @@ function Get-TargetResource
                 Write-Verbose -Message 'Trying to retrieve profile by DisplayName'
                 $androidDeviceOwnerEnrollmentProfile = Get-MgBetaDeviceManagementAndroidDeviceOwnerEnrollmentProfile `
                     -All `
-                    -Filter "DisplayName eq '$($DisplayName -replace '"', "''")'" `
+                    -Filter "DisplayName eq '$($DisplayName -replace "'", "''")'" `
                     -ErrorAction SilentlyContinue
             }
 

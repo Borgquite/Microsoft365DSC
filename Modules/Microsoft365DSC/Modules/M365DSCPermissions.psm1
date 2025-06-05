@@ -1368,7 +1368,7 @@ function Update-M365DSCAzureAdApplication
 
     Write-LogEntry ' '
     Write-LogEntry 'Checking existence of AD Application'
-    if (-not ($azureADApp = Get-MgApplication -Filter "DisplayName eq '$($ApplicationName -replace '"', "''")'" -ErrorAction SilentlyContinue))
+    if (-not ($azureADApp = Get-MgApplication -Filter "DisplayName eq '$($ApplicationName -replace "'", "''")'" -ErrorAction SilentlyContinue))
     {
         $azureADApp = New-MgApplication -DisplayName $ApplicationName
         Write-LogEntry "  New Azure AD application '$ApplicationName' created!"
