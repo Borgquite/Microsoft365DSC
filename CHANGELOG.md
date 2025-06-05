@@ -30,6 +30,8 @@
 * EXODistributionGroup
   * Return PrimarySmtpAddress instead of DisplayName for Members field,
     and ManagedBy and ModeratedBy field, to allow values to be set.
+* EXOGroupSettings
+  * Use the existing group ID to apply updates instead of DisplayName.
 * EXOMobileDeviceMailboxPolicy
   * Fix export issue where two properties were exported as integer, where
     the schema expects a string.
