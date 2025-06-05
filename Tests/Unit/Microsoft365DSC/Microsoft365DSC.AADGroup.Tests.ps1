@@ -517,12 +517,6 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgBetaDirectoryRole -MockWith {
-                    return @{
-                        DisplayName = 'AADRole'
-                        ID          = '12345-12345-12345-12345'
-                    }
-                }
                 Mock -CommandName Get-MgBetaRoleManagementDirectoryRoleAssignment -MockWith {
                     return $null
                 }
@@ -641,12 +635,6 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                             '@odata.type' = '#microsoft.graph.directoryRole'
                             displayName   = 'AADRole'
                         }
-                    }
-                }
-                Mock -CommandName Get-MgBetaDirectoryRole -MockWith {
-                    return @{
-                        DisplayName = 'AADRole'
-                        ID          = '12345-12345-12345-12345'
                     }
                 }
             }
