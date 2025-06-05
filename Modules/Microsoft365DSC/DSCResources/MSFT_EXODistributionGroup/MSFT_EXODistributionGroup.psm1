@@ -261,6 +261,7 @@ function Get-TargetResource
             $distributionGroup = $Script:exportedInstance
         }
 
+        Write-Verbose -Message "Getting Distribution Group members for $Identity"
         if (-not [System.String]::IsNullOrEmpty($PrimarySmtpAddress))
         {
             $distributionGroupMembers = Get-DistributionGroupMember -Identity $PrimarySmtpAddress `
@@ -277,6 +278,7 @@ function Get-TargetResource
         $distributionMembersValue = @()
         foreach ($member in $distributionGroupMembers)
         {
+            Write-Verbose -Message "Found Distribution Group member '$($member.PrimarySmtpAddress)' for $Identity"
             $distributionMembersValue += $member.PrimarySmtpAddress
         }
 
