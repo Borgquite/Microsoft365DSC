@@ -90,9 +90,6 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
             Mock -CommandName New-MgBetaGroupMember -MockWith {
             }
 
-            Mock -CommandName New-MgBetaDirectoryRoleMemberByRef -MockWith {
-            }
-
             Mock -CommandName New-MgBetaRoleManagementDirectoryRoleAssignment -MockWith {
             }
 

@@ -445,7 +445,7 @@ function Set-TargetResource
                 }
                 elseif ($member.Type -eq 'Device')
                 {
-                    $memberIdentity = Get-MgBetaDevice -Filter "DisplayName eq '$($member.Identity)'" -ErrorAction Stop
+                    $memberIdentity = Get-MgDevice -Filter "DisplayName eq '$($member.Identity)'" -ErrorAction Stop
                     if ($memberIdentity)
                     {
                         if ($memberIdentity.Count -gt 1)
@@ -635,7 +635,7 @@ function Set-TargetResource
                     }
                     elseif ($diff.Type -eq 'Device')
                     {
-                        $memberObject = Get-MgBetaDevice -Filter "DisplayName eq '$($diff.Identity)'"
+                        $memberObject = Get-MgDevice -Filter "DisplayName eq '$($diff.Identity)'"
                         $membertype = 'devices'
                     }
                     else

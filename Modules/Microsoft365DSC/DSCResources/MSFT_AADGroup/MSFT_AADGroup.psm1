@@ -744,7 +744,7 @@ function Set-TargetResource
                 if ($null -eq $directoryObject)
                 {
                     Write-Verbose -Message "Trying to retrieve Device {$($diff.InputObject)}"
-                    $directoryObject = Get-MgBetaDevice -Filter "DisplayName eq '$($diff.InputObject)'"
+                    $directoryObject = Get-MgDevice -Filter "DisplayName eq '$($diff.InputObject)'"
                 }
 
                 if ($diff.SideIndicator -eq '=>')

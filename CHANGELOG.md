@@ -4,7 +4,8 @@
 
 * AADAdministrativeUnit
   * Allow DisplayName to include apostrophes.
-  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Units.
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Unit,
+    Device, Directory Role and Directory Role Template.
     FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
 * AADApplication
   * Fixed issue where the property AuthenticationBehaviors was incorrectly
@@ -14,6 +15,8 @@
   * Deprecated AuthenticationBehavior\RequireClientServicePrincipal property.
     Trying to set this property will throw an error.
   * Fixed issue where the property Permissions was not exported as an array
+* AADConditionalAccessPolicy
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Directory Role Template.
 * AADCrossTenantAccessPolicyConfigurationPartner
   * Fix export issue where B2B settings are not exported when these are set
     to default settings.
@@ -23,6 +26,7 @@
     FIXES [#5941](https://github.com/microsoft/Microsoft365DSC/issues/5941)
 * AADGroup
   * Fixed issue where the property Permissions was not exported as an array
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Device.
 * AADRoleAssignmentScheduleRequest
   * Fix export issue where Recurrence settings are not exported when they
     are not configured.
