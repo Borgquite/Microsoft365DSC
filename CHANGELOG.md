@@ -26,6 +26,7 @@
     FIXES [#5941](https://github.com/microsoft/Microsoft365DSC/issues/5941)
 * AADGroup
   * Fixed issue where the property Permissions was not exported as an array
+  * Allow DisplayName to include apostrophes.
   * Upgrade from beta to v1.0 Microsoft Graph endpoint for Device.
 * AADRoleAssignmentScheduleRequest
   * Fix export issue where Recurrence settings are not exported when they
