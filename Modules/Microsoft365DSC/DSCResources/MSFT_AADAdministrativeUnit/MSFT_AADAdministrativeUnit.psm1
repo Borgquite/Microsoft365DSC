@@ -417,7 +417,7 @@ function Set-TargetResource
                 Write-Verbose -Message "AU {$DisplayName} member Type '$($member.Type)' Identity '$($member.Identity)'"
                 if ($member.Type -eq 'User')
                 {
-                    $memberIdentity = Get-MgUser -Filter "UserPrincipalName eq '$($member.Identity)'" -ErrorAction Stop
+                    $memberIdentity = Get-MgUser -Filter "UserPrincipalName eq '$($member.Identity -replace "'", "''")'" -ErrorAction Stop
                     if ($memberIdentity)
                     {
                         $memberSpecification += [pscustomobject]@{Type = "$($member.Type)s"; Id = $memberIdentity.Id }
@@ -501,7 +501,7 @@ function Set-TargetResource
                 }
                 if ($roleMember.RoleMemberInfo.Type -eq 'User')
                 {
-                    $roleMemberIdentity = Get-MgUser -Filter "UserPrincipalName eq '$($roleMember.RoleMemberInfo.Identity)'" -ErrorAction Stop
+                    $roleMemberIdentity = Get-MgUser -Filter "UserPrincipalName eq '$($roleMember.RoleMemberInfo.Identity -replace "'", "''")'" -ErrorAction Stop
                     if ($null -eq $roleMemberIdentity)
                     {
                         throw "AU {$($DisplayName)}:  Scoped Role User {$($roleMember.RoleMemberInfo.Identity)} for role {$($roleMember.RoleName)} does not exist"
@@ -625,7 +625,7 @@ function Set-TargetResource
                 {
                     if ($diff.Type -eq 'User')
                     {
-                        $memberObject = Get-MgUser -Filter "UserPrincipalName eq '$($diff.Identity)'"
+                        $memberObject = Get-MgUser -Filter "UserPrincipalName eq '$($diff.Identity -replace "'", "''")'"
                         $memberType = 'users'
                     }
                     elseif ($diff.Type -eq 'Group')
@@ -716,7 +716,7 @@ function Set-TargetResource
             {
                 if ($diff.Type -eq 'User')
                 {
-                    $memberObject = Get-MgUser -Filter "UserPrincipalName eq '$($diff.Identity)'"
+                    $memberObject = Get-MgUser -Filter "UserPrincipalName eq '$($diff.Identity -replace "'", "''")'"
                     #$memberType = 'users'
                 }
                 elseif ($diff.Type -eq 'Group')
