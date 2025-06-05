@@ -37,6 +37,8 @@
     this value as an integer.
 * IntuneSecurityBaselineMicrosoftEdge
   * Updated to latest template and deprecated `EdgeEnhanceImagesEnabled` as well as `WebSQLAccess`.
+* IntuneSecurityBaselineWindows10
+  * Updated resource with new 24H2 properties.
 * SCDLPComplianceRule
   * Fixed apostrophes in the export method.
 * SCSensitivityLabel
