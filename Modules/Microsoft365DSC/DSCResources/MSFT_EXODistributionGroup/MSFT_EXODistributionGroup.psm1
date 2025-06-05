@@ -277,15 +277,7 @@ function Get-TargetResource
         $distributionMembersValue = @()
         foreach ($member in $distributionGroupMembers)
         {
-            $user = Get-User -Identity $member.DisplayName -ErrorAction SilentlyContinue
-            if ($null -ne $user)
-            {
-                $distributionMembersValue += $user.UserPrincipalName
-            }
-            else
-            {
-                $distributionMembersValue += $member.DisplayName
-            }
+            $distributionMembersValue += $member.PrimarySmtpAddress
         }
 
         Write-Verbose -Message "Found existing Distribution Group {$Identity}."
@@ -309,7 +301,7 @@ function Get-TargetResource
                 try
                 {
                     $user = Get-User -Identity $user -ErrorAction Stop
-                    $ManagedByValue += $user.UserPrincipalName
+                    $ManagedByValue += $user.PrimarySmtpAddress
                 }
                 catch
                 {
@@ -326,7 +318,7 @@ function Get-TargetResource
                 try
                 {
                     $user = Get-User -Identity $user -ErrorAction Stop
-                    $ModeratedByValue += $user.UserPrincipalName
+                    $ModeratedByValue += $user.PrimarySmtpAddress
                 }
                 catch
                 {

@@ -27,6 +27,9 @@
 * AADRoleEligibilityScheduleRequest
   * Fix export issue where Recurrence settings are not exported when they
     are not configured.
+* EXODistributionGroup
+  * Return PrimarySmtpAddress instead of DisplayName for Members field,
+    and ManagedBy and ModeratedBy field, to allow values to be set.
 * EXOMobileDeviceMailboxPolicy
   * Fix export issue where two properties were exported as integer, where
     the schema expects a string.
