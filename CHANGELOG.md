@@ -53,6 +53,7 @@
 * VivaEngagementRoleMember
   * Initial release.
 * MISC
+  * Allow use of apostrophes in DisplayName for all resources types.
   * Added `RoleScopeTagIds` property across the Intune resources.
 
 # 1.25.528.1

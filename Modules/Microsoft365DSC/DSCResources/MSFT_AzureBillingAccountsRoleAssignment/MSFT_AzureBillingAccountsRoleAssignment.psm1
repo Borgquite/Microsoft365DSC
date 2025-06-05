@@ -525,7 +525,7 @@ function Get-M365DSCPrincipalIdFromName
     }
     elseif ($PrincipalType -eq 'ServicePrincipal')
     {
-        $spnInfo = Get-MgServicePrincipal -Filter "DisplayName eq '$PrincipalName'"
+        $spnInfo = Get-MgServicePrincipal -Filter "DisplayName eq '$($PrincipalName -replace '"', "''")'"
         if ($null -ne $spnInfo)
         {
             $result = $spnInfo.Id
@@ -533,7 +533,7 @@ function Get-M365DSCPrincipalIdFromName
     }
     elseif ($PrincipalType -eq 'Group')
     {
-        $groupInfo = Get-MgGroup -Filter "DisplayName eq '$PrincipalName'"
+        $groupInfo = Get-MgGroup -Filter "DisplayName eq '$($PrincipalName -replace '"', "''")'"
         if ($null -ne $groupInfo)
         {
             $result = $groupInfo.Id
