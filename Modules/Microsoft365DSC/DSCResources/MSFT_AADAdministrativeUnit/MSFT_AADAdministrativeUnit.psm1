@@ -429,7 +429,7 @@ function Set-TargetResource
                 }
                 elseif ($member.Type -eq 'Group')
                 {
-                    $memberIdentity = Get-MgGroup -Filter "DisplayName eq '$($member.Identity)'" -ErrorAction Stop
+                    $memberIdentity = Get-MgGroup -Filter "DisplayName eq '$($member.Identity -replace "'", "''")'" -ErrorAction Stop
                     if ($memberIdentity)
                     {
                         if ($memberIdentity.Count -gt 1)
@@ -445,7 +445,7 @@ function Set-TargetResource
                 }
                 elseif ($member.Type -eq 'Device')
                 {
-                    $memberIdentity = Get-MgDevice -Filter "DisplayName eq '$($member.Identity)'" -ErrorAction Stop
+                    $memberIdentity = Get-MgDevice -Filter "DisplayName eq '$($member.Identity -replace "'", "''")'" -ErrorAction Stop
                     if ($memberIdentity)
                     {
                         if ($memberIdentity.Count -gt 1)
@@ -478,7 +478,7 @@ function Set-TargetResource
                 Write-Verbose -Message "AU {$DisplayName} member: role '$($roleMember.RoleName)' type '$($roleMember.RoleMemberInfo.Type)' identity $($roleMember.RoleMemberInfo.Identity)"
                 try
                 {
-                    $roleObject = Get-MgDirectoryRole -Filter "DisplayName eq '$($roleMember.RoleName)'" -ErrorAction stop
+                    $roleObject = Get-MgDirectoryRole -Filter "DisplayName eq '$($roleMember.RoleName -replace "'", "''")'" -ErrorAction stop
 
                     if ($null -eq $roleObject)
                     {
@@ -509,7 +509,7 @@ function Set-TargetResource
                 }
                 elseif ($roleMember.RoleMemberInfo.Type -eq 'Group')
                 {
-                    $roleMemberIdentity = Get-MgGroup -Filter "displayName eq '$($roleMember.RoleMemberInfo.Identity)'" -ErrorAction Stop
+                    $roleMemberIdentity = Get-MgGroup -Filter "displayName eq '$($roleMember.RoleMemberInfo.Identity -replace "'", "''")'" -ErrorAction Stop
                     if ($null -eq $roleMemberIdentity)
                     {
                         throw "AU {$($DisplayName)}: Scoped Role Group {$($roleMember.RoleMemberInfo.Identity)} for role {$($roleMember.RoleName)} does not exist"
@@ -521,7 +521,7 @@ function Set-TargetResource
                 }
                 elseif ($roleMember.RoleMemberInfo.Type -eq 'ServicePrincipal')
                 {
-                    $roleMemberIdentity = Get-MgServicePrincipal -Filter "displayName eq '$($roleMember.RoleMemberInfo.Identity)'" -ErrorAction Stop
+                    $roleMemberIdentity = Get-MgServicePrincipal -Filter "displayName eq '$($roleMember.RoleMemberInfo.Identity -replace "'", "''")'" -ErrorAction Stop
                     if ($null -eq $roleMemberIdentity)
                     {
                         throw "AU {$($DisplayName)}: Scoped Role ServicePrincipal {$($roleMember.RoleMemberInfo.Identity)} for role {$($roleMember.RoleName)} does not exist"
@@ -630,12 +630,12 @@ function Set-TargetResource
                     }
                     elseif ($diff.Type -eq 'Group')
                     {
-                        $memberObject = Get-MgGroup -Filter "DisplayName eq '$($diff.Identity)'"
+                        $memberObject = Get-MgGroup -Filter "DisplayName eq '$($diff.Identity -replace "'", "''")'"
                         $membertype = 'groups'
                     }
                     elseif ($diff.Type -eq 'Device')
                     {
-                        $memberObject = Get-MgDevice -Filter "DisplayName eq '$($diff.Identity)'"
+                        $memberObject = Get-MgDevice -Filter "DisplayName eq '$($diff.Identity -replace "'", "''")'"
                         $membertype = 'devices'
                     }
                     else
@@ -721,12 +721,12 @@ function Set-TargetResource
                 }
                 elseif ($diff.Type -eq 'Group')
                 {
-                    $memberObject = Get-MgGroup -Filter "DisplayName eq '$($diff.Identity)'"
+                    $memberObject = Get-MgGroup -Filter "DisplayName eq '$($diff.Identity -replace "'", "''")'"
                     #$membertype = 'groups'
                 }
                 elseif ($diff.Type -eq 'ServicePrincipal')
                 {
-                    $memberObject = Get-MgServicePrincipal -Filter "DisplayName eq '$($diff.Identity)'"
+                    $memberObject = Get-MgServicePrincipal -Filter "DisplayName eq '$($diff.Identity -replace "'", "''")'"
                     #$memberType = "servicePrincipals"
                 }
                 else
@@ -751,7 +751,7 @@ function Set-TargetResource
                 }
                 if ($diff.SideIndicator -ne '==')
                 {
-                    $roleObject = Get-MgDirectoryRole -Filter "DisplayName eq '$($diff.RoleName)'"
+                    $roleObject = Get-MgDirectoryRole -Filter "DisplayName eq '$($diff.RoleName -replace "'", "''")'"
                     if ($null -eq $roleObject)
                     {
                         throw "AU {$DisplayName} Scoped Role {$($diff.RoleName)} does not exist as an Azure AD role"
