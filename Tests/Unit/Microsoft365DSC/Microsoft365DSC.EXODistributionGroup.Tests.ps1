@@ -125,7 +125,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
                 Mock -CommandName Get-User -MockWith {
                     return @{
-                        UserPrincipalName = 'john.smith@contoso.com'
+                        PrimarySmtpAddress = 'john.smith@contoso.com'
                     }
                 }
 
@@ -191,7 +191,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
                 Mock -CommandName Get-User -MockWith {
                     return @{
-                        UserPrincipalName = 'john.smith@contoso.com'
+                        PrimarySmtpAddress = 'john.smith@contoso.com'
                     }
                 }
 
@@ -252,7 +252,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
                 Mock -CommandName Get-User -MockWith {
                     return @{
-                        UserPrincipalName = 'john.smith@contoso.com'
+                        PrimarySmtpAddress = 'john.smith@contoso.com'
                     }
                 }
 
@@ -303,7 +303,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
 
                 Mock -CommandName Get-User -MockWith {
                     return @{
-                        UserPrincipalName = 'john.smith@contoso.com'
+                        PrimarySmtpAddress = 'john.smith@contoso.com'
                     }
                 }
 
