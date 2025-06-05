@@ -303,11 +303,12 @@ function Get-TargetResource
                 try
                 {
                     $user = Get-User -Identity $user -ErrorAction Stop
+                    Write-Verbose -Message "Found Distribution Group manager '$($user.PrimarySmtpAddress)' for $Identity"
                     $ManagedByValue += $user.PrimarySmtpAddress
                 }
                 catch
                 {
-                    Write-Verbose -Message "Couldn't retrieve user {$user}"
+                    Write-Verbose -Message "Couldn't retrieve manager user {$user}"
                 }
             }
         }
@@ -320,6 +321,7 @@ function Get-TargetResource
                 try
                 {
                     $user = Get-User -Identity $user -ErrorAction Stop
+                    Write-Verbose -Message "Found Distribution Group moderator '$($user.PrimarySmtpAddress)' for $Identity"
                     $ModeratedByValue += $user.PrimarySmtpAddress
                 }
                 catch
