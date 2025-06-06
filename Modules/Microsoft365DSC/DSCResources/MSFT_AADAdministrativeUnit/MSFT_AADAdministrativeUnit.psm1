@@ -182,21 +182,19 @@ function Get-TargetResource
                 foreach ($auMember in $auMembers)
                 {
                     $member = @{}
-                    $url = (Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + "v1.0/directoryobjects/$($auMember.Id)"
-                    $memberObject = Invoke-MgGraphRequest -Uri $url
-                    if ($memberObject.'@odata.type' -match 'user')
+                    if ($auMember.AdditionalProperties.'@odata.type' -match 'user')
                     {
-                        $member.Add('Identity', $memberObject.UserPrincipalName)
+                        $member.Add('Identity', $auMember.AdditionalProperties.userPrincipalName)
                         $member.Add('Type', 'User')
                     }
-                    elseif ($memberObject.'@odata.type' -match 'group')
+                    elseif ($auMember.AdditionalProperties.'@odata.type' -match 'group')
                     {
-                        $member.Add('Identity', $memberObject.DisplayName)
+                        $member.Add('Identity', $auMember.AdditionalProperties.displayName)
                         $member.Add('Type', 'Group')
                     }
                     else
                     {
-                        $member.Add('Identity', $memberObject.DisplayName)
+                        $member.Add('Identity', $auMember.AdditionalProperties.displayName)
                         $member.Add('Type', 'Device')
                     }
                     Write-Verbose -Message "AU {$DisplayName} member found: Type '$($member.Type)' identity '$($member.Identity)'"
