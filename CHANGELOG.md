@@ -1,5 +1,14 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* EXODistributionGroup
+  * Return PrimarySmtpAddress instead of DisplayName for Members field,
+    and ManagedBy and ModeratedBy field, to allow values to be set.
+  * Allow ManagedBy and ModeratedBy fields including groups or contacts.
+* EXOGroupSettings
+  * Use the existing group ID to apply updates instead of DisplayName.
+
 # 1.25.604.1
 
 * AADAdministrativeUnit
@@ -27,12 +36,6 @@
 * AADRoleEligibilityScheduleRequest
   * Fix export issue where Recurrence settings are not exported when they
     are not configured.
-* EXODistributionGroup
-  * Return PrimarySmtpAddress instead of DisplayName for Members field,
-    and ManagedBy and ModeratedBy field, to allow values to be set.
-  * Allow ManagedBy and ModeratedBy fields including groups or contacts.
-* EXOGroupSettings
-  * Use the existing group ID to apply updates instead of DisplayName.
 * EXOMobileDeviceMailboxPolicy
   * Fix export issue where two properties were exported as integer, where
     the schema expects a string.
