@@ -30,6 +30,7 @@
 * EXODistributionGroup
   * Return PrimarySmtpAddress instead of DisplayName for Members field,
     and ManagedBy and ModeratedBy field, to allow values to be set.
+  * Allow ManagedBy and ModeratedBy fields including groups or contacts.
 * EXOGroupSettings
   * Use the existing group ID to apply updates instead of DisplayName.
 * EXOMobileDeviceMailboxPolicy

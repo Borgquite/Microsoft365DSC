@@ -278,7 +278,6 @@ function Get-TargetResource
         $distributionMembersValue = @()
         foreach ($member in $distributionGroupMembers)
         {
-            Write-Verbose -Message "Found Distribution Group member '$($member.PrimarySmtpAddress)' for $Identity"
             $distributionMembersValue += $member.PrimarySmtpAddress
         }
 
@@ -298,17 +297,17 @@ function Get-TargetResource
         $ManagedByValue = @()
         if ($null -ne $distributionGroup.ManagedBy)
         {
-            foreach ($user in $distributionGroup.ManagedBy)
+            Write-Verbose -Message "Getting Distribution Group managers for $Identity"
+            foreach ($manager in $distributionGroup.ManagedBy)
             {
                 try
                 {
-                    $user = Get-User -Identity $user -ErrorAction Stop
-                    Write-Verbose -Message "Found Distribution Group manager '$($user.PrimarySmtpAddress)' for $Identity"
-                    $ManagedByValue += $user.PrimarySmtpAddress
+                    $recipient = Get-Recipient -Identity $manager -ErrorAction Stop
+                    $ManagedByValue += $recipient.PrimarySmtpAddress
                 }
                 catch
                 {
-                    Write-Verbose -Message "Couldn't retrieve manager user {$user}"
+                    Write-Verbose -Message "Couldn't retrieve manager recipient {$manager}"
                 }
             }
         }
@@ -316,17 +315,17 @@ function Get-TargetResource
         $ModeratedByValue = @()
         if ($null -ne $distributionGroup.ModeratedBy)
         {
-            foreach ($user in $distributionGroup.ModeratedBy)
+            Write-Verbose -Message "Getting Distribution Group moderators for $Identity"
+            foreach ($moderator in $distributionGroup.ModeratedBy)
             {
                 try
                 {
-                    $user = Get-User -Identity $user -ErrorAction Stop
-                    Write-Verbose -Message "Found Distribution Group moderator '$($user.PrimarySmtpAddress)' for $Identity"
-                    $ModeratedByValue += $user.PrimarySmtpAddress
+                    $recipient = Get-Recipient -Identity $moderator -ErrorAction Stop
+                    $ModeratedByValue += $recipient.PrimarySmtpAddress
                 }
                 catch
                 {
-                    Write-Verbose -Message "Couldn't retrieve moderating user {$user}"
+                    Write-Verbose -Message "Couldn't retrieve moderating recipient {$moderator}"
                 }
             }
         }
