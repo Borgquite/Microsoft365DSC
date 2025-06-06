@@ -562,11 +562,8 @@ function Set-TargetResource
             {
                 Write-Verbose -Message "Adding new dynamic member {$($member.Id)}"
                 $url = (Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + "v1.0/$($member.Type)/$($member.Id)"
-                $memberBodyParam = @{
-                    '@odata.id' = $url
-                }
 
-                New-MgDirectoryAdministrativeUnitMemberByRef -AdministrativeUnitId $policy.Id -BodyParameter $memberBodyParam
+                New-MgDirectoryAdministrativeUnitMemberByRef -AdministrativeUnitId $policy.Id -OdataId $url
             }
         }
 
@@ -656,10 +653,7 @@ function Set-TargetResource
                         Write-Verbose -Message "AdministrativeUnit {$DisplayName} Adding member {$($diff.Identity)}, type {$($diff.Type)}"
 
                         $url = (Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + "v1.0/$memberType/$($memberObject.Id)"
-                        $memberBodyParam = @{
-                            '@odata.id' = $url
-                        }
-                        New-MgDirectoryAdministrativeUnitMemberByRef -AdministrativeUnitId ($currentInstance.Id) -BodyParameter $memberBodyParam | Out-Null
+                        New-MgDirectoryAdministrativeUnitMemberByRef -AdministrativeUnitId ($currentInstance.Id) -OdataId $url
                     }
                     else
                     {
@@ -785,6 +779,8 @@ function Set-TargetResource
     elseif ($Ensure -eq 'Absent' -and $currentInstance.Ensure -eq 'Present')
     {
         Write-Verbose -Message "Removing AU {$DisplayName}"
+        # If switching to Beta in future, must use *-MgBetaAdministrativeUnit cmdlets instead of *-MgBetaDirectoryAdministrativeUnit
+        # See https://github.com/microsoft/Microsoft365DSC/pull/6145
         Remove-MgDirectoryAdministrativeUnit -AdministrativeUnitId $currentInstance.Id
     }
 }
