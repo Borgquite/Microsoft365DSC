@@ -4,6 +4,7 @@
 
 * AADAdministrativeUnit
   * Allow DisplayName to include apostrophes.
+  * Remove unnecessary Graph requests when retrieving AU membership.
   * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Unit,
     Device, Directory Role and Directory Role Template.
     FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
