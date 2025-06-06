@@ -1,13 +1,27 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* AADAdministrativeUnit
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Unit,
+    Device, Directory Role and Directory Role Template.
+    FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
+  * Remove unnecessary Graph requests when retrieving AU membership.
+* AADConditionalAccessPolicy
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Directory Role Template.
+* AADGroup
+  * Allow DisplayName to include apostrophes.
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Device.
+* EXOManagementRoleAssignment
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Units.
+    FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
+* DEPENDENCIES
+  * Added dependency on Microsoft.Graph.Identity.DirectoryManagement.
+
 # 1.25.604.1
 
 * AADAdministrativeUnit
   * Allow DisplayName to include apostrophes.
-  * Remove unnecessary Graph requests when retrieving AU membership.
-  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Unit,
-    Device, Directory Role and Directory Role Template.
-    FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
 * AADApplication
   * Fixed issue where the property AuthenticationBehaviors was incorrectly
     exported as an array.
@@ -16,8 +30,6 @@
   * Deprecated AuthenticationBehavior\RequireClientServicePrincipal property.
     Trying to set this property will throw an error.
   * Fixed issue where the property Permissions was not exported as an array
-* AADConditionalAccessPolicy
-  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Directory Role Template.
 * AADCrossTenantAccessPolicyConfigurationPartner
   * Fix export issue where B2B settings are not exported when these are set
     to default settings.
@@ -27,17 +39,12 @@
     FIXES [#5941](https://github.com/microsoft/Microsoft365DSC/issues/5941)
 * AADGroup
   * Fixed issue where the property Permissions was not exported as an array
-  * Allow DisplayName to include apostrophes.
-  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Device.
 * AADRoleAssignmentScheduleRequest
   * Fix export issue where Recurrence settings are not exported when they
     are not configured.
 * AADRoleEligibilityScheduleRequest
   * Fix export issue where Recurrence settings are not exported when they
     are not configured.
-* EXOManagementRoleAssignment
-  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Units.
-    FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
 * EXOMobileDeviceMailboxPolicy
   * Fix export issue where two properties were exported as integer, where
     the schema expects a string.
@@ -67,8 +74,6 @@
   * Added support for `VDI2Optimization` property.
 * VivaEngagementRoleMember
   * Initial release.
-* DEPENDENCIES
-  * Added dependency on Microsoft.Graph.Identity.DirectoryManagement.
 * MISC
   * Added `RoleScopeTagIds` property across the Intune resources.
 
