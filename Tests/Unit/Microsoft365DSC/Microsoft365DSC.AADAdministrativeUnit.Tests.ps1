@@ -254,6 +254,10 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 Mock -CommandName Get-MgDirectoryAdministrativeUnitMember -MockWith {
                     return @(@{
                             Id = '1234567890'
+                            AdditionalProperties = @{
+                                '@odata.type' = '#microsoft.graph.user'
+                                userPrincipalName = 'John.Doe@mytenant.com'
+                            }
                         })
                 }
 
@@ -308,6 +312,10 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 Mock -CommandName Get-MgDirectoryAdministrativeUnitMember -MockWith {
                     return @(@{
                             Id = '1234567890'
+                            AdditionalProperties = @{
+                                '@odata.type' = '#microsoft.graph.user'
+                                userPrincipalName = 'John.Doe@mytenant.com'
+                            }
                         })
                 }
 
@@ -764,6 +772,10 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 Mock -CommandName Get-MgDirectoryAdministrativeUnitMember -MockWith {
                     return [pscustomobject]@{
                         Id = '1234567890'
+                        AdditionalProperties = @{
+                            '@odata.type' = '#microsoft.graph.user'
+                            userPrincipalName = 'John.Doe@mytenant.com'
+                        }
                     }
                 }
 
