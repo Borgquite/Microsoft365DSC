@@ -197,7 +197,6 @@ function Get-TargetResource
                         $member.Add('Identity', $auMember.AdditionalProperties.displayName)
                         $member.Add('Type', 'Device')
                     }
-                    Write-Verbose -Message "AU {$DisplayName} member found: Type '$($member.Type)' identity '$($member.Identity)'"
                     $memberSpec += $member
                 }
                 Write-Verbose -Message "AU {$DisplayName} add Members to results"
