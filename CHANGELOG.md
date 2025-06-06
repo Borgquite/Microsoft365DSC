@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# UNRELEASED
+# 1.25.604.1
 
 * AADAdministrativeUnit
   * Allow DisplayName to include apostrophes.
@@ -40,6 +40,10 @@
     defined this property as a string, where the code expected and integer.
     NOTE: This should not cause any issues, since the export already exported
     this value as an integer.
+* IntuneSecurityBaselineMicrosoftEdge
+  * Updated to latest template and deprecated `EdgeEnhanceImagesEnabled` as well as `WebSQLAccess`.
+* IntuneSecurityBaselineWindows10
+  * Updated resource with new 24H2 properties.
 * SCDLPComplianceRule
   * Fixed apostrophes in the export method.
 * SCSensitivityLabel
