@@ -327,7 +327,7 @@ function Set-TargetResource
         $adminUnit = Get-MgDirectoryAdministrativeUnit -AdministrativeUnitId $RecipientAdministrativeUnitScope -ErrorAction SilentlyContinue
         if ($null -eq $adminUnit)
         {
-            $adminUnit = Get-MgDirectoryAdministrativeUnit -All | Where-Object -FilterScript { $_.DisplayName -eq $RecipientAdministrativeUnitScope }
+            $adminUnit = Get-MgDirectoryAdministrativeUnit -Filter "DisplayName eq '$($RecipientAdministrativeUnitScope -replace "'", "''")'"
         }
         $NewManagementRoleParams.RecipientAdministrativeUnitScope = $adminUnit.Id
     }
