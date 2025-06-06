@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* MISC
+  * Allow use of apostrophes in DisplayName for all resources types.
+
 # 1.25.604.1
 
 * AADAdministrativeUnit
@@ -57,7 +62,6 @@
 * VivaEngagementRoleMember
   * Initial release.
 * MISC
-  * Allow use of apostrophes in DisplayName for all resources types.
   * Added `RoleScopeTagIds` property across the Intune resources.
 
 # 1.25.528.1
