@@ -229,20 +229,20 @@ function Get-TargetResource
                 Write-Verbose -Message "AU {$DisplayName} @odata.Type={$($memberObject.'@odata.type')}"
                 if (($memberObject.'@odata.type') -match 'user')
                 {
-                    Write-Verbose -Message "AU {$DisplayName} UPN = {$($memberObject.UserPrincipalName)}"
-                    $scopedRoleMember.RoleMemberInfo.Identity = $memberObject.UserPrincipalName
+                    Write-Verbose -Message "AU {$DisplayName} UPN = {$($auScopedRoleMember.RoleMemberInfo.AdditionalProperties.userPrincipalName)}"
+                    $scopedRoleMember.RoleMemberInfo.Identity = $auScopedRoleMember.RoleMemberInfo.AdditionalProperties.userPrincipalName
                     $scopedRoleMember.RoleMemberInfo.Type = 'User'
                 }
                 elseif (($memberObject.'@odata.type') -match 'group')
                 {
-                    Write-Verbose -Message "AU {$DisplayName} Group = {$($memberObject.DisplayName)}"
-                    $scopedRoleMember.RoleMemberInfo.Identity = $memberObject.DisplayName
+                    Write-Verbose -Message "AU {$DisplayName} Group = {$($auScopedRoleMember.RoleMemberInfo.DisplayName)}"
+                    $scopedRoleMember.RoleMemberInfo.Identity = $auScopedRoleMember.RoleMemberInfo.DisplayName
                     $scopedRoleMember.RoleMemberInfo.Type = 'Group'
                 }
                 else
                 {
-                    Write-Verbose -Message "AU {$DisplayName} SPN = {$($memberObject.DisplayName)}"
-                    $scopedRoleMember.RoleMemberInfo.Identity = $memberObject.DisplayName
+                    Write-Verbose -Message "AU {$DisplayName} SPN = {$($auScopedRoleMember.RoleMemberInfo.DisplayName)}"
+                    $scopedRoleMember.RoleMemberInfo.Identity = $auScopedRoleMember.RoleMemberInfo.DisplayName
                     $scopedRoleMember.RoleMemberInfo.Type = 'ServicePrincipal'
                 }
                 Write-Verbose -Message "AU {$DisplayName} scoped role member: RoleName '$($scopedRoleMember.RoleName)' Type '$($scopedRoleMember.RoleMemberInfo.Type)' Identity '$($scopedRoleMember.RoleMemberInfo.Identity)'"

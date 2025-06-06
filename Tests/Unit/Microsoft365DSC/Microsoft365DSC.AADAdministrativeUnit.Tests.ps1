@@ -267,6 +267,9 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                             RoleMemberInfo = @{
                                 DisplayName = 'John Doe'
                                 Id          = '1234567890'
+                                AdditionalProperties = @{
+                                    UserPrincipalName = 'John.Doe@mytenant.com'
+                                }
                             }
                         })
                 }
@@ -325,6 +328,9 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                             RoleMemberInfo = @{
                                 DisplayName = 'John Doe'
                                 Id          = '1234567890'
+                                AdditionalProperties = @{
+                                    UserPrincipalName = 'John.Doe@mytenant.com'
+                                }
                             }
                         })
                 }
@@ -793,6 +799,9 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                             RoleMemberInfo = @{
                                 DisplayName = 'John Doe'
                                 Id          = '1234567890'
+                                AdditionalProperties = @{
+                                    UserPrincipalName = 'John.Doe@mytenant.com'
+                                }
                             }
                         },
                         [pscustomobject]@{
