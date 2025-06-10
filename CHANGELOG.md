@@ -1,4 +1,8 @@
 # Change log for Microsoft365DSC
+# UNRELEASED
+
+* AADPIMGroupSetting
+  * [#6117] Initial relase.
 
 # 1.25.604.1
 
