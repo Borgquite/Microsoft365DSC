@@ -74,9 +74,6 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                 }
             }
 
-            Mock -CommandName New-MgPlannerTask -MockWith {
-            }
-
             Mock -CommandName Get-MgPlannerTaskDetail -MockWith {
                 return @{
                     CheckList = @()

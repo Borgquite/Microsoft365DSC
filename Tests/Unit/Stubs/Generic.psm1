@@ -1,3 +1,4 @@
+
 function New-MgGroup
 {
     [CmdletBinding()]
