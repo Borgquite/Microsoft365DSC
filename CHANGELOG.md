@@ -1,8 +1,13 @@
 # Change log for Microsoft365DSC
+
 # UNRELEASED
 
 * AADPIMGroupSetting
   * [#6117] Initial relase.
+* IntuneDeviceCompliancePolicyWindows10
+  * Added support for `Id` and `ScheduledActionsForRule` property.
+    FIXES [#6123](https://github.com/microsoft/Microsoft365DSC/issues/6123)
+    FIXES [#3563](https://github.com/microsoft/Microsoft365DSC/issues/3563)
 
 # UNRELEASED
 
