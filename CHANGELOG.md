@@ -4,6 +4,24 @@
 * AADPIMGroupSetting
   * [#6117] Initial relase.
 
+# UNRELEASED
+
+* AADAdministrativeUnit
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Unit,
+    Device, Directory Role and Directory Role Template.
+    FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
+  * Remove unnecessary Graph requests when retrieving AU membership.
+* AADConditionalAccessPolicy
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Directory Role Template.
+* AADGroup
+  * Allow DisplayName to include apostrophes.
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Device.
+* EXOManagementRoleAssignment
+  * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Units.
+    FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
+* DEPENDENCIES
+  * Added dependency on Microsoft.Graph.Identity.DirectoryManagement.
+
 # 1.25.604.1
 
 * AADAdministrativeUnit
