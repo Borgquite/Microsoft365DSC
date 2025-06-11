@@ -1,8 +1,4 @@
 # Change log for Microsoft365DSC
-# UNRELEASED
-
-* AADPIMGroupSetting
-  * [#6117] Initial relase.
 
 # UNRELEASED
 
@@ -16,9 +12,14 @@
 * AADGroup
   * Allow DisplayName to include apostrophes.
   * Upgrade from beta to v1.0 Microsoft Graph endpoint for Device.
+* AADPIMGroupSetting
+  * [#6117] Initial relase.
 * EXOManagementRoleAssignment
   * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Units.
     FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
+* IntuneRoleAssignment
+  * Update evaluation of parameters.
+    FIXES [#5929](https://github.com/microsoft/Microsoft365DSC/issues/5929)
 * DEPENDENCIES
   * Added dependency on Microsoft.Graph.Identity.DirectoryManagement.
 
