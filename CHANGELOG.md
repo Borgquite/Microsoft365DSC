@@ -14,9 +14,18 @@
   * Upgrade from beta to v1.0 Microsoft Graph endpoint for Device.
 * AADPIMGroupSetting
   * [#6117] Initial relase.
+* EXODistributionGroup
+  * Return PrimarySmtpAddress instead of DisplayName for Members field,
+    and ManagedBy and ModeratedBy field, to allow values to be set.
+  * Allow ManagedBy and ModeratedBy fields including groups or contacts.
+* EXOGroupSettings
+  * Use the existing group ID to apply updates instead of DisplayName.
 * EXOManagementRoleAssignment
   * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Units.
     FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
+* EXORoleGroup
+  * Add offline filter capability to `Export-TargetResource`.
+    FIXES [#4286](https://github.com/microsoft/Microsoft365DSC/issues/4286)
 * IntuneDeviceCompliancePolicyWindows10
   * Added support for `Id` and `ScheduledActionsForRule` property.
     FIXES [#6123](https://github.com/microsoft/Microsoft365DSC/issues/6123)
@@ -27,7 +36,6 @@
 * DEPENDENCIES
   * Added dependency on Microsoft.Graph.Identity.DirectoryManagement.
   * Added dependency on Microsoft.Graph.Identity.Signins.
-  * Updated MSCloudLoginAssistant to version 1.1.44.
 * MISC
   * Allow use of apostrophes in DisplayName for all resources types.
 
