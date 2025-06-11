@@ -17,11 +17,19 @@
 * EXOManagementRoleAssignment
   * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Units.
     FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
+* IntuneDeviceCompliancePolicyWindows10
+  * Added support for `Id` and `ScheduledActionsForRule` property.
+    FIXES [#6123](https://github.com/microsoft/Microsoft365DSC/issues/6123)
+    FIXES [#3563](https://github.com/microsoft/Microsoft365DSC/issues/3563)
 * IntuneRoleAssignment
   * Update evaluation of parameters.
     FIXES [#5929](https://github.com/microsoft/Microsoft365DSC/issues/5929)
 * DEPENDENCIES
   * Added dependency on Microsoft.Graph.Identity.DirectoryManagement.
+  * Added dependency on Microsoft.Graph.Identity.Signins.
+  * Updated MSCloudLoginAssistant to version 1.1.44.
+* MISC
+  * Allow use of apostrophes in DisplayName for all resources types.
 
 # 1.25.604.1
 
