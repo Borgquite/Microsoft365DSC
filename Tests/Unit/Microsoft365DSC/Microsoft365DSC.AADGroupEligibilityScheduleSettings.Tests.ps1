@@ -196,7 +196,7 @@ Describe -Name $Global:DscHelper.DescribeHeader -Fixture {
                     }
                 }
 
-                Mock -CommandName Get-MgPolicyRoleManagementPolicyRule -MockWith {
+                Mock -CommandName Get-MgBetaPolicyRoleManagementPolicyRule -MockWith {
                     return @{
                         AdditionalProperties = @{
                             '@odata.type' = "#microsoft.graph.unifiedRoleManagementPolicyExpirationRule"
