@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* IntuneWindowsHelloForBusinessGlobalPolicy
+  * Initial release.
+    FIXES [#4561](https://github.com/microsoft/Microsoft365DSC/issues/4561)
+
 # 1.25.611.1
 
 * AADAdministrativeUnit
