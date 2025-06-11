@@ -218,7 +218,7 @@ function Get-TargetResource
 
             $devicePolicy = Get-MgBetaDeviceManagementDeviceCompliancePolicy `
                 -All `
-                -Filter "displayName eq '$DisplayName' and isof('microsoft.graph.windows10CompliancePolicy')" `
+                -Filter "DisplayName eq '$($DisplayName -replace "'", "''")' and isof('microsoft.graph.windows10CompliancePolicy')" `
                 -ExpandProperty 'scheduledActionsForRule($expand=scheduledActionConfigurations)' `
                 -ErrorAction SilentlyContinue
             if (([array]$devicePolicy).Count -gt 1)
@@ -594,7 +594,7 @@ function Set-TargetResource
         $scriptName = $script.Displayname
         $scriptRulesContent = $script.RulesContent
 
-        $complianceScript = (Invoke-MgGraphRequest -Uri "/beta/deviceManagement/deviceComplianceScripts?`$filter=displayName eq '$scriptName'" -Method GET).value
+        $complianceScript = (Invoke-MgGraphRequest -Uri "/beta/deviceManagement/deviceComplianceScripts?`$filter=DisplayName eq '$($scriptName -replace "'", "''")'" -Method GET).value
         if ($complianceScript.Count -eq 0)
         {
             throw "The referenced Intune Device Compliance Script with DisplayName {$scriptName} was not found"
