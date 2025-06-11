@@ -24,7 +24,7 @@
 * DEPENDENCIES
   * Added dependency on Microsoft.Graph.Identity.DirectoryManagement.
   * Added dependency on Microsoft.Graph.Identity.Signins.
-  * Updated MSCloudLoginAssistant to version 
+  * Updated MSCloudLoginAssistant to version 1.1.45;
 * MISC
   * Allow use of apostrophes in DisplayName for all resources types.
 
