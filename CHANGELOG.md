@@ -14,6 +14,12 @@
   * Upgrade from beta to v1.0 Microsoft Graph endpoint for Device.
 * AADPIMGroupSetting
   * [#6117] Initial relase.
+* EXODistributionGroup
+  * Return PrimarySmtpAddress instead of DisplayName for Members field,
+    and ManagedBy and ModeratedBy field, to allow values to be set.
+  * Allow ManagedBy and ModeratedBy fields including groups or contacts.
+* EXOGroupSettings
+  * Use the existing group ID to apply updates instead of DisplayName.
 * EXOManagementRoleAssignment
   * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Units.
     FIXES [#4438](https://github.com/microsoft/Microsoft365DSC/issues/4438)
