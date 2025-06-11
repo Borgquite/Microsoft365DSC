@@ -30,10 +30,12 @@
   * Added support for `Id` and `ScheduledActionsForRule` property.
     FIXES [#6123](https://github.com/microsoft/Microsoft365DSC/issues/6123)
     FIXES [#3563](https://github.com/microsoft/Microsoft365DSC/issues/3563)
+* IntuneRoleAssignment
+  * Update evaluation of parameters.
+    FIXES [#5929](https://github.com/microsoft/Microsoft365DSC/issues/5929)
 * DEPENDENCIES
   * Added dependency on Microsoft.Graph.Identity.DirectoryManagement.
   * Added dependency on Microsoft.Graph.Identity.Signins.
-  * Updated MSCloudLoginAssistant to version
 * MISC
   * Allow use of apostrophes in DisplayName for all resources types.
 
