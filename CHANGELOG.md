@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* AADGroupElegibilityScheduleSettings
+  * New resource AADGroupElegibilityScheduleSettings
+
 # 1.25.521.1
 
 * AADServicePrincipal
