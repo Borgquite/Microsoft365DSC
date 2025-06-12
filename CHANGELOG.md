@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# UNRELEASED
+# 1.25.611.1
 
 * AADAdministrativeUnit
   * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Unit,
