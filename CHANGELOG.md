@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# UNRELEASED
+# 1.25.611.1
 
 * AADAdministrativeUnit
   * Upgrade from beta to v1.0 Microsoft Graph endpoint for Administrative Unit,
@@ -36,6 +36,7 @@
 * DEPENDENCIES
   * Added dependency on Microsoft.Graph.Identity.DirectoryManagement.
   * Added dependency on Microsoft.Graph.Identity.Signins.
+  * Updated MSCloudLoginAssistant to version 1.1.45;
 * MISC
   * Allow use of apostrophes in DisplayName for all resources types.
 
