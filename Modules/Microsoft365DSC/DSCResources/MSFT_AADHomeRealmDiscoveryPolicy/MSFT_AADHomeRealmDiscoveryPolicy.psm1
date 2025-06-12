@@ -472,7 +472,12 @@ function Export-TargetResource
             Write-M365DSCHost -Message "`r`n" -DeferWrite
         }
         foreach ($config in $getValue)
-        {
+        {        
+            if ($null -ne $Global:M365DSCExportResourceInstancesCount)
+            {
+                $Global:M365DSCExportResourceInstancesCount++
+            }
+
             $displayedKey = $config.DisplayName
             if (-not [String]::IsNullOrEmpty($config.displayName))
             {
@@ -495,7 +500,6 @@ function Export-TargetResource
                 AccessTokens          = $AccessTokens
             }
 
-            $Script:exportedInstance
             $Results = Get-TargetResource @Params
             if ($null -ne $Results.Definition)
             {
