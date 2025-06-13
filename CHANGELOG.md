@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* IntuneWindowsHelloForBusinessGlobalPolicy
+  * Initial release.
+    FIXES [#4561](https://github.com/microsoft/Microsoft365DSC/issues/4561)
 * MISC
   * Added `deviceAndAppManagementAssignmentFilterDisplayName` property to Intune assignments.
     FIXES [#4609](https://github.com/microsoft/Microsoft365DSC/issues/4609)
