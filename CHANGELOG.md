@@ -1,5 +1,10 @@
 # Change log for Microsoft365DSC
 
+# Unpublished
+
+* AADGroup
+  * Fix for removing Group owner.
+
 # 1.25.611.1
 
 * AADAdministrativeUnit
