@@ -8,6 +8,8 @@
 * MISC
   * Added `deviceAndAppManagementAssignmentFilterDisplayName` property to Intune assignments.
     FIXES [#4609](https://github.com/microsoft/Microsoft365DSC/issues/4609)
+* AADGroupElegibilityScheduleSettings
+  * New resource AADGroupElegibilityScheduleSettings
 
 # 1.25.611.1
 
@@ -117,6 +119,11 @@
   * Updated ExchangeOnlineManagement to version 3.2.0
   * Updated Microsoft.Graph to version 2.28.0
   * Updated MSCloudLoginAssistant to version 1.1.44
+
+# UNRELEASED
+
+* AADGroupElegibilityScheduleSettings
+  * New resource AADGroupElegibilityScheduleSettings
 
 # 1.25.521.1
 
