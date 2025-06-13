@@ -1,6 +1,6 @@
 # Change log for Microsoft365DSC
 
-# Unpublished
+# UNRELEASED
 
 * AADGroup
   * Fix for removing Group owner.
