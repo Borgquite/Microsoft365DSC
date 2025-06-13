@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* EXODistributionGroup
+  * Always use the retrieved Identity when updating the distribution group
+    to ensure correct group is updated when retrieved with PrimarySmtpAddress.
 * MISC
   * Added `deviceAndAppManagementAssignmentFilterDisplayName` property to Intune assignments.
     FIXES [#4609](https://github.com/microsoft/Microsoft365DSC/issues/4609)
