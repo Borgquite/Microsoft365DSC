@@ -1,5 +1,11 @@
 # Change log for Microsoft365DSC
 
+# UNRELEASED
+
+* MISC
+  * Added `deviceAndAppManagementAssignmentFilterDisplayName` property to Intune assignments.
+    FIXES [#4609](https://github.com/microsoft/Microsoft365DSC/issues/4609)
+
 # 1.25.611.1
 
 * AADAdministrativeUnit
