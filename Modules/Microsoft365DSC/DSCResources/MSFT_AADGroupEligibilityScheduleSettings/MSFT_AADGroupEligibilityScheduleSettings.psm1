@@ -513,7 +513,8 @@ function Export-TargetResource
 
     try
     {
-        [array] $PIMgroups = (Invoke-GraphRequest -Method GET -Uri "https://graph.microsoft.com/beta/privilegedAccess/aadGroups/resources").value
+        $Uri = (Get-MSCloudLoginConnectionProfile -Workload MicrosoftGraph).ResourceUrl + "beta/privilegedAccess/aadGroups/resources"
+        [array] $PIMgroups = (Invoke-GraphRequest -Method GET -Uri $uri -ErrorAction SilentlyContinue).value
 
         if($Filter.Length -gt 0)
         {
