@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* IntuneDefenderGlobalExclusionsPolicyLinux
+  * Initial release.
 * IntuneWindowsHelloForBusinessGlobalPolicy
   * Initial release.
     FIXES [#4561](https://github.com/microsoft/Microsoft365DSC/issues/4561)
