@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* IntuneDeviceCompliancePolicyAndroidDeviceOwner
+  * Added new property `SecurityBlockJailbrokenDevices`.
 * IntuneDefenderGlobalExclusionsPolicyLinux
   * Initial release.
 * IntuneWindowsHelloForBusinessGlobalPolicy
