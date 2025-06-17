@@ -102,17 +102,17 @@ function Get-TargetResource
         $roleGroupMembersValue = @()
         foreach ($member in $roleGroupMembers)
         {
-            if (-not [System.String]::IsNullOrEmpty($member.PrimarySmtpAddress))
-            {
-                $roleGroupMembersValue += $member.PrimarySmtpAddress
-            }
-            elseif (-not [System.String]::IsNullOrEmpty($member.WindowsLiveID))
+            if (-not [System.String]::IsNullOrEmpty($member.WindowsLiveID))
             {
                 $roleGroupMembersValue += $member.WindowsLiveID
             }
             elseif (-not [System.String]::IsNullOrEmpty($member.WindowsEmailAddress))
             {
                 $roleGroupMembersValue += $member.WindowsEmailAddress
+            }
+            elseif (-not [System.String]::IsNullOrEmpty($member.PrimarySmtpAddress))
+            {
+                $roleGroupMembersValue += $member.PrimarySmtpAddress
             }
             else
             {
@@ -381,7 +381,7 @@ function Test-TargetResource
     foreach ($member in $Members)
     {
         Write-Verbose -Message "The current member {$member} is provided as a group display name."
-        $group = Get-Group -Identity $member -ErrorAction 'SilentlyContinue'
+        $group = Get-Group -Filter "DisplayName eq '$member'" -ErrorAction 'SilentlyContinue'
 
         if ($null -ne $group)
         {
@@ -400,6 +400,11 @@ function Test-TargetResource
             if ($null -ne $user)
             {
                 $newMembersValue += $user.UserPrincipalName
+            }
+            else
+            {
+                # Case where the member is an app.
+                $newMembersValue += $member
             }
         }
     }
