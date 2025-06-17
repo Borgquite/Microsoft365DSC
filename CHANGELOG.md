@@ -2,6 +2,8 @@
 
 # UNRELEASED
 
+* AADGroup
+  * Fix for removing Group owner.
 * IntuneDeviceCompliancePolicyAndroidDeviceOwner
   * Added new property `SecurityBlockJailbrokenDevices`.
 * IntuneDefenderGlobalExclusionsPolicyLinux
