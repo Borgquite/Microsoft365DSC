@@ -742,7 +742,7 @@ function Test-TargetResource
         {
             $ValuesToCheck['OneDriveLocation'] = $configData
         }
-        if ($null -eq $configData -and $null -ne $CurrentValues.OneDriveLocation `
+        if ($null -eq $configData -and -not [System.String]::IsNullOrEmpty($CurrentValues.OneDriveLocation) `
                 -and $null -ne $OneDriveLocation)
         {
             #last entry removed so trigger drift
@@ -909,9 +909,9 @@ function New-PolicyData
     [System.Collections.ArrayList]$desiredData = @()
     foreach ($currItem in $currentData)
     {
-        if (-not $desiredData.Contains($currItem))
+        if (-not $desiredData.Contains($currItem.DisplayName))
         {
-            $desiredData.add($currItem) | Out-Null
+            $desiredData.add($currItem.DisplayName) | Out-Null
         }
     }
 
