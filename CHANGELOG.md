@@ -2,6 +2,9 @@
 
 # UNRELEASED
 
+* AADAdministrativeUnit
+  * Throw if an unsupported Member or ScopedRoleMember type is returned.
+  * Fix verbose logging for assigned memberships, make update calls type-agnostic.
 * AADGroup
   * Fix for removing Group owner.
 * IntuneDeviceCompliancePolicyAndroidDeviceOwner
