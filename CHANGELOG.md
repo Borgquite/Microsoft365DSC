@@ -2,9 +2,15 @@
 
 # UNRELEASED
 
+* AADGroup
+  * Fix for removing Group owner.
 * EXODistributionGroup
   * Always use the retrieved Identity when updating the distribution group
     to ensure correct group is updated when retrieved with PrimarySmtpAddress.
+* IntuneDeviceCompliancePolicyAndroidDeviceOwner
+  * Added new property `SecurityBlockJailbrokenDevices`.
+* IntuneDefenderGlobalExclusionsPolicyLinux
+  * Initial release.
 * IntuneWindowsHelloForBusinessGlobalPolicy
   * Initial release.
     FIXES [#4561](https://github.com/microsoft/Microsoft365DSC/issues/4561)

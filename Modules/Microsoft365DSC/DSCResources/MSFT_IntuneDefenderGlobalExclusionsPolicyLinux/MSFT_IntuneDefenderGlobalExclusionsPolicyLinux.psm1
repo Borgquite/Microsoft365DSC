@@ -7,15 +7,11 @@ function Get-TargetResource
         #region resource generator code
         [Parameter()]
         [System.String]
-        $Id,
+        $Description,
 
         [Parameter(Mandatory = $true)]
         [System.String]
         $DisplayName,
-
-        [Parameter()]
-        [System.String]
-        $Description,
 
         [Parameter()]
         [System.String[]]
@@ -23,11 +19,11 @@ function Get-TargetResource
 
         [Parameter()]
         [System.String]
-        $certFileName,
+        $Id,
 
         [Parameter()]
-        [System.String]
-        $trustedRootCertificate,
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $Exclusions,
 
         [Parameter()]
         [Microsoft.Management.Infrastructure.CimInstance[]]
@@ -68,12 +64,13 @@ function Get-TargetResource
         $AccessTokens
     )
 
-    Write-Verbose -Message "Getting configuration of the Intune Trusted Root Certificate Policy for Android Work with Id {$id} and DisplayName {$DisplayName}"
+    Write-Verbose -Message "Getting configuration for the Intune Defender Global Exclusions Policy for Linux with Id {$Id} and Name {$DisplayName}"
 
     try
     {
         if (-not $Script:exportedInstance -or $Script:exportedInstance.DisplayName -ne $DisplayName)
         {
+
             $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
                 -InboundParameters $PSBoundParameters
 
@@ -93,24 +90,28 @@ function Get-TargetResource
             $nullResult.Ensure = 'Absent'
 
             $getValue = $null
-            if (-not [string]::IsNullOrWhiteSpace($id))
-            {
-                $getValue = Get-MgBetaDeviceManagementDeviceConfiguration -All -Filter "Id eq '$Id'" -ErrorAction SilentlyContinue
-            }
 
             #region resource generator code
+            if (-not [System.String]::IsNullOrEmpty($Id))
+            {
+                $getValue = Get-MgBetaDeviceManagementConfigurationPolicy -DeviceManagementConfigurationPolicyId $Id  -ErrorAction SilentlyContinue
+            }
+
             if ($null -eq $getValue)
             {
-                $getValue = Get-MgBetaDeviceManagementDeviceConfiguration -All -Filter "DisplayName eq '$($Displayname -replace "'", "''")'" -ErrorAction SilentlyContinue | Where-Object `
-                -FilterScript { `
-                    $_.AdditionalProperties.'@odata.type' -eq '#microsoft.graph.androidWorkProfileTrustedRootCertificate' `
+                Write-Verbose -Message "Could not find an Intune Defender Global Exclusions Policy for Linux with Id {$Id}"
+
+                if (-not [System.String]::IsNullOrEmpty($DisplayName))
+                {
+                    $getValue = Get-MgBetaDeviceManagementConfigurationPolicy `
+                        -Filter "Name eq '$DisplayName'" `
+                        -ErrorAction SilentlyContinue
                 }
             }
             #endregion
-
             if ($null -eq $getValue)
             {
-                Write-Verbose -Message "No Intune Trusted Root Certificate Policy for Android Work with Id {$id} was found"
+                Write-Verbose -Message "Could not find an Intune Defender Global Exclusions Policy for Linux with Name {$DisplayName}."
                 return $nullResult
             }
         }
@@ -118,37 +119,56 @@ function Get-TargetResource
         {
             $getValue = $Script:exportedInstance
         }
-
         $Id = $getValue.Id
+        Write-Verbose -Message "An Intune Defender Global Exclusions Policy for Linux with Id {$Id} and Name {$DisplayName} was found"
 
-        Write-Verbose -Message "An Intune Trusted Root Certificate Policy for Android Work with id {$id} and DisplayName {$DisplayName} was found"
+        # Retrieve policy specific settings
+        [array]$settings = Get-MgBetaDeviceManagementConfigurationPolicySetting `
+            -DeviceManagementConfigurationPolicyId $Id `
+            -ExpandProperty 'settingDefinitions' `
+            -All `
+            -ErrorAction Stop
+
+        $policySettings = @{}
+        $policySettings = Export-IntuneSettingCatalogPolicySettings -Settings $settings -ReturnHashtable $policySettings
+
+        #region resource generator code
+        $complexExclusions = @()
+        foreach ($exclusion in $policySettings.Exclusions)
+        {
+            $complexExclusion = @{}
+            $complexExclusion.Add('Exclusions_item_type', $exclusion.exclusions_item_type)
+            $complexExclusion.Add('Exclusions_item_path', $exclusion.exclusions_item_path)
+            $complexExclusion.Add('Exclusions_item_name', $exclusion.exclusions_item_name)
+            $complexExclusion.Add('Exclusions_item_isDirectory', $exclusion.exclusions_item_isDirectory)
+            $complexExclusions += $complexExclusion
+        }
+        $policySettings.Remove('Exclusions') | Out-Null
+        #endregion
 
         $results = @{
             #region resource generator code
-            Id                             = $getValue.Id
-            Description                    = $getValue.Description
-            DisplayName                    = $getValue.DisplayName
-            RoleScopeTagIds                = $getValue.RoleScopeTagIds
-            certFileName                   = $getValue.AdditionalProperties.certFileName
-            trustedRootCertificate         = $getValue.AdditionalProperties.trustedRootCertificate
-            Ensure                         = 'Present'
-            Credential                     = $Credential
-            ApplicationId                  = $ApplicationId
-            TenantId                       = $TenantId
-            ApplicationSecret              = $ApplicationSecret
-            CertificateThumbprint          = $CertificateThumbprint
-            Managedidentity                = $ManagedIdentity.IsPresent
-            AccessTokens                   = $AccessTokens
-            version                        = $getValue.AdditionalProperties.version
+            Description           = $getValue.Description
+            DisplayName           = $getValue.Name
+            RoleScopeTagIds       = $getValue.RoleScopeTagIds
+            Id                    = $getValue.Id
+            Exclusions            = $complexExclusions
+            Ensure                = 'Present'
+            Credential            = $Credential
+            ApplicationId         = $ApplicationId
+            TenantId              = $TenantId
+            ApplicationSecret     = $ApplicationSecret
+            CertificateThumbprint = $CertificateThumbprint
+            ManagedIdentity       = $ManagedIdentity.IsPresent
+            #endregion
         }
+        $results += $policySettings
 
-        $assignmentsValues = Get-MgBetaDeviceManagementDeviceConfigurationAssignment -DeviceConfigurationId $Results.Id
+        $assignmentsValues = Get-MgBetaDeviceManagementConfigurationPolicyAssignment -DeviceManagementConfigurationPolicyId $Id
         $assignmentResult = @()
         if ($assignmentsValues.Count -gt 0)
         {
-            $assignmentResult += ConvertFrom-IntunePolicyAssignment `
-                                -IncludeDeviceFilter:$true `
-                                -Assignments ($assignmentsValues)
+            $assignmentResult += ConvertFrom-IntunePolicyAssignment -Assignments $assignmentsValues -IncludeDeviceFilter $true
         }
         $results.Add('Assignments', $assignmentResult)
 
@@ -174,15 +194,11 @@ function Set-TargetResource
         #region resource generator code
         [Parameter()]
         [System.String]
-        $Id,
+        $Description,
 
         [Parameter(Mandatory = $true)]
         [System.String]
         $DisplayName,
-
-        [Parameter()]
-        [System.String]
-        $Description,
 
         [Parameter()]
         [System.String[]]
@@ -190,11 +206,11 @@ function Set-TargetResource
 
         [Parameter()]
         [System.String]
-        $certFileName,
+        $Id,
 
         [Parameter()]
-        [System.String]
-        $trustedRootCertificate,
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $Exclusions,
 
         [Parameter()]
         [Microsoft.Management.Infrastructure.CimInstance[]]
@@ -233,18 +249,9 @@ function Set-TargetResource
         [Parameter()]
         [System.String[]]
         $AccessTokens
-
     )
 
-    try
-    {
-        $ConnectionMode = New-M365DSCConnection -Workload 'MicrosoftGraph' `
-            -InboundParameters $PSBoundParameters
-    }
-    catch
-    {
-        Write-Verbose -Message $_
-    }
+    Write-Verbose -Message "Setting configuration of the Intune Defender Global Exclusions Policy for Linux with Id {$Id} and Name {$DisplayName}"
 
     #Ensure the proper dependencies are installed in the current environment.
     Confirm-M365DSCDependencies
@@ -259,101 +266,102 @@ function Set-TargetResource
     #endregion
 
     $currentInstance = Get-TargetResource @PSBoundParameters
+
     $BoundParameters = Remove-M365DSCAuthenticationParameter -BoundParameters $PSBoundParameters
+
+    # Convert MSFT_MicrosoftGraphIntuneSettingsCatalogExclusionsV2 to MSFT_MicrosoftGraphIntuneSettingsCatalogExclusions
+    $convertedExclusions = @()
+    foreach ($exclusion in $Exclusions)
+    {
+        $convertedExclusion = @{}
+        if ($null -ne $exclusion.Exclusions_item_type)
+        {
+            $convertedExclusion.Add('Exclusions_item_type', $exclusion.Exclusions_item_type)
+        }
+        if ($null -ne $exclusion.Exclusions_item_path)
+        {
+            $convertedExclusion.Add('Exclusions_item_path', $exclusion.Exclusions_item_path)
+        }
+        if ($null -ne $exclusion.Exclusions_item_name)
+        {
+            $convertedExclusion.Add('Exclusions_item_name', $exclusion.Exclusions_item_name)
+        }
+        if ($null -ne $exclusion.Exclusions_item_isDirectory)
+        {
+            $convertedExclusion.Add('Exclusions_item_isDirectory', $exclusion.Exclusions_item_isDirectory)
+        }
+        $convertedExclusions += New-CimInstance -ClassName 'MSFT_MicrosoftGraphIntuneSettingsCatalogExclusions' `
+            -Property $convertedExclusion -ClientOnly
+    }
+    $BoundParameters.Remove('Exclusions') | Out-Null
+    $BoundParameters.Add('Exclusions', $convertedExclusions)
+
+    $templateReferenceId = 'dfa57610-d11d-4bf8-89d6-1f5cb1679506_1'
+    $platforms = 'linux'
+    $technologies = 'microsoftSense'
 
     if ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Absent')
     {
-        Write-Verbose -Message "Creating {$DisplayName}"
-        $BoundParameters.Remove('Assignments') | Out-Null
-        $CreateParameters = ([Hashtable]$BoundParameters).clone()
-        $CreateParameters = Rename-M365DSCCimInstanceParameter -Properties $CreateParameters
-        $AdditionalProperties = Get-M365DSCAdditionalProperties -Properties ($CreateParameters)
+        Write-Verbose -Message "Creating an Intune Defender Global Exclusions Policy for Linux with Name {$DisplayName}"
+        $BoundParameters.Remove("Assignments") | Out-Null
 
-        foreach ($key in $AdditionalProperties.keys)
-        {
-            if ($key -ne '@odata.type')
-            {
-                $keyName = $key.substring(0, 1).ToUpper() + $key.substring(1, $key.length - 1)
-                $CreateParameters.remove($keyName)
-            }
+        $settings = Get-IntuneSettingCatalogPolicySetting `
+            -DSCParams ([System.Collections.Hashtable]$BoundParameters) `
+            -TemplateId $templateReferenceId
+
+        $createParameters = @{
+            Name              = $DisplayName
+            Description       = $Description
+            TemplateReference = @{ templateId = $templateReferenceId }
+            Platforms         = $platforms
+            Technologies      = $technologies
+            Settings          = $settings
         }
-
-        if ($AdditionalProperties.ContainsKey('trustedRootCertificate')) {
-            $AdditionalProperties['trustedRootCertificate'] = [Convert]::FromBase64String($AdditionalProperties['trustedRootCertificate'])
-            Write-Verbose "trustedRootCertificate converted to bytes."
-        }
-
-        $CreateParameters.Remove('Id') | Out-Null
-
-        foreach ($key in ($CreateParameters.clone()).Keys)
-        {
-            if ($CreateParameters[$key].getType().Fullname -like '*CimInstance*')
-            {
-                $CreateParameters[$key] = Convert-M365DSCDRGComplexTypeToHashtable -ComplexObject $CreateParameters[$key]
-            }
-        }
-
-        $CreateParameters.add('AdditionalProperties', $AdditionalProperties)
 
         #region resource generator code
-        $policy = New-MgBetaDeviceManagementDeviceConfiguration @CreateParameters
-        $assignmentsHash = ConvertTo-IntunePolicyAssignment -IncludeDeviceFilter:$true -Assignments $Assignments
+        $policy = New-MgBetaDeviceManagementConfigurationPolicy -BodyParameter $createParameters
 
-        if ($policy.id)
+        if ($policy.Id)
         {
-            Update-DeviceConfigurationPolicyAssignment -DeviceConfigurationPolicyId $policy.id `
+            $assignmentsHash = ConvertTo-IntunePolicyAssignment -IncludeDeviceFilter:$true -Assignments $Assignments
+            Update-DeviceConfigurationPolicyAssignment `
+                -DeviceConfigurationPolicyId $policy.Id `
                 -Targets $assignmentsHash `
-                -Repository 'deviceManagement/deviceConfigurations'
+                -Repository 'deviceManagement/configurationPolicies'
         }
         #endregion
     }
     elseif ($Ensure -eq 'Present' -and $currentInstance.Ensure -eq 'Present')
     {
-        Write-Verbose -Message "Updating {$DisplayName}"
-        $BoundParameters.Remove('Assignments') | Out-Null
-        $UpdateParameters = ([Hashtable]$BoundParameters).clone()
-        $UpdateParameters = Rename-M365DSCCimInstanceParameter -Properties $UpdateParameters
-        $AdditionalProperties = Get-M365DSCAdditionalProperties -Properties ($UpdateParameters)
+        Write-Verbose -Message "Updating the Intune Defender Global Exclusions Policy for Linux with Id {$($currentInstance.Id)}"
+        $BoundParameters.Remove("Assignments") | Out-Null
 
-        foreach ($key in $AdditionalProperties.keys)
-        {
-            if ($key -ne '@odata.type')
-            {
-                $keyName = $key.substring(0, 1).ToUpper() + $key.substring(1, $key.length - 1)
-                $UpdateParameters.remove($keyName)
-            }
-        }
+        $settings = Get-IntuneSettingCatalogPolicySetting `
+            -DSCParams ([System.Collections.Hashtable]$BoundParameters) `
+            -TemplateId $templateReferenceId
 
-        if ($AdditionalProperties.ContainsKey('trustedRootCertificate')) {
-            $AdditionalProperties['trustedRootCertificate'] = [Convert]::FromBase64String($AdditionalProperties['trustedRootCertificate'])
-            Write-Verbose "trustedRootCertificate converted to bytes."
-        }
-
-        $UpdateParameters.Remove('Id') | Out-Null
-
-        foreach ($key in ($UpdateParameters.clone()).Keys)
-        {
-            if ($UpdateParameters[$key].getType().Fullname -like '*CimInstance*')
-            {
-                $UpdateParameters[$key] = Convert-M365DSCDRGComplexTypeToHashtable -ComplexObject $UpdateParameters[$key]
-            }
-        }
-        $UpdateParameters.add('AdditionalProperties', $AdditionalProperties)
+        Update-IntuneDeviceConfigurationPolicy `
+            -DeviceConfigurationPolicyId $currentInstance.Id `
+            -Name $DisplayName `
+            -Description $Description `
+            -TemplateReferenceId $templateReferenceId `
+            -Platforms $platforms `
+            -Technologies $technologies `
+            -Settings $settings
 
         #region resource generator code
-        Update-MgBetaDeviceManagementDeviceConfiguration @UpdateParameters `
-            -DeviceConfigurationId $currentInstance.Id
         $assignmentsHash = ConvertTo-IntunePolicyAssignment -IncludeDeviceFilter:$true -Assignments $Assignments
-        Update-DeviceConfigurationPolicyAssignment -DeviceConfigurationPolicyId $currentInstance.id `
+        Update-DeviceConfigurationPolicyAssignment `
+            -DeviceConfigurationPolicyId $currentInstance.Id `
             -Targets $assignmentsHash `
-            -Repository 'deviceManagement/deviceConfigurations'
+            -Repository 'deviceManagement/configurationPolicies'
         #endregion
     }
     elseif ($Ensure -eq 'Absent' -and $currentInstance.Ensure -eq 'Present')
     {
-        Write-Verbose -Message "Removing {$DisplayName}"
+        Write-Verbose -Message "Removing the Intune Defender Global Exclusions Policy for Linux with Id {$($currentInstance.Id)}"
         #region resource generator code
-        Remove-MgBetaDeviceManagementDeviceConfiguration -DeviceConfigurationId $currentInstance.Id
+        Remove-MgBetaDeviceManagementConfigurationPolicy -DeviceManagementConfigurationPolicyId $currentInstance.Id
         #endregion
     }
 }
@@ -367,15 +375,11 @@ function Test-TargetResource
         #region resource generator code
         [Parameter()]
         [System.String]
-        $Id,
+        $Description,
 
         [Parameter(Mandatory = $true)]
         [System.String]
         $DisplayName,
-
-        [Parameter()]
-        [System.String]
-        $Description,
 
         [Parameter()]
         [System.String[]]
@@ -383,11 +387,11 @@ function Test-TargetResource
 
         [Parameter()]
         [System.String]
-        $certFileName,
+        $Id,
 
         [Parameter()]
-        [System.String]
-        $trustedRootCertificate,
+        [Microsoft.Management.Infrastructure.CimInstance[]]
+        $Exclusions,
 
         [Parameter()]
         [Microsoft.Management.Infrastructure.CimInstance[]]
@@ -426,7 +430,6 @@ function Test-TargetResource
         [Parameter()]
         [System.String[]]
         $AccessTokens
-
     )
 
     #Ensure the proper dependencies are installed in the current environment.
@@ -441,10 +444,23 @@ function Test-TargetResource
     Add-M365DSCTelemetryEvent -Data $data
     #endregion
 
-    Write-Verbose -Message "Testing configuration of {$id}"
+    Write-Verbose -Message "Testing configuration of the Intune Defender Global Exclusions Policy for Linux with Id {$Id} and Name {$DisplayName}"
 
     $CurrentValues = Get-TargetResource @PSBoundParameters
-    $ValuesToCheck = ([Hashtable]$PSBoundParameters).clone()
+    [Hashtable]$ValuesToCheck = @{}
+    $MyInvocation.MyCommand.Parameters.GetEnumerator() | ForEach-Object {
+        if ($_.Key -notlike '*Variable' -or $_.Key -notin @('Verbose', 'Debug', 'ErrorAction', 'WarningAction', 'InformationAction'))
+        {
+            if ($null -ne $CurrentValues[$_.Key] -or $null -ne $PSBoundParameters[$_.Key])
+            {
+                $ValuesToCheck.Add($_.Key, $null)
+                if (-not $PSBoundParameters.ContainsKey($_.Key))
+                {
+                    $PSBoundParameters.Add($_.Key, $null)
+                }
+            }
+        }
+    }
     $testResult = $true
 
     #Compare Cim instances
@@ -452,13 +468,16 @@ function Test-TargetResource
     {
         $source = $PSBoundParameters.$key
         $target = $CurrentValues.$key
-        if ($source.GetType().Name -like '*CimInstance*')
+        if ($null -ne $source -and $source.GetType().Name -like '*CimInstance*')
         {
             $testResult = Compare-M365DSCComplexObject `
                 -Source ($source) `
                 -Target ($target)
 
-            if (-not $testResult) { break }
+            if (-not $testResult)
+            {
+                break
+            }
 
             $ValuesToCheck.Remove($key) | Out-Null
         }
@@ -468,17 +487,7 @@ function Test-TargetResource
     $ValuesToCheck = Remove-M365DSCAuthenticationParameter -BoundParameters $ValuesToCheck
 
     Write-Verbose -Message "Current Values: $(Convert-M365DscHashtableToString -Hashtable $CurrentValues)"
-    Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $ValuesToCheck)"
-
-    #Convert any DateTime to String
-    foreach ($key in $ValuesToCheck.Keys)
-    {
-        if (($null -ne $CurrentValues[$key]) `
-                -and ($CurrentValues[$key].getType().Name -eq 'DateTime'))
-        {
-            $CurrentValues[$key] = $CurrentValues[$key].toString()
-        }
-    }
+    Write-Verbose -Message "Target Values: $(Convert-M365DscHashtableToString -Hashtable $PSBoundParameters)"
 
     if ($testResult)
     {
@@ -549,13 +558,15 @@ function Export-TargetResource
 
     try
     {
-
         #region resource generator code
-        [array]$getValue = Get-MgBetaDeviceManagementDeviceConfiguration -Filter $Filter -All `
+        $policyTemplateID = "dfa57610-d11d-4bf8-89d6-1f5cb1679506_1"
+        [array]$getValue = Get-MgBetaDeviceManagementConfigurationPolicy `
+            -Filter $Filter `
+            -All `
             -ErrorAction Stop | Where-Object `
-            -FilterScript { `
-                $_.AdditionalProperties.'@odata.type' -eq '#microsoft.graph.androidWorkProfileTrustedRootCertificate'  `
-        }
+            -FilterScript {
+                $_.TemplateReference.TemplateId -eq $policyTemplateID
+            }
         #endregion
 
         $i = 1
@@ -570,27 +581,45 @@ function Export-TargetResource
         }
         foreach ($config in $getValue)
         {
-            if ($null -ne $Global:M365DSCExportResourceInstancesCount)
+            $displayedKey = $config.Id
+            if (-not [String]::IsNullOrEmpty($config.displayName))
             {
-                $Global:M365DSCExportResourceInstancesCount++
+                $displayedKey = $config.displayName
             }
-
-            Write-M365DSCHost -Message "    |---[$i/$($getValue.Count)] $($config.DisplayName)" -DeferWrite
+            elseif (-not [string]::IsNullOrEmpty($config.name))
+            {
+                $displayedKey = $config.name
+            }
+            Write-M365DSCHost -Message "    |---[$i/$($getValue.Count)] $displayedKey" -DeferWrite
             $params = @{
-                Id                    = $config.id
-                DisplayName           = $config.DisplayName
-                Ensure                = 'Present'
-                Credential            = $Credential
-                ApplicationId         = $ApplicationId
-                TenantId              = $TenantId
-                ApplicationSecret     = $ApplicationSecret
+                Id = $config.Id
+                DisplayName =  $config.Name
+                Ensure = 'Present'
+                Credential = $Credential
+                ApplicationId = $ApplicationId
+                TenantId = $TenantId
+                ApplicationSecret = $ApplicationSecret
                 CertificateThumbprint = $CertificateThumbprint
-                Managedidentity       = $ManagedIdentity.IsPresent
-                AccessTokens          = $AccessTokens
+                ManagedIdentity = $ManagedIdentity.IsPresent
+                AccessTokens = $AccessTokens
             }
 
             $Script:exportedInstance = $config
             $Results = Get-TargetResource @Params
+            if ($null -ne $Results.Exclusions)
+            {
+                $complexTypeStringResult = Get-M365DSCDRGComplexTypeToString `
+                    -ComplexObject $Results.Exclusions `
+                    -CIMInstanceName 'MicrosoftGraphIntuneSettingsCatalogExclusionsV2'
+                if (-not [String]::IsNullOrWhiteSpace($complexTypeStringResult))
+                {
+                    $Results.Exclusions = $complexTypeStringResult
+                }
+                else
+                {
+                    $Results.Remove('Exclusions') | Out-Null
+                }
+            }
 
             if ($Results.Assignments)
             {
@@ -610,92 +639,27 @@ function Export-TargetResource
                 -ModulePath $PSScriptRoot `
                 -Results $Results `
                 -Credential $Credential `
-                -NoEscape @('Assignments')
-
+                -NoEscape @('Assignments', 'Exclusions')
             $dscContent += $currentDSCBlock
             Save-M365DSCPartialExport -Content $currentDSCBlock `
                 -FileName $Global:PartialExportFileName
             $i++
             Write-M365DSCHost -Message $Global:M365DSCEmojiGreenCheckMark -CommitWrite
         }
-
         return $dscContent
     }
     catch
     {
-        if ($_.Exception -like '*401*' -or $_.ErrorDetails.Message -like "*`"ErrorCode`":`"Forbidden`"*" -or `
-        $_.Exception -like "*Request not applicable to target tenant*")
-        {
-            Write-M365DSCHost -Message "`r`n    $($Global:M365DSCEmojiYellowCircle) The current tenant is not registered for Intune."
-        }
-        else
-        {
-            Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
+        Write-M365DSCHost -Message $Global:M365DSCEmojiRedX -CommitWrite
 
-            New-M365DSCLogEntry -Message 'Error during Export:' `
-                -Exception $_ `
-                -Source $($MyInvocation.MyCommand.Source) `
-                -TenantId $TenantId `
-                -Credential $Credential
-        }
+        New-M365DSCLogEntry -Message 'Error during Export:' `
+            -Exception $_ `
+            -Source $($MyInvocation.MyCommand.Source) `
+            -TenantId $TenantId `
+            -Credential $Credential
 
         return ''
     }
-}
-
-function Get-M365DSCAdditionalProperties
-{
-    [CmdletBinding()]
-    [OutputType([System.Collections.Hashtable])]
-    param
-    (
-        [Parameter(Mandatory = 'true')]
-        [System.Collections.Hashtable]
-        $Properties
-    )
-
-    $additionalProperties = @(
-        'certFileName'
-        'trustedRootCertificate'
-    )
-
-    $results = @{'@odata.type' = '#microsoft.graph.androidWorkProfileTrustedRootCertificate' }
-    $cloneProperties = $Properties.clone()
-    foreach ($property in $cloneProperties.Keys)
-    {
-        if ($property -in ($additionalProperties) )
-        {
-            $propertyName = $property[0].ToString().ToLower() + $property.Substring(1, $property.Length - 1)
-            if ($properties.$property -and $properties.$property.getType().FullName -like '*CIMInstance*')
-            {
-                if ($properties.$property.getType().FullName -like '*[[\]]')
-                {
-                    $array = @()
-                    foreach ($item in $properties.$property)
-                    {
-                        $array += Convert-M365DSCDRGComplexTypeToHashtable -ComplexObject $item
-                    }
-                    $propertyValue = $array
-                }
-                else
-                {
-                    $propertyValue = Convert-M365DSCDRGComplexTypeToHashtable -ComplexObject $properties.$property
-                }
-
-            }
-            else
-            {
-                $propertyValue = $properties.$property
-            }
-
-            $results.Add($propertyName, $propertyValue)
-        }
-    }
-    if ($results.Count -eq 1)
-    {
-        return $null
-    }
-    return $results
 }
 
 Export-ModuleMember -Function *-TargetResource
