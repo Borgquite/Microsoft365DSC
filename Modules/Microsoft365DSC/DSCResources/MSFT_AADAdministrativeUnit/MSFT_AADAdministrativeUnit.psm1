@@ -628,14 +628,17 @@ function Set-TargetResource
                     if ($diff.Type -eq 'User')
                     {
                         $memberObject = Get-MgUser -Filter "UserPrincipalName eq '$($diff.Identity -replace "'", "''")'"
+                        #$memberType = 'users'
                     }
                     elseif ($diff.Type -eq 'Group')
                     {
                         $memberObject = Get-MgGroup -Filter "DisplayName eq '$($diff.Identity -replace "'", "''")'"
+                        #$memberType = 'groups'
                     }
                     elseif ($diff.Type -eq 'Device')
                     {
                         $memberObject = Get-MgDevice -Filter "DisplayName eq '$($diff.Identity -replace "'", "''")'"
+                        #memberType = 'devices'
                     }
                     else
                     {
